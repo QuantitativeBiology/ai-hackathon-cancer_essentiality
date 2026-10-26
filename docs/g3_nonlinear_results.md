@@ -88,3 +88,29 @@ the same genes from its stored per-gene results.
 
 ## Deviations
 (none yet)
+
+## Results
+
+### R1. M4 pre-check → **NO-GO (M4 dropped)**
+Fold 0 only (`--folds 0`, registry status `partial_folds`), 6 threads, torch 2.6.0+cpu.
+
+| arm | run id | fold-0 P1 variable | P1 all | P2b nAP | P2b AUROC | inner-val P1 | chosen | fit s |
+|---|---|---|---|---|---|---|---|---|
+| RidgePC (256 PCs) | 20261026-231523 | **0.3068** | 0.1531 | 0.1889 | 0.6634 | 0.2912 | no whitening, λ/n = 0.032 | 40 |
+| MLP seed 0 | 20261026-231657 | 0.3025 | 0.1581 | 0.1832 | 0.6581 | 0.2868 | dropout 0.5, no whitening, 34 ep | 274 |
+| MLP seed 1 | 20261026-232221 | 0.3028 | 0.1616 | 0.1836 | 0.6590 | 0.2872 | dropout 0.2, 17 ep | 268 |
+| MLP seed 2 | 20261026-232818 | 0.3033 | 0.1617 | 0.1823 | 0.6585 | 0.2889 | dropout 0.5, 23 ep | 348 |
+| MLP seed 3 | 20261026-233541 | 0.3017 | 0.1597 | 0.1809 | 0.6574 | 0.2888 | dropout 0.2, 17 ep | 316 |
+| MLP seed 4 | 20261026-234238 | 0.3038 | 0.1611 | 0.1836 | 0.6592 | 0.2900 | dropout 0.5, 28 ep | 335 |
+| **MLP mean (5 seeds)** | | **0.3028** (seed SD 0.0008) | 0.1604 | 0.1827 | 0.6584 | | | |
+| context: m1_E_resB0 fold 0 | 20261026-222117 | 0.3129 | | | | | | |
+
+- Pre-registered rule: GO iff mean MLP fold-0 P1 > RidgePC fold-0 P1. 0.3028 < 0.3068
+  (Δ −0.0040; every seed loses by 0.0030–0.0051). **M4 is dropped and was not built.**
+- The MLP also lost on the inner-validation criterion for every seed (0.287–0.290 vs 0.291), so
+  the outcome does not hinge on the outer fold. Whitened PCs were clearly worse for the MLP
+  (inner 0.256–0.264) and were never chosen; for ridge, whitening also lost.
+- The MLP is better on P1 *all* genes (0.160 vs 0.153), i.e. on low-variance genes, but worse on
+  the selection metric and on P2b. Not a selection criterion; noted only.
+- Ridge on 256 training-fold PCs is itself 0.006 below the full-kernel m1_E_resB0 on fold 0, so the
+  PC bottleneck costs accuracy before any nonlinearity is added.
