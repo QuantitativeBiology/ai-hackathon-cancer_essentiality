@@ -1,0 +1,51 @@
+{
+ "gate": "G2",
+ "pass": true,
+ "checks": [
+  {
+   "check": "pytest -q tests (incl. kernel-ridge known answers, frozen hashes)",
+   "result": "132 passed, 113 warnings in 52.12s",
+   "pass": true
+  },
+  {
+   "check": "every planned G2 run has an ok registry row",
+   "missing": [],
+   "pass": true
+  },
+  {
+   "check": "full-line runs cover all dev lines (5 folds)",
+   "bad": [],
+   "pass": true
+  },
+  {
+   "check": "no leaky runs",
+   "pass": true
+  },
+  {
+   "check": "B1 re-run reproduces the G1 P1 variable (classes changed only rare_selective)",
+   "old": 0.18374,
+   "new": 0.1837367152639508,
+   "pass": true
+  },
+  {
+   "check": "vectorised B2 reproduces the G1 P1 variable",
+   "old": 0.25267,
+   "new": 0.2526686570569802,
+   "pass": true
+  },
+  {
+   "check": "negative control: permuted features do not beat B1 (dP1 <= 0.01)",
+   "dP1_vs_B1": 2.3599999999995847e-05,
+   "pass": true
+  },
+  {
+   "check": "features chosen by the DESIGN \u00a74 rule",
+   "selected_m1": "m1_E",
+   "selected_model": "m1_E",
+   "pass": true
+  }
+ ],
+ "commit": "987bdecbad85a07e84875e405b852b7faa2a6936",
+ "dirty_tree": 1,
+ "timestamp": "2026-10-26T21:37:28"
+}

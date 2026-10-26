@@ -153,10 +153,15 @@ class KNNExpression:
 
     def predict(self, index, lineage=None, X: pd.DataFrame = None, k=None) -> pd.DataFrame:
         nb = self.neighbours(X.loc[pd.Index(index)], k)
-        P = np.empty((len(nb), self.Y_.shape[1]))
-        for r, idx in enumerate(nb):
-            m, n = _nanmean_cols(self.Y_[idx])
-            P[r] = np.where(n > 0, m, self.mu_)
+        # vectorised neighbour mean: W (query x train) has 1 at each query's k neighbours, then
+        # masked sums / observed counts (same NaN-skipping rule as before: all-NaN -> mu)
+        W = np.zeros((len(nb), self.Y_.shape[0]))
+        W[np.repeat(np.arange(len(nb)), nb.shape[1]), nb.ravel()] = 1.0
+        obs = ~np.isnan(self.Y_)
+        S = W @ np.where(obs, self.Y_, 0.0)
+        N = W @ obs.astype(np.float64)
+        with np.errstate(invalid="ignore", divide="ignore"):
+            P = np.where(N > 0, S / N, self.mu_[None, :])
         return pd.DataFrame(P, index=pd.Index(index), columns=self.genes_)
 
 

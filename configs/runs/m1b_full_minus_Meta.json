@@ -1,0 +1,43 @@
+{
+ "name": "m1b_full_minus_Meta",
+ "model": "M1b",
+ "features": [],
+ "params": {
+  "modalities": [
+   "E",
+   "C",
+   "M",
+   "H",
+   "F",
+   "composites"
+  ]
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 12,
+ "requires_gate": "G1",
+ "cache_reference": true
+}

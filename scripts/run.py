@@ -4,7 +4,8 @@
 
 Config keys:
     name                 run name (part of run_id)
-    model                key in essml.baselines.MODELS (B0, B1, B2)
+    model                key in essml.baselines.MODELS (B0, B1, B2) or essml.models.MODELS
+                         (M1, M1b, R1, T, M2)
     params               fixed constructor params, e.g. {"n_top": 2000}
     grid                 hyper-parameters tuned by INNER grouped CV, e.g. {"kappa": [0, 1, 10]}
     features             feature matrices passed as X (e.g. ["expression"]); [] for none
@@ -13,6 +14,11 @@ Config keys:
     inner_folds, min_obs, inner_min_obs, threads, seed (default: configs/seeds.json split_seed)
     requires_gate        gate whose results/gates/<gate>.json must have pass=true (default "G0")
     leaky                1 for deliberately leaky diagnostic runs (flagged in the registry)
+    cache_reference      true: reuse B0/B1 reference predictions from cache/ref_preds (exact
+                         cache keyed by a hash of the training targets, lineages, held-out IDs
+                         and the baseline config; reference baselines use no features)
+    line_subset          optional raw feature block (cache/features/<block>.parquet, e.g. "P"):
+                         restrict the run (training AND evaluation) to dev lines present in it
 
 Protocol per outer fold k (dev lines only; targets come from essml.guard.load_targets):
     training lines = dev folds != k; held-out = fold k.
@@ -75,10 +81,13 @@ from sklearn.model_selection import StratifiedGroupKFold  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from essml import baselines, genesets, guard, io, metrics, modelstore  # noqa: E402
+from essml import models as _models  # noqa: E402
 from essml.modelstore import predict_anchor, predict_new  # noqa: E402,F401  (re-exported)
 from essml.evaluate import evaluate  # noqa: E402
 
 REGISTRY = ROOT / "results" / "registry.csv"
+MODELS = {**baselines.MODELS, **_models.MODELS}
+REF_CACHE = ROOT / "cache" / "ref_preds"
 REG_COLS = ["run_id", "timestamp", "name", "model", "config", "config_hash", "git_commit",
             "dirty_tree", "splits_sha256", "roles_used", "n_train_ids", "leaky", "status",
             "n_lines", "n_genes_eval", "chosen_params",
@@ -114,12 +123,17 @@ class Sentinel:
                 raise LeakageError(f"{tag}: {len(bad)} held-out IDs passed to fit, e.g. {sorted(bad)[:3]}")
 
 
-def guarded_fit(model, sentinel: Sentinel, tag, Y, lineage, X):
-    """The only place models are fitted: sentinel check, FIT_LOG record, then model.fit."""
+def guarded_fit(model, sentinel: Sentinel, tag, Y, lineage, X, groups=None):
+    """The only place models are fitted: sentinel check, FIT_LOG record, then model.fit.
+
+    Models with ``uses_groups = True`` (M1/M2: leave-patient-out LOO, grouped inner folds) also
+    receive the training lines' PatientIDs."""
     lin = None if lineage is None else lineage.loc[Y.index]
     Xf = None if X is None else X.loc[Y.index]
     sentinel.check(tag, Y, None if lin is None else lin.to_frame(), Xf)
     FIT_LOG.append({"tag": tag, "outer_fold": sentinel.outer_fold, "ids": list(map(str, Y.index))})
+    if getattr(model, "uses_groups", False) and groups is not None:
+        return model.fit(Y, lineage=lin, X=Xf, groups=groups.loc[Y.index].to_numpy())
     return model.fit(Y, lineage=lin, X=Xf)
 
 
@@ -151,7 +165,7 @@ def tune(model_key, params, grid, Y_tr, lineage, X, groups, sentinel, eval_genes
          seed, inner_min_obs):
     """Choose the grid point maximising inner-CV P1 (variable genes of the INNER training part,
     within each inner held-out fold, averaged). Returns (best params, table of scores)."""
-    cls_ = baselines.MODELS[model_key]
+    cls_ = MODELS[model_key]
     pts = _grid_points(grid)
     if len(pts) == 1 and not pts[0]:
         return {}, []
@@ -168,7 +182,7 @@ def tune(model_key, params, grid, Y_tr, lineage, X, groups, sentinel, eval_genes
             key = json.dumps(fit_p, sort_keys=True)
             if key not in fitted:
                 fitted[key] = guarded_fit(cls_(**params, **fit_p), sentinel, f"inner{j}", Yi,
-                                          lineage, X)
+                                          lineage, X, groups)
             pred_p = {k: v for k, v in p.items() if k in predict_keys}
             Pva = _predict(fitted[key], iva, lineage, X, **pred_p).loc[:, g].to_numpy()
             scores[i, j] = np.nanmean(metrics.per_gene_pearson(Pva, Tva, inner_min_obs))
@@ -185,9 +199,9 @@ def fit_predict_fold(model_key, params, grid, Y_tr, ho_ids, lineage, X, groups, 
     t0 = time.perf_counter()
     best, table = tune(model_key, params, grid, Y_tr, lineage, X, groups, sentinel, eval_genes,
                        neg, inner_folds, seed, inner_min_obs)
-    cls_ = baselines.MODELS[model_key]
+    cls_ = MODELS[model_key]
     pk = set(getattr(cls_, "predict_params", ()))
-    model = guarded_fit(cls_(**params, **best), sentinel, "outer", Y_tr, lineage, X)
+    model = guarded_fit(cls_(**params, **best), sentinel, "outer", Y_tr, lineage, X, groups)
     t_fit = time.perf_counter() - t0
     t0 = time.perf_counter()
     pred = _predict(model, ho_ids, lineage, X, **{k: v for k, v in best.items() if k in pk})
@@ -221,11 +235,31 @@ def run_cv(Y, folds, groups, lineage, X, cfg, eval_genes, neg, seed, folds_to_ru
         out["models"][f], out["chosen"][f], out["inner"][f] = model, best, table
         out["fit_s"][f], out["predict_s"][f] = tf, tp
         log(f"  fold {f}: {best} fit {tf:.1f}s predict {tp:.2f}s")
+        if hasattr(model, "report_"):
+            out.setdefault("model_report", {})[f] = model.report_
+            log(f"    {json.dumps(model.report_, default=str)[:600]}")
         for b, bcfg in refs.items():
-            _, bp, bb, _, _, _ = fit_predict_fold(
-                b, bcfg.get("params", {}), bcfg.get("grid", {}), Y_tr, ho, lineage, X, groups, sent,
-                eval_genes, neg, cfg.get("inner_folds", 5), seed + int(f),
-                cfg.get("inner_min_obs", 30))
+            key = None
+            if cfg.get("cache_reference"):
+                # exact cache: deterministic given (baseline config, inner settings, seed, training
+                # targets and lineages, held-out IDs); the reference sees no features (B0/B1 only)
+                h = hashlib.sha256(json.dumps([b, bcfg, cfg.get("inner_folds", 5),
+                                               cfg.get("inner_min_obs", 30), seed + int(f),
+                                               list(map(str, ho))], sort_keys=True).encode())
+                h.update(pd.util.hash_pandas_object(Y_tr, index=True).to_numpy().tobytes())
+                h.update(Y_tr.columns.str.cat(sep=",").encode())
+                h.update(lineage.loc[tr].str.cat(sep=",").encode())
+                key = REF_CACHE / f"{b}_{h.hexdigest()[:24]}.pkl"
+            if key is not None and key.exists() and b in ("B0", "B1"):
+                bp, bb = pd.read_pickle(key)
+            else:
+                _, bp, bb, _, _, _ = fit_predict_fold(
+                    b, bcfg.get("params", {}), bcfg.get("grid", {}), Y_tr, ho, lineage, X, groups,
+                    sent, eval_genes, neg, cfg.get("inner_folds", 5), seed + int(f),
+                    cfg.get("inner_min_obs", 30))
+                if key is not None and b in ("B0", "B1"):
+                    key.parent.mkdir(parents=True, exist_ok=True)
+                    pd.to_pickle((bp, bb), key)
             ref_preds[b].append(bp)
             out["chosen"].setdefault(f"ref_{b}", {})[f] = bb
     out["pred"] = pd.concat(preds)
@@ -281,6 +315,23 @@ def write_registry(row, path=REGISTRY):
     """Insert the row, or replace the existing row with the same run_id (start -> end update)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    lock = path.with_suffix(".lock")
+    for _ in range(600):  # concurrent launchers: mkdir is atomic
+        try:
+            os.mkdir(lock)
+            break
+        except FileExistsError:
+            time.sleep(0.1)
+    try:
+        _write_registry_locked(row, path)
+    finally:
+        try:
+            os.rmdir(lock)
+        except OSError:
+            pass
+
+
+def _write_registry_locked(row, path):
     rows = []
     if path.exists():
         with open(path, newline="", encoding="utf-8") as fh:
@@ -346,6 +397,10 @@ def main(argv=None):
         require_gate(cfg.get("requires_gate", "G0"))
         splits = pd.read_csv(splits_path, index_col=0)
         dev = splits[splits["role"] == "dev"]
+        if cfg.get("line_subset"):
+            keep = pd.read_parquet(ROOT / "cache" / "features" / f"{cfg['line_subset']}.parquet",
+                                   columns=[]).index
+            dev = dev[dev.index.isin(keep)]
         folds = dev["cv_fold"].astype(int)
         lineage = dev["OncotreeLineage"].astype(str)
         groups = dev["PatientID"].astype(str)
@@ -390,6 +445,8 @@ def main(argv=None):
         ev["per_fold"].round(6).to_csv(out_dir / "per_fold.csv", index=False)
         per_gene_aggregate(ev["per_gene"]).to_csv(out_dir / "per_gene.csv.gz", index=False)
         for f, m in res["models"].items():
+            if hasattr(m, "compact"):
+                m.compact()  # drop re-buildable arrays before pickling
             modelstore.save_fold_model(run_id, f, m, folds.index[folds != f],
                                        [] if X is None else X.columns)
         fit_s, pred_s = sum(res["fit_s"].values()), sum(res["predict_s"].values())
@@ -401,6 +458,7 @@ def main(argv=None):
                    "n_eval_genes": len(eval_genes), "neg_mapping": neg_rep,
                    "chosen_params": {str(k): v for k, v in res["chosen"].items()},
                    "inner_cv": {str(k): v for k, v in res["inner"].items()},
+                   "model_report": {str(k): v for k, v in res.get("model_report", {}).items()},
                    "fit_s_per_fold": res["fit_s"], "predict_s_per_fold": res["predict_s"],
                    "fit_s": fit_s, "predict_s": pred_s, "peak_rss_mb": rss, "rss_method": rss_m,
                    "headline": hl, "summary": ev["summary"]}

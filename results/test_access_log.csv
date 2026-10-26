@@ -69,3 +69,781 @@ timestamp,caller,access_type,scope,config_hash,n_ids,n_genes,roles,granted,reaso
 2026-10-26T16:10:24,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2443,,1,75,external:1,True,control genes
 2026-10-26T16:10:27,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1905,,1,1922,external:1,True,control genes
 2026-10-26T16:10:29,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2485,,1,152,external:1,True,control genes
+2026-10-26T16:15:33,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv3_S02,,1,1745,external:1,True,control genes
+2026-10-26T16:15:36,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv3_S04,,1,1745,external:1,True,control genes
+2026-10-26T16:15:38,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv3_S05,,1,1745,external:1,True,control genes
+2026-10-26T16:15:41,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv3_S06,,1,1745,external:1,True,control genes
+2026-10-26T16:15:44,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv3_S07,,1,1745,external:1,True,control genes
+2026-10-26T16:15:47,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv3_S12,,1,1745,external:1,True,control genes
+2026-10-26T16:15:50,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv2_S08,,1,1735,external:1,True,control genes
+2026-10-26T16:15:53,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv2_S09,,1,1735,external:1,True,control genes
+2026-10-26T16:15:56,harmonise_screens.py:guarded_controls:214,control_only,setB:olivieri2020_TKOv2_S10,,1,1570,external:1,True,control genes
+2026-10-26T16:15:59,harmonise_screens.py:guarded_controls:214,control_only,setB:brown2019_WT_Durocher_T3,,1,1744,external:1,True,control genes
+2026-10-26T16:16:03,harmonise_screens.py:guarded_controls:214,control_only,setB:brown2019_WT_PACE002_T18,,1,1743,external:1,True,control genes
+2026-10-26T16:16:05,harmonise_screens.py:guarded_controls:214,control_only,setB:brown2019_WT_PACE002_T30,,1,1743,external:1,True,control genes
+2026-10-26T16:16:08,harmonise_screens.py:guarded_controls:214,control_only,setB:brown2019_WT_PACE006_T25,,1,1744,external:1,True,control genes
+2026-10-26T16:16:12,harmonise_screens.py:guarded_controls:214,control_only,setB:brown2019_p53null_TKOv2_T18,,1,1731,external:1,True,control genes
+2026-10-26T16:16:15,harmonise_screens.py:guarded_controls:214,control_only,setB:haapaniemi2018_WT_D28,,1,1920,external:1,True,control genes
+2026-10-26T16:16:18,harmonise_screens.py:guarded_controls:214,control_only,setB:haapaniemi2018_null_D28,,1,1920,external:1,True,control genes
+2026-10-26T16:16:22,harmonise_screens.py:guarded_controls:214,control_only,setB:hart2015_RPE1_T18,,1,1493,external:1,True,control genes
+2026-10-26T16:16:24,harmonise_screens.py:guarded_controls:214,control_only,setB:bowden2020_WT_D19,,1,187,external:1,True,control genes
+2026-10-26T16:16:27,harmonise_screens.py:guarded_controls:214,control_only,setB:bowden2020_KO_D19,,1,187,external:1,True,control genes
+2026-10-26T16:16:31,harmonise_screens.py:guarded_controls:214,control_only,setB:mair2019_H1_MEF_T8,,1,1607,external:1,True,control genes
+2026-10-26T16:16:35,harmonise_screens.py:guarded_controls:214,control_only,setB:mair2019_H1_laminin_T12,,1,1741,external:1,True,control genes
+2026-10-26T16:17:25,harmonise_screens.py:guarded_controls:214,control_only,setB:yilmaz2018_hpES10_D23,,1,1787,external:1,True,control genes
+2026-10-26T16:17:58,harmonise_screens.py:guarded_controls:214,control_only,setB:ihry2019_hPSC_D18,,1,1868,external:1,True,control genes
+2026-10-26T16:18:32,harmonise_screens.py:guarded_controls:214,control_only,setB:shifrut2018_CD8T_GW,,1,1918,external:1,True,control genes
+2026-10-26T16:18:38,harmonise_screens.py:guarded_controls:214,control_only,setB:ting2018_CD4T_D6,,1,233,external:1,True,control genes
+2026-10-26T16:18:43,harmonise_screens.py:guarded_controls:214,control_only,setB:tian2021_neuron_CRISPRi,,1,1844,external:1,True,control genes
+2026-10-26T16:18:45,harmonise_screens.py:guarded_controls:214,control_only,setB:tian2019_iPSC_D10_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T16:18:48,harmonise_screens.py:guarded_controls:214,control_only,setB:tian2019_neuron_D28_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T16:18:56,harmonise_screens.py:guarded_controls:214,control_only,setB:drager2022_microglia_CRISPRi,,1,176,external:1,True,control genes
+2026-10-26T16:18:58,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_572,,1,1832,external:1,True,control genes
+2026-10-26T16:19:00,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_573,,1,1832,external:1,True,control genes
+2026-10-26T16:19:03,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1030,,1,1786,external:1,True,control genes
+2026-10-26T16:19:05,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1031,,1,1786,external:1,True,control genes
+2026-10-26T16:19:08,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_799,,1,1759,external:1,True,control genes
+2026-10-26T16:19:11,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1791,,1,1692,external:1,True,control genes
+2026-10-26T16:19:14,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1792,,1,1692,external:1,True,control genes
+2026-10-26T16:19:16,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1932,,1,1908,external:1,True,control genes
+2026-10-26T16:19:19,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1933,,1,1908,external:1,True,control genes
+2026-10-26T16:19:22,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1934,,1,1908,external:1,True,control genes
+2026-10-26T16:19:24,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1935,,1,1908,external:1,True,control genes
+2026-10-26T16:19:26,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2248,,1,236,external:1,True,control genes
+2026-10-26T16:19:28,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2249,,1,236,external:1,True,control genes
+2026-10-26T16:19:30,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2250,,1,236,external:1,True,control genes
+2026-10-26T16:19:33,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2251,,1,236,external:1,True,control genes
+2026-10-26T16:19:35,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2252,,1,236,external:1,True,control genes
+2026-10-26T16:19:38,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2253,,1,236,external:1,True,control genes
+2026-10-26T16:19:40,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2254,,1,236,external:1,True,control genes
+2026-10-26T16:19:43,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2255,,1,236,external:1,True,control genes
+2026-10-26T16:19:45,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2256,,1,236,external:1,True,control genes
+2026-10-26T16:19:48,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2257,,1,236,external:1,True,control genes
+2026-10-26T16:19:50,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2258,,1,236,external:1,True,control genes
+2026-10-26T16:19:52,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2259,,1,236,external:1,True,control genes
+2026-10-26T16:19:54,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2260,,1,236,external:1,True,control genes
+2026-10-26T16:19:57,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2261,,1,236,external:1,True,control genes
+2026-10-26T16:19:59,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2262,,1,236,external:1,True,control genes
+2026-10-26T16:20:01,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2263,,1,236,external:1,True,control genes
+2026-10-26T16:20:03,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2264,,1,236,external:1,True,control genes
+2026-10-26T16:20:06,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2265,,1,236,external:1,True,control genes
+2026-10-26T16:20:08,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2266,,1,236,external:1,True,control genes
+2026-10-26T16:20:10,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2267,,1,236,external:1,True,control genes
+2026-10-26T16:20:13,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2268,,1,236,external:1,True,control genes
+2026-10-26T16:20:15,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2269,,1,236,external:1,True,control genes
+2026-10-26T16:20:17,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2270,,1,236,external:1,True,control genes
+2026-10-26T16:20:20,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2271,,1,236,external:1,True,control genes
+2026-10-26T16:20:22,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2086,,1,1760,external:1,True,control genes
+2026-10-26T16:20:25,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2087,,1,1760,external:1,True,control genes
+2026-10-26T16:20:27,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2443,,1,75,external:1,True,control genes
+2026-10-26T16:20:29,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_1905,,1,1922,external:1,True,control genes
+2026-10-26T16:20:32,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2485,,1,152,external:1,True,control genes
+2026-10-26T16:20:34,harmonise_screens.py:guarded_controls:214,control_only,setB:ORCS_2486,,1,152,external:1,True,control genes
+2026-10-26T16:20:34,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,17753,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:35,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:35,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:36,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:36,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:36,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:37,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S08,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:37,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S09,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:38,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S10,,1,17425,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:38,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_Durocher_T3,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:38,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T18,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:39,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T30,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:39,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE006_T25,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:40,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_p53null_TKOv2_T18,,1,17646,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:40,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_WT_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_null_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:hart2015_RPE1_T18,,1,16352,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_WT_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_KO_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_MEF_T8,,1,16603,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:42,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_laminin_T12,,1,17743,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:yilmaz2018_hpES10_D23,,1,18101,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:ihry2019_hPSC_D18,,1,18485,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:44,harmonise_screens.py:blind_write,harmonise_write_only,setB:shifrut2018_CD8T_GW,,1,18981,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:44,harmonise_screens.py:blind_write,harmonise_write_only,setB:ting2018_CD4T_D6,,1,2455,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:44,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2021_neuron_CRISPRi,,1,18699,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:45,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_iPSC_D10_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:45,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_neuron_D28_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:45,harmonise_screens.py:blind_write,harmonise_write_only,setB:drager2022_microglia_CRISPRi,,1,2316,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:46,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_572,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:46,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_573,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:46,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1030,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:47,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1031,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:47,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_799,,1,17986,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:47,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1791,,1,17828,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:47,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1792,,1,17827,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:48,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1932,,1,20779,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:48,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1933,,1,20781,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:48,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1934,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1935,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2248,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2249,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2250,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2251,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2252,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2253,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2254,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2255,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2256,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2257,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2258,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2259,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2260,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2261,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2262,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2263,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2264,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2265,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2266,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2267,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2268,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2269,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2270,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2271,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2086,,1,17987,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2087,,1,17988,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2443,,1,773,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1905,,1,19356,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:52,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2485,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:52,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2486,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:20:52,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_RPE1,,16,,external:16,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T16:23:58,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_hPSC,,4,,external:4,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T16:35:49,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S02,,1,1745,external:1,True,control genes
+2026-10-26T16:35:51,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S04,,1,1745,external:1,True,control genes
+2026-10-26T16:35:54,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S05,,1,1745,external:1,True,control genes
+2026-10-26T16:35:56,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S06,,1,1745,external:1,True,control genes
+2026-10-26T16:35:59,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S07,,1,1745,external:1,True,control genes
+2026-10-26T16:36:01,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S12,,1,1745,external:1,True,control genes
+2026-10-26T16:36:05,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv2_S08,,1,1735,external:1,True,control genes
+2026-10-26T16:36:07,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv2_S09,,1,1735,external:1,True,control genes
+2026-10-26T16:36:10,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv2_S10,,1,1570,external:1,True,control genes
+2026-10-26T16:36:13,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_Durocher_T3,,1,1744,external:1,True,control genes
+2026-10-26T16:36:16,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_PACE002_T18,,1,1743,external:1,True,control genes
+2026-10-26T16:36:19,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_PACE002_T30,,1,1743,external:1,True,control genes
+2026-10-26T16:36:23,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_PACE006_T25,,1,1744,external:1,True,control genes
+2026-10-26T16:36:26,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_p53null_TKOv2_T18,,1,1731,external:1,True,control genes
+2026-10-26T16:36:29,harmonise_screens.py:guarded_controls:215,control_only,setB:haapaniemi2018_WT_D28,,1,1920,external:1,True,control genes
+2026-10-26T16:36:32,harmonise_screens.py:guarded_controls:215,control_only,setB:haapaniemi2018_null_D28,,1,1920,external:1,True,control genes
+2026-10-26T16:36:35,harmonise_screens.py:guarded_controls:215,control_only,setB:hart2015_RPE1_T18,,1,1493,external:1,True,control genes
+2026-10-26T16:36:37,harmonise_screens.py:guarded_controls:215,control_only,setB:bowden2020_WT_D19,,1,187,external:1,True,control genes
+2026-10-26T16:36:40,harmonise_screens.py:guarded_controls:215,control_only,setB:bowden2020_KO_D19,,1,187,external:1,True,control genes
+2026-10-26T16:36:43,harmonise_screens.py:guarded_controls:215,control_only,setB:mair2019_H1_MEF_T8,,1,1607,external:1,True,control genes
+2026-10-26T16:36:47,harmonise_screens.py:guarded_controls:215,control_only,setB:mair2019_H1_laminin_T12,,1,1741,external:1,True,control genes
+2026-10-26T16:37:40,harmonise_screens.py:guarded_controls:215,control_only,setB:yilmaz2018_hpES10_D23,,1,1787,external:1,True,control genes
+2026-10-26T16:38:17,harmonise_screens.py:guarded_controls:215,control_only,setB:ihry2019_hPSC_D18,,1,1868,external:1,True,control genes
+2026-10-26T16:38:57,harmonise_screens.py:guarded_controls:215,control_only,setB:shifrut2018_CD8T_GW,,1,1918,external:1,True,control genes
+2026-10-26T16:39:05,harmonise_screens.py:guarded_controls:215,control_only,setB:ting2018_CD4T_D6,,1,233,external:1,True,control genes
+2026-10-26T16:39:12,harmonise_screens.py:guarded_controls:215,control_only,setB:tian2021_neuron_CRISPRi,,1,1844,external:1,True,control genes
+2026-10-26T16:39:15,harmonise_screens.py:guarded_controls:215,control_only,setB:tian2019_iPSC_D10_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T16:39:18,harmonise_screens.py:guarded_controls:215,control_only,setB:tian2019_neuron_D28_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T16:39:26,harmonise_screens.py:guarded_controls:215,control_only,setB:drager2022_microglia_CRISPRi,,1,176,external:1,True,control genes
+2026-10-26T16:39:29,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_572,,1,1832,external:1,True,control genes
+2026-10-26T16:39:31,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_573,,1,1832,external:1,True,control genes
+2026-10-26T16:39:34,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1030,,1,1786,external:1,True,control genes
+2026-10-26T16:39:36,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1031,,1,1786,external:1,True,control genes
+2026-10-26T16:39:39,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_799,,1,1759,external:1,True,control genes
+2026-10-26T16:39:41,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1791,,1,1692,external:1,True,control genes
+2026-10-26T16:39:44,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1792,,1,1692,external:1,True,control genes
+2026-10-26T16:39:47,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1932,,1,1908,external:1,True,control genes
+2026-10-26T16:39:50,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1933,,1,1908,external:1,True,control genes
+2026-10-26T16:39:52,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1934,,1,1908,external:1,True,control genes
+2026-10-26T16:39:55,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1935,,1,1908,external:1,True,control genes
+2026-10-26T16:39:57,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2248,,1,236,external:1,True,control genes
+2026-10-26T16:40:00,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2249,,1,236,external:1,True,control genes
+2026-10-26T16:40:02,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2250,,1,236,external:1,True,control genes
+2026-10-26T16:40:04,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2251,,1,236,external:1,True,control genes
+2026-10-26T16:40:07,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2252,,1,236,external:1,True,control genes
+2026-10-26T16:40:09,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2253,,1,236,external:1,True,control genes
+2026-10-26T16:40:11,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2254,,1,236,external:1,True,control genes
+2026-10-26T16:40:14,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2255,,1,236,external:1,True,control genes
+2026-10-26T16:40:16,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2256,,1,236,external:1,True,control genes
+2026-10-26T16:40:19,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2257,,1,236,external:1,True,control genes
+2026-10-26T16:40:21,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2258,,1,236,external:1,True,control genes
+2026-10-26T16:40:23,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2259,,1,236,external:1,True,control genes
+2026-10-26T16:40:26,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2260,,1,236,external:1,True,control genes
+2026-10-26T16:40:28,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2261,,1,236,external:1,True,control genes
+2026-10-26T16:40:31,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2262,,1,236,external:1,True,control genes
+2026-10-26T16:40:33,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2263,,1,236,external:1,True,control genes
+2026-10-26T16:40:35,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2264,,1,236,external:1,True,control genes
+2026-10-26T16:40:38,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2265,,1,236,external:1,True,control genes
+2026-10-26T16:40:40,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2266,,1,236,external:1,True,control genes
+2026-10-26T16:40:43,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2267,,1,236,external:1,True,control genes
+2026-10-26T16:40:46,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2268,,1,236,external:1,True,control genes
+2026-10-26T16:40:47,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2269,,1,236,external:1,True,control genes
+2026-10-26T16:40:49,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2270,,1,236,external:1,True,control genes
+2026-10-26T16:40:51,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2271,,1,236,external:1,True,control genes
+2026-10-26T16:40:54,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2086,,1,1760,external:1,True,control genes
+2026-10-26T16:40:56,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2087,,1,1760,external:1,True,control genes
+2026-10-26T16:40:59,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2443,,1,75,external:1,True,control genes
+2026-10-26T16:41:02,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1905,,1,1922,external:1,True,control genes
+2026-10-26T16:41:04,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2485,,1,152,external:1,True,control genes
+2026-10-26T16:41:07,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2486,,1,152,external:1,True,control genes
+2026-10-26T16:41:07,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,17753,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:08,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:08,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:08,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:09,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:09,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:10,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S08,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:10,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S09,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:11,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S10,,1,17425,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:11,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_Durocher_T3,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:12,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T18,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:12,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T30,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:12,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE006_T25,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:13,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_p53null_TKOv2_T18,,1,17646,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:13,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_WT_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:14,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_null_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:14,harmonise_screens.py:blind_write,harmonise_write_only,setB:hart2015_RPE1_T18,,1,16352,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:14,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_WT_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:14,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_KO_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:15,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_MEF_T8,,1,16603,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:15,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_laminin_T12,,1,17743,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:16,harmonise_screens.py:blind_write,harmonise_write_only,setB:yilmaz2018_hpES10_D23,,1,18101,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ihry2019_hPSC_D18,,1,18485,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:shifrut2018_CD8T_GW,,1,18981,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ting2018_CD4T_D6,,1,2455,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2021_neuron_CRISPRi,,1,18699,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_iPSC_D10_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_neuron_D28_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:drager2022_microglia_CRISPRi,,1,2316,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_572,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_573,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1030,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1031,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_799,,1,17986,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:21,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1791,,1,17828,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:21,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1792,,1,17827,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:21,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1932,,1,20779,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:22,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1933,,1,20781,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:22,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1934,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:22,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1935,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2248,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2249,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2250,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2251,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2252,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2253,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2254,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2255,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2256,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2257,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2258,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2259,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:23,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2260,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2261,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2262,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2263,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2264,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2265,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2266,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2267,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2268,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2269,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2270,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:24,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2271,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:25,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2086,,1,17987,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:25,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2087,,1,17988,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:25,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2443,,1,773,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:25,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1905,,1,19356,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:25,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2485,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:26,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2486,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T16:41:27,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_RPE1,,16,,external:16,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T16:45:49,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_hPSC,,4,,external:4,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T16:56:23,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S02,,1,1745,external:1,True,control genes
+2026-10-26T16:56:25,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S04,,1,1745,external:1,True,control genes
+2026-10-26T16:56:28,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S05,,1,1745,external:1,True,control genes
+2026-10-26T16:56:30,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S06,,1,1745,external:1,True,control genes
+2026-10-26T16:56:32,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S07,,1,1745,external:1,True,control genes
+2026-10-26T16:56:35,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv3_S12,,1,1745,external:1,True,control genes
+2026-10-26T16:56:38,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv2_S08,,1,1735,external:1,True,control genes
+2026-10-26T16:56:40,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv2_S09,,1,1735,external:1,True,control genes
+2026-10-26T16:56:42,harmonise_screens.py:guarded_controls:215,control_only,setB:olivieri2020_TKOv2_S10,,1,1570,external:1,True,control genes
+2026-10-26T16:56:45,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_Durocher_T3,,1,1744,external:1,True,control genes
+2026-10-26T16:56:48,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_PACE002_T18,,1,1743,external:1,True,control genes
+2026-10-26T16:56:50,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_PACE002_T30,,1,1743,external:1,True,control genes
+2026-10-26T16:56:53,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_WT_PACE006_T25,,1,1744,external:1,True,control genes
+2026-10-26T16:56:56,harmonise_screens.py:guarded_controls:215,control_only,setB:brown2019_p53null_TKOv2_T18,,1,1731,external:1,True,control genes
+2026-10-26T16:56:59,harmonise_screens.py:guarded_controls:215,control_only,setB:haapaniemi2018_WT_D28,,1,1920,external:1,True,control genes
+2026-10-26T16:57:01,harmonise_screens.py:guarded_controls:215,control_only,setB:haapaniemi2018_null_D28,,1,1920,external:1,True,control genes
+2026-10-26T16:57:04,harmonise_screens.py:guarded_controls:215,control_only,setB:hart2015_RPE1_T18,,1,1493,external:1,True,control genes
+2026-10-26T16:57:06,harmonise_screens.py:guarded_controls:215,control_only,setB:bowden2020_WT_D19,,1,187,external:1,True,control genes
+2026-10-26T16:57:08,harmonise_screens.py:guarded_controls:215,control_only,setB:bowden2020_KO_D19,,1,187,external:1,True,control genes
+2026-10-26T16:57:11,harmonise_screens.py:guarded_controls:215,control_only,setB:mair2019_H1_MEF_T8,,1,1607,external:1,True,control genes
+2026-10-26T16:57:15,harmonise_screens.py:guarded_controls:215,control_only,setB:mair2019_H1_laminin_T12,,1,1741,external:1,True,control genes
+2026-10-26T16:57:58,harmonise_screens.py:guarded_controls:215,control_only,setB:yilmaz2018_hpES10_D23,,1,1787,external:1,True,control genes
+2026-10-26T16:58:30,harmonise_screens.py:guarded_controls:215,control_only,setB:ihry2019_hPSC_D18,,1,1868,external:1,True,control genes
+2026-10-26T16:59:03,harmonise_screens.py:guarded_controls:215,control_only,setB:shifrut2018_CD8T_GW,,1,1918,external:1,True,control genes
+2026-10-26T16:59:09,harmonise_screens.py:guarded_controls:215,control_only,setB:ting2018_CD4T_D6,,1,233,external:1,True,control genes
+2026-10-26T16:59:15,harmonise_screens.py:guarded_controls:215,control_only,setB:tian2021_neuron_CRISPRi,,1,1844,external:1,True,control genes
+2026-10-26T16:59:17,harmonise_screens.py:guarded_controls:215,control_only,setB:tian2019_iPSC_D10_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T16:59:19,harmonise_screens.py:guarded_controls:215,control_only,setB:tian2019_neuron_D28_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T16:59:26,harmonise_screens.py:guarded_controls:215,control_only,setB:drager2022_microglia_CRISPRi,,1,176,external:1,True,control genes
+2026-10-26T16:59:28,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_572,,1,1832,external:1,True,control genes
+2026-10-26T16:59:30,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_573,,1,1832,external:1,True,control genes
+2026-10-26T16:59:33,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1030,,1,1786,external:1,True,control genes
+2026-10-26T16:59:35,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1031,,1,1786,external:1,True,control genes
+2026-10-26T16:59:37,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_799,,1,1759,external:1,True,control genes
+2026-10-26T16:59:39,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1791,,1,1692,external:1,True,control genes
+2026-10-26T16:59:42,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1792,,1,1692,external:1,True,control genes
+2026-10-26T16:59:44,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1932,,1,1908,external:1,True,control genes
+2026-10-26T16:59:46,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1933,,1,1908,external:1,True,control genes
+2026-10-26T16:59:49,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1934,,1,1908,external:1,True,control genes
+2026-10-26T16:59:51,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1935,,1,1908,external:1,True,control genes
+2026-10-26T16:59:53,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2248,,1,236,external:1,True,control genes
+2026-10-26T16:59:55,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2249,,1,236,external:1,True,control genes
+2026-10-26T16:59:57,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2250,,1,236,external:1,True,control genes
+2026-10-26T16:59:59,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2251,,1,236,external:1,True,control genes
+2026-10-26T17:00:02,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2252,,1,236,external:1,True,control genes
+2026-10-26T17:00:04,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2253,,1,236,external:1,True,control genes
+2026-10-26T17:00:06,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2254,,1,236,external:1,True,control genes
+2026-10-26T17:00:08,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2255,,1,236,external:1,True,control genes
+2026-10-26T17:00:11,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2256,,1,236,external:1,True,control genes
+2026-10-26T17:00:13,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2257,,1,236,external:1,True,control genes
+2026-10-26T17:00:15,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2258,,1,236,external:1,True,control genes
+2026-10-26T17:00:17,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2259,,1,236,external:1,True,control genes
+2026-10-26T17:00:20,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2260,,1,236,external:1,True,control genes
+2026-10-26T17:00:22,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2261,,1,236,external:1,True,control genes
+2026-10-26T17:00:24,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2262,,1,236,external:1,True,control genes
+2026-10-26T17:00:27,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2263,,1,236,external:1,True,control genes
+2026-10-26T17:00:29,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2264,,1,236,external:1,True,control genes
+2026-10-26T17:00:31,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2265,,1,236,external:1,True,control genes
+2026-10-26T17:00:34,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2266,,1,236,external:1,True,control genes
+2026-10-26T17:00:36,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2267,,1,236,external:1,True,control genes
+2026-10-26T17:00:38,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2268,,1,236,external:1,True,control genes
+2026-10-26T17:00:41,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2269,,1,236,external:1,True,control genes
+2026-10-26T17:00:43,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2270,,1,236,external:1,True,control genes
+2026-10-26T17:00:46,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2271,,1,236,external:1,True,control genes
+2026-10-26T17:00:48,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2086,,1,1760,external:1,True,control genes
+2026-10-26T17:00:50,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2087,,1,1760,external:1,True,control genes
+2026-10-26T17:00:52,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2443,,1,75,external:1,True,control genes
+2026-10-26T17:00:55,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_1905,,1,1922,external:1,True,control genes
+2026-10-26T17:00:57,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2485,,1,152,external:1,True,control genes
+2026-10-26T17:00:59,harmonise_screens.py:guarded_controls:215,control_only,setB:ORCS_2486,,1,152,external:1,True,control genes
+2026-10-26T17:00:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,17753,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:00,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:00,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:01,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:01,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:02,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:02,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S08,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:03,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S09,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:03,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S10,,1,17425,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:04,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_Durocher_T3,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:04,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T18,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:05,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T30,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:05,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE006_T25,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:06,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_p53null_TKOv2_T18,,1,17646,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:07,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_WT_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:07,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_null_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:08,harmonise_screens.py:blind_write,harmonise_write_only,setB:hart2015_RPE1_T18,,1,16352,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:08,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_WT_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:08,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_KO_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:08,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_MEF_T8,,1,16603,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:09,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_laminin_T12,,1,17743,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:10,harmonise_screens.py:blind_write,harmonise_write_only,setB:yilmaz2018_hpES10_D23,,1,18101,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:11,harmonise_screens.py:blind_write,harmonise_write_only,setB:ihry2019_hPSC_D18,,1,18485,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:11,harmonise_screens.py:blind_write,harmonise_write_only,setB:shifrut2018_CD8T_GW,,1,18981,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:11,harmonise_screens.py:blind_write,harmonise_write_only,setB:ting2018_CD4T_D6,,1,2455,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:12,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2021_neuron_CRISPRi,,1,18699,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:12,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_iPSC_D10_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:13,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_neuron_D28_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:13,harmonise_screens.py:blind_write,harmonise_write_only,setB:drager2022_microglia_CRISPRi,,1,2316,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:13,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_572,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:14,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_573,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:14,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1030,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:14,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1031,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:15,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_799,,1,17986,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:15,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1791,,1,17828,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:15,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1792,,1,17827,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:16,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1932,,1,20779,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:16,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1933,,1,20781,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:16,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1934,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1935,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2248,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2249,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2250,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2251,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2252,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:17,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2253,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2254,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2255,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2256,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2257,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2258,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2259,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2260,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2261,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2262,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2263,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2264,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:18,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2265,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2266,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2267,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2268,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2269,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2270,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2271,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:19,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2086,,1,17987,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2087,,1,17988,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2443,,1,773,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1905,,1,19356,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2485,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:20,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2486,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T17:01:21,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_RPE1,,16,,external:16,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T17:06:25,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_hPSC,,4,,external:4,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_MEF,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_laminin,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE002,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:25:21,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE006,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_MEF,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_laminin,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE002,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:26:58,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE006,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_MEF,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_laminin,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE002,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:28:30,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE006,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:29:40,harmonise_screens.py:guarded_controls:217,control_only,setB:mair2019_H1_MEF_T8,,1,1607,external:1,True,control genes
+2026-10-26T17:29:43,harmonise_screens.py:guarded_controls:217,control_only,setB:mair2019_H1_laminin_T12,,1,1741,external:1,True,control genes
+2026-10-26T17:29:47,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S02,,1,1745,external:1,True,control genes
+2026-10-26T17:29:49,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S04,,1,1745,external:1,True,control genes
+2026-10-26T17:29:51,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S05,,1,1745,external:1,True,control genes
+2026-10-26T17:29:54,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S06,,1,1745,external:1,True,control genes
+2026-10-26T17:29:56,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S07,,1,1745,external:1,True,control genes
+2026-10-26T17:29:59,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S12,,1,1745,external:1,True,control genes
+2026-10-26T17:30:02,harmonise_screens.py:guarded_controls:217,control_only,setB:brown2019_WT_PACE002_T18,,1,1743,external:1,True,control genes
+2026-10-26T17:30:05,harmonise_screens.py:guarded_controls:217,control_only,setB:brown2019_WT_PACE006_T25,,1,1744,external:1,True,control genes
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_MEF,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:mair2019_H1_laminin,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE002,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T17:30:54,chronos_tkov3.py:main,harmonise_write_only,setB:brown2019_WT_PACE006,,1,,external:1,True,Chronos joint TKOv3 fit; set-B gene effects written to cache/harmonised only
+2026-10-26T18:05:25,harmonise_screens.py:guarded_controls:217,control_only,setB:mair2019_H1_MEF_T8,,1,1607,external:1,True,control genes
+2026-10-26T18:05:30,harmonise_screens.py:guarded_controls:217,control_only,setB:mair2019_H1_laminin_T12,,1,1741,external:1,True,control genes
+2026-10-26T18:05:36,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S02,,1,1745,external:1,True,control genes
+2026-10-26T18:05:40,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S04,,1,1745,external:1,True,control genes
+2026-10-26T18:05:43,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S05,,1,1745,external:1,True,control genes
+2026-10-26T18:05:46,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S06,,1,1745,external:1,True,control genes
+2026-10-26T18:05:49,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S07,,1,1745,external:1,True,control genes
+2026-10-26T18:05:53,harmonise_screens.py:guarded_controls:217,control_only,setB:olivieri2020_TKOv3_S12,,1,1745,external:1,True,control genes
+2026-10-26T18:05:58,harmonise_screens.py:guarded_controls:217,control_only,setB:brown2019_WT_PACE002_T18,,1,1743,external:1,True,control genes
+2026-10-26T18:06:14,harmonise_screens.py:guarded_controls:217,control_only,setB:brown2019_WT_PACE006_T25,,1,1744,external:1,True,control genes
+2026-10-26T18:16:26,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S02,,1,1745,external:1,True,control genes
+2026-10-26T18:16:29,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S04,,1,1745,external:1,True,control genes
+2026-10-26T18:16:32,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S05,,1,1745,external:1,True,control genes
+2026-10-26T18:16:35,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S06,,1,1745,external:1,True,control genes
+2026-10-26T18:16:38,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S07,,1,1745,external:1,True,control genes
+2026-10-26T18:16:42,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S12,,1,1745,external:1,True,control genes
+2026-10-26T18:16:46,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv2_S08,,1,1735,external:1,True,control genes
+2026-10-26T18:16:51,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv2_S09,,1,1735,external:1,True,control genes
+2026-10-26T18:16:55,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv2_S10,,1,1570,external:1,True,control genes
+2026-10-26T18:17:00,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_Durocher_T3,,1,1744,external:1,True,control genes
+2026-10-26T18:17:05,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_PACE002_T18,,1,1743,external:1,True,control genes
+2026-10-26T18:17:09,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_PACE002_T30,,1,1743,external:1,True,control genes
+2026-10-26T18:17:14,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_PACE006_T25,,1,1744,external:1,True,control genes
+2026-10-26T18:17:19,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_p53null_TKOv2_T18,,1,1731,external:1,True,control genes
+2026-10-26T18:17:24,harmonise_screens.py:guarded_controls:225,control_only,setB:haapaniemi2018_WT_D28,,1,1920,external:1,True,control genes
+2026-10-26T18:17:28,harmonise_screens.py:guarded_controls:225,control_only,setB:haapaniemi2018_null_D28,,1,1920,external:1,True,control genes
+2026-10-26T18:17:32,harmonise_screens.py:guarded_controls:225,control_only,setB:hart2015_RPE1_T18,,1,1493,external:1,True,control genes
+2026-10-26T18:17:36,harmonise_screens.py:guarded_controls:225,control_only,setB:bowden2020_WT_D19,,1,187,external:1,True,control genes
+2026-10-26T18:17:39,harmonise_screens.py:guarded_controls:225,control_only,setB:bowden2020_KO_D19,,1,187,external:1,True,control genes
+2026-10-26T18:17:45,harmonise_screens.py:guarded_controls:225,control_only,setB:mair2019_H1_MEF_T8,,1,1607,external:1,True,control genes
+2026-10-26T18:17:52,harmonise_screens.py:guarded_controls:225,control_only,setB:mair2019_H1_laminin_T12,,1,1741,external:1,True,control genes
+2026-10-26T18:18:57,harmonise_screens.py:guarded_controls:225,control_only,setB:yilmaz2018_hpES10_D23,,1,1787,external:1,True,control genes
+2026-10-26T18:19:31,harmonise_screens.py:guarded_controls:225,control_only,setB:ihry2019_hPSC_D18,,1,1868,external:1,True,control genes
+2026-10-26T18:20:29,harmonise_screens.py:guarded_controls:225,control_only,setB:shifrut2018_CD8T_GW,,1,1918,external:1,True,control genes
+2026-10-26T18:20:39,harmonise_screens.py:guarded_controls:225,control_only,setB:ting2018_CD4T_D6,,1,233,external:1,True,control genes
+2026-10-26T18:20:48,harmonise_screens.py:guarded_controls:225,control_only,setB:tian2021_neuron_CRISPRi,,1,1844,external:1,True,control genes
+2026-10-26T18:20:51,harmonise_screens.py:guarded_controls:225,control_only,setB:tian2019_iPSC_D10_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T18:20:53,harmonise_screens.py:guarded_controls:225,control_only,setB:tian2019_neuron_D28_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T18:21:03,harmonise_screens.py:guarded_controls:225,control_only,setB:drager2022_microglia_CRISPRi,,1,176,external:1,True,control genes
+2026-10-26T18:21:06,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_572,,1,1832,external:1,True,control genes
+2026-10-26T18:21:09,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_573,,1,1832,external:1,True,control genes
+2026-10-26T18:21:12,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1030,,1,1786,external:1,True,control genes
+2026-10-26T18:21:16,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1031,,1,1786,external:1,True,control genes
+2026-10-26T18:21:18,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_799,,1,1759,external:1,True,control genes
+2026-10-26T18:21:20,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1791,,1,1692,external:1,True,control genes
+2026-10-26T18:21:23,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1792,,1,1692,external:1,True,control genes
+2026-10-26T18:21:26,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1932,,1,1908,external:1,True,control genes
+2026-10-26T18:21:29,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1933,,1,1908,external:1,True,control genes
+2026-10-26T18:21:32,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1934,,1,1908,external:1,True,control genes
+2026-10-26T18:21:35,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1935,,1,1908,external:1,True,control genes
+2026-10-26T18:21:39,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2248,,1,236,external:1,True,control genes
+2026-10-26T18:21:43,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2249,,1,236,external:1,True,control genes
+2026-10-26T18:21:48,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2250,,1,236,external:1,True,control genes
+2026-10-26T18:21:53,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2251,,1,236,external:1,True,control genes
+2026-10-26T18:21:58,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2252,,1,236,external:1,True,control genes
+2026-10-26T18:22:03,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2253,,1,236,external:1,True,control genes
+2026-10-26T18:22:07,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2254,,1,236,external:1,True,control genes
+2026-10-26T18:22:09,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2255,,1,236,external:1,True,control genes
+2026-10-26T18:22:12,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2256,,1,236,external:1,True,control genes
+2026-10-26T18:22:14,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2257,,1,236,external:1,True,control genes
+2026-10-26T18:22:17,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2258,,1,236,external:1,True,control genes
+2026-10-26T18:22:20,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2259,,1,236,external:1,True,control genes
+2026-10-26T18:22:24,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2260,,1,236,external:1,True,control genes
+2026-10-26T18:22:27,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2261,,1,236,external:1,True,control genes
+2026-10-26T18:22:32,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2262,,1,236,external:1,True,control genes
+2026-10-26T18:22:36,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2263,,1,236,external:1,True,control genes
+2026-10-26T18:22:39,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2264,,1,236,external:1,True,control genes
+2026-10-26T18:22:43,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2265,,1,236,external:1,True,control genes
+2026-10-26T18:22:48,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2266,,1,236,external:1,True,control genes
+2026-10-26T18:22:51,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2267,,1,236,external:1,True,control genes
+2026-10-26T18:22:56,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2268,,1,236,external:1,True,control genes
+2026-10-26T18:23:00,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2269,,1,236,external:1,True,control genes
+2026-10-26T18:23:04,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2270,,1,236,external:1,True,control genes
+2026-10-26T18:23:07,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2271,,1,236,external:1,True,control genes
+2026-10-26T18:23:12,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2086,,1,1760,external:1,True,control genes
+2026-10-26T18:23:15,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2087,,1,1760,external:1,True,control genes
+2026-10-26T18:23:19,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2443,,1,75,external:1,True,control genes
+2026-10-26T18:23:23,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1905,,1,1922,external:1,True,control genes
+2026-10-26T18:23:27,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2485,,1,152,external:1,True,control genes
+2026-10-26T18:23:30,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2486,,1,152,external:1,True,control genes
+2026-10-26T18:23:31,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,17753,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:32,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:32,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:33,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:33,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:34,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:35,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S08,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:36,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S09,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:36,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S10,,1,17425,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:37,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_Durocher_T3,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:37,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T18,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:38,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T30,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:39,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE006_T25,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:39,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_p53null_TKOv2_T18,,1,17646,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:40,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_WT_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_null_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:42,harmonise_screens.py:blind_write,harmonise_write_only,setB:hart2015_RPE1_T18,,1,16352,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:42,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_WT_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:42,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_KO_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_MEF_T8,,1,16603,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_laminin_T12,,1,17743,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:45,harmonise_screens.py:blind_write,harmonise_write_only,setB:yilmaz2018_hpES10_D23,,1,18101,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:46,harmonise_screens.py:blind_write,harmonise_write_only,setB:ihry2019_hPSC_D18,,1,18485,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:47,harmonise_screens.py:blind_write,harmonise_write_only,setB:shifrut2018_CD8T_GW,,1,18981,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:48,harmonise_screens.py:blind_write,harmonise_write_only,setB:ting2018_CD4T_D6,,1,2455,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:48,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2021_neuron_CRISPRi,,1,18699,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_iPSC_D10_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_neuron_D28_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:drager2022_microglia_CRISPRi,,1,2316,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_572,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_573,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1030,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1031,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:52,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_799,,1,17986,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:53,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1791,,1,17828,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1792,,1,17827,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1932,,1,20779,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1933,,1,20781,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1934,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1935,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2248,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2249,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2250,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2251,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2252,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2253,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2254,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2255,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2256,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2257,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2258,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2259,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2260,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2261,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2262,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2263,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2264,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2265,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2266,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2267,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2268,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2269,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:23:59,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2270,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:00,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2271,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:00,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2086,,1,17987,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:00,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2087,,1,17988,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:00,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2443,,1,773,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:01,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1905,,1,19356,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:01,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2485,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:01,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2486,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T18:24:06,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_RPE1,,16,,external:16,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T18:29:20,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_hPSC,,4,,external:4,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T18:54:08,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S02,,1,1745,external:1,True,control genes
+2026-10-26T18:54:11,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S04,,1,1745,external:1,True,control genes
+2026-10-26T18:54:14,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S05,,1,1745,external:1,True,control genes
+2026-10-26T18:54:17,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S06,,1,1745,external:1,True,control genes
+2026-10-26T18:54:21,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S07,,1,1745,external:1,True,control genes
+2026-10-26T18:54:24,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv3_S12,,1,1745,external:1,True,control genes
+2026-10-26T18:54:29,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv2_S08,,1,1735,external:1,True,control genes
+2026-10-26T18:54:33,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv2_S09,,1,1735,external:1,True,control genes
+2026-10-26T18:54:37,harmonise_screens.py:guarded_controls:225,control_only,setB:olivieri2020_TKOv2_S10,,1,1570,external:1,True,control genes
+2026-10-26T18:54:42,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_Durocher_T3,,1,1744,external:1,True,control genes
+2026-10-26T18:54:46,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_PACE002_T18,,1,1743,external:1,True,control genes
+2026-10-26T18:54:50,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_PACE002_T30,,1,1743,external:1,True,control genes
+2026-10-26T18:54:54,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_WT_PACE006_T25,,1,1744,external:1,True,control genes
+2026-10-26T18:54:58,harmonise_screens.py:guarded_controls:225,control_only,setB:brown2019_p53null_TKOv2_T18,,1,1731,external:1,True,control genes
+2026-10-26T18:55:02,harmonise_screens.py:guarded_controls:225,control_only,setB:haapaniemi2018_WT_D28,,1,1920,external:1,True,control genes
+2026-10-26T18:55:06,harmonise_screens.py:guarded_controls:225,control_only,setB:haapaniemi2018_null_D28,,1,1920,external:1,True,control genes
+2026-10-26T18:55:10,harmonise_screens.py:guarded_controls:225,control_only,setB:hart2015_RPE1_T18,,1,1493,external:1,True,control genes
+2026-10-26T18:55:13,harmonise_screens.py:guarded_controls:225,control_only,setB:bowden2020_WT_D19,,1,187,external:1,True,control genes
+2026-10-26T18:55:17,harmonise_screens.py:guarded_controls:225,control_only,setB:bowden2020_KO_D19,,1,187,external:1,True,control genes
+2026-10-26T18:55:22,harmonise_screens.py:guarded_controls:225,control_only,setB:mair2019_H1_MEF_T8,,1,1607,external:1,True,control genes
+2026-10-26T18:55:27,harmonise_screens.py:guarded_controls:225,control_only,setB:mair2019_H1_laminin_T12,,1,1741,external:1,True,control genes
+2026-10-26T18:56:29,harmonise_screens.py:guarded_controls:225,control_only,setB:yilmaz2018_hpES10_D23,,1,1787,external:1,True,control genes
+2026-10-26T18:57:09,harmonise_screens.py:guarded_controls:225,control_only,setB:ihry2019_hPSC_D18,,1,1868,external:1,True,control genes
+2026-10-26T18:57:55,harmonise_screens.py:guarded_controls:225,control_only,setB:shifrut2018_CD8T_GW,,1,1918,external:1,True,control genes
+2026-10-26T18:58:04,harmonise_screens.py:guarded_controls:225,control_only,setB:ting2018_CD4T_D6,,1,233,external:1,True,control genes
+2026-10-26T18:58:12,harmonise_screens.py:guarded_controls:225,control_only,setB:tian2021_neuron_CRISPRi,,1,1844,external:1,True,control genes
+2026-10-26T18:58:15,harmonise_screens.py:guarded_controls:225,control_only,setB:tian2019_iPSC_D10_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T18:58:19,harmonise_screens.py:guarded_controls:225,control_only,setB:tian2019_neuron_D28_CRISPRi,,1,165,external:1,True,control genes
+2026-10-26T18:58:27,harmonise_screens.py:guarded_controls:225,control_only,setB:drager2022_microglia_CRISPRi,,1,176,external:1,True,control genes
+2026-10-26T18:58:30,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_572,,1,1832,external:1,True,control genes
+2026-10-26T18:58:33,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_573,,1,1832,external:1,True,control genes
+2026-10-26T18:58:35,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1030,,1,1786,external:1,True,control genes
+2026-10-26T18:58:38,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1031,,1,1786,external:1,True,control genes
+2026-10-26T18:58:40,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_799,,1,1759,external:1,True,control genes
+2026-10-26T18:58:43,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1791,,1,1692,external:1,True,control genes
+2026-10-26T18:58:45,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1792,,1,1692,external:1,True,control genes
+2026-10-26T18:58:48,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1932,,1,1908,external:1,True,control genes
+2026-10-26T18:58:51,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1933,,1,1908,external:1,True,control genes
+2026-10-26T18:58:54,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1934,,1,1908,external:1,True,control genes
+2026-10-26T18:58:57,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1935,,1,1908,external:1,True,control genes
+2026-10-26T18:59:00,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2248,,1,236,external:1,True,control genes
+2026-10-26T18:59:03,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2249,,1,236,external:1,True,control genes
+2026-10-26T18:59:05,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2250,,1,236,external:1,True,control genes
+2026-10-26T18:59:08,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2251,,1,236,external:1,True,control genes
+2026-10-26T18:59:10,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2252,,1,236,external:1,True,control genes
+2026-10-26T18:59:13,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2253,,1,236,external:1,True,control genes
+2026-10-26T18:59:16,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2254,,1,236,external:1,True,control genes
+2026-10-26T18:59:19,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2255,,1,236,external:1,True,control genes
+2026-10-26T18:59:22,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2256,,1,236,external:1,True,control genes
+2026-10-26T18:59:26,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2257,,1,236,external:1,True,control genes
+2026-10-26T18:59:29,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2258,,1,236,external:1,True,control genes
+2026-10-26T18:59:32,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2259,,1,236,external:1,True,control genes
+2026-10-26T18:59:35,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2260,,1,236,external:1,True,control genes
+2026-10-26T18:59:39,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2261,,1,236,external:1,True,control genes
+2026-10-26T18:59:42,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2262,,1,236,external:1,True,control genes
+2026-10-26T18:59:45,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2263,,1,236,external:1,True,control genes
+2026-10-26T18:59:48,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2264,,1,236,external:1,True,control genes
+2026-10-26T18:59:52,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2265,,1,236,external:1,True,control genes
+2026-10-26T18:59:55,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2266,,1,236,external:1,True,control genes
+2026-10-26T18:59:58,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2267,,1,236,external:1,True,control genes
+2026-10-26T19:00:02,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2268,,1,236,external:1,True,control genes
+2026-10-26T19:00:05,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2269,,1,236,external:1,True,control genes
+2026-10-26T19:00:08,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2270,,1,236,external:1,True,control genes
+2026-10-26T19:00:12,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2271,,1,236,external:1,True,control genes
+2026-10-26T19:00:15,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2086,,1,1760,external:1,True,control genes
+2026-10-26T19:00:18,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2087,,1,1760,external:1,True,control genes
+2026-10-26T19:00:21,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2443,,1,75,external:1,True,control genes
+2026-10-26T19:00:25,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_1905,,1,1922,external:1,True,control genes
+2026-10-26T19:00:28,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2485,,1,152,external:1,True,control genes
+2026-10-26T19:00:32,harmonise_screens.py:guarded_controls:225,control_only,setB:ORCS_2486,,1,152,external:1,True,control genes
+2026-10-26T19:00:32,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S02,,1,17753,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:33,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S04,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:34,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S05,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:35,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S06,,1,17752,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:35,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S07,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:36,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv3_S12,,1,17754,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:36,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S08,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:37,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S09,,1,17651,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:37,harmonise_screens.py:blind_write,harmonise_write_only,setB:olivieri2020_TKOv2_S10,,1,17425,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:38,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_Durocher_T3,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:39,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T18,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:39,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE002_T30,,1,17740,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:40,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_WT_PACE006_T25,,1,17747,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:brown2019_p53null_TKOv2_T18,,1,17646,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:41,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_WT_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:42,harmonise_screens.py:blind_write,harmonise_write_only,setB:haapaniemi2018_null_D28,,1,18960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:hart2015_RPE1_T18,,1,16352,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_WT_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:bowden2020_KO_D19,,1,960,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:43,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_MEF_T8,,1,16603,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:44,harmonise_screens.py:blind_write,harmonise_write_only,setB:mair2019_H1_laminin_T12,,1,17743,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:45,harmonise_screens.py:blind_write,harmonise_write_only,setB:yilmaz2018_hpES10_D23,,1,18101,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:46,harmonise_screens.py:blind_write,harmonise_write_only,setB:ihry2019_hPSC_D18,,1,18485,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:47,harmonise_screens.py:blind_write,harmonise_write_only,setB:shifrut2018_CD8T_GW,,1,18981,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:47,harmonise_screens.py:blind_write,harmonise_write_only,setB:ting2018_CD4T_D6,,1,2455,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:48,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2021_neuron_CRISPRi,,1,18699,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:48,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_iPSC_D10_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:tian2019_neuron_D28_CRISPRi,,1,2240,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:drager2022_microglia_CRISPRi,,1,2316,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:49,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_572,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_573,,1,18066,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1030,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:50,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1031,,1,18046,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_799,,1,17986,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:51,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1791,,1,17828,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:52,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1792,,1,17827,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:52,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1932,,1,20779,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:52,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1933,,1,20781,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:53,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1934,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:53,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1935,,1,20787,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:53,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2248,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2249,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2250,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2251,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2252,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2253,,1,1955,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2254,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:54,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2255,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2256,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2257,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2258,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2259,,1,1948,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2260,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2261,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2262,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2263,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2264,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:55,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2265,,1,1958,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2266,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2267,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2268,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2269,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2270,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2271,,1,1949,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:56,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2086,,1,17987,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2087,,1,17988,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2443,,1,773,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_1905,,1,19356,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:57,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2485,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:00:58,harmonise_screens.py:blind_write,harmonise_write_only,setB:ORCS_2486,,1,1800,external:1,True,full harmonised profile written to cache/harmonised (not returned/printed)
+2026-10-26T19:01:01,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_RPE1,,16,,external:16,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T19:07:28,harmonise_screens.py:replicate_ceilings,replicate_ceiling_aggregate,setB:ceiling_hPSC,,4,,external:4,True,pairwise aggregate agreement between observed screens (no model)
+2026-10-26T19:09:39,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_bootstrap_RPE1,,7,,external:7,True,gene-block bootstrap SE of replicate-ceiling skill (aggregate only; no model)
+2026-10-26T19:25:19,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_bootstrap_hPSC,,3,,external:3,True,gene-block bootstrap SE of replicate-ceiling skill (aggregate only; no model)
+2026-10-26T20:03:19,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_d13_RPE1,,12,,external:12,True,"D13 LOSO replicate-ceiling skill, hierarchical bootstrap (aggregate only; no model)"
+2026-10-26T20:04:57,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_d13_hPSC,,4,,external:4,True,"D13 LOSO replicate-ceiling skill, hierarchical bootstrap (aggregate only; no model)"
+2026-10-26T20:10:50,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_d13_RPE1,,12,,external:12,True,"D13 LOSO replicate-ceiling skill, hierarchical bootstrap (aggregate only; no model)"
+2026-10-26T20:12:39,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_d13_hPSC,,4,,external:4,True,"D13 LOSO replicate-ceiling skill, hierarchical bootstrap (aggregate only; no model)"
+2026-10-26T20:14:34,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_d13_RPE1,,12,,external:12,True,"D13 LOSO replicate-ceiling skill, hierarchical bootstrap (aggregate only; no model)"
+2026-10-26T20:16:54,transfer_criteria.py:main,replicate_ceiling_aggregate,setB:ceiling_d13_hPSC,,4,,external:4,True,"D13 LOSO replicate-ceiling skill, hierarchical bootstrap (aggregate only; no model)"

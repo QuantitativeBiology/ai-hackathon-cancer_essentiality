@@ -119,7 +119,18 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - Control-gene sanity AUROC: ≥0.86 for RPE1/hPSC KO screens. Fails: Haapaniemi RPE1-WT Brunello (0.66) and
     Dräger microglia CRISPRi (0.64).
   - Gaps: iPSC-derived screens are CRISPRi gene-level only; primary blood screens are sort-based (Shifrut, Ting CD34+).
-- [~] G5a Screen harmonisation (anchors + controls only) → configs/harmonisation_frozen.json, screen_plan.csv
+- [x] G5a Screen harmonisation (anchors + controls only) → configs/harmonisation_frozen.json, screen_plan.csv
+  - QC pass: RPE1 (Olivieri, Brown, Hart, Haapaniemi-null, Bowden) and hPSC (Mair, Ihry, Yilmaz).
+    QC fail: Haapaniemi-WT, Shifrut CD8 T, CRISPRi (Tian, Dräger).
+  - Anchor deviation agreement: TKO ≈0.09 (gene-wise not applied); Yusa 0.26 and Wang 0.29 after gene-wise.
+    Simulated batch undone (RMSE 1.17 → 0.09). Chronos for TKOv3 not adopted (D11).
+  - [!] Replicate ceilings, independent same-background screens used as predictors:
+    - RPE1: skill over the pan-cancer gene mean ΔAP 0.031 (SE 0.051); Δrecall vs B1-nearest 0.002.
+    - hPSC: −0.098 (other hPSC screens predict Mair worse than the cancer gene mean).
+    - Cross-study variability in untransformed screens is as large as any cell-type-specific signal. This bounds
+      what any model can show for Q3b.
+  - [x] Transfer criteria frozen (D13), tag `freeze-transfer`. MDE: RPE1 Q3a 0.101, Q3b 0.162; hPSC 0.082/0.082.
+    Nearest lineages frozen: RPE1 → CNS/Brain, hPSC → Testis.
 - [x] G5b Expression harmonisation (matched DepMap dev lines) → configs/expression_harmonisation.json
   - 12 exact dev matches (ENCODE via GEO, Tzelepis). Recall@1 0.83 and recall@10 1.0 for every candidate → quantile
     adopted (D9).

@@ -3,6 +3,8 @@
     python scripts/gate.py G0     # runs the full test suite (pytest -q tests) + frozen-hash check
     python scripts/gate.py G1     # baseline sanity on the latest ok b0/b1/b2 registry runs
 
+    python scripts/gate.py G2     # M1/M1b/R1/T/M2 + ablation: scripts/g2_report.py output
+
 G1 requires a passed G0. Checks (DESIGN §12): B0 P1 is exactly 0 in every fold and gene class;
 B1 P1 (variable) > 0 with every fold > 0. B2 is reported, not gated.
 """
@@ -67,9 +69,49 @@ def g1():
     return checks
 
 
+def g2():
+    """DESIGN §12 G2 "choose features". Checks fixed before the G2 results were seen."""
+    g1j = GATES / "G1.json"
+    if not g1j.exists() or not json.loads(g1j.read_text())["pass"]:
+        raise SystemExit("G1 has not passed")
+    p = subprocess.run([sys.executable, "-m", "pytest", "-q", "tests", "-p", "no:cacheprovider"],
+                       cwd=ROOT, capture_output=True, text=True)
+    tail = [l for l in p.stdout.strip().splitlines() if l.strip()][-1]
+    summ = json.loads((ROOT / "results" / "g2_summary.json").read_text())
+    reg = pd.read_csv(ROOT / "results" / "registry.csv", dtype=str)
+    runs = {r["name"]: r for r in summ["runs"]}
+    sp = pd.read_csv(ROOT / "configs" / "splits.csv", index_col=0)
+    n_dev = int((sp["role"] == "dev").sum())
+    bad = [n for n, r in runs.items() if not r["line_subset"] and int(r["n_lines"]) != n_dev]
+    leaky = reg[reg["run_id"].isin([r["run_id"] for r in runs.values()]) & (reg["leaky"] != "0")]
+    old_b1 = reg[(reg["name"] == "b1") & (reg["status"] == "ok")].iloc[0]
+    old_b2 = reg[(reg["name"] == "b2") & (reg["status"] == "ok")].iloc[0]
+    perm = runs.get("m1_E_permuted", {})
+    checks = [
+        {"check": "pytest -q tests (incl. kernel-ridge known answers, frozen hashes)", "result": tail,
+         "pass": p.returncode == 0},
+        {"check": "every planned G2 run has an ok registry row", "missing": summ["missing_runs"],
+         "pass": not summ["missing_runs"]},
+        {"check": "full-line runs cover all dev lines (5 folds)", "bad": bad, "pass": not bad},
+        {"check": "no leaky runs", "pass": leaky.empty},
+        {"check": "B1 re-run reproduces the G1 P1 variable (classes changed only rare_selective)",
+         "old": float(old_b1["P1_variable"]), "new": runs["b1"]["P1_var"],
+         "pass": abs(float(old_b1["P1_variable"]) - runs["b1"]["P1_var"]) < 1e-4},
+        {"check": "vectorised B2 reproduces the G1 P1 variable",
+         "old": float(old_b2["P1_variable"]), "new": runs["b2"]["P1_var"],
+         "pass": abs(float(old_b2["P1_variable"]) - runs["b2"]["P1_var"]) < 1e-4},
+        {"check": "negative control: permuted features do not beat B1 (dP1 <= 0.01)",
+         "dP1_vs_B1": perm.get("dP1_B1"), "pass": perm.get("dP1_B1") is not None
+         and perm["dP1_B1"] <= 0.01},
+        {"check": "features chosen by the DESIGN §4 rule", "selected_m1": summ["selected_m1"],
+         "selected_model": summ["selected_model"], "pass": summ["selected_m1"] not in (None, "b1")},
+    ]
+    return checks
+
+
 def main():
     gate = sys.argv[1]
-    checks = {"G0": g0, "G1": g1}[gate]()
+    checks = {"G0": g0, "G1": g1, "G2": g2}[gate]()
     commit, dirty = _git()
     out = {"gate": gate, "pass": all(c["pass"] for c in checks), "checks": checks,
            "commit": commit, "dirty_tree": dirty,
