@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-import g3_report as R
+import g3_kernel_report as R
 
 rng = np.random.default_rng(5)
 
