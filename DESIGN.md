@@ -1,6 +1,7 @@
 # DESIGN — predicting CRISPR gene essentiality for unscreened human cells
 
-Version: **v2** (after review rounds 1–2; responses in `reviews/round{1,2}_response.md`), 2026-10-26.
+Version: **v3 — FROZEN** (after review rounds 1–3; responses in `reviews/round{1,2,3}_response.md`), 2026-10-26.
+Changes after freeze are logged in RESEARCH_TREE.md with the reason.
 Goal and parts are fixed by PROMPT.md. Evidence base: LITERATURE.md.
 
 ## 1. Questions
@@ -88,13 +89,17 @@ Entrez is the master ID, mapped via HGNC. Coverage is reported for every externa
 - **Secondary splits on dev:**
   - Leave-one-lineage-out.
   - Leave-out of the 7 germ-cell/embryonal-carcinoma lines (EC-capability test for hPSC transfer).
-- **Gene classes (§4)** for test, set A and set B: computed once from all 1022 dev lines and committed as
-  `configs/gene_classes.csv` before the test is opened. In CV they are recomputed on each training fold.
+- **Gene classes (§4):** for *evaluation reporting* everywhere (CV, test, set A, set B), one list computed from all
+  1022 dev lines is committed as `configs/gene_classes.csv` before any model is compared.
+  - It is identical for every model, so it favours none, and fold differences never reflect class membership.
+  - Wherever classes feed into *training* decisions (e.g. grouped λ, M3 gene choice), they are recomputed on each
+    training fold.
 
 ## 4. Evaluation (pre-registered)
 ### Evaluable genes
-One fixed evaluable gene set, `configs/eval_genes.csv`: genes with ≥40 observed lines in every dev fold and ≥50 in
-test. Test counts come from a logged, mask-only guard call that never returns values. All metrics use this set, so
+- Cancer dev/test: one fixed evaluable gene set, `configs/eval_genes.csv`, with genes having ≥40 observed lines in
+  every dev fold and ≥50 in test.
+- Set A and set B: `eval_genes_external`, i.e. genes observed in the screen (and, for set A, in ≥3 of its lines). Test counts come from a logged, mask-only guard call that never returns values. All metrics use this set, so
 fold differences never reflect which genes were scored.
 
 ### Gene classes
@@ -189,7 +194,9 @@ Run on the same folds, for fair prior-work comparison:
   - Pre-check first: an MLP on PCs vs ridge on one fold. M4 is dropped if the MLP loses.
 - **M5** — stacking. Nested out-of-fold predictions grouped by patient, non-negative weights per gene class.
   Plain averaging is the baseline it must beat.
-- **Diagnostic only:** reduced-rank regression; low-rank denoising of Y.
+- **Cut for executability (round 3):** reduced-rank regression and low-rank denoising of Y.
+- **Deferred unless time allows:** M1b weight tuning (default 1/√p_b first); R3 random forest; Celligner-style
+  expression alignment.
 - **Not prioritised:** foundation-model embeddings (beaten by raw expression in 2025 benchmarks), STRING graph networks.
 
 ### Transfer model T (pre-registered)
@@ -202,8 +209,9 @@ Run on the same folds, for fair prior-work comparison:
 
 ### Frozen models for evaluation
 - Cancer test set: the model refit on all 1022 dev lines.
-- Set A and set B: the average of the 5 dev fold-models. Each fold model is trained on ~4/5 of dev, the same size as
-  the models behind anchor out-of-fold predictions, which keeps anchors and external screens comparable.
+- Set A and set B: the average of the 5 dev fold-models.
+- Anchors: the average of the **4 fold-models not trained on that anchor**. Ensembling is then matched between
+  anchors and external screens, so ensembling cannot bias the "≥50% of anchor skill" criterion.
 - `configs/finalists.json` freezes the headline model, model T and the H3 no-EC variant at gate G4.
 
 ## 6. Ablation (dev CV; λ re-tuned per configuration)
@@ -234,8 +242,9 @@ Run on the same folds, for fair prior-work comparison:
   Expected "inconclusive" outcomes are therefore declared in advance.
 
 ### 7.2 Screen harmonisation (choices fixed on controls and anchors only, committed before any model predictions on set B)
-1. **Uniform re-scoring.** When counts exist, compute guide LFC vs plasmid/T0, then gene score by Chronos (fit fresh
-   per library) or median guide LFC. The choice is made on anchors.
+1. **Uniform re-scoring.** When counts exist, compute guide LFC vs plasmid/T0, then a gene score.
+   - Default: median guide LFC.
+   - Chronos is refit (fresh, per library) only where anchors show that median LFC fails the §7.2 validation.
 2. **Per-screen affine scaling:**
    - scaling set = DepMap common essentials (dev) minus a held-out half of CEGv2 → −1;
    - half of NEGv1 → 0;
@@ -284,9 +293,13 @@ Run on the same folds, for fair prior-work comparison:
   each external profile.
 
 ### 7.4 Core-essential transfer
+Labels: harmonised effect < −0.5, plus a **scale-free rank label** (the 10% most depleted genes per screen) that does
+not depend on CEG-based scaling.
 Per screen, using observed harmonised labels (effect < −0.5), with the evaluation halves of CEGv2/NEGv1 also
 reported:
-- **Primary statistic (Q3a):** ΔAUPRC of model T vs B0, per screen.
+- **Primary evidence (Q3a):** the absolute AUPRC of model T, per screen and per label, relative to the replicate
+  ceiling (the AUPRC of an independent same-cell-type screen used as the predictor).
+- **Secondary:** ΔAUPRC vs B0. It is structurally small for core essentials, which B0 already captures.
 - Also reported: AUPRC/AUROC of T and the full model vs B0, B1 and B2 (kNN in harmonised expression space), plus the
   observed replicate ceiling.
 - **Lost/gained essentials:** cancer common essentials that are not essential in the screen, and vice versa. Did
@@ -331,8 +344,16 @@ reported:
   expected near 0 in both prediction and observation. This is a null check.
 
 ### 7.6 Decision rule (thresholds committed in `configs/transfer_criteria.json` before set-B predictions)
-- Only Q3a and Q3b get primary verdicts. Each is one of **transfers / fails / inconclusive**, per screen, with a
-  committed count rule for the overall verdict (e.g. "transfers" if ≥2/3 of evaluable KO screens transfer).
+- Only Q3a and Q3b get primary verdicts. Each is one of **transfers / fails / inconclusive**.
+- Verdicts are given per **biological background**: the RPE1 datasets are one background, hPSC lines another,
+  primary T cells another. The overall verdict is "transfers" if a majority of evaluable backgrounds transfer.
+- H1–H4 are secondary. Criteria and thresholds are committed in `configs/transfer_criteria.json` at G5, before any
+  set-B prediction. A hypothesis whose criterion is not committed by then is reported descriptively only.
+- **Thresholds also fixed in that file at G5, from anchors and controls only:**
+  - QC: NNMD < −1.0, or control-gap SSMD for non-Avana libraries;
+  - shrinkage prior;
+  - anchor-agreement improvement margin;
+  - MDE: 2 × the bootstrap SE of the replicate-ceiling skill.
 - **Transfers:** the lower CI bound of skill over B0 (Q3a) or B1 (Q3b) is > 0, **and** skill is ≥ 50% of the
   same-pipeline anchor skill.
 - Comparison: skill over B0/B1 in non-transformed screens vs the same skill in transformed anchors processed through
@@ -380,8 +401,12 @@ reported:
 - **Test guard:**
   - Targets for test, set A or set B are released only to a run whose config hash is listed in a
     `configs/finalists.json` committed earlier, on a clean tree, with `ESSML_UNBLIND=1`.
-  - Exactly one logged test access per finalist; every access goes to `results/test_access_log.csv`.
-  - Mask-only counts (`observed_counts`) are the single exception, and they are logged.
+  - Exactly one logged access per finalist (test) and per finalist × screen (set A/B, staged per screen); every
+    access goes to `results/test_access_log.csv`.
+  - Logged exceptions:
+    - mask-only counts (`observed_counts`);
+    - control-gene reads (CEGv2/NEGv1/scaling-set genes only) of external screens for harmonisation and QC before
+      the transfer freeze.
   - A static test fails if any module other than `io.py`/`guard.py` reads the CRISPR file directly.
   - Set-A and set-B prediction code refuses to run until `configs/harmonisation_frozen.json` and
     `configs/transfer_criteria.json` are committed.
@@ -437,5 +462,6 @@ reported:
 | G3 | M3/M4 go/no-go (time box 1 day each); M5 | Choose headline model |
 | G4 | Commit finalists.json, gene_classes.csv | Unblind test once; independent reproduction |
 | G5 | In parallel from now: external acquisition → harmonisation validation | Commit criteria/transfer_criteria.json |
+| G5a | Set A (batch-free) is evaluated before set B | — |
 | G6 | Apply frozen models to set A and set B | Verdicts per §7.6 |
 | G7 | REPORT.md | Number check passes; red-team review |
