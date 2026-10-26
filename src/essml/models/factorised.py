@@ -197,6 +197,11 @@ def svd_gene_init(Ys, emb_dim):
     return (W * (s / np.sqrt(n))).astype(np.float32)
 
 
+def masked_mse(out, y, m):
+    """Mean squared error over observed cells only (m = 1 observed, 0 masked; y finite)."""
+    return (((out - y) ** 2) * m).sum() / m.sum().clamp(min=1.0)
+
+
 def train_net(torch, P_tr, Y_tr, P_va, Y_va, var_va, *, arch, hidden, dropout, emb_dim, lr,
               weight_decay, batch, max_epochs, patience, seed, V_init=None, fixed_epochs=None):
     """Masked-MSE training. With validation data: early stopping on mean per-gene r (var_va genes);
@@ -223,7 +228,7 @@ def train_net(torch, P_tr, Y_tr, P_va, Y_va, var_va, *, arch, hidden, dropout, e
             b = perm[s:s + batch]
             out = net(Xt[b])
             m = Mt[b]
-            loss = (((out - Yt[b]) ** 2) * m).sum() / m.sum().clamp(min=1.0)
+            loss = masked_mse(out, Yt[b], m)
             opt.zero_grad()
             loss.backward()
             opt.step()

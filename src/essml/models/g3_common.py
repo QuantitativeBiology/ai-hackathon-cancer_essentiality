@@ -12,7 +12,7 @@ Everything here is fitted on TRAINING lines only:
   for early stopping / hyper-parameter choice.
 - ``masked_r``: per-gene Pearson r over observed rows (NaN-aware), used for inner criteria only
   (the reported metrics come from the frozen ``essml.evaluate``).
-- ``gene_parallel``: process pool for per-gene fits (1 thread per process).
+- ``make_pool``: process pool for per-gene fits (1 thread per process).
 """
 from __future__ import annotations
 
@@ -216,18 +216,31 @@ def set_single_thread():
         pass
 
 
-def gene_parallel(func, tasks, n_jobs, initializer=None, initargs=()):
-    """Map ``func`` over ``tasks`` in ``n_jobs`` single-thread processes (in order).
-
-    n_jobs <= 1 runs in-process (tests)."""
-    if n_jobs <= 1:
+class _SerialPool:
+    def __init__(self, initializer=None, initargs=()):
         if initializer is not None:
             initializer(*initargs)
-        return [func(t) for t in tasks]
+
+    def map(self, func, tasks, chunksize=1):
+        return map(func, tasks)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+def make_pool(n_jobs, initializer=None, initargs=()):
+    """Process pool of ``n_jobs`` single-thread workers (context manager with ``.map``).
+
+    n_jobs <= 1 runs in-process (tests). Large read-only arrays go through ``initializer`` once
+    per worker instead of with every task."""
+    if n_jobs <= 1:
+        return _SerialPool(initializer, initargs)
     from concurrent.futures import ProcessPoolExecutor
-    with ProcessPoolExecutor(max_workers=n_jobs, initializer=_pool_init,
-                             initargs=(initializer, initargs)) as ex:
-        return list(ex.map(func, tasks))
+    return ProcessPoolExecutor(max_workers=n_jobs, initializer=_pool_init,
+                               initargs=(initializer, initargs))
 
 
 def _pool_init(initializer, initargs):
