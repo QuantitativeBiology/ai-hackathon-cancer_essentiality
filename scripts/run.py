@@ -23,6 +23,12 @@ Config keys:
                          Needed only for finalists that will predict new lines (set A / set B).
     line_subset          optional raw feature block (cache/features/<block>.parquet, e.g. "P"):
                          restrict the run (training AND evaluation) to dev lines present in it
+    fold_scheme          secondary splits (DESIGN §3): "cv" (default: configs/splits.csv cv_fold) or
+                         "lineage" (leave-one-lineage-out: outer fold k = k-th dev lineage in sorted
+                         order; summary.json records the fold -> lineage map)
+    exclude_from_training  dev ModelIDs never used for training (every outer and inner fit; the
+                         sentinel raises if one reaches a fit) but still predicted in their own
+                         held-out fold (H3 no-EC variant, EC leave-out split)
 
 Protocol per outer fold k (dev lines only; targets come from essml.guard.load_targets):
     training lines = dev folds != k; held-out = fold k.
@@ -91,7 +97,8 @@ from essml.modelstore import predict_anchor, predict_new  # noqa: E402,F401  (re
 from essml.evaluate import evaluate  # noqa: E402
 
 REGISTRY = ROOT / "results" / "registry.csv"
-MODELS = {**baselines.MODELS, **_models.MODELS}
+from essml.models.g3 import MODELS as _G3_MODELS  # noqa: E402  (G3 nonlinear track)
+MODELS = {**baselines.MODELS, **_models.MODELS, **_G3_MODELS}
 REF_CACHE = ROOT / "cache" / "ref_preds"
 REG_COLS = ["run_id", "timestamp", "name", "model", "config", "config_hash", "git_commit",
             "dirty_tree", "splits_sha256", "roles_used", "n_train_ids", "leaky", "status",
@@ -229,11 +236,13 @@ def run_cv(Y, folds, groups, lineage, X, cfg, eval_genes, neg, seed, folds_to_ru
     fl = [int(f) for f in (sorted(folds.unique()) if folds_to_run is None else folds_to_run)]
     preds, ref_preds = [], {b: [] for b in refs}
     out = {"models": {}, "chosen": {}, "inner": {}, "fit_s": {}, "predict_s": {}}
+    excl = pd.Index(map(str, cfg.get("exclude_from_training", [])))
     for f in fl:
         ho = folds.index[folds == f]
         tr = folds.index[folds != f]
+        tr = tr[~tr.astype(str).isin(excl)]  # excluded lines never train (still predicted)
         Y_tr = Y.loc[tr]  # training targets only from here on
-        sent = Sentinel(ho, f)
+        sent = Sentinel(ho.union(excl), f)
         model, pred, best, table, tf, tp = fit_predict_fold(
             cfg["model"], cfg.get("params", {}), cfg.get("grid", {}), Y_tr, ho, lineage, X, groups,
             sent, eval_genes, neg, cfg.get("inner_folds", 5), seed + int(f),
@@ -431,6 +440,17 @@ def main(argv=None):
             dev = dev[dev.index.isin(keep)]
         folds = dev["cv_fold"].astype(int)
         lineage = dev["OncotreeLineage"].astype(str)
+        scheme = cfg.get("fold_scheme", "cv")
+        fold_names = None
+        if scheme == "lineage":  # leave-one-lineage-out (DESIGN §3 secondary split)
+            levels = sorted(lineage.unique())
+            folds = lineage.map({l: i for i, l in enumerate(levels)}).astype(int)
+            fold_names = dict(enumerate(levels))
+        elif scheme != "cv":
+            raise ValueError(f"unknown fold_scheme {scheme}")
+        excl = pd.Index(map(str, cfg.get("exclude_from_training", [])))
+        if not excl.isin(dev.index).all():
+            raise ValueError("exclude_from_training must list dev lines of this run")
         groups = dev["PatientID"].astype(str)
         Y = guard.load_targets(dev.index, config_hash=ch).astype(np.float64)
         roles = guard.roles_of(Y.index).value_counts()
@@ -450,6 +470,10 @@ def main(argv=None):
         fl = None if a.folds is None else [int(x) for x in a.folds.split(",")]
         n_log = len(FIT_LOG)
         res = run_cv(Y, folds, groups, lineage, X, cfg, eval_genes, neg, seed, fl)
+        if cfg.get("oracle_select"):  # deliberately leaky diagnostic (e.g. non-nested R4)
+            if not cfg.get("leaky"):
+                raise LeakageError("oracle_select reads held-out targets: the config must set leaky=1")
+            res["pred"] = MODELS[cfg["model"]].oracle_select(res, Y, folds)
         train_ids = set().union(*[set(e["ids"]) for e in FIT_LOG[n_log:]])
         if (guard.roles_of(sorted(train_ids)) != "dev").any():
             raise LeakageError("non-dev IDs reached a fit")
@@ -486,6 +510,8 @@ def main(argv=None):
                    "gene_classes_sha256": row["gene_classes_sha256"], "tree_clean": row["tree_clean"],
                    "roles_used": row["roles_used"], "n_train_ids": row["n_train_ids"],
                    "threads": threads, "seed": seed, "n_lines": len(ho_ids),
+                   "fold_scheme": scheme, "fold_names": fold_names,
+                   "excluded_from_training": list(excl),
                    "n_eval_genes": len(eval_genes), "neg_mapping": neg_rep,
                    "chosen_params": {str(k): v for k, v in res["chosen"].items()},
                    "inner_cv": {str(k): v for k, v in res["inner"].items()},

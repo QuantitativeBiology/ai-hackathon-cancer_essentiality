@@ -1,0 +1,42 @@
+{
+ "name": "ctl_resB0_perm_linlib",
+ "model": "M1",
+ "features": [],
+ "params": {
+  "modalities": [
+   "E"
+  ],
+  "residual": "B0",
+  "permute_seed": 0,
+  "permute_within": "lineage_library"
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "expected": "Expression rows deranged within lineage x library group: lineage and library information survive, so P1 variable within [B1 - 0.04, B1 + 0.03] (library-predictable structure is worth <= ~0.03, review \u00a74), within-lineage P1 < 0.03, within-library P1 <= B1's within-library P1 + 0.01, and P1 far below m1_E_resB0 (> 0.08)."
+}

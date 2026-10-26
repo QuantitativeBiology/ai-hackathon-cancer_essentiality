@@ -318,6 +318,61 @@ def tune_kappa(Y: pd.DataFrame, lineage: pd.Series, groups, seed, n_splits=5, gr
     return float(grid[int(np.argmax(mean))]), mean
 
 
+# ============================================================================ negative-control permutations
+PERMUTE_STRATA = (None, "lineage", "lineage_library")
+
+
+def permutation_strata(within, splits_path=ROOT / "configs" / "splits.csv",
+                       lib_path=ROOT / "configs" / "library_groups.csv") -> pd.Series:
+    """Stratum label per DEV line: OncotreeLineage, or lineage x library group (G3 controls).
+
+    Library group = configs/library_groups.csv (dev NaN-pattern groups; scripts/make_library_groups.py).
+    """
+    sp = pd.read_csv(splits_path, index_col=0)
+    dev = sp[sp["role"] == "dev"]
+    lab = dev["OncotreeLineage"].astype(str)
+    if within == "lineage_library":
+        lib = pd.read_csv(lib_path, index_col=0)["lib_group"].reindex(dev.index)
+        if lib.isna().any():
+            raise ValueError("library group missing for some dev lines")
+        lab = lab + "|" + lib.astype(int).astype(str)
+    return lab
+
+
+def permutation_map(allids, seed, within=None) -> dict:
+    """ModelID -> ModelID whose feature row it receives (bijection on ``allids``).
+
+    within=None: one global permutation of all IDs (the G2 control, unchanged). Otherwise DEV lines
+    are permuted only among dev lines of the same stratum (``permutation_strata``); every other ID
+    keeps its own row. Within a stratum the permutation is a random single cycle (a derangement), so
+    no dev line keeps its own features: a uniform permutation leaves ~1 fixed point per stratum
+    (~91 lines for lineage x library). Singleton strata cannot be deranged: for lineage x library
+    they are pooled per lineage ("<lineage>|pool"), and any stratum still of size 1 joins one
+    global pool ("__pool__"); those few lines receive features of another lineage/library.
+    Strata are visited in sorted order, so the map is deterministic in ``seed``.
+    """
+    allids = sorted(map(str, allids))
+    rng = np.random.default_rng(int(seed))
+    if within is None:
+        perm = rng.permutation(len(allids))
+        return dict(zip(allids, np.asarray(allids)[perm]))
+    lab = permutation_strata(within)
+    lab = lab[lab.index.isin(allids)].copy()
+    if within == "lineage_library":
+        single = lab.map(lab.value_counts()) == 1
+        lab[single] = lab[single].str.split("|").str[0] + "|pool"
+    single = lab.map(lab.value_counts()) == 1
+    lab[single] = "__pool__"
+    remap = {i: i for i in allids}
+    for _, ids in sorted(lab.groupby(lab).groups.items()):
+        ids = np.array(sorted(map(str, ids)))
+        if len(ids) < 2:
+            continue
+        order = ids[rng.permutation(len(ids))]
+        remap.update(zip(order, np.roll(order, -1)))  # order[i] -> order[i+1]: one cycle
+    return remap
+
+
 # ============================================================================ model classes
 class KernelRidgeM1:
     """M1 (modalities=['E']) / M1b (several modalities, 1/sqrt(p_b) block weights)."""
@@ -327,7 +382,8 @@ class KernelRidgeM1:
     lam_groups = "variable"
 
     def __init__(self, modalities=("E",), clip=8.0, lam_grid=None, merge_frac=0.01, min_rows=50,
-                 kappa=None, seed=20261026, scale=None, permute_seed=None, residual=None):
+                 kappa=None, seed=20261026, scale=None, permute_seed=None, residual=None,
+                 permute_within=None):
         self.modalities = list(modalities)
         self.clip = float(clip)
         self.lam_grid = np.asarray(LAM_GRID if lam_grid is None else lam_grid, np.float64)
@@ -336,6 +392,9 @@ class KernelRidgeM1:
         self.seed = int(seed)
         self.scale = scale
         self.permute_seed = permute_seed  # negative control: feature rows shuffled across lines
+        if permute_within not in PERMUTE_STRATA:
+            raise ValueError(f"permute_within must be one of {PERMUTE_STRATA}")
+        self.permute_within = permute_within  # None = global shuffle (G2 control); else strata
         if residual is not None:  # diagnostic override of the class default ("B1" / "B0")
             if residual not in ("B0", "B1"):
                 raise ValueError("residual must be 'B0' or 'B1'")
@@ -350,8 +409,7 @@ class KernelRidgeM1:
         raw = load_raw_blocks(raw_names(self.specs_))
         if self.permute_seed is not None:  # same permutation of ModelIDs for every block
             allids = sorted(set().union(*[set(b.index) for b in raw.values()]))
-            perm = np.random.default_rng(int(self.permute_seed)).permutation(len(allids))
-            remap = dict(zip(allids, np.asarray(allids)[perm]))
+            remap = permutation_map(allids, int(self.permute_seed), self.permute_within)
             raw = {k: v.rename(index=remap) for k, v in raw.items()}
         return raw
 

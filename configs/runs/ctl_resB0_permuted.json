@@ -1,0 +1,41 @@
+{
+ "name": "ctl_resB0_permuted",
+ "model": "M1",
+ "features": [],
+ "params": {
+  "modalities": [
+   "E"
+  ],
+  "residual": "B0",
+  "permute_seed": 0
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "expected": "Global shuffle of expression rows on the B0 path (headline path): the LOO lambda goes to the upper grid edge and predictions ~ B0, so P1 variable ~ 0 (|P1| < 0.01) and dP1 vs B1 ~ -0.184."
+}
