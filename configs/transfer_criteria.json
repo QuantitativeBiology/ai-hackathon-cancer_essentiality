@@ -1,0 +1,239 @@
+{
+ "_status": "DRAFT (scripts/transfer_criteria.py). Binding only once committed by the PI at G5, before any set-B prediction (DESIGN v3 \u00a77.6). Thresholds derived from anchors, controls and observed-vs-observed replicate agreement only; no model has been applied to set A or set B.",
+ "decisions": {
+  "D7": "set-A/B skill = mean over the per-fold (5 dev CV) frozen models; it is matched against anchor skill computed with single out-of-fold (OOF) anchor predictions (each anchor line predicted by the fold model that did not train on it)",
+  "D10": "harmonised effects on the DepMap-matched affine scale (configs/harmonisation_frozen.json)",
+  "D12": "no gene-wise correction for Yilmaz 2018; Wang-library anchors are not a same-pipeline anchor for it -> its verdicts are 'inconclusive' only"
+ },
+ "inputs": {
+  "harmonisation": "configs/harmonisation_frozen.json",
+  "screen_plan": "configs/screen_plan.csv",
+  "control_split": "configs/control_split.json",
+  "gene_classes": "configs/gene_classes.csv"
+ },
+ "qc": {
+  "from": "configs/harmonisation_frozen.json",
+  "ssmd_max_non_avana": -1.0,
+  "nnmd_max_avana": -1.0,
+  "min_eval_controls": 10
+ },
+ "shrinkage_prior": {
+  "kappa": 2.0,
+  "note": "EB gene-wise correction, see harmonisation_frozen.json"
+ },
+ "anchor_agreement_improvement_margin": 0.01,
+ "labels": {
+  "primary": "harmonised effect < -0.5 (DepMap-matched scale)",
+  "scale_free": "10% most depleted genes per screen",
+  "evaluable_genes": "eval_genes_external: genes scored in the screen and in the model output",
+  "rpe1_cegv2_sensitivity": "RPE1 results also reported without CEGv2 genes (CEGv2 partly derives from RPE1)"
+ },
+ "Q3a": {
+  "primary_reported": "absolute AUPRC of model T per screen and per label, reported relative to the replicate ceiling of its background (ratio AUPRC_T / ceiling AUPRC)",
+  "verdict_statistic": "skill = AUPRC(T) - AUPRC(B0) (per-gene dev mean), per screen; background skill = mean over the background's evaluable screens; CI from the gene-block bootstrap",
+  "secondary": [
+   "dAUPRC vs B0",
+   "AUPRC/AUROC of T and of the full model vs B0, B1, B2",
+   "lost/gained essentials (direction and rank predicted?)"
+  ]
+ },
+ "Q3b": {
+  "screen_specific": "observed harmonised effect < -0.5 AND DepMap dev dependency fraction <= 0.5 (configs/gene_classes.csv frac_below); secondary: fraction <= 0.05",
+  "verdict_statistic": "skill = recall(T) - recall(B1) at the threshold giving 5% FPR on the NEGv1 EVALUATION half (configs/control_split.json neg_evaluation); also reported vs B0 (and B2); Clopper-Pearson CIs per screen; background skill = mean over evaluable screens with a gene-block bootstrap CI",
+  "secondary": "deviation correlation over selective + rare-selective genes"
+ },
+ "bootstrap": {
+  "scheme": "gene-block bootstrap; blocks = paralog families = connected components of cache/priors/paralog_pairs.parquet pairs with min(identity, rev_identity) >= 30%; unpaired genes are singleton blocks",
+  "n_resamples": 1000,
+  "seed": 20261127,
+  "seed_rule": "configs/seeds.json split_seed + 101 (RPE1), + 102 (hPSC)",
+  "ci": "percentile 95%"
+ },
+ "verdicts": {
+  "transfers": "lower 95% CI bound of background skill over B0 (Q3a) or B1 (Q3b) > 0 AND skill >= 50% of the same-pipeline anchor skill (same lab/library anchors through the same harmonisation, D7 OOF)",
+  "fails": "ALL of: (1) skill <= 0 (point estimate not above the B0/B1 comparator); (2) upper 95% CI bound of skill < MDE of the background; (3) same-pipeline anchors show positive skill (lower CI > 0); (4) harmonisation validation passed for the screens (QC pass, configs/screen_plan.csv)",
+  "inconclusive": "otherwise, and always when a screen has no same-pipeline anchor or no replicate ceiling",
+  "expression_swap_cap": "profile-swap null: each screen is also predicted from other screens' expression profiles; matched must beat mismatched. If the swapped-profile skill has a lower 95% CI bound > 0, the verdict for that background is capped at 'inconclusive'",
+  "nearest_lineage_comparator": "B1 prediction for the closest cancer lineage is reported alongside",
+  "overall": "per question, 'transfers' if a strict majority of EVALUABLE backgrounds transfer; 'fails' if a strict majority fail; otherwise 'inconclusive'. With the two evaluable backgrounds (RPE1, hPSC) this means both must agree"
+ },
+ "backgrounds": {
+  "RPE1": {
+   "evaluable_screens": [
+    "olivieri2020_TKOv3_S02",
+    "olivieri2020_TKOv3_S04",
+    "olivieri2020_TKOv3_S05",
+    "olivieri2020_TKOv3_S06",
+    "olivieri2020_TKOv3_S07",
+    "olivieri2020_TKOv3_S12",
+    "olivieri2020_TKOv2_S08",
+    "olivieri2020_TKOv2_S09",
+    "olivieri2020_TKOv2_S10",
+    "brown2019_WT_Durocher_T3",
+    "brown2019_WT_PACE002_T18",
+    "brown2019_WT_PACE002_T30",
+    "brown2019_WT_PACE006_T25",
+    "brown2019_p53null_TKOv2_T18",
+    "haapaniemi2018_null_D28",
+    "hart2015_RPE1_T18",
+    "bowden2020_WT_D19",
+    "bowden2020_KO_D19"
+   ],
+   "ceiling_study_representatives": {
+    "olivieri2020": "olivieri2020_TKOv3_S05",
+    "brown2019_durocher": "brown2019_WT_Durocher_T3",
+    "brown2019_pace002": "brown2019_WT_PACE002_T30",
+    "brown2019_pace006": "brown2019_WT_PACE006_T25",
+    "brown2019_p53null": "brown2019_p53null_TKOv2_T18",
+    "haapaniemi2018": "haapaniemi2018_null_D28",
+    "hart2015": "hart2015_RPE1_T18"
+   },
+   "n_directed_pairs": 42,
+   "n_genes_universe": 19179,
+   "n_paralog_blocks": 11934,
+   "max_block_size": 162,
+   "replicate_ceiling": {
+    "auprc_all": 0.6613,
+    "auprc_ctrlfree": 0.5436,
+    "auprc_rank10": 0.6998,
+    "recall_q3b": 0.3815
+   },
+   "replicate_ceiling_bootstrap_se": {
+    "auprc_all": 0.0078,
+    "auprc_ctrlfree": 0.01,
+    "auprc_rank10": 0.0115,
+    "recall_q3b": 0.0186
+   },
+   "MDE": {
+    "Q3a_dAUPRC": 0.0157,
+    "Q3a_dAUPRC_ctrlfree": 0.02,
+    "Q3a_dAUPRC_rank10": 0.0229,
+    "Q3b_dRecall": 0.0372
+   }
+  },
+  "hPSC": {
+   "evaluable_screens": [
+    "mair2019_H1_MEF_T8",
+    "mair2019_H1_laminin_T12",
+    "yilmaz2018_hpES10_D23",
+    "ihry2019_hPSC_D18"
+   ],
+   "ceiling_study_representatives": {
+    "mair2019": "mair2019_H1_laminin_T12",
+    "yilmaz2018": "yilmaz2018_hpES10_D23",
+    "ihry2019": "ihry2019_hPSC_D18"
+   },
+   "n_directed_pairs": 6,
+   "n_genes_universe": 18979,
+   "n_paralog_blocks": 11894,
+   "max_block_size": 160,
+   "replicate_ceiling": {
+    "auprc_all": 0.5161,
+    "auprc_ctrlfree": 0.4481,
+    "auprc_rank10": 0.3381,
+    "recall_q3b": 0.1178
+   },
+   "replicate_ceiling_bootstrap_se": {
+    "auprc_all": 0.0067,
+    "auprc_ctrlfree": 0.0065,
+    "auprc_rank10": 0.0085,
+    "recall_q3b": 0.0153
+   },
+   "MDE": {
+    "Q3a_dAUPRC": 0.0134,
+    "Q3a_dAUPRC_ctrlfree": 0.013,
+    "Q3a_dAUPRC_rank10": 0.0171,
+    "Q3b_dRecall": 0.0306
+   }
+  },
+  "primary_T": {
+   "status": "inconclusive by declaration",
+   "reason": "Shifrut 2018 (SSMD -0.81) and Carnevale 2022 ORCS (-0.79) fail QC; Ting 2018 CD4 passes but covers ~2.5k genes with no same-pipeline anchor and no replicate ceiling"
+  },
+  "HMEC": {
+   "status": "not assessable",
+   "reason": "Tuano 2023 targeted libraries contain 2 NEGv1 evaluation genes (QC not assessable); Sack 2018 scores have unknown direction"
+  },
+  "other": {
+   "status": "not evaluated (no matched expression profile)",
+   "screens": "fetal NSC (ORCS 572/573/1030/1031), MCF-10A (2086/2087), HUDEP-2 (2443), intestinal organoid (2485/2486)"
+  }
+ },
+ "screen_level_notes": {
+  "hPSC": "Ihry 2019 (Novartis, no anchor) and Yilmaz 2018 (D12) are 'inconclusive only'; Mair 2019 (TKOv3, anchor HAP1: weak, single anchor) is the only hPSC screen that can reach transfers/fails",
+  "RPE1_TP53": {
+   "olivieri2020_TKOv3_S02": "KO",
+   "olivieri2020_TKOv3_S04": "KO",
+   "olivieri2020_TKOv3_S05": "KO",
+   "olivieri2020_TKOv3_S06": "KO",
+   "olivieri2020_TKOv3_S07": "KO",
+   "olivieri2020_TKOv3_S12": "KO",
+   "olivieri2020_TKOv2_S08": "KO",
+   "olivieri2020_TKOv2_S09": "KO",
+   "olivieri2020_TKOv2_S10": "KO",
+   "brown2019_WT_Durocher_T3": "WT",
+   "brown2019_WT_PACE002_T18": "WT",
+   "brown2019_WT_PACE002_T30": "WT",
+   "brown2019_WT_PACE006_T25": "WT",
+   "brown2019_p53null_TKOv2_T18": "KO",
+   "haapaniemi2018_null_D28": "KO",
+   "hart2015_RPE1_T18": "WT",
+   "bowden2020_WT_D19": "WT",
+   "bowden2020_KO_D19": "KO"
+  }
+ },
+ "hypotheses": {
+  "H1": {
+   "genes": [
+    "MDM2",
+    "PPM1D"
+   ],
+   "criterion": "within-screen percentile rank (low = more depleted) of the PREDICTED effect of MDM2 and of PPM1D is lower in TP53-WT backgrounds (RPE1 WT screens, hPSC) than in the TP53-null RPE1 screens, for BOTH genes (difference of mean percentiles < 0; gene-block bootstrap not applicable to 2 genes: screen-level permutation p < 0.05 across WT vs null screens)",
+   "excluded": "USP7 (broadly essential)"
+  },
+  "H1_prime": {
+   "type": "diagnostic only",
+   "genes": [
+    "TP53",
+    "CDKN1A",
+    "TP53BP1",
+    "USP28",
+    "CHEK2",
+    "ATM"
+   ],
+   "statistic": "observed positive effects in TP53-WT screens vs the cancer range (descriptive)"
+  },
+  "H2": {
+   "criterion": "model's WT - null delta (TP53 genotype feature flipped, same expression input) vs the observed WT - null delta over the 15 p53/DDR genes of configs/harmonisation_frozen.json: pass if sign agreement >= 70% over genes with |observed delta| > 0.25 AND Pearson r > 0.3",
+   "observed_pairs": {
+    "primary": "Bowden 2020 isogenic WT vs KO (custom DDR library)",
+    "secondary": "Brown 2019 PACE002 T18 (WT, TKOv3) vs Olivieri 2020 TKOv3 NT mean (TP53-/-, TKOv3); Haapaniemi WT fails QC"
+   }
+  },
+  "H3": {
+   "genes": [
+    "POU5F1",
+    "LIN28A",
+    "NANOG",
+    "SOX2",
+    "DPPA4",
+    "L1TD1",
+    "ZFP42",
+    "PRDM14"
+   ],
+   "criterion": "in hPSC screens, predicted effect < -0.5 for >= half of the set with the 7 germ-cell/EC lines in training; if this holds only with EC lines present (fewer than half without), the claim is 'narrow EC transfer'",
+   "observed_check": "observed hPSC effects for the set are reported descriptively"
+  },
+  "H4": {
+   "status": "inconclusive by declaration",
+   "reason": "primary T-cell screens fail QC (Shifrut SSMD -0.81); CD34+ (Ting) is a marker sort; SPI1 sits in the descriptive microglia CRISPRi stratum"
+  }
+ },
+ "negative_controls": [
+  "oncogene addictions KRAS/BRAF/CTNNB1 predicted ~0",
+  "TCR-signalling genes in T-cell screens",
+  "suppressor tail",
+  "neuron-specific biology",
+  "CN null: SMARCA2, ARID1B, STAG1, ME2/ME3, ENO1 ~0 in prediction and observation"
+ ]
+}

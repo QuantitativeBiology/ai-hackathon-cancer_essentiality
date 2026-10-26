@@ -12,7 +12,9 @@ Steps
       T0, replicates averaged per guide (mean of replicate LFCs), gene score = MEDIAN guide LFC
       (DESIGN v3 default) over genes with >= ``min_guides`` passing guides.
 (ii)  per-screen affine scaling (``affine_params`` / ``affine_apply``): median of the scaling set
-      -> -1 and median of the NEGv1 scaling half -> 0.
+      -> t_S and median of the NEGv1 scaling half -> t_N. Per PI decision D10 the targets are DepMap-matched
+      (t_S ~ -1.468, t_N ~ 0.007: medians of the same sets in DepMap dev lines, computed by the driver);
+      DESIGN's literal -1 / 0 is the function default and is reported as the alternative.
 (iii) gene-wise empirical-Bayes location (and, with >= 8 anchors, scale) correction per lab/library
       (``fit_genewise`` / ``apply_genewise``), fitted on TRANSFORMED anchor lines against their DepMap
       dev profiles, after step (ii). p53/DDR genes are excluded from the fit and never corrected.
@@ -56,6 +58,10 @@ DEFAULTS = {
     "improvement_margin": 0.01,  # LOAO mean gain in deviation correlation required to apply step (iii)
     "qc_nnmd_max": -1.0,         # DESIGN v3 §7.6 (Avana-type libraries)
     "qc_ssmd_max": -1.0,         # control-gap SSMD for non-Avana libraries (AUROC ~0.84 under normality)
+    "qc_min_controls": 10,       # QC is 'not assessable' with < 10 evaluation-half CEG or NEG genes scored
+    "affine_target_mode": "depmap_matched",  # PI decision D10; the driver sets the two targets below from dev lines
+    "affine_target_scaling": -1.0,  # function default; DepMap-matched value ~ -1.468 is set by the driver
+    "affine_target_neg": 0.0,       # function default; DepMap-matched value ~ 0.007
 }
 
 # DESIGN v3 §7.2: p53 / DNA-damage-response genes excluded from fitting and application of step (iii)
@@ -166,9 +172,11 @@ def affine_params(scores: pd.Series, scaling_set, neg_scaling):
     return m_s, m_n
 
 
-def affine_apply(scores, m_s, m_n):
-    """x -> (x - m_N) / (m_N - m_S): m_S -> -1, m_N -> 0."""
-    return (scores - m_n) / (m_n - m_s)
+def affine_apply(scores, m_s, m_n, target_s=None, target_n=None):
+    """Affine map with m_S -> target_s (default -1) and m_N -> target_n (default 0)."""
+    t_s = DEFAULTS["affine_target_scaling"] if target_s is None else target_s
+    t_n = DEFAULTS["affine_target_neg"] if target_n is None else target_n
+    return t_n + (scores - m_n) * (t_n - t_s) / (m_n - m_s)
 
 
 # ---------------------------------------------------------------- (iv) QC
@@ -198,6 +206,8 @@ def _auroc_low(e, n):
 
 def qc_pass(qc: dict, avana_like=False, nnmd_max=None, ssmd_max=None) -> bool:
     """DESIGN v3 §7.6: NNMD < -1.0 for Avana-type libraries, control-gap SSMD otherwise."""
+    if min(qc.get("n_ceg_eval", 0), qc.get("n_neg_eval", 0)) < DEFAULTS["qc_min_controls"]:
+        return False  # not assessable -> does not pass
     nnmd_max = DEFAULTS["qc_nnmd_max"] if nnmd_max is None else nnmd_max
     ssmd_max = DEFAULTS["qc_ssmd_max"] if ssmd_max is None else ssmd_max
     v = qc["nnmd"] if avana_like else qc["ssmd"]

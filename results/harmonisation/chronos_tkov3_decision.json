@@ -1,0 +1,35 @@
+{
+ "epochs": 301,
+ "fit_seconds": 2077.0,
+ "readcounts_shape": [
+  61,
+  70331
+ ],
+ "n_guides_mapped": 70331,
+ "n_negative_control_guides": 1533,
+ "screens": [
+  "A_mair2019_HAP1",
+  "mair2019_H1_MEF",
+  "mair2019_H1_laminin",
+  "olivieri2020_TKOv3_S02",
+  "olivieri2020_TKOv3_S04",
+  "olivieri2020_TKOv3_S05",
+  "olivieri2020_TKOv3_S06",
+  "olivieri2020_TKOv3_S07",
+  "olivieri2020_TKOv3_S12",
+  "brown2019_WT_PACE002",
+  "brown2019_WT_PACE006"
+ ],
+ "excluded": {
+  "brown2019_WT_Durocher_T3": "time unit not stated"
+ },
+ "affine_targets": [
+  -1.4676622152328491,
+  0.0072499781381338835
+ ],
+ "hap1_dev_corr_gain": 0.013387364690119238,
+ "adoption_margin": 0.02,
+ "adopt_chronos_for_TKOv3": false,
+ "chronos_version": "2.3.11",
+ "tensorflow_version": "2.21.0"
+}

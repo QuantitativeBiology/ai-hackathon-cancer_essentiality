@@ -69,6 +69,15 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   rule outcome ("none"). Why: the pre-registered criteria tied (recall@1 0.833 and r ≈0.95 for all candidates);
   MAE favours quantile (0.506 vs 0.537), and quantile corrects library-composition shifts. Decided before any model
   was applied to external data.
+- D10 (G5a): Per-screen affine targets = DepMap dev medians of the same control sets (scaling set −1.468, NEG
+  0.007), not literal −1/0. Why: the intent was DepMap's scale; our scaling set is deeper than DepMap's control list,
+  and literal −1/0 compressed screens 1.47× (anchor agreement 0.164 vs 0.200).
+- D11 (G5a): Chronos refit for TKOv3 allowed (time-boxed). It is adopted only if HAP1 anchor agreement rises by ≥0.02
+  over median LFC. Caveat: HAP1 is the single TKOv3 anchor.
+  Outcome: Chronos raised HAP1 agreement 0.061 → 0.074 (+0.013), so it is **not adopted**. SSMD improved on 10/11.
+- D12 (G5a): Wang-library gene-wise correction not applied to Yilmaz 2018. Why: the anchors are published CS gene
+  scores, while Yilmaz is count-scored by us, so the pipelines differ; the correction also lowered hPSC replicate
+  agreement.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader

@@ -51,6 +51,11 @@ CACHE = ROOT / "cache" / "harmonised"
 ORCS_DIR = ROOT / "data" / "external_screens" / "biogrid_orcs" / "extracted"
 ORCS_META = ROOT / "results" / "external_screens" / "orcs_nontransformed_screens.csv"
 SIM_SEED_OFFSET = 7  # simulated-batch RNG = split_seed + offset (documented)
+ALT = (-1.0, 0.0)    # ALTERNATIVE affine targets (reported only); primary targets live in H.DEFAULTS (set in main)
+ALT_NAME = "design_-1_0"
+PRIMARY_NAME = "depmap_matched"
+CHRONOS_DECISION = ROOT / "results" / "harmonisation" / "chronos_tkov3_decision.json"
+CHRONOS_ADOPTED = bool(CHRONOS_DECISION.exists() and json.loads(CHRONOS_DECISION.read_text()).get("adopt_chronos_for_TKOv3"))
 
 
 # ================================================================ helpers: IDs and tables
@@ -126,6 +131,12 @@ def raw_arm_scores(entry, symmap):
         s = v.groupby(x["IDENTIFIER_ID"].astype(str)).mean().dropna()
         rep.update(score="ORCS SCORE.1", n_genes=int(len(s)))
         return s, rep
+    if lvl == "counts" and entry.get("chronos_screen") and CHRONOS_ADOPTED:
+        f = CACHE / f"chronos_TKOv3__{entry['chronos_screen']}.parquet"
+        sc = pd.read_parquet(f)["chronos_raw"].astype(float).dropna()
+        rep.update(score="Chronos gene effect (joint TKOv3 fit)", t0_filter="reference reads >= 30 (late timepoints masked)",
+                   n_genes=int(len(sc)))
+        return sc, rep
     if lvl == "counts":
         x, s, _ = screen_table(entry["screen"], pools=entry.get("pools", False))
         if "arm" in entry:
@@ -228,8 +239,9 @@ def blind_write(entry, symmap, params, corr):
     if params is not None:
         df["affine"] = H.affine_apply(s, *params)
         df["final"] = H.apply_genewise(df["affine"], corr) if corr is not None else df["affine"]
+        df["affine_alt"] = H.affine_apply(s, *params, *ALT)
     else:
-        df["affine"] = df["final"] = s
+        df["affine"] = df["final"] = df["affine_alt"] = s
     CACHE.mkdir(parents=True, exist_ok=True)
     df.index.name = "entrez"
     df.astype("float32").to_parquet(CACHE / f"{entry['id']}.parquet")
@@ -256,10 +268,11 @@ def run_anchors(entries, symmap, cs, Ydev, mdev, ctrl_free, p53_ent, P):
         y = Ydev.loc[e["depmap_id"]]
         ms, mn = H.affine_params(raw, cs["scaling_set"], cs["neg_scaling"])
         aff = H.affine_apply(raw, ms, mn)
-        prof[e["id"]] = {"raw": raw, "affine": aff}
+        aff_dm = H.affine_apply(raw, ms, mn, *ALT)
+        prof[e["id"]] = {"raw": raw, "affine": aff, "affine_dm": aff_dm}
         reps.append({"id": e["id"], "role": e["role"], "library": e["library"], "group": e["group"],
                      "depmap_id": e["depmap_id"], "m_scaling": ms, "m_neg": mn, **rep})
-        for step, x in (("0_raw", raw), ("1_affine", aff)):
+        for step, x in (("0_raw", raw), ("1_affine", aff), (f"1b_affine_alt_{ALT_NAME}", aff_dm)):
             q = H.qc_metrics(x, cs["ceg_evaluation"], cs["neg_evaluation"])
             rows.append({"id": e["id"], "role": e["role"], "group": e["group"], "library": e["library"],
                          "depmap_id": e["depmap_id"], "step": step, **q,
@@ -267,20 +280,21 @@ def run_anchors(entries, symmap, cs, Ydev, mdev, ctrl_free, p53_ent, P):
     return prof, pd.DataFrame(rows), pd.DataFrame(reps)
 
 
-def group_matrices(ids, prof, entries_by_id, Ydev):
-    X = pd.DataFrame({i: prof[i]["affine"] for i in ids}).T
+def group_matrices(ids, prof, entries_by_id, Ydev, key="affine"):
+    X = pd.DataFrame({i: prof[i][key] for i in ids}).T
     Y = Ydev.loc[[entries_by_id[i]["depmap_id"] for i in ids]].copy()
     Y.index = ids
     genes = X.columns.intersection(Y.columns)
     return X[genes], Y[genes]
 
 
-def run_genewise(anchor_entries, prof, Ydev, mdev, ctrl_free, p53_ent, P, groups_cfg):
+def run_genewise(anchor_entries, prof, Ydev, mdev, ctrl_free, p53_ent, P, groups_cfg, seed, key="affine",
+                 controls=True):
     by_id = {e["id"]: e for e in anchor_entries}
     loao_rows, kappa_rows, fits, loao_prof = [], [], {}, {}
     for grp in sorted({e["group"] for e in anchor_entries}):
         ids = [e["id"] for e in anchor_entries if e["group"] == grp]
-        X, Y = group_matrices(ids, prof, by_id, Ydev)
+        X, Y = group_matrices(ids, prof, by_id, Ydev, key)
 
         def metric(xc, a):
             return agree(xc, Y.loc[a], mdev, Ydev, by_id[a]["depmap_id"], ctrl_free)
@@ -296,24 +310,35 @@ def run_genewise(anchor_entries, prof, Ydev, mdev, ctrl_free, p53_ent, P, groups
             res["fit_anchors"] = [";".join(ft[a].anchors) for a in res["anchor"]]
             loao_rows.append(res)
             loao_prof[(grp, vname)] = pr
-        # negative control: anchor labels permuted (cyclic) inside each LOAO fit
-        if len(ids) >= 3:
-            rows = []
-            for a in ids:
-                keep = [i for i in ids if i != a]
-                Yp = Y.loc[keep].copy()
-                Yp.iloc[:] = np.roll(Yp.to_numpy(), 1, axis=0)
-                c = H.fit_genewise(X.loc[keep], Yp, exclude=p53_ent, kappa=P["kappa"])
-                rows.append({"anchor": a, "n_fit_anchors": len(keep), "estimable": c.estimable,
-                             "tau2": c.tau2, **metric(H.apply_genewise(X.loc[a], c), a)})
-            r = pd.DataFrame(rows)
-            r["group"], r["variant"], r["fit_anchors"] = grp, "location_permuted_labels", ""
-            loao_rows.append(r)
+        # controls on the step-(iii) fit (location variant):
+        #  * within-set permutation of the DepMap references: a location offset depends only on the
+        #    fit-set mean of Y, so this should reproduce the real gain (it is a gene-level library
+        #    offset, not line matching) - reported as a mechanism check, NOT a negative control;
+        #  * wrong-line references (negative control): each fit anchor is paired with a random
+        #    non-anchor DepMap dev line; the offset then absorbs lineage biology and must not help.
+        if controls and len(ids) >= 3:
+            rng = np.random.default_rng(seed + sorted(groups_cfg).index(grp))
+            pool = Ydev.index.difference([by_id[i]["depmap_id"] for i in ids])
+            for vname in ("location_within_set_permutation", "location_wrong_line_reference"):
+                rows = []
+                for a in ids:
+                    keep = [i for i in ids if i != a]
+                    Yp = Y.loc[keep].copy()
+                    if vname == "location_within_set_permutation":
+                        Yp.iloc[:] = np.roll(Yp.to_numpy(), 1, axis=0)
+                    else:
+                        Yp.iloc[:] = Ydev.loc[rng.choice(pool, len(keep), replace=False), Yp.columns].to_numpy()
+                    c = H.fit_genewise(X.loc[keep], Yp, exclude=p53_ent, kappa=P["kappa"])
+                    rows.append({"anchor": a, "n_fit_anchors": len(keep), "estimable": c.estimable,
+                                 "tau2": c.tau2, **metric(H.apply_genewise(X.loc[a], c), a)})
+                r = pd.DataFrame(rows)
+                r["group"], r["variant"], r["fit_anchors"] = grp, vname, ""
+                loao_rows.append(r)
         # shrinkage sensitivity (informational; kappa is fixed a priori)
         def light(xc, a):
             return {"dev_corr": H.deviation_corr(xc, Y.loc[a], mdev)}
 
-        for k in (1.0, 2.0, 4.0):
+        for k in ((1.0, 2.0, 4.0) if controls else ()):
             res, _, _ = H.loao(X, Y, light, exclude=p53_ent, fit_kwargs={"kappa": k})
             kappa_rows.append({"group": grp, "kappa": k, "mean_dev_corr": res["dev_corr"].mean(),
                                "n": len(res)})
@@ -359,8 +384,10 @@ def decide(loao_df, step1, groups_cfg, anchor_entries, P):
                 row[f"basis_{v}"] = basis
                 if ok and (best is None or (v == "location_scale" and gain > row["loao_gain_location"] + margin)):
                     best = v
-            perm = gd[gd["variant"] == "location_permuted_labels"]
-            row["permuted_gain"] = perm["delta_dev_corr"].mean() if len(perm) else np.nan
+            for v, col in (("location_within_set_permutation", "within_set_perm_gain"),
+                           ("location_wrong_line_reference", "wrong_line_ref_gain")):
+                vv = gd[gd["variant"] == v]
+                row[col] = vv["delta_dev_corr"].mean() if len(vv) else np.nan
             row["variant"] = best or "none"
             row["applied"] = best is not None
             row["reason"] = (f"LOAO gain > {margin}" if best else f"LOAO gain <= {margin} (or mixed): not applied")
@@ -370,6 +397,16 @@ def decide(loao_df, step1, groups_cfg, anchor_entries, P):
 
 # ================================================================ simulated batch
 def simulated_batch(Ydev, mdev, cs, p53_ent, P, seed):
+    out = []
+    for conv, tg in (("primary_" + PRIMARY_NAME, (H.DEFAULTS["affine_target_scaling"], H.DEFAULTS["affine_target_neg"])),
+                     ("alt_" + ALT_NAME, ALT)):
+        r = _simulated_batch(Ydev, mdev, cs, p53_ent, P, seed, tg)
+        r.insert(0, "convention", conv)
+        out.append(r)
+    return pd.concat(out, ignore_index=True)
+
+
+def _simulated_batch(Ydev, mdev, cs, p53_ent, P, seed, tg):
     rng = np.random.default_rng(seed)
     ids = Ydev.index
     genes = Ydev.columns[Ydev.notna().all(axis=0)]
@@ -395,7 +432,7 @@ def simulated_batch(Ydev, mdev, cs, p53_ent, P, seed):
             out, par = [], []
             for i in Xb.index:
                 ms, mn = H.affine_params(Xb.loc[i], cs["scaling_set"], cs["neg_scaling"])
-                out.append(H.affine_apply(Xb.loc[i], ms, mn))
+                out.append(H.affine_apply(Xb.loc[i], ms, mn, *tg))
                 par.append((ms, mn))
             return pd.DataFrame(out, index=Xb.index), par
 
@@ -442,7 +479,7 @@ def replicate_ceilings(nt_entries, qc_pass, cs, mdev, gc, ctrl_free):
             for ej in es:
                 if ei["id"] == ej["id"]:
                     continue
-                for step in ("affine", "final"):
+                for step in ("affine", "final", "affine_alt"):
                     xi, xj = prof[ei["id"]][step].astype(float), prof[ej["id"]][step].astype(float)
                     common = xi.dropna().index.intersection(xj.dropna().index).intersection(mdev.dropna().index)
                     cf = common.intersection(pd.Index(sorted(ctrl_free)))
@@ -482,9 +519,16 @@ def main():
         print(f"[{time.time() - t_start:6.0f}s] {msg}", flush=True)
     OUT.mkdir(parents=True, exist_ok=True)
     P = dict(H.DEFAULTS)
+    frozen_targets = None
     if FROZEN.exists():
         fr = json.loads(FROZEN.read_text())
+        frozen_targets = (fr.get("parameters", {}).get("affine_target_scaling"),
+                          fr.get("parameters", {}).get("affine_target_neg"))
+        frozen_targets = None if None in frozen_targets or fr.get("parameters", {}).get(
+            "affine_target_mode") != P["affine_target_mode"] else frozen_targets
         for k, v in fr.get("parameters", {}).items():
+            if k.startswith("affine_target_"):
+                continue  # targets are recomputed from dev lines and verified below
             if k in P and P[k] != v:
                 print(f"[config] {k}: default {P[k]} -> frozen {v}")
                 P[k] = v
@@ -502,6 +546,19 @@ def main():
     print(f"control split: " + ", ".join(f"{k}={len(v)}" for k, v in cs.items()) + f"; p53/DDR genes={len(p53_ent)}")
 
     Ydev, mdev = load_dev()
+    global ALT, ALT_NAME, PRIMARY_NAME
+    DM = (float(Ydev[Ydev.columns.intersection(cs["scaling_set"])].median(axis=1).median()),
+          float(Ydev[Ydev.columns.intersection(cs["neg_scaling"])].median(axis=1).median()))
+    print(f"DepMap-matched affine targets (median over dev lines of per-line medians): scaling {DM[0]:.3f}, NEG half {DM[1]:.3f}")
+    if P["affine_target_mode"] == "depmap_matched":   # PI decision D10
+        primary, ALT, ALT_NAME, PRIMARY_NAME = DM, (-1.0, 0.0), "design_-1_0", "depmap_matched"
+    else:
+        primary, ALT, ALT_NAME, PRIMARY_NAME = (-1.0, 0.0), DM, "depmap_matched", "design_-1_0"
+    if frozen_targets is not None and not np.allclose(frozen_targets, primary, atol=1e-6):
+        raise RuntimeError(f"recomputed affine targets {primary} differ from frozen {frozen_targets}")
+    P["affine_target_scaling"], P["affine_target_neg"] = primary
+    H.DEFAULTS.update(P)
+    print(f"primary affine targets ({PRIMARY_NAME}): {primary}; alternative reported ({ALT_NAME}): {ALT}")
     ctrl_free = set(Ydev.columns) - set(ceg_all) - set(neg_all)
     print(f"DepMap dev targets: {Ydev.shape}")
 
@@ -521,8 +578,15 @@ def main():
 
     stage("gene-wise LOAO")
     # ---- step (iii): LOAO per group, decisions
-    loao_df, kappa_df, fits, loao_prof = run_genewise(anchors, prof, Ydev, mdev, ctrl_free, p53_ent, P, groups_cfg)
+    loao_df, kappa_df, fits, loao_prof = run_genewise(anchors, prof, Ydev, mdev, ctrl_free, p53_ent, P, groups_cfg, seed)
     decisions, loao_detail = decide(loao_df, step1, groups_cfg, anchors, P)
+    # alternative convention (DepMap-matched targets): reported, not used for the DESIGN decisions
+    loao_dm, _, fits_dm, loao_prof_dm = run_genewise(anchors, prof, Ydev, mdev, ctrl_free, p53_ent, P, groups_cfg,
+                                                     seed, key="affine_dm", controls=False)
+    step1b = anchor_rows[anchor_rows["step"] == f"1b_affine_alt_{ALT_NAME}"]
+    decisions_dm, loao_detail_dm = decide(loao_dm, step1b, groups_cfg, anchors, P)
+    loao_detail_dm.to_csv(OUT / f"genewise_loao_alt_{ALT_NAME}.csv", index=False)
+    decisions_dm.to_csv(OUT / f"genewise_decisions_alt_{ALT_NAME}.csv", index=False)
     loao_detail.to_csv(OUT / "genewise_loao.csv", index=False)
     kappa_df.to_csv(OUT / "genewise_kappa_sensitivity.csv", index=False)
     decisions.to_csv(OUT / "genewise_decisions.csv", index=False)
@@ -583,7 +647,7 @@ def main():
     nt = [dict(e) for e in entries if e["role"] == "nontransformed"]
     orcs_plan = orcs_entries(hcfg["orcs_rules"])
     nt += [e for e in orcs_plan if e["role"] == "nontransformed"]
-    srows, qc_pass_map, params_of = [], {}, {}
+    srows, qc_pass_map, params_of, per_screen_gw = [], {}, {}, []
     for e in nt:
         av = groups_cfg.get(e.get("group"), {}).get("avana_like", False)
         try:
@@ -607,8 +671,17 @@ def main():
         ms, mn = H.affine_params(ctrl, cs["scaling_set"], cs["neg_scaling"])
         params_of[e["id"]] = (ms, mn)
         aff = H.affine_apply(ctrl, ms, mn)
-        steps = [("0_raw", ctrl), ("1_affine", aff)]
+        steps = [("0_raw", ctrl), ("1_affine", aff), (f"1b_affine_alt_{ALT_NAME}", H.affine_apply(ctrl, ms, mn, *ALT))]
         corr = corr_for_lib.get(e.get("library")) if e.get("modality", "KO") == "KO" else None
+        if e.get("genewise_override") is False:  # per-screen PI override (D12)
+            corr = None
+        if not e.get("rank_only"):
+            per_screen_gw.append({"screen": e["id"], "library": e.get("library"), "modality": e.get("modality", "KO"),
+                                  "gene_wise_applied": corr is not None,
+                                  "reason": (e.get("genewise_override_reason") if e.get("genewise_override") is False
+                                             else ("library decision: LOAO gain > margin" if corr is not None
+                                                   else "library decision: not applied / no anchors / not KO")),
+                                  "decision": "D12" if e.get("genewise_override") is False else "LOAO rule"})
         if corr is not None:
             steps.append(("2_genewise", H.apply_genewise(aff, corr)))
         for step, x in steps:
@@ -638,6 +711,17 @@ def main():
                 .agg(["median", "min", "max", "count"]))
         summ.columns = ["__".join(c) for c in summ.columns]
         summ.reset_index().to_csv(OUT / "replicate_ceilings_summary.csv", index=False)
+        # study-level: average both directions and all arm pairs within each unordered study pair first
+        study_of = {e["id"]: e.get("study") for e in nt}
+        cc = ceil[~ceil["same_study"]].copy()
+        cc["pair"] = [" | ".join(sorted([study_of[i], study_of[j]])) for i, j in zip(cc["predictor"], cc["target"])]
+        metr = ["dev_corr", "dev_corr_ctrlfree", "dev_spearman_ctrlfree", "auprc_ctrlfree_lt-0.5",
+                "recall_at_5pct_fpr_screen_specific"]
+        sp_ = cc.groupby(["background", "step", "pair", "tp53_match"])[metr].median().reset_index()
+        sp_.to_csv(OUT / "replicate_ceilings_study_pairs.csv", index=False)
+        sl = sp_.groupby(["background", "step"])[metr].agg(["median", "min", "max", "count"])
+        sl.columns = ["__".join(c) for c in sl.columns]
+        sl.reset_index().to_csv(OUT / "replicate_ceilings_study_level.csv", index=False)
 
     stage("simulated batch")
     # ---- simulated batch control
@@ -649,6 +733,18 @@ def main():
     plan.to_csv(PLAN, index=False)
     excl.to_csv(OUT / "exclusions.csv", index=False)
     draft = draft_config(P, decisions, cs, fits, seed)
+    ov = json.loads(CHRONOS_DECISION.read_text()) if CHRONOS_DECISION.exists() else {"status": "Chronos not run"}
+    ov["applied_in_this_run"] = CHRONOS_ADOPTED
+    draft["scoring"]["TKOv3_override"] = ov
+    draft["affine_targets"] = {
+        "mode": PRIMARY_NAME, "scaling": P["affine_target_scaling"], "neg": P["affine_target_neg"],
+        "provenance": "PI decision D10 (DESIGN '-1/0' read as 'map to DepMap scale'). Values = median over the 1022 "
+                      "DepMap dev lines (configs/splits.csv role=dev, guard.load_targets) of each line's median "
+                      "gene effect over configs/control_split.json scaling_set (target for the scaling set) and "
+                      "neg_scaling (target for the NEGv1 scaling half). Recomputed and checked on every run.",
+        "alternative_reported": {"mode": ALT_NAME, "targets": list(ALT),
+                                 "genewise_decisions": decisions_dm.replace({np.nan: None}).to_dict("records")}}
+    draft["genewise"]["per_screen"] = per_screen_gw
     (OUT / "harmonisation_choices.json").write_text(json.dumps(draft, indent=1))
     if a.write_draft_config:
         if git_tracked("configs/harmonisation_frozen.json"):
@@ -700,6 +796,8 @@ def screen_plan(entries, orcs_plan, screen_qc, qc_pass_map, decisions, anchors, 
     for e in anchors:
         lib_anchor.setdefault(e["group"], []).append(f"{e['id'][2:]}({e['depmap_id']})")
     applied = {r.library: r.variant for r in decisions.itertuples() if r.applied}
+    sq = screen_qc[screen_qc["step"].isin(["1_affine", "rank"])].set_index("id")
+    nmin = sq[["n_ceg_eval", "n_neg_eval"]].min(axis=1).to_dict() if len(sq) else {}
     # backgrounds with a cross-study replicate ceiling
     ceiling_bgs = set()
     if len(ceil):
@@ -718,8 +816,8 @@ def screen_plan(entries, orcs_plan, screen_qc, qc_pass_map, decisions, anchors, 
         mod = e.get("modality", "KO")
         grp = e.get("group", "")
         anc = lib_anchor.get(grp, [])
-        if grp == "orcs_gene_level":
-            anc = []
+        if grp == "orcs_gene_level" or e.get("same_pipeline_anchor") is False:
+            anc = []  # rank-only ORCS, or anchors scored by a different pipeline (D12: Yilmaz vs Wang CS anchors)
         qc = qc_pass_map.get(e["id"])
         treat = ("excluded" if e["role"] == "excluded" else "descriptive (CRISPRi; QC only)" if mod == "CRISPRi"
                  else "rank-only (gene-level published score)" if e.get("rank_only")
@@ -732,6 +830,8 @@ def screen_plan(entries, orcs_plan, screen_qc, qc_pass_map, decisions, anchors, 
             q3a = q3b = f"none (excluded: {e.get('reason', '')})"
         elif mod == "CRISPRi":
             q3a = q3b = "descriptive only (CRISPRi stratum; no K562 CRISPRi anchor obtained)"
+        elif qc is False and nmin.get(e["id"], 0) < H.DEFAULTS["qc_min_controls"]:
+            q3a = q3b = "not evaluable (QC not assessable: < 10 evaluation-half CEG/NEG genes in the library)"
         elif qc is False:
             q3a = q3b = "not evaluable (QC fail)"
         elif no_expr:
@@ -757,9 +857,10 @@ def screen_plan(entries, orcs_plan, screen_qc, qc_pass_map, decisions, anchors, 
             "data_level": e.get("data_level", ""), "treatment": treat, "readout": e.get("readout", ""),
             "tp53": e.get("tp53", ""), "duration": e.get("duration", ""),
             "qc_pass": "" if qc is None else bool(qc),
-            "anchors_for_library_lab": ";".join(anc) if anc else "none",
-            "genewise_correction": applied.get(e.get("library"), "none") if e["role"] != "excluded" and not e.get("rank_only") and mod == "KO" else "n/a",
-            "matched_expression_source": expr, "replicate_ceiling_available": bool(has_ceiling),
+            "anchors_for_library_lab": ";".join(anc) if anc else ("none same-pipeline (D12: Wang anchors are published CS)" if e.get("same_pipeline_anchor") is False else "none"),
+            "genewise_correction": ("none (PI D12 override)" if e.get("genewise_override") is False else
+                                    applied.get(e.get("library"), "none")) if e["role"] != "excluded" and not e.get("rank_only") and mod == "KO" else "n/a",
+            "matched_expression_source": expr, "replicate_ceiling_available": bool(has_ceiling) if e["role"] != "excluded" else False,
             "reachable_Q3a": q3a, "reachable_Q3b": q3b})
     for e in entries:
         if e["role"] == "excluded" and e["id"].startswith("X_") and not e.get("background"):
@@ -780,10 +881,13 @@ def draft_config(P, decisions, cs, fits, seed):
                     "guide_lfc_tables": "gene = median of the replicate-mean published guide LFC",
                     "gene_level_published": "affine-scaled published score (CS, CRISPRi phenotype)",
                     "orcs_bf_mageck": "rank-only (percentile, low = essential); rank metrics and AUPRC only",
-                    "chronos_refit": "not triggered: no anchor showed median-LFC failure in the step-(ii) validation (see docs/harmonisation_validation.md)"},
+                    "chronos_refit": "DESIGN §7.2.1 trigger met for TKOv3 (single anchor HAP1 fails NN recall under median LFC). "
+                                     "Joint per-library Chronos fit by scripts/chronos_tkov3.py; adoption rule fixed in "
+                                     "advance by the PI: HAP1 deviation-correlation gain >= +0.02 (see TKOv3_override)."},
         "control_split": {"file": "configs/control_split.json", "seed": seed,
                           **{f"n_{k}": len(v) for k, v in cs.items()}},
-        "affine": "scaling-set median -> -1, NEGv1 scaling-half median -> 0 (per screen arm)",
+        "affine": "per screen arm: scaling-set median -> affine_targets.scaling, NEGv1 scaling-half median -> "
+                  "affine_targets.neg (DepMap-matched, PI decision D10)",
         "genewise": {"model": "EB location (shrink to 0; tau2 from cross-anchor covariance; noise x kappa); scale "
                               "term only with >= 8 anchors; p53/DDR genes excluded from fit and application",
                      "decisions": decisions.replace({np.nan: None}).to_dict("records"),
@@ -804,7 +908,7 @@ def print_summary(anchor_tab, decisions, screen_qc, ceil, sim):
     print("\n== anchors: NN rank among 1022 dev lines ==")
     print(anchor_tab.pivot_table(index=["group", "id"], columns="step", values="nn_rank").to_string())
     print("\n== gene-wise decisions ==")
-    cols = [c for c in decisions.columns if c.startswith(("group", "library", "n_", "loao_gain", "permuted", "variant", "applied"))]
+    cols = [c for c in decisions.columns if c.startswith(("group", "library", "n_", "loao_gain", "within", "wrong", "variant", "applied"))]
     print(decisions[cols].round(4).to_string())
     print("\n== set-B screen QC (affine step; controls only) ==")
     s = screen_qc[screen_qc["step"].isin(["1_affine", "rank"])]
@@ -816,7 +920,7 @@ def print_summary(anchor_tab, decisions, screen_qc, ceil, sim):
         print(c.groupby(["background", "tp53_match"])[["dev_corr", "dev_corr_ctrlfree", "auprc_ctrlfree_lt-0.5",
                                                        "recall_at_5pct_fpr_screen_specific"]].median().round(3).to_string())
     print("\n== simulated batch ==")
-    print(sim[["scenario", "step", "rmse_vs_truth", "mean_dev_corr_vs_truth", "median_ceg_eval", "median_neg_eval",
+    print(sim[["convention", "scenario", "step", "rmse_vs_truth", "mean_dev_corr_vs_truth", "median_ceg_eval", "median_neg_eval",
                "corr_delta_hat_vs_planted"]].round(3).to_string())
 
 

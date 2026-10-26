@@ -64,6 +64,9 @@ def test_affine_maps_planted_medians_exactly():
     y = H.affine_apply(x, ms, mn)
     assert np.median(y[scal]) == pytest.approx(-1.0, abs=1e-12)
     assert np.median(y[neg]) == pytest.approx(0.0, abs=1e-12)
+    # DepMap-matched targets are also hit exactly
+    z = H.affine_apply(x, ms, mn, target_s=-1.468, target_n=0.007)
+    assert np.median(z[scal]) == pytest.approx(-1.468) and np.median(z[neg]) == pytest.approx(0.007)
     # an affine transform of the input gives the same output
     y2 = H.affine_apply(2.5 * x - 1.3, *H.affine_params(2.5 * x - 1.3, scal, neg))
     assert np.allclose(y, y2)
@@ -80,7 +83,10 @@ def test_qc_metrics_known_values_and_affine_invariance():
     assert q["auroc"] == pytest.approx(1 - 0.5 / 9)  # one tie (-1 vs -1)
     q2 = H.qc_metrics(3 * s + 7, e.index, n.index)
     assert q2["nnmd"] == pytest.approx(q["nnmd"]) and q2["ssmd"] == pytest.approx(q["ssmd"])
-    assert H.qc_pass(q) and not H.qc_pass({**q, "ssmd": -0.5})
+    assert not H.qc_pass(q)  # fewer than qc_min_controls (10) per set: not assessable
+    big = {**q, "n_ceg_eval": 50, "n_neg_eval": 50}
+    assert H.qc_pass(big) and not H.qc_pass({**big, "ssmd": -0.5})
+    assert H.qc_pass({**big, "nnmd": -1.5, "ssmd": 0.0}, avana_like=True)
 
 
 # ---------------------------------------------------------------- (iii) EB correction

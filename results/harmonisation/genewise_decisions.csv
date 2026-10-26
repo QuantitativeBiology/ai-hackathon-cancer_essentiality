@@ -1,11 +1,11 @@
-group,library,n_group_anchors,n_library_anchors,loao_gain_location,loao_ok_location,basis_location,permuted_gain,variant,applied,reason,loao_gain_location_scale,loao_ok_location_scale,basis_location_scale
-moffat_tko,TKOv1,3,2,0.0019536876080389967,False,own-library anchors (2),0.001484814708330962,none,False,LOAO gain <= 0.01 (or mixed): not applied,,,
-moffat_tko,TKOv2,3,0,0.0026441589997104283,False,no own-library anchor: all 3 group anchors must gain > margin,0.001484814708330962,none,False,LOAO gain <= 0.01 (or mixed): not applied,,,
-moffat_tko,TKOv3,3,1,0.004025101783053292,False,own-library anchors (1),0.001484814708330962,none,False,LOAO gain <= 0.01 (or mixed): not applied,,,
-yusa_sanger,Yusa v1,6,6,0.06917106159466768,True,own-library anchors (6),0.060437853109488106,location,True,LOAO gain > 0.01,,,
-wang_sabatini,Wang 2015 genome-wide,12,12,0.1274920665793225,True,own-library anchors (12),0.12205540190283341,location,True,LOAO gain > 0.01,0.12988038435656452,True,own-library anchors (12)
-brunello,Brunello,1,1,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
-avana,Avana,1,1,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
-novartis,Novartis genome-wide,0,0,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
-custom_ddr,custom dual-gRNA DDR,0,0,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
-crispri,hCRISPRi-v2,0,0,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
+group,library,n_group_anchors,n_library_anchors,loao_gain_location,loao_ok_location,basis_location,within_set_perm_gain,wrong_line_ref_gain,variant,applied,reason,loao_gain_location_scale,loao_ok_location_scale,basis_location_scale
+moffat_tko,TKOv1,3,2,0.0025708163081108633,False,own-library anchors (2),-0.00011340823863831284,-0.004676336953281531,none,False,LOAO gain <= 0.01 (or mixed): not applied,,,
+moffat_tko,TKOv2,3,0,0.0007333603840308118,False,no own-library anchor: all 3 group anchors must gain > margin,-0.00011340823863831284,-0.004676336953281531,none,False,LOAO gain <= 0.01 (or mixed): not applied,,,
+moffat_tko,TKOv3,3,1,-0.002941551464129291,False,own-library anchors (1),-0.00011340823863831284,-0.004676336953281531,none,False,LOAO gain <= 0.01 (or mixed): not applied,,,
+yusa_sanger,Yusa v1,6,6,0.035807078814584385,True,own-library anchors (6),0.033995423581575125,0.013230628428302098,location,True,LOAO gain > 0.01,,,
+wang_sabatini,Wang 2015 genome-wide,12,12,0.08312449335146023,True,own-library anchors (12),0.07950747145136579,0.027070492007915014,location,True,LOAO gain > 0.01,0.09020236336358889,True,own-library anchors (12)
+brunello,Brunello,1,1,,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
+avana,Avana,1,1,,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
+novartis,Novartis genome-wide,0,0,,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
+custom_ddr,custom dual-gRNA DDR,0,0,,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,
+crispri,hCRISPRi-v2,0,0,,,,,,none,False,"fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",,,

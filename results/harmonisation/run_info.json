@@ -1,0 +1,23 @@
+{
+ "runtime_s": 1401.1,
+ "params": {
+  "pseudocount_reads": 0.5,
+  "min_t0_reads": 30,
+  "min_t0_rpm": 5.0,
+  "min_guides": 2,
+  "gene_score": "median",
+  "replicates": "mean_of_replicate_lfc",
+  "kappa": 2.0,
+  "min_anchors_location": 2,
+  "min_anchors_scale": 8,
+  "improvement_margin": 0.01,
+  "qc_nnmd_max": -1.0,
+  "qc_ssmd_max": -1.0,
+  "qc_min_controls": 10,
+  "affine_target_mode": "depmap_matched",
+  "affine_target_scaling": -1.4676622152328491,
+  "affine_target_neg": 0.0072499781381338835
+ },
+ "n_anchor_arms": 23,
+ "n_setB_arms": 70
+}

@@ -1,0 +1,763 @@
+{
+ "_status": "DRAFT written by scripts/harmonise_screens.py --write-draft-config. Becomes binding only when the PI commits it (DESIGN v3 \u00a77.2, \u00a79: tag freeze-transfer). Choices fixed on controls and transformed anchors only.",
+ "parameters": {
+  "pseudocount_reads": 0.5,
+  "min_t0_reads": 30,
+  "min_t0_rpm": 5.0,
+  "min_guides": 2,
+  "gene_score": "median",
+  "replicates": "mean_of_replicate_lfc",
+  "kappa": 2.0,
+  "min_anchors_location": 2,
+  "min_anchors_scale": 8,
+  "improvement_margin": 0.01,
+  "qc_nnmd_max": -1.0,
+  "qc_ssmd_max": -1.0,
+  "qc_min_controls": 10,
+  "affine_target_mode": "depmap_matched",
+  "affine_target_scaling": -1.4676622152328491,
+  "affine_target_neg": 0.0072499781381338835
+ },
+ "scoring": {
+  "counts": "RPM per sample (within pool for multi-pool libraries) + 0.5-read pseudocount; guides with mean T0/plasmid reads < min_t0_reads dropped (RPM tables: < min_t0_rpm); LFC per end replicate vs mean T0; mean over replicates; gene = median guide LFC over >= min_guides guides; Entrez via HGNC (approved/previous/alias symbol).",
+  "guide_lfc_tables": "gene = median of the replicate-mean published guide LFC",
+  "gene_level_published": "affine-scaled published score (CS, CRISPRi phenotype)",
+  "orcs_bf_mageck": "rank-only (percentile, low = essential); rank metrics and AUPRC only",
+  "chronos_refit": "DESIGN \u00a77.2.1 trigger met for TKOv3 (single anchor HAP1 fails NN recall under median LFC). Joint per-library Chronos fit by scripts/chronos_tkov3.py; adoption rule fixed in advance by the PI: HAP1 deviation-correlation gain >= +0.02 (see TKOv3_override).",
+  "TKOv3_override": {
+   "epochs": 301,
+   "fit_seconds": 2077.0,
+   "readcounts_shape": [
+    61,
+    70331
+   ],
+   "n_guides_mapped": 70331,
+   "n_negative_control_guides": 1533,
+   "screens": [
+    "A_mair2019_HAP1",
+    "mair2019_H1_MEF",
+    "mair2019_H1_laminin",
+    "olivieri2020_TKOv3_S02",
+    "olivieri2020_TKOv3_S04",
+    "olivieri2020_TKOv3_S05",
+    "olivieri2020_TKOv3_S06",
+    "olivieri2020_TKOv3_S07",
+    "olivieri2020_TKOv3_S12",
+    "brown2019_WT_PACE002",
+    "brown2019_WT_PACE006"
+   ],
+   "excluded": {
+    "brown2019_WT_Durocher_T3": "time unit not stated"
+   },
+   "affine_targets": [
+    -1.4676622152328491,
+    0.0072499781381338835
+   ],
+   "hap1_dev_corr_gain": 0.013387364690119238,
+   "adoption_margin": 0.02,
+   "adopt_chronos_for_TKOv3": false,
+   "chronos_version": "2.3.11",
+   "tensorflow_version": "2.21.0",
+   "applied_in_this_run": false
+  }
+ },
+ "control_split": {
+  "file": "configs/control_split.json",
+  "seed": 20261026,
+  "n_ceg_scaling": 342,
+  "n_ceg_evaluation": 342,
+  "n_neg_scaling": 462,
+  "n_neg_evaluation": 462,
+  "n_scaling_set": 589
+ },
+ "affine": "per screen arm: scaling-set median -> affine_targets.scaling, NEGv1 scaling-half median -> affine_targets.neg (DepMap-matched, PI decision D10)",
+ "genewise": {
+  "model": "EB location (shrink to 0; tau2 from cross-anchor covariance; noise x kappa); scale term only with >= 8 anchors; p53/DDR genes excluded from fit and application",
+  "decisions": [
+   {
+    "group": "moffat_tko",
+    "library": "TKOv1",
+    "n_group_anchors": 3,
+    "n_library_anchors": 2,
+    "loao_gain_location": 0.0025708163081108633,
+    "loao_ok_location": false,
+    "basis_location": "own-library anchors (2)",
+    "within_set_perm_gain": -0.00011340823863831284,
+    "wrong_line_ref_gain": -0.004676336953281531,
+    "variant": "none",
+    "applied": false,
+    "reason": "LOAO gain <= 0.01 (or mixed): not applied",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "moffat_tko",
+    "library": "TKOv2",
+    "n_group_anchors": 3,
+    "n_library_anchors": 0,
+    "loao_gain_location": 0.0007333603840308118,
+    "loao_ok_location": false,
+    "basis_location": "no own-library anchor: all 3 group anchors must gain > margin",
+    "within_set_perm_gain": -0.00011340823863831284,
+    "wrong_line_ref_gain": -0.004676336953281531,
+    "variant": "none",
+    "applied": false,
+    "reason": "LOAO gain <= 0.01 (or mixed): not applied",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "moffat_tko",
+    "library": "TKOv3",
+    "n_group_anchors": 3,
+    "n_library_anchors": 1,
+    "loao_gain_location": -0.002941551464129291,
+    "loao_ok_location": false,
+    "basis_location": "own-library anchors (1)",
+    "within_set_perm_gain": -0.00011340823863831284,
+    "wrong_line_ref_gain": -0.004676336953281531,
+    "variant": "none",
+    "applied": false,
+    "reason": "LOAO gain <= 0.01 (or mixed): not applied",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "yusa_sanger",
+    "library": "Yusa v1",
+    "n_group_anchors": 6,
+    "n_library_anchors": 6,
+    "loao_gain_location": 0.035807078814584385,
+    "loao_ok_location": true,
+    "basis_location": "own-library anchors (6)",
+    "within_set_perm_gain": 0.033995423581575125,
+    "wrong_line_ref_gain": 0.013230628428302098,
+    "variant": "location",
+    "applied": true,
+    "reason": "LOAO gain > 0.01",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "wang_sabatini",
+    "library": "Wang 2015 genome-wide",
+    "n_group_anchors": 12,
+    "n_library_anchors": 12,
+    "loao_gain_location": 0.08312449335146023,
+    "loao_ok_location": true,
+    "basis_location": "own-library anchors (12)",
+    "within_set_perm_gain": 0.07950747145136579,
+    "wrong_line_ref_gain": 0.027070492007915014,
+    "variant": "location",
+    "applied": true,
+    "reason": "LOAO gain > 0.01",
+    "loao_gain_location_scale": 0.09020236336358889,
+    "loao_ok_location_scale": true,
+    "basis_location_scale": "own-library anchors (12)"
+   },
+   {
+    "group": "brunello",
+    "library": "Brunello",
+    "n_group_anchors": 1,
+    "n_library_anchors": 1,
+    "loao_gain_location": null,
+    "loao_ok_location": null,
+    "basis_location": null,
+    "within_set_perm_gain": null,
+    "wrong_line_ref_gain": null,
+    "variant": "none",
+    "applied": false,
+    "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "avana",
+    "library": "Avana",
+    "n_group_anchors": 1,
+    "n_library_anchors": 1,
+    "loao_gain_location": null,
+    "loao_ok_location": null,
+    "basis_location": null,
+    "within_set_perm_gain": null,
+    "wrong_line_ref_gain": null,
+    "variant": "none",
+    "applied": false,
+    "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "novartis",
+    "library": "Novartis genome-wide",
+    "n_group_anchors": 0,
+    "n_library_anchors": 0,
+    "loao_gain_location": null,
+    "loao_ok_location": null,
+    "basis_location": null,
+    "within_set_perm_gain": null,
+    "wrong_line_ref_gain": null,
+    "variant": "none",
+    "applied": false,
+    "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "custom_ddr",
+    "library": "custom dual-gRNA DDR",
+    "n_group_anchors": 0,
+    "n_library_anchors": 0,
+    "loao_gain_location": null,
+    "loao_ok_location": null,
+    "basis_location": null,
+    "within_set_perm_gain": null,
+    "wrong_line_ref_gain": null,
+    "variant": "none",
+    "applied": false,
+    "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   },
+   {
+    "group": "crispri",
+    "library": "hCRISPRi-v2",
+    "n_group_anchors": 0,
+    "n_library_anchors": 0,
+    "loao_gain_location": null,
+    "loao_ok_location": null,
+    "basis_location": null,
+    "within_set_perm_gain": null,
+    "wrong_line_ref_gain": null,
+    "variant": "none",
+    "applied": false,
+    "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+    "loao_gain_location_scale": null,
+    "loao_ok_location_scale": null,
+    "basis_location_scale": null
+   }
+  ],
+  "fits": {
+   "avana|location": {
+    "anchors": [
+     "A_doench2016_HT29_Avana"
+    ],
+    "tau2": 0.0,
+    "estimable": false
+   },
+   "brunello|location": {
+    "anchors": [
+     "A_sanson2018_A375"
+    ],
+    "tau2": 0.0,
+    "estimable": false
+   },
+   "moffat_tko|location": {
+    "anchors": [
+     "A_hart2015_DLD1",
+     "A_hart2015_HCT116",
+     "A_mair2019_HAP1_T18"
+    ],
+    "tau2": 0.04760022753938222,
+    "estimable": true
+   },
+   "wang_sabatini|location": {
+    "anchors": [
+     "A_wang2017_EOL1",
+     "A_wang2017_HEL",
+     "A_wang2017_MOLM13",
+     "A_wang2017_MonoMac1",
+     "A_wang2017_MV411",
+     "A_wang2017_NB4",
+     "A_wang2017_OCIAML2",
+     "A_wang2017_OCIAML3",
+     "A_wang2017_TF1",
+     "A_wang2017_THP1",
+     "A_wang2015_K562",
+     "A_wang2015_Raji"
+    ],
+    "tau2": 0.0752418471847811,
+    "estimable": true
+   },
+   "wang_sabatini|location_scale": {
+    "anchors": [
+     "A_wang2017_EOL1",
+     "A_wang2017_HEL",
+     "A_wang2017_MOLM13",
+     "A_wang2017_MonoMac1",
+     "A_wang2017_MV411",
+     "A_wang2017_NB4",
+     "A_wang2017_OCIAML2",
+     "A_wang2017_OCIAML3",
+     "A_wang2017_TF1",
+     "A_wang2017_THP1",
+     "A_wang2015_K562",
+     "A_wang2015_Raji"
+    ],
+    "tau2": 0.0752418471847811,
+    "estimable": true
+   },
+   "yusa_sanger|location": {
+    "anchors": [
+     "A_tzelepis2016_MOLM13",
+     "A_tzelepis2016_MV411",
+     "A_tzelepis2016_OCIAML2",
+     "A_tzelepis2016_OCIAML3",
+     "A_tzelepis2016_HT29_d25",
+     "A_tzelepis2016_HT1080"
+    ],
+    "tau2": 0.04837285472360472,
+    "estimable": true
+   }
+  },
+  "per_screen": [
+   {
+    "screen": "olivieri2020_TKOv3_S02",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv3_S04",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv3_S05",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv3_S06",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv3_S07",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv3_S12",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv2_S08",
+    "library": "TKOv2",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv2_S09",
+    "library": "TKOv2",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "olivieri2020_TKOv2_S10",
+    "library": "TKOv2",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "brown2019_WT_Durocher_T3",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "brown2019_WT_PACE002_T18",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "brown2019_WT_PACE002_T30",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "brown2019_WT_PACE006_T25",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "brown2019_p53null_TKOv2_T18",
+    "library": "TKOv2",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "haapaniemi2018_WT_D28",
+    "library": "Brunello",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "haapaniemi2018_null_D28",
+    "library": "Brunello",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "hart2015_RPE1_T18",
+    "library": "TKOv1",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "bowden2020_WT_D19",
+    "library": "custom dual-gRNA DDR",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "bowden2020_KO_D19",
+    "library": "custom dual-gRNA DDR",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "mair2019_H1_MEF_T8",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "mair2019_H1_laminin_T12",
+    "library": "TKOv3",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "yilmaz2018_hpES10_D23",
+    "library": "Wang 2015 genome-wide",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "PI decision D12: the Wang-library anchors are published gene-level CRISPR scores while Yilmaz is scored by us from counts (median guide LFC) - a different pipeline (DESIGN \u00a77.2: corrections are per lab/library pipeline, anchors processed the same way); the mismatch lowers hPSC replicate agreement",
+    "decision": "D12"
+   },
+   {
+    "screen": "ihry2019_hPSC_D18",
+    "library": "Novartis genome-wide",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "shifrut2018_CD8T_GW",
+    "library": "Brunello",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "ting2018_CD4T_D6",
+    "library": "Novartis genome-wide (one chip, ~2.5k genes)",
+    "modality": "KO",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "tian2021_neuron_CRISPRi",
+    "library": "hCRISPRi-v2",
+    "modality": "CRISPRi",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "tian2019_iPSC_D10_CRISPRi",
+    "library": "hCRISPRi-v2 H1 sublibrary",
+    "modality": "CRISPRi",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "tian2019_neuron_D28_CRISPRi",
+    "library": "hCRISPRi-v2 H1 sublibrary",
+    "modality": "CRISPRi",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   },
+   {
+    "screen": "drager2022_microglia_CRISPRi",
+    "library": "CRISPRi druggable-genome sublibrary",
+    "modality": "CRISPRi",
+    "gene_wise_applied": false,
+    "reason": "library decision: not applied / no anchors / not KO",
+    "decision": "LOAO rule"
+   }
+  ]
+ },
+ "qc": {
+  "rule": "pass if SSMD(eval halves) < qc_ssmd_max for non-Avana libraries; NNMD < qc_nnmd_max for Avana-type; rank-only screens: SSMD on percentile ranks",
+  "nnmd_max": -1.0,
+  "ssmd_max": -1.0
+ },
+ "p53_ddr_genes": [
+  "ATM",
+  "CDKN1A",
+  "CHEK2",
+  "DDB2",
+  "FDXR",
+  "MDM2",
+  "MDM4",
+  "PPM1D",
+  "RRM2B",
+  "SESN1",
+  "TNFRSF10B",
+  "TP53",
+  "TP53BP1",
+  "USP28",
+  "ZMAT3"
+ ],
+ "affine_targets": {
+  "mode": "depmap_matched",
+  "scaling": -1.4676622152328491,
+  "neg": 0.0072499781381338835,
+  "provenance": "PI decision D10 (DESIGN '-1/0' read as 'map to DepMap scale'). Values = median over the 1022 DepMap dev lines (configs/splits.csv role=dev, guard.load_targets) of each line's median gene effect over configs/control_split.json scaling_set (target for the scaling set) and neg_scaling (target for the NEGv1 scaling half). Recomputed and checked on every run.",
+  "alternative_reported": {
+   "mode": "design_-1_0",
+   "targets": [
+    -1.0,
+    0.0
+   ],
+   "genewise_decisions": [
+    {
+     "group": "moffat_tko",
+     "library": "TKOv1",
+     "n_group_anchors": 3,
+     "n_library_anchors": 2,
+     "loao_gain_location": 0.0019536876080389967,
+     "loao_ok_location": false,
+     "basis_location": "own-library anchors (2)",
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "LOAO gain <= 0.01 (or mixed): not applied",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "moffat_tko",
+     "library": "TKOv2",
+     "n_group_anchors": 3,
+     "n_library_anchors": 0,
+     "loao_gain_location": 0.0026441589997104283,
+     "loao_ok_location": false,
+     "basis_location": "no own-library anchor: all 3 group anchors must gain > margin",
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "LOAO gain <= 0.01 (or mixed): not applied",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "moffat_tko",
+     "library": "TKOv3",
+     "n_group_anchors": 3,
+     "n_library_anchors": 1,
+     "loao_gain_location": 0.004025101783053292,
+     "loao_ok_location": false,
+     "basis_location": "own-library anchors (1)",
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "LOAO gain <= 0.01 (or mixed): not applied",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "yusa_sanger",
+     "library": "Yusa v1",
+     "n_group_anchors": 6,
+     "n_library_anchors": 6,
+     "loao_gain_location": 0.06917106159466768,
+     "loao_ok_location": true,
+     "basis_location": "own-library anchors (6)",
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "location",
+     "applied": true,
+     "reason": "LOAO gain > 0.01",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "wang_sabatini",
+     "library": "Wang 2015 genome-wide",
+     "n_group_anchors": 12,
+     "n_library_anchors": 12,
+     "loao_gain_location": 0.1274920665793225,
+     "loao_ok_location": true,
+     "basis_location": "own-library anchors (12)",
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "location",
+     "applied": true,
+     "reason": "LOAO gain > 0.01",
+     "loao_gain_location_scale": 0.12988038435656452,
+     "loao_ok_location_scale": true,
+     "basis_location_scale": "own-library anchors (12)"
+    },
+    {
+     "group": "brunello",
+     "library": "Brunello",
+     "n_group_anchors": 1,
+     "n_library_anchors": 1,
+     "loao_gain_location": null,
+     "loao_ok_location": null,
+     "basis_location": null,
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "avana",
+     "library": "Avana",
+     "n_group_anchors": 1,
+     "n_library_anchors": 1,
+     "loao_gain_location": null,
+     "loao_ok_location": null,
+     "basis_location": null,
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "novartis",
+     "library": "Novartis genome-wide",
+     "n_group_anchors": 0,
+     "n_library_anchors": 0,
+     "loao_gain_location": null,
+     "loao_ok_location": null,
+     "basis_location": null,
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "custom_ddr",
+     "library": "custom dual-gRNA DDR",
+     "n_group_anchors": 0,
+     "n_library_anchors": 0,
+     "loao_gain_location": null,
+     "loao_ok_location": null,
+     "basis_location": null,
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    },
+    {
+     "group": "crispri",
+     "library": "hCRISPRi-v2",
+     "n_group_anchors": 0,
+     "n_library_anchors": 0,
+     "loao_gain_location": null,
+     "loao_ok_location": null,
+     "basis_location": null,
+     "within_set_perm_gain": null,
+     "wrong_line_ref_gain": null,
+     "variant": "none",
+     "applied": false,
+     "reason": "fewer than 2 anchors in the lab/library group: tau2 not identifiable, LOAO impossible",
+     "loao_gain_location_scale": null,
+     "loao_ok_location_scale": null,
+     "basis_location_scale": null
+    }
+   ]
+  }
+ }
+}
