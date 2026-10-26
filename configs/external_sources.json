@@ -1,0 +1,12 @@
+{
+  "_comment": "Open prior-knowledge resources. Versioned URLs where the provider offers them. Licence column is informational; see DATA.md.",
+  "ensembl_paralogs": {"url": "https://ftp.ensembl.org/pub/release-116/tsv/ensembl-compara/homologies/homo_sapiens/Compara.116.protein_default.homologies.tsv.gz", "version": "Ensembl 116", "licence": "Ensembl: no restrictions (open)"},
+  "hgnc": {"url": "https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt", "version": "download date", "licence": "CC0"},
+  "biogrid": {"url": "https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ALL-LATEST.tab3.zip", "version": "from file name in archive", "licence": "MIT"},
+  "huri": {"url": "https://interactome-atlas.org/data/HuRI.tsv", "version": "HuRI 2020", "licence": "CC BY 4.0"},
+  "bioplex_293t": {"url": "https://bioplex.hms.harvard.edu/data/BioPlex_293T_Network_10K_Dec_2019.tsv", "version": "BioPlex 3.0 293T", "licence": "academic use (see site)"},
+  "reactome_gmt": {"url": "https://reactome.org/download/current/ReactomePathways.gmt.zip", "version": "download date", "licence": "CC BY 4.0"},
+  "msigdb_hallmark": {"url": "https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2024.1.Hs/h.all.v2024.1.Hs.symbols.gmt", "version": "MSigDB 2024.1.Hs", "licence": "CC BY 4.0 (Hallmarks)"},
+  "hart_ceg2": {"url": "https://raw.githubusercontent.com/hart-lab/bagel/master/CEGv2.txt", "version": "CEGv2 (Hart 2017)", "licence": "MIT (bagel repo)"},
+  "hart_neg": {"url": "https://raw.githubusercontent.com/hart-lab/bagel/master/NEGv1.txt", "version": "NEGv1 (Hart 2017)", "licence": "MIT (bagel repo)"}
+}

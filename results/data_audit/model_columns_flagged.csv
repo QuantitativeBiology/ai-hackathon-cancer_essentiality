@@ -1,0 +1,15 @@
+file,column,non_null,n_unique,examples
+Model.csv,ModelTreatment,64,10,EBV;hTERT + SV40;HTLV-1;HAdV-C5
+Model.csv,PatientTreatmentStatus,461,4,Unknown;Post-treatment;Pre-treatment;Active treatment
+Model.csv,PatientTreatmentType,107,22,"Chemotherapy and Radiation;Chemotherapy;Chemotherapy, bone marrow transplant;Che"
+Model.csv,PatientTreatmentDetails,101,72,"Cyclophosphamide, doxorubicin and vincristine;Melphalan, carboplatin, and etopos"
+Model.csv,PatientTreatmentResponse,146,15,Progressive Disease;Partial Response;Relapse and Resistance;Relapse
+Model.csv,CulturedResistanceDrug,10,5,Gefitinib;Dabrafenib and Trametinib;SCH772984;Dabrafenib
+Model.csv,PublicComments,84,70,SNP fingerprinting confirms that this line is an OVCAR-3 derivative. DepMap meta
+ModelCondition.csv,DataSource,3385,3,BROAD;SANGER;OTHER
+ModelCondition.csv,PassageNumber,211,3,10+;6-10;<5
+ModelCondition.csv,PrescreenTreatmentDrug,0,0,
+ModelCondition.csv,PrescreenTreatmentDrugDays,0,0,
+ModelCondition.csv,AnchorDrug,8,5,Olaparib;S63845;A-1331852;DMSO
+ModelCondition.csv,AnchorDrugConcentration,7,3,250 nM;500 nM;1.95 nM 
+ModelCondition.csv,AnchorDaysWithDrug,0,0,

@@ -1,0 +1,31 @@
+OncotreeLineage,screened_full_omics,screened_any_omics
+Lung,117,126
+CNS/Brain,110,133
+Esophagus/Stomach,86,96
+Lymphoid,85,97
+Bowel,75,85
+Skin,71,75
+Pancreas,67,71
+Breast,64,67
+Head and Neck,58,77
+Ovary/Fallopian Tube,55,62
+Bone,49,59
+Soft Tissue,45,50
+Myeloid,40,45
+Peripheral Nervous System,40,47
+Uterus,37,38
+Biliary Tract,34,36
+Bladder/Urinary Tract,33,34
+Kidney,29,35
+Liver,25,25
+Pleura,20,21
+Cervix,18,18
+Prostate,15,19
+Eye,13,15
+Thyroid,11,11
+Ampulla of Vater,9,9
+Testis,4,5
+Vulva/Vagina,2,2
+Adrenal Gland,1,1
+Fibroblast,1,1
+Other,0,1

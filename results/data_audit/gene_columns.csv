@@ -1,0 +1,6 @@
+matrix,gene_columns,unparseable,unparseable_examples,duplicated_symbols,duplicated_entrez,dup_symbol_examples
+crispr,18434,0,,0,0,
+expression,19218,0,,0,0,
+cn,18778,561,ENSG00000100101;ENSG00000111780;ENSG00000112096;ENSG00000124333_PAR_Y;ENSG00000124334_PAR_Y,0,0,
+damaging,19657,75,RSC1A1 (Unknown);LDC1P (Unknown);MGC27382 (Unknown);CLCA3P (Unknown);GBP1P1 (Unknown),0,0,
+hotspot,165,0,,0,0,

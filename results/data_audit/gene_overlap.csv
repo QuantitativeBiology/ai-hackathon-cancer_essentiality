@@ -1,0 +1,6 @@
+matrix,n_genes,overlap_with_crispr,crispr_genes_not_in,not_in_crispr
+crispr,18434,18434,0,0
+expression,19218,18365,69,853
+cn,18778,18150,284,628
+damaging,19657,17514,920,2143
+hotspot,165,165,18269,0

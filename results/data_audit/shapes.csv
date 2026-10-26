@@ -1,0 +1,9 @@
+file,rows,cols,unique_models,rows_per_model_max,rows_per_model_min,rows_per_model_median,models_with_gt1_rows,default_rows,models_exactly_one_default,models_zero_default,models_gt1_default,IsDefaultEntryForModel_values
+CRISPRGeneEffect.csv,1361,18435,1361,1.0,,,,,,,,
+OmicsExpressionTPMLogp1HumanProteinCodingGenes.csv,2314,19224,2130,4.0,1.0,1.0,172.0,2130.0,2130.0,0.0,0.0,Yes;No
+OmicsCNGeneWGS.csv,1846,19345,1763,3.0,1.0,1.0,80.0,1763.0,1763.0,0.0,0.0,Yes;No
+OmicsSomaticMutationsMatrixDamaging.csv,3807,19738,2395,4.0,1.0,2.0,1229.0,2395.0,2395.0,0.0,0.0,Yes;No
+OmicsSomaticMutationsMatrixHotspot.csv,3807,171,2395,4.0,1.0,2.0,1229.0,2395.0,2395.0,0.0,0.0,Yes;No
+OmicsFusionFiltered.csv,102819,15,2129,468.0,1.0,36.0,2123.0,94718.0,7.0,0.0,2122.0,Yes;No
+Model.csv,2554,48,2554,,,,,,,,,
+ModelCondition.csv,3385,17,2476,,,,,,,,,

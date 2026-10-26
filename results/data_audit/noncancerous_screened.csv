@@ -1,0 +1,18 @@
+ModelID,CellLineName,OncotreeLineage,OncotreePrimaryDisease,OncotreeSubtype,ModelType,SourceType,has_expression,has_cn,has_damaging,full_omics
+ACH-000133,Hs 729,Fibroblast,Non-Cancerous,Fibroblast,Cell Line,ATCC,True,True,True,True
+ACH-000206,C8166,Lymphoid,Non-Cancerous,"Transformed cell line, B lymphoblast",Cell Line,Sigma-Aldrich,True,True,True,True
+ACH-001310,HA1E,Kidney,Non-Cancerous,Immortalized Embyonic Kidney Cells,Cell Line,Academic lab,True,False,True,False
+ACH-001422,WPE1-NA22,Prostate,Non-Cancerous,"Immortalized Epithelial Cells, Prostate",Cell Line,ATCC,True,True,True,True
+ACH-001453,BPH-1,Prostate,Non-Cancerous,"Hyperplasia, Prostate",Cell Line,DSMZ,True,False,True,False
+ACH-001520,HG-3,Lymphoid,Non-Cancerous,"Transformed cell line, B lymphoblast",Cell Line,DSMZ,True,False,True,False
+ACH-001627,P4E6,Prostate,Non-Cancerous,"Immortalized Epithelial Cells, Prostate",Cell Line,Sigma-Aldrich,True,False,True,False
+ACH-001648,Shmac 4,Prostate,Non-Cancerous,"Immortalized Epithelial Cells, Prostate",Cell Line,Sigma-Aldrich,True,False,True,False
+ACH-001649,Shmac 5,Prostate,Non-Cancerous,"Immortalized Epithelial Cells, Prostate",Cell Line,Sigma-Aldrich,True,True,True,True
+ACH-002210,ARH-77,Myeloid,Non-Cancerous,Immortalized Blood,Cell Line,Wellcome Sanger Institute,False,False,True,False
+ACH-002247,IM-9,Myeloid,Non-Cancerous,Immortalized Blood,Cell Line,Wellcome Sanger Institute,False,False,True,False
+ACH-002462,RPE1-ss48,Eye,Non-Cancerous,"Immortalized Epithelial Cells, Retinal",Cell Line,Tel Aviv University,True,False,True,False
+ACH-002463,RPE1-ss77,Eye,Non-Cancerous,"Immortalized Epithelial Cells, Retinal",Cell Line,Tel Aviv University,True,True,True,True
+ACH-002464,RPE1-ss6,Eye,Non-Cancerous,"Immortalized Epithelial Cells, Retinal",Cell Line,Tel Aviv University,True,True,True,True
+ACH-002465,RPE1-ss119,Eye,Non-Cancerous,"Immortalized Epithelial Cells, Retinal",Cell Line,Tel Aviv University,True,True,True,True
+ACH-002467,RPE1-ss51,Eye,Non-Cancerous,"Immortalized Epithelial Cells, Retinal",Cell Line,Tel Aviv University,True,False,True,False
+ACH-003722,HCM-CSHL-0384-D37,Bowel,Non-Cancerous,Tubulovillous adenoma,Organoid,ATCC,True,True,True,True

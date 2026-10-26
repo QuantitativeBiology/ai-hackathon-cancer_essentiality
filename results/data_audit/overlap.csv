@@ -1,0 +1,12 @@
+set,n,screened_in_set
+CRISPR screened,1361,
+expression (default entries),2130,1292.0
+cn (default entries),1763,1221.0
+damaging (default entries),2395,1361.0
+hotspot (default entries),2395,1361.0
+fusion (default entries),2129,1292.0
+Model.csv (default entries),2554,1361.0
+screened ∩ expression ∩ cn ∩ damaging (full omics),1214,1214.0
+... ∩ hotspot,1214,1214.0
+screened missing from Model.csv,0,
+"expression ∩ cn ∩ damaging, NOT screened (inference-only lines)",510,

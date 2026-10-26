@@ -1,0 +1,78 @@
+{
+ "ensembl_paralogs": {
+  "url": "https://ftp.ensembl.org/pub/release-116/tsv/ensembl-compara/homologies/homo_sapiens/Compara.116.protein_default.homologies.tsv.gz",
+  "file": "data/raw_external/ensembl_paralogs/Compara.116.protein_default.homologies.tsv.gz",
+  "bytes": 109478724,
+  "sha256": "fc101ab6e90966091064e5f2e695e46da50d9bc50f4543340ded7d0ccd6e7933",
+  "version": "Ensembl 116",
+  "licence": "Ensembl: no restrictions (open)",
+  "retrieved": "2026-10-26"
+ },
+ "hgnc": {
+  "url": "https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt",
+  "file": "data/raw_external/hgnc/hgnc_complete_set.txt",
+  "bytes": 16982321,
+  "sha256": "12363916be36f8f6f91879b0faade4eeaac973722de7136ec61329b77f2c2f91",
+  "version": "download date",
+  "licence": "CC0",
+  "retrieved": "2026-10-26"
+ },
+ "biogrid": {
+  "url": "https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ALL-LATEST.tab3.zip",
+  "error": "CalledProcessError(56, ['curl', '-sSfL', '-m', '1800', '-o', 'data\\\\raw_external\\\\biogrid\\\\BIOGRID-ALL-LATEST.tab3.zip', 'https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ALL-LATEST.tab3.zip'])"
+ },
+ "huri": {
+  "url": "https://interactome-atlas.org/data/HuRI.tsv",
+  "file": "data/raw_external/huri/HuRI.tsv",
+  "bytes": 1681536,
+  "sha256": "4cdf94366ff6e23e71ef9ec81922e85b2b3a1fb08e938f7b00d86c027cf1ecd6",
+  "version": "HuRI 2020",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26"
+ },
+ "bioplex_293t": {
+  "url": "https://bioplex.hms.harvard.edu/data/BioPlex_293T_Network_10K_Dec_2019.tsv",
+  "file": "data/raw_external/bioplex_293t/BioPlex_293T_Network_10K_Dec_2019.tsv",
+  "bytes": 12866060,
+  "sha256": "5a98def087fc77c7bf07aac79e2553fd64ea1a27a7d0c4617870476f3f120833",
+  "version": "BioPlex 3.0 293T",
+  "licence": "academic use (see site)",
+  "retrieved": "2026-10-26"
+ },
+ "reactome_gmt": {
+  "url": "https://reactome.org/download/current/ReactomePathways.gmt.zip",
+  "file": "data/raw_external/reactome_gmt/ReactomePathways.gmt.zip",
+  "bytes": 298479,
+  "sha256": "8c1dbc8578431da5d2d5118262718c60b553a9be3398e93658daa069e4a9afd4",
+  "version": "download date",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26"
+ },
+ "msigdb_hallmark": {
+  "url": "https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2024.1.Hs/h.all.v2024.1.Hs.symbols.gmt",
+  "file": "data/raw_external/msigdb_hallmark/h.all.v2024.1.Hs.symbols.gmt",
+  "bytes": 48690,
+  "sha256": "ee2463540042078bfa3f67828e1e223bb354446d9fbb4d22845866835ba5c772",
+  "version": "MSigDB 2024.1.Hs",
+  "licence": "CC BY 4.0 (Hallmarks)",
+  "retrieved": "2026-10-26"
+ },
+ "hart_ceg2": {
+  "url": "https://raw.githubusercontent.com/hart-lab/bagel/master/CEGv2.txt",
+  "file": "data/raw_external/hart_ceg2/CEGv2.txt",
+  "bytes": 15088,
+  "sha256": "1b1df46f829e2c47dc8a4c164f60f5f1dc67513bafba7d8b9609421e0c75d27e",
+  "version": "CEGv2 (Hart 2017)",
+  "licence": "MIT (bagel repo)",
+  "retrieved": "2026-10-26"
+ },
+ "hart_neg": {
+  "url": "https://raw.githubusercontent.com/hart-lab/bagel/master/NEGv1.txt",
+  "file": "data/raw_external/hart_neg/NEGv1.txt",
+  "bytes": 21712,
+  "sha256": "18a6b37a8f182a1bf501548e6b28fe4fcef02fcd296f873ef500a21eeb433739",
+  "version": "NEGv1 (Hart 2017)",
+  "licence": "MIT (bagel repo)",
+  "retrieved": "2026-10-26"
+ }
+}

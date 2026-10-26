@@ -1,0 +1,66 @@
+,file,column,non_null,n_unique,examples,keyword_flag,nonnull_rate_screened,nonnull_rate_unscreened
+0,Model.csv,ModelID,2554,2554,ACH-000001;ACH-000002;ACH-000003;ACH-000004,False,1.0,1.0
+1,Model.csv,PatientID,2554,2315,PT-gj46wT;PT-5qa3uk;PT-puKIyc;PT-q4K2cp,False,1.0,1.0
+2,Model.csv,CellLineName,2554,2554,NIH:OVCAR-3;HL-60;CACO2;HEL,False,1.0,1.0
+3,Model.csv,StrippedCellLineName,2554,2554,NIHOVCAR3;HL60;CACO2;HEL,False,1.0,1.0
+4,Model.csv,DepmapModelType,2554,270,HGSOC;AMLMRC;COAD;AMLNOS,False,1.0,1.0
+5,Model.csv,OncotreeLineage,2528,33,Ovary/Fallopian Tube;Myeloid;Bowel;Skin,False,1.0,0.9782062028499581
+6,Model.csv,OncotreePrimaryDisease,2553,104,Ovarian Epithelial Tumor;Acute Myeloid Leukemia;Colorectal Adenocarcinoma;Melano,False,1.0,0.9991617770326907
+7,Model.csv,OncotreeSubtype,2554,268,High-Grade Serous Ovarian Cancer;AML with Myelodysplasia-Related Changes;Colon A,False,1.0,1.0
+8,Model.csv,OncotreeCode,2313,211,HGSOC;AMLMRC;COAD;AMLNOS,False,0.964731814842028,0.8382229673093042
+9,Model.csv,RRID,2105,2102,CVCL_0465;CVCL_0002;CVCL_0025;CVCL_0001,False,0.8853783982365907,0.7544006705783739
+10,Model.csv,Age,2075,92,60.0;36.0;72.0;30.0,False,0.8273328434974284,0.7954735959765298
+11,Model.csv,AgeCategory,2553,4,Adult;Unknown;Pediatric;Fetus,False,1.0,0.9991617770326907
+12,Model.csv,Sex,2525,3,Female;Male;Unknown,False,1.0,0.9756915339480302
+13,Model.csv,PatientRace,826,9,caucasian;asian;black_or_african_american;african,False,0.32770022042615726,0.31852472757753564
+14,Model.csv,PrimaryOrMetastasis,2151,4,Metastatic;Primary;Unknown;Recurrent,False,0.9125642909625276,0.7619446772841576
+15,Model.csv,SourceType,2516,74,ATCC;DSMZ;KCLB;Dana-Farber Cancer Institute,False,0.9963262307127112,0.972338642078793
+16,Model.csv,SourceDetail,496,74,Bill Kaelin;Ian Dunn;Pasi Janne;David Pellman,False,0.2020573108008817,0.18524727577535624
+17,Model.csv,CatalogNumber,1286,1279,HTB-161;CCL-240;HTB-37;ACC 11,False,0.5980896399706098,0.3956412405699916
+18,Model.csv,SampleCollectionSite,2504,108,ascites;haematopoietic_and_lymphoid_tissue;Colon;bone_marrow,False,0.994121969140338,0.9647946353730092
+19,Model.csv,ModelSubtypeFeatures,404,177,"NRAS, BCOR and CDKN2A;JAK2 and TP53;KMT2A::MLLT3, TP53, ASXL1 and U2AF1;HER2+",False,0.16385011021307863,0.15171835708298406
+20,Model.csv,PatientSubtypeFeatures,187,153,"TP53(del), CDKN2A and NRAS mutations [PubMed=288488], No PML-RARA fusion;JAK2 an",False,0.060249816311535635,0.08801341156747695
+21,Model.csv,TissueOrigin,1,1,Human cell line,False,0.0,0.0008382229673093043
+22,Model.csv,ModelDerivationMaterial,44,4,PDX;Fresh tissue;Organoid;Frozen tissue,False,0.013960323291697281,0.020955574182732608
+23,Model.csv,ModelTreatment,64,10,EBV;hTERT + SV40;HTLV-1;HAdV-C5,True,0.0073475385745775165,0.04526404023470243
+24,Model.csv,PatientTreatmentStatus,461,4,Unknown;Post-treatment;Pre-treatment;Active treatment,True,0.14107274063188832,0.22548197820620286
+25,Model.csv,PatientTreatmentType,107,22,"Chemotherapy and Radiation;Chemotherapy;Chemotherapy, bone marrow transplant;Che",True,0.03526818515797208,0.04945515507124895
+26,Model.csv,PatientTreatmentDetails,101,72,"Cyclophosphamide, doxorubicin and vincristine;Melphalan, carboplatin, and etopos",True,0.03232916972814107,0.04777870913663034
+27,Model.csv,Stage,103,19,4;2A;2B;3,False,0.03820720058780309,0.04274937133277452
+28,Model.csv,StagingSystem,10,3,Rai;AJCC Pathologic Stage;AJCC 8th Edition,False,0.0014695077149155032,0.006705783738474434
+29,Model.csv,PatientTumorGrade,8,7,3;KI67% = 10;KI67% = 5;KI67% = 20,False,0.002204261572373255,0.004191114836546521
+30,Model.csv,PatientTreatmentResponse,146,15,Progressive Disease;Partial Response;Relapse and Resistance;Relapse,True,0.05657604702424688,0.057837384744341996
+31,Model.csv,GrowthPattern,2554,6,Adherent;Suspension;Mixed;Unknown,False,1.0,1.0
+32,Model.csv,OnboardedMedia,2097,199,MF-001-041;MF-005-001;MF-015-009;MF-001-001,False,0.9419544452608376,0.683151718357083
+33,Model.csv,FormulationID,2097,199,RPMI + 20% FBS + 0.01 mg/ml insulin;IMDM + 10% FBS;EMEM + 20% FBS;RPMI + 10% FBS,False,0.9419544452608376,0.683151718357083
+34,Model.csv,SerumFreeMedia,2097,2,False;True,False,0.9419544452608376,0.683151718357083
+35,Model.csv,PlateCoating,86,3,Ultra Low Attachment (ULA);Laminin;Matrigel,False,0.030124908155767818,0.037720033528918694
+36,Model.csv,EngineeredModel,22,5,drug adapted;genetic knockout;engineered clone;genetic knock down,False,0.011756061719324026,0.005029337803855826
+37,Model.csv,EngineeredModelDetails,9,9,Near-diploid control ;Near-diploid control;Single trisomy ch7 after treatment w/,False,0.005878030859662013,0.0008382229673093043
+38,Model.csv,CulturedResistanceDrug,10,5,Gefitinib;Dabrafenib and Trametinib;SCH772984;Dabrafenib,True,0.005878030859662013,0.0016764459346186086
+39,Model.csv,PublicComments,84,70,SNP fingerprinting confirms that this line is an OVCAR-3 derivative. DepMap meta,True,0.02718589272593681,0.039396479463537304
+40,Model.csv,CCLEName,2122,2122,NIHOVCAR3_OVARY;HL60_HAEMATOPOIETIC_AND_LYMPHOID_TISSUE;CACO2_LARGE_INTESTINE;HE,False,0.9052167523879501,0.7460184409052808
+41,Model.csv,ModelIDAlias,93,93,ACH-001078;ACH-000010;ACH-001288;ACH-001309,False,0.0440852314474651,0.027661357921207042
+42,Model.csv,HCMIID,215,215,HCM-BROD-0035-C49;HCM-BROD-0004-C64;HCM-BROD-0052-C49;HCM-BROD-0005-C41,False,0.06171932402645114,0.10980720871751885
+43,Model.csv,ModelType,2554,2,Cell Line;Organoid,False,1.0,1.0
+44,Model.csv,PediatricModelType,2554,2,False;True,False,1.0,1.0
+45,Model.csv,SangerModelID,1220,1219,SIDM00105;SIDM00829;SIDM00891;SIDM00594,False,0.5194709772226305,0.4300083822296731
+46,Model.csv,WTSIMasterCellID,976,976,2201.0;55.0;783.0;2167.0,False,0.44305657604702425,0.3126571668063705
+47,Model.csv,COSMICID,977,977,905933.0;905938.0;907053.0;908148.0,False,0.44305657604702425,0.3134953897736798
+48,ModelCondition.csv,ModelConditionID,3385,3385,MC-000001-ztiA;MC-000001-ZU8p;MC-000002-8QnY;MC-000002-UPDL,False,,
+49,ModelCondition.csv,ModelID,3385,2476,ACH-000001;ACH-000002;ACH-000003;ACH-000004,False,,
+50,ModelCondition.csv,ParentModelConditionID,8,5,MC-000219-QLoB;MC-000696-6MXX;MC-000881-Ob9w;MC-002109-alie,False,,
+51,ModelCondition.csv,DataSource,3385,3,BROAD;SANGER;OTHER,True,,
+52,ModelCondition.csv,CellFormat,3024,6,adherent;suspension;mixed;unknown,False,,
+53,ModelCondition.csv,Morphology,118,7,Solid;Diffuse;Cystic;Coat,False,,
+54,ModelCondition.csv,PassageNumber,211,3,10+;6-10;<5,True,,
+55,ModelCondition.csv,GrowthMedia,2171,194,MF-001-058;MF-005-001;MF-015-009;MF-001-001,False,,
+56,ModelCondition.csv,FormulationID,2171,194,RPMI + 20% FBS + 10ug/ml Insulin;IMDM + 10% FBS;EMEM + 20% FBS;RPMI + 10% FBS,False,,
+57,ModelCondition.csv,SerumFreeMedia,2171,2,False;True,False,,
+58,ModelCondition.csv,PlateCoating,149,4,Ultra Low Attachment (ULA);Matrigel;Laminin;Unknown,False,,
+59,ModelCondition.csv,PrescreenTreatmentDrug,0,0,,True,,
+60,ModelCondition.csv,PrescreenTreatmentDrugDays,0,0,,True,,
+61,ModelCondition.csv,AnchorDrug,8,5,Olaparib;S63845;A-1331852;DMSO,True,,
+62,ModelCondition.csv,AnchorDrugConcentration,7,3,250 nM;500 nM;1.95 nM ,True,,
+63,ModelCondition.csv,AnchorDaysWithDrug,0,0,,True,,
+64,ModelCondition.csv,model_id,3385,2476,ACH-000001;ACH-000002;ACH-000003;ACH-000004,False,,
