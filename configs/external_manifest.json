@@ -79,5 +79,14 @@
   "version": "NEGv1 (Hart 2017)",
   "licence": "MIT (bagel repo)",
   "retrieved": "2026-10-26"
+ },
+ "nusinow2020": {
+  "url": "https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz",
+  "file": "data/external_omics/nusinow2020/protein_quant_current_normalized.csv.gz",
+  "bytes": 30916232,
+  "sha256": "b72a9ff39b123c801249ea212844ac1f500c3f38fa0f399ec6ad08ee1be2a7ed",
+  "version": "Nusinow et al. 2020 Cell (CCLE TMT proteomics, normalised protein quant; file dated 2020-02-06)",
+  "licence": "no licence stated on download site; published data of Nusinow et al. Cell 2020 (doi:10.1016/j.cell.2019.12.023); research use, not redistributed",
+  "retrieved": "2026-10-26"
  }
 }

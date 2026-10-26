@@ -1,7 +1,9 @@
 """Download open external resources listed in configs/external_sources.json.
 
-Each resource goes to data/raw_external/<name>/ (git-ignored). A manifest with URL, date,
-size and sha256 is written to configs/external_manifest.json for DATA.md.
+Each resource goes to data/raw_external/<name>/ (git-ignored), or to the directory given by the
+source's optional "dir" key (relative to the repo root; e.g. omics datasets under
+data/external_omics/<name>/). A manifest with URL, date, size and sha256 is written to
+configs/external_manifest.json for DATA.md.
 """
 import argparse
 import datetime as dt
@@ -32,7 +34,7 @@ def main():
     for name, s in sources.items():
         if a.only and name not in a.only:
             continue
-        d = pathlib.Path(a.out) / name
+        d = pathlib.Path(s["dir"]) if "dir" in s else pathlib.Path(a.out) / name
         d.mkdir(parents=True, exist_ok=True)
         fn = d / s["url"].rstrip("/").split("/")[-1]
         try:

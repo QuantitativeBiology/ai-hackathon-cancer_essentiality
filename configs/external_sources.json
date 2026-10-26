@@ -8,5 +8,6 @@
   "reactome_gmt": {"url": "https://reactome.org/download/current/ReactomePathways.gmt.zip", "version": "download date", "licence": "CC BY 4.0"},
   "msigdb_hallmark": {"url": "https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2024.1.Hs/h.all.v2024.1.Hs.symbols.gmt", "version": "MSigDB 2024.1.Hs", "licence": "CC BY 4.0 (Hallmarks)"},
   "hart_ceg2": {"url": "https://raw.githubusercontent.com/hart-lab/bagel/master/CEGv2.txt", "version": "CEGv2 (Hart 2017)", "licence": "MIT (bagel repo)"},
-  "hart_neg": {"url": "https://raw.githubusercontent.com/hart-lab/bagel/master/NEGv1.txt", "version": "NEGv1 (Hart 2017)", "licence": "MIT (bagel repo)"}
+  "hart_neg": {"url": "https://raw.githubusercontent.com/hart-lab/bagel/master/NEGv1.txt", "version": "NEGv1 (Hart 2017)", "licence": "MIT (bagel repo)"},
+  "nusinow2020": {"url": "https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz", "dir": "data/external_omics/nusinow2020", "version": "Nusinow et al. 2020 Cell (CCLE TMT proteomics, normalised protein quant; file dated 2020-02-06)", "licence": "no licence stated on download site; published data of Nusinow et al. Cell 2020 (doi:10.1016/j.cell.2019.12.023); research use, not redistributed"}
 }

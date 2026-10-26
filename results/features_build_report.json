@@ -1,0 +1,344 @@
+{
+ "fusion_filter": {
+  "rows_in": 94718,
+  "self_fusion_rows": 5031,
+  "noncoding_rows": 56441,
+  "rows_kept": 33246,
+  "unique_pairs_kept": 25568
+ },
+ "proteomics": {
+  "samples": 378,
+  "unique_ccle_names": 375,
+  "lines_matched": 375,
+  "unmatched_names": [],
+  "replicated_lines": 3,
+  "proteins": 12755,
+  "proteins_mapped": 12691,
+  "entrez_genes": 12155
+ },
+ "gene_sets": {
+  "hallmark_n_sets": 50,
+  "hallmark_genes_median": 180,
+  "hallmark_genes_in_E": 4376,
+  "p53_targets": [
+   "1026",
+   "4193",
+   "50484",
+   "64393",
+   "8795",
+   "2232",
+   "27244",
+   "1643"
+  ]
+ },
+ "blocks": {
+  "E": {
+   "rows": 2130,
+   "cols": 19218,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "C": {
+   "rows": 1763,
+   "cols": 18500,
+   "lines_dev": 967,
+   "lines_test": 239,
+   "lines_noncancerous": 8
+  },
+  "C_instab": {
+   "rows": 1763,
+   "cols": 1,
+   "lines_dev": 967,
+   "lines_test": 239,
+   "lines_noncancerous": 8
+  },
+  "composite": {
+   "rows": 2395,
+   "cols": 14,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "M": {
+   "rows": 2395,
+   "cols": 19657,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "M_burden": {
+   "rows": 2395,
+   "cols": 1,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "H": {
+   "rows": 2395,
+   "cols": 165,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "F_pair": {
+   "rows": 2130,
+   "cols": 383,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "F_gene": {
+   "rows": 2130,
+   "cols": 4155,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "meta": {
+   "rows": 2554,
+   "cols": 4,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "meta_prov": {
+   "rows": 2554,
+   "cols": 3,
+   "lines_dev": 1022,
+   "lines_test": 255,
+   "lines_noncancerous": 15
+  },
+  "P": {
+   "rows": 375,
+   "cols": 12155,
+   "lines_dev": 253,
+   "lines_test": 55,
+   "lines_noncancerous": 0
+  }
+ },
+ "composite_prevalence_dev": {
+  "TP53_dam": 1.2680000066757202,
+  "TP53_hot": 0.5099999904632568,
+  "TP53_mut": 0.6700000166893005,
+  "TP53_cnloss": 0.2619999945163727,
+  "MDM2_amp": 0.035999998450279236,
+  "MDM4_amp": 0.023000000044703484,
+  "PPM1D_dam": 0.009999999776482582,
+  "ATM_dam": 0.02800000086426735,
+  "CHEK2_dam": 0.00800000037997961,
+  "p53_altered": 0.7870000004768372,
+  "RB1_dam": 0.061000000685453415,
+  "RB1_deepdel": 0.008999999612569809,
+  "CDKN2A_deepdel": 0.29499998688697815,
+  "RB_altered": 0.0689999982714653
+ },
+ "C_genes_dropped_all_nan": 278,
+ "priors": {
+  "biogrid_file": "BIOGRID-ALL-5.0.262.tab3.txt",
+  "biogrid_rows": 2950299,
+  "biogrid_human_physical_rows": 1298722,
+  "paralog_pairs_directed": 280356,
+  "paralog_pairs_by_type": {
+   "other_paralog": 254560,
+   "within_species_paralog": 25796
+  },
+  "genes_with_paralog": 15645,
+  "interaction_pairs_undirected": {
+   "biogrid_physical": 983789,
+   "bioplex_293t": 118162,
+   "huri": 51745,
+   "union": 984194
+  }
+ },
+ "prior_coverage_crispr_genes": {
+  "n_genes": 18434,
+  "paralog_any": 0.7920690029293697,
+  "paralog_id20": 0.7529564934360421,
+  "partner_biogrid_physical": 0.9658782684170555,
+  "partner_bioplex_293t": 0.7297385266355647,
+  "partner_huri": 0.43191927959205817,
+  "partner_union": 0.9659325160030379,
+  "paralog_within_species_only": 0.30438320494737986
+ },
+ "local_features_smoke": {
+  "own_expr": [
+   [
+    5,
+    200
+   ],
+   2.8896758556365967
+  ],
+  "not_expressed": [
+   [
+    5,
+    200
+   ],
+   0.34700000286102295
+  ],
+  "expr_hinge": [
+   [
+    5,
+    200
+   ],
+   2.176647186279297
+  ],
+  "own_cn": [
+   [
+    5,
+    200
+   ],
+   0.06395003944635391
+  ],
+  "deep_del": [
+   [
+    5,
+    200
+   ],
+   0.0
+  ],
+  "own_mut": [
+   [
+    5,
+    200
+   ],
+   0.0020000000949949026
+  ],
+  "par1_expr": [
+   [
+    5,
+    200
+   ],
+   2.379720687866211
+  ],
+  "par2_expr": [
+   [
+    5,
+    200
+   ],
+   2.3076772689819336
+  ],
+  "par3_expr": [
+   [
+    5,
+    200
+   ],
+   1.777092695236206
+  ],
+  "par_min_expr": [
+   [
+    5,
+    200
+   ],
+   1.103118658065796
+  ],
+  "par_max_expr": [
+   [
+    5,
+    200
+   ],
+   3.72501277923584
+  ],
+  "par_deep_del": [
+   [
+    5,
+    200
+   ],
+   0.0
+  ],
+  "par_mut": [
+   [
+    5,
+    200
+   ],
+   0.0010000000474974513
+  ],
+  "partner_mean_expr": [
+   [
+    5,
+    200
+   ],
+   4.17694616317749
+  ]
+ },
+ "deep_deletion_evidence": {
+  "bins": [
+   {
+    "bin": "[0.00,0.05)",
+    "n": 28146,
+    "n_per_0.05": 28146,
+    "frac_not_expressed": 0.971
+   },
+   {
+    "bin": "[0.05,0.10)",
+    "n": 637,
+    "n_per_0.05": 637,
+    "frac_not_expressed": 0.818
+   },
+   {
+    "bin": "[0.10,0.15)",
+    "n": 640,
+    "n_per_0.05": 640,
+    "frac_not_expressed": 0.637
+   },
+   {
+    "bin": "[0.15,0.20)",
+    "n": 1129,
+    "n_per_0.05": 1129,
+    "frac_not_expressed": 0.572
+   },
+   {
+    "bin": "[0.20,0.25)",
+    "n": 3703,
+    "n_per_0.05": 3703,
+    "frac_not_expressed": 0.595
+   },
+   {
+    "bin": "[0.25,0.30)",
+    "n": 12161,
+    "n_per_0.05": 12161,
+    "frac_not_expressed": 0.596
+   },
+   {
+    "bin": "[0.30,0.35)",
+    "n": 45091,
+    "n_per_0.05": 45091,
+    "frac_not_expressed": 0.535
+   },
+   {
+    "bin": "[0.35,0.40)",
+    "n": 91283,
+    "n_per_0.05": 91283,
+    "frac_not_expressed": 0.504
+   },
+   {
+    "bin": "[0.40,0.45)",
+    "n": 126418,
+    "n_per_0.05": 126418,
+    "frac_not_expressed": 0.51
+   },
+   {
+    "bin": "[0.45,0.50)",
+    "n": 280400,
+    "n_per_0.05": 280400,
+    "frac_not_expressed": 0.493
+   },
+   {
+    "bin": "[0.50,0.75)",
+    "n": 3162530,
+    "n_per_0.05": 632506,
+    "frac_not_expressed": 0.422
+   },
+   {
+    "bin": "[0.75,1.00)",
+    "n": 9636983,
+    "n_per_0.05": 1927397,
+    "frac_not_expressed": 0.41
+   }
+  ],
+  "frac_values_below_thr": 0.001086179935448791,
+  "frac_of_sub_thr_below_0.05": 0.8216610713764414,
+  "median_deep_del_genes_per_line": 18.0
+ },
+ "runtime_s": 289.9
+}
