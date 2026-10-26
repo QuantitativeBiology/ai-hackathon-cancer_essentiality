@@ -13,3 +13,6 @@ Each rule is one line, with its evidence in brackets. Pruned at each milestone (
 9. Stop adding process machinery once the design is frozen; the next unit of value is a result. [DESIGN.md grew from 199 lines to ~440 before any model ran.]
 10. Cross-check headline metrics with an independent agent writing its own metric code before freezing evaluation. [The red-team G0 cross-check matched B1 to 6 decimals and separately found 3 guard gaps that tests had missed.]
 11. Shared append-only logs need a file lock as soon as runs go parallel. [registry.csv got a corrupted row when G2 switched to parallel workers.]
+12. Always run leave-one-out ablations alongside add-one; a weighting default can make every addition look harmful. [G2: every add-one modality hurt, while leave-one-out showed C +0.009 and E +0.021, Holm p < 0.001.]
+13. Run the published simple method as a diagnostic beside each pre-registered choice; it exposes design choices that cost accuracy. [The pre-registered B1-residual target cost 0.008 P1 against raw ridge (R1), 5/5 folds.]
+14. Time only on a quiet machine; parallel agents make runtimes noisy, so re-time finalists alone. [G2 fit times varied about 1.5× with 6 vs 12 threads and shared jobs.]

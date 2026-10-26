@@ -4,6 +4,33 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-26 — M3: first model rung (G2) done
+- **Result:** the kernel-ridge rung (G2) more than doubles the lineage-mean baseline's per-gene skill, but it is not
+  better than a plain ridge regression on expression.
+- **Numbers:** dev-CV P1 (variable genes) 0.308 vs B1 0.184 and B2 (expression kNN) 0.253. P2b nAP 0.19 vs 0.087.
+- **Cost:** about 80–100 s per fold at 12 threads.
+- **Residual target:** the pre-registered B1-residual target was worse than the B0 residual. I switched it (D14).
+- **Modality ablation:** with default block weights, every non-expression modality hurts. Copy number carries real
+  signal in leave-one-out, so block-weight tuning comes before any negative claim (D15).
+- **Controls:** the permuted-feature control reproduces B1 exactly. Provenance metadata behaves as a batch proxy and
+  stays excluded.
+- **Reproduction:** 19 configs were re-run independently and are bit-identical.
+- **Caveat:** non-essential genes get non-zero P1. This suggests part of the skill is predicted line-level
+  offsets, so a decomposition diagnostic is added (D16).
+
+Next (G3):
+- independent code/result review of G2;
+- M1b weight tuning;
+- line-offset diagnostic;
+- M2 pass-through fix;
+- M3 LightGBM and M4 neural go/no-go;
+- M5 stacking;
+- leave-one-lineage-out and no-EC variants.
+
+Also pending:
+- provenance fixes: registry hashes, `freeze-eval` tag, B0/B1/B2 re-run on a clean tree;
+- disk housekeeping: cache/models is 15 GB and C: is 97% full.
+
 ### 2026-10-26 — M2: design frozen (DESIGN v3)
 Three review rounds ran: round 1 with 7 specialist reviewers, round 2 with the same 7 re-checking, and round 3 with
 one fresh reviewer focused on consistency and cuts. Each round moved the design toward something decisive and
@@ -89,6 +116,27 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - Scaling-half control genes are excluded from headline metrics. H1–H3 are operational; H4 is inconclusive by
     declaration.
 
+- D14 (post-G2): M1's residual target switches from the shrunk lineage mean (B1) to the gene mean (B0).
+  - Dev-CV evidence: Δ +0.0084 (SE 0.0017), 5/5 folds, which clears δ = 0.005 and 1 SE. The test set is still
+    blinded.
+  - This is a model-selection choice, not a change to metrics, labels or controls. The B1-residual run stays in the
+    registry and is reported.
+  - Consequence: the E-only M1 (B0 residual, grouped λ) equals R1 (raw ridge, single λ) within noise (Δ +0.0008,
+    n.s.). It also equals T (Δ +0.0001).
+  - So the current best is effectively ridge regression on expression. The honest framing: our ladder has not yet
+    beaten the published linear baseline.
+  - All later M1b/M2/M3/M5 runs use the B0 residual.
+- D15 (post-G2): the default 1/√p_b block weights make every add-one modality look harmful. Leave-one-out shows C
+  (+0.009) and E (+0.021) carry signal.
+  - "Genomics adds nothing" may not be claimed until the pre-registered block-weight tuning (DESIGN §5: training
+    LOO, coordinate descent) has been run.
+  - The provenance arm (+0.014) is a batch proxy and is excluded, as pre-registered. It is never a candidate.
+- D16 (post-G2): new diagnostic, added because Hart non-essentials reach P1 0.110 under M1 (B1 0.068).
+  - Part of P1 skill may be predicted line-level offsets (screen quality or library), not gene-specific biology.
+  - Diagnostic: a "line offset" model, B0 plus a per-line scalar predicted from expression.
+  - Also report P1 after per-line centring of observed and predicted values, as a secondary column.
+  - Metrics and headline definitions are unchanged; this only adds a disclosed decomposition.
+
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
 - [x] 1. Literature and dataset survey → LITERATURE.md (+ docs/lit/*)
@@ -112,7 +160,24 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - `freeze-eval` tag;
     - B0/B1/B2 re-run on a clean tagged tree;
     - guarded reader for cache/harmonised.
-- [~] G2 M1/M1b kernel ridge, R1, transfer model T, modality ablation, M2 local stage
+- [x] G2 M1/M1b kernel ridge, R1, transfer model T, modality ablation, M2 local stage (docs/g2_results.md)
+  - [x] M1-E (B1 residual) 0.2997; R1 0.3073; M1-E B0 residual 0.3081; T 0.3082. All 5/5 folds above B2 (+0.047
+    to +0.055). Runtime about 400–490 s for 5 folds.
+  - [-] Add-one modalities under default weights: all ≤ 0 (C −0.013, H −0.024, F −0.019). [!] Leave-one-out: C +0.009
+    and E +0.021 (Holm p < 0.001). Weight tuning is needed (D15).
+  - [-] M2 local stage: paralogs +0.0048 (< δ), and it lowers P1-all (0.150 → 0.143). Not selected; pass-through
+    fix in G3.
+  - [-] P arm (253 lines): −0.006, underpowered.
+  - [x] Negative control (permuted E) = B1 exactly. Provenance arm +0.014 = batch proxy, excluded.
+  - [!] Non-essential genes P1 0.110 (B1 0.068): line-offset skill suspected (D16).
+- [ ] G3 model ladder continued
+  - [ ] Independent review of G2 code and results
+  - [ ] M1b block-weight tuning (B0 residual); C and E+C first
+  - [ ] Line-offset diagnostic and per-line-centred P1 (D16)
+  - [ ] M2 with pass-through for non-variable genes
+  - [ ] M3 LightGBM go/no-go; M4 factorised neural go/no-go (pre-check, 1-day time box each)
+  - [ ] M5 stacking of finalists
+  - [ ] Leave-one-lineage-out; no-EC variant for H3
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
   - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.
