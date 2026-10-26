@@ -1,4 +1,10 @@
-﻿data/
-*.csv
+# Raw and derived data are never committed (DepMap terms; size). Results tables under results/ are committed.
+data/
+cache/
 *.parquet
+*.feather
+*.npy
+*.npz
+*.pkl
 __pycache__/
+.ipynb_checkpoints/
