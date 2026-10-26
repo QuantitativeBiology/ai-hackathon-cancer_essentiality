@@ -1,0 +1,1293 @@
+ModelID,PatientID,OncotreeLineage,role,cv_fold
+ACH-000001,PT-gj46wT,Ovary/Fallopian Tube,dev,3
+ACH-000004,PT-q4K2cp,Myeloid,dev,4
+ACH-000005,PT-q4K2cp,Myeloid,dev,4
+ACH-000007,PT-NOXwpH,Bowel,dev,2
+ACH-000009,PT-puKIyc,Bowel,dev,4
+ACH-000011,PT-AR7W9o,Bladder/Urinary Tract,dev,3
+ACH-000012,PT-NdspH5,Lung,test,-1
+ACH-000013,PT-gj46wT,Ovary/Fallopian Tube,dev,3
+ACH-000014,PT-fp8PeY,Skin,test,-1
+ACH-000015,PT-ffwajI,Lung,dev,1
+ACH-000017,PT-8CE6ah,Breast,dev,2
+ACH-000018,PT-Mi0cKz,Bladder/Urinary Tract,dev,0
+ACH-000019,PT-viJKnw,Breast,test,-1
+ACH-000021,PT-9p1WQv,Lung,dev,2
+ACH-000022,PT-lVglGI,Pancreas,dev,0
+ACH-000023,PT-lVglGI,Pancreas,dev,0
+ACH-000024,PT-codP7n,Lymphoid,dev,0
+ACH-000025,PT-nrgozM,CNS/Brain,dev,3
+ACH-000026,PT-AR7W9o,Bladder/Urinary Tract,dev,3
+ACH-000028,PT-viJKnw,Breast,test,-1
+ACH-000029,PT-NdspH5,Lung,test,-1
+ACH-000030,PT-nDRyc6,Lung,dev,3
+ACH-000035,PT-5LVIPg,Lung,dev,0
+ACH-000036,PT-llPs5J,CNS/Brain,dev,4
+ACH-000037,PT-JfLphU,Soft Tissue,test,-1
+ACH-000039,PT-wGDMGe,Bone,dev,2
+ACH-000040,PT-5XnRfQ,CNS/Brain,test,-1
+ACH-000041,PT-3yDaRJ,Bone,dev,0
+ACH-000042,PT-QOpMVz,Pancreas,dev,1
+ACH-000045,PT-zb7Sx0,Myeloid,dev,0
+ACH-000048,PT-EehOTC,Ovary/Fallopian Tube,test,-1
+ACH-000052,PT-IAac7b,Bone,dev,0
+ACH-000053,PT-nECHHn,Lymphoid,dev,1
+ACH-000054,PT-cVfhmE,Soft Tissue,dev,1
+ACH-000055,PT-xKYZGz,CNS/Brain,dev,2
+ACH-000060,PT-9JMXWA,Pancreas,test,-1
+ACH-000067,PT-25yL7C,CNS/Brain,dev,0
+ACH-000070,PT-0yrZJC,Lymphoid,dev,1
+ACH-000074,PT-FJahu6,Myeloid,dev,3
+ACH-000075,PT-59c3mE,CNS/Brain,test,-1
+ACH-000076,PT-Ugji7b,Myeloid,dev,2
+ACH-000077,PT-brIUSU,Lymphoid,dev,4
+ACH-000078,PT-Vot01h,Peripheral Nervous System,test,-1
+ACH-000082,PT-noCCE4,Bone,dev,4
+ACH-000085,PT-FnO2p8,Pancreas,test,-1
+ACH-000086,PT-nZJ0Fu,Pleura,test,-1
+ACH-000087,PT-VA04Md,Bone,dev,0
+ACH-000090,PT-j0lUB5,Prostate,dev,4
+ACH-000092,PT-GaubVg,Pleura,test,-1
+ACH-000093,PT-X8PfQy,Pancreas,dev,2
+ACH-000094,PT-bW9aaR,Pancreas,dev,0
+ACH-000095,PT-nsjOrX,CNS/Brain,dev,0
+ACH-000096,PT-ABKGjf,Kidney,dev,1
+ACH-000097,PT-k1TO7o,Breast,dev,1
+ACH-000098,PT-HmIANs,CNS/Brain,dev,2
+ACH-000099,PT-JpfhsL,Peripheral Nervous System,dev,3
+ACH-000100,PT-BN67ox,Soft Tissue,dev,4
+ACH-000101,PT-6Sunyd,Lymphoid,dev,1
+ACH-000103,PT-gCHPXX,Ovary/Fallopian Tube,dev,2
+ACH-000106,PT-JfG7uC,Lymphoid,dev,0
+ACH-000108,PT-GEVVKA,Pancreas,test,-1
+ACH-000111,PT-yKJqsn,Breast,dev,1
+ACH-000113,PT-OA9fna,Myeloid,dev,1
+ACH-000114,PT-SNQPtX,Pancreas,dev,2
+ACH-000115,PT-O15HlH,Prostate,dev,4
+ACH-000116,PT-eqFmWE,Ovary/Fallopian Tube,dev,0
+ACH-000118,PT-jYcdmK,Pancreas,test,-1
+ACH-000120,PT-6jhjWI,Peripheral Nervous System,dev,0
+ACH-000123,PT-hlFfQW,Ovary/Fallopian Tube,dev,4
+ACH-000124,PT-xqygCF,Lymphoid,dev,2
+ACH-000127,PT-Mi0cKz,Bladder/Urinary Tract,dev,0
+ACH-000128,PT-mUWSlp,CNS/Brain,test,-1
+ACH-000132,PT-F6NvL5,Ovary/Fallopian Tube,test,-1
+ACH-000133,PT-PvBEqK,Fibroblast,noncancerous,-1
+ACH-000137,PT-WFlL15,CNS/Brain,dev,1
+ACH-000138,PT-1nbcaA,Pancreas,dev,4
+ACH-000139,PT-rXQo6a,Pancreas,dev,2
+ACH-000141,PT-iqSI4n,Biliary Tract,test,-1
+ACH-000142,PT-Er9zxL,Bladder/Urinary Tract,dev,4
+ACH-000143,PT-1M8cz3,Lung,dev,4
+ACH-000144,PT-n15ylb,Esophagus/Stomach,test,-1
+ACH-000145,PT-LH2axx,Soft Tissue,dev,1
+ACH-000146,PT-Sv45MF,Myeloid,dev,3
+ACH-000147,PT-9WkxWW,Breast,dev,3
+ACH-000148,PT-sW6DWH,Breast,dev,2
+ACH-000149,PT-ombRgU,Peripheral Nervous System,dev,0
+ACH-000151,PT-t7KWtB,Lymphoid,dev,4
+ACH-000152,PT-DK2CQc,CNS/Brain,dev,2
+ACH-000153,PT-TexA3V,Pleura,dev,4
+ACH-000155,PT-qPqCUF,Pancreas,dev,3
+ACH-000159,PT-T2g8EU,Kidney,dev,4
+ACH-000160,PT-0GrZ0k,CNS/Brain,dev,2
+ACH-000161,PT-G4xjbZ,Lung,dev,2
+ACH-000163,PT-llVV5F,Head and Neck,test,-1
+ACH-000164,PT-cHU83i,Pancreas,dev,3
+ACH-000167,PT-ghtKEp,Lymphoid,test,-1
+ACH-000168,PT-FTVcJW,Myeloid,dev,2
+ACH-000169,PT-TG4t9c,Soft Tissue,dev,2
+ACH-000172,PT-o2d0Va,Soft Tissue,dev,3
+ACH-000174,PT-dTkV2T,Thyroid,dev,0
+ACH-000176,PT-wKL1PE,Lung,dev,4
+ACH-000178,PT-3ZZnoD,Pancreas,dev,2
+ACH-000181,PT-UbMDmb,Head and Neck,dev,3
+ACH-000182,PT-n4Jzz1,Ampulla of Vater,dev,2
+ACH-000183,PT-T1yBnE,Lymphoid,dev,3
+ACH-000187,PT-bfVDxm,Lung,dev,4
+ACH-000188,PT-Iz4kXj,Head and Neck,dev,3
+ACH-000189,PT-yDBvIq,Kidney,dev,3
+ACH-000190,PT-YCDBvf,Myeloid,dev,0
+ACH-000191,PT-Lc6cyf,Thyroid,dev,3
+ACH-000192,PT-Vhzgp5,Uterus,dev,0
+ACH-000195,PT-ZJgxZb,Myeloid,test,-1
+ACH-000197,PT-XChmHC,Lymphoid,dev,1
+ACH-000198,PT-FYT6ze,Myeloid,dev,0
+ACH-000200,PT-bkGAPG,CNS/Brain,dev,0
+ACH-000202,PT-UB7otW,Bowel,dev,4
+ACH-000203,PT-9PJrBN,Peripheral Nervous System,dev,4
+ACH-000204,PT-gN5ZVQ,Lymphoid,dev,3
+ACH-000206,PT-vEZ2Aw,Lymphoid,noncancerous,-1
+ACH-000207,PT-5QKbtV,Head and Neck,dev,2
+ACH-000208,PT-i3H4Hx,CNS/Brain,dev,0
+ACH-000209,PT-xTQ9GQ,Biliary Tract,dev,0
+ACH-000210,PT-L8aHyf,Bone,test,-1
+ACH-000211,PT-5fvUg8,CNS/Brain,dev,1
+ACH-000212,PT-y6HadC,Breast,dev,2
+ACH-000213,PT-Fn6aO6,Pancreas,dev,3
+ACH-000215,PT-G8e35b,CNS/Brain,dev,4
+ACH-000216,PT-Y4syw7,Esophagus/Stomach,dev,0
+ACH-000217,PT-YfFi4d,Liver,dev,2
+ACH-000219,PT-3FxmoJ,Skin,dev,4
+ACH-000221,PT-7v9ThA,Liver,dev,1
+ACH-000222,PT-y5xucl,Pancreas,dev,0
+ACH-000223,PT-Vntr9y,Breast,dev,2
+ACH-000226,PT-ktST3K,Lymphoid,dev,4
+ACH-000227,PT-N9Xbr1,Peripheral Nervous System,dev,1
+ACH-000228,PT-HX0QLG,Head and Neck,dev,0
+ACH-000231,PT-nIom71,CNS/Brain,dev,0
+ACH-000232,PT-88IC1n,CNS/Brain,dev,0
+ACH-000233,PT-zshCzw,Lymphoid,dev,1
+ACH-000234,PT-A9d4DI,Kidney,dev,4
+ACH-000235,PT-zLTXv3,Pancreas,dev,4
+ACH-000237,PT-wwKJYr,Ovary/Fallopian Tube,dev,1
+ACH-000238,PT-Kf5TA3,Head and Neck,dev,3
+ACH-000239,PT-dhqDHo,Esophagus/Stomach,dev,2
+ACH-000242,PT-9zV4k1,Bladder/Urinary Tract,dev,2
+ACH-000243,PT-dLpuzD,Pancreas,dev,0
+ACH-000244,PT-9fPvh2,CNS/Brain,test,-1
+ACH-000247,PT-JKf5mS,Esophagus/Stomach,dev,0
+ACH-000248,PT-8CE6ah,Breast,dev,2
+ACH-000249,PT-hYUBUD,Bowel,dev,3
+ACH-000250,PT-66upm1,Kidney,dev,2
+ACH-000251,PT-l5gD1h,Lung,dev,1
+ACH-000252,PT-XQHvQF,Bowel,dev,0
+ACH-000253,PT-BLAWlD,Bowel,dev,4
+ACH-000255,PT-cxJQjg,Esophagus/Stomach,test,-1
+ACH-000256,PT-qexSkk,Ovary/Fallopian Tube,dev,2
+ACH-000257,PT-7LsK3v,Lung,dev,0
+ACH-000258,PT-XTyUEa,Breast,dev,2
+ACH-000259,PT-S07K7h,Peripheral Nervous System,test,-1
+ACH-000260,PT-7WPGtR,Peripheral Nervous System,dev,4
+ACH-000261,PT-9jciof,Lung,dev,1
+ACH-000262,PT-BYKJeS,Kidney,dev,2
+ACH-000263,PT-uzWVHa,Myeloid,dev,3
+ACH-000264,PT-T9nCW5,Lung,test,-1
+ACH-000265,PT-o1wR3t,Pancreas,dev,0
+ACH-000266,PT-UWtyIo,Pancreas,dev,3
+ACH-000268,PT-IrDGnP,Biliary Tract,test,-1
+ACH-000269,PT-Qasynk,CNS/Brain,dev,0
+ACH-000271,PT-i02i7U,Lymphoid,dev,3
+ACH-000272,PT-cSAYbR,Kidney,dev,1
+ACH-000273,PT-qWYBLI,CNS/Brain,dev,1
+ACH-000274,PT-QbMSjm,Skin,test,-1
+ACH-000276,PT-S4bLNM,Breast,dev,4
+ACH-000277,PT-osxHUh,Breast,dev,4
+ACH-000278,PT-BexFYH,Ovary/Fallopian Tube,dev,3
+ACH-000279,PT-BpX01U,Bone,dev,4
+ACH-000280,PT-S0isOw,Ovary/Fallopian Tube,dev,1
+ACH-000281,PT-aIUMLY,Pancreas,dev,0
+ACH-000286,PT-eQWzKj,Bowel,dev,2
+ACH-000287,PT-dNbHpB,Lymphoid,test,-1
+ACH-000288,PT-hgWgpg,Breast,test,-1
+ACH-000290,PT-DzY90c,Lung,test,-1
+ACH-000291,PT-MtLxSF,Ovary/Fallopian Tube,dev,3
+ACH-000292,PT-x8fAhk,Lung,dev,4
+ACH-000293,PT-tjaCAG,Uterus,dev,0
+ACH-000294,PT-ogTwsS,Myeloid,dev,3
+ACH-000295,PT-PfwDZx,Myeloid,dev,2
+ACH-000296,PT-GezIUF,Bowel,dev,1
+ACH-000299,PT-OEqvYu,Myeloid,dev,2
+ACH-000302,PT-SeH5WZ,Uterus,dev,1
+ACH-000303,PT-7cPLvN,Esophagus/Stomach,dev,2
+ACH-000304,PT-JAyPtz,Skin,test,-1
+ACH-000305,PT-iltdpC,Esophagus/Stomach,dev,3
+ACH-000307,PT-rg0sYD,Pancreas,test,-1
+ACH-000308,PT-cdCVJ4,Ovary/Fallopian Tube,test,-1
+ACH-000310,PT-2Urqss,Peripheral Nervous System,test,-1
+ACH-000311,PT-6IoG5q,Lung,dev,0
+ACH-000312,PT-k4Daz3,Peripheral Nervous System,dev,1
+ACH-000313,PT-Hd1kAu,Kidney,dev,2
+ACH-000315,PT-lrPA2x,Lymphoid,dev,1
+ACH-000316,PT-f7BtKr,Liver,dev,1
+ACH-000317,PT-ARX9yV,Kidney,dev,1
+ACH-000318,PT-8hgOdH,Esophagus/Stomach,dev,4
+ACH-000319,PT-5z2CJx,Pleura,dev,3
+ACH-000320,PT-tXqEg0,Pancreas,dev,2
+ACH-000322,PT-czDcsE,Skin,dev,1
+ACH-000323,PT-PE7kNG,CNS/Brain,dev,1
+ACH-000324,PT-CrEQoF,Ovary/Fallopian Tube,dev,3
+ACH-000325,PT-Du1wuZ,Esophagus/Stomach,dev,0
+ACH-000326,PT-mEKuqA,Myeloid,dev,1
+ACH-000329,PT-GKdkIC,CNS/Brain,dev,0
+ACH-000330,PT-ykXL80,Breast,test,-1
+ACH-000331,PT-ThvuiE,Pleura,dev,4
+ACH-000332,PT-Lio3jT,Pancreas,dev,4
+ACH-000334,PT-mgfMcU,Lymphoid,dev,4
+ACH-000335,PT-MFqmhR,Pleura,test,-1
+ACH-000336,PT-0F4qCF,Myeloid,dev,0
+ACH-000337,PT-0fXDWz,Lung,dev,3
+ACH-000338,PT-khOMVk,Lymphoid,dev,0
+ACH-000339,PT-IP75QA,Lung,dev,2
+ACH-000341,PT-I4N9IW,Peripheral Nervous System,dev,1
+ACH-000343,PT-6ukZx4,Lung,dev,3
+ACH-000344,PT-KDacEe,Esophagus/Stomach,dev,2
+ACH-000345,PT-LZIxuV,Peripheral Nervous System,dev,3
+ACH-000346,PT-Qpiidf,Lymphoid,dev,1
+ACH-000348,PT-xMEDHc,Skin,dev,0
+ACH-000350,PT-j0XD5z,Bowel,test,-1
+ACH-000352,PT-jBpXJh,Breast,test,-1
+ACH-000354,PT-MDCOET,Pancreas,dev,1
+ACH-000355,PT-TQn0DO,Lung,dev,3
+ACH-000356,PT-cE9wYI,Esophagus/Stomach,test,-1
+ACH-000359,PT-qWqYVi,Bone,dev,3
+ACH-000361,PT-sPLV6L,Liver,test,-1
+ACH-000362,PT-H3wdRq,Myeloid,dev,2
+ACH-000363,PT-35DpVF,Lymphoid,dev,1
+ACH-000364,PT-WN1oZd,Bone,dev,3
+ACH-000365,PT-I24dRR,Lymphoid,dev,0
+ACH-000366,PT-lIgcxS,Peripheral Nervous System,test,-1
+ACH-000367,PT-hfcpvz,Pleura,dev,0
+ACH-000368,PT-U0kXHW,CNS/Brain,dev,3
+ACH-000370,PT-HHIjR4,CNS/Brain,test,-1
+ACH-000371,PT-B4jW32,Lymphoid,dev,0
+ACH-000373,PT-8qF7hQ,Myeloid,test,-1
+ACH-000374,PT-UPBMOO,Breast,dev,4
+ACH-000375,PT-U7nXm3,Kidney,test,-1
+ACH-000376,PT-O9gP17,CNS/Brain,dev,1
+ACH-000377,PT-gf9GtH,Ampulla of Vater,dev,0
+ACH-000378,PT-svCGFs,Lung,test,-1
+ACH-000381,PT-3aeu41,Bowel,dev,4
+ACH-000383,PT-MSH6ZN,Esophagus/Stomach,dev,3
+ACH-000385,PT-uqel7p,Kidney,dev,3
+ACH-000387,PT-JUL0sC,Myeloid,dev,4
+ACH-000389,PT-9RF4Fl,CNS/Brain,dev,1
+ACH-000390,PT-gDZo34,Lung,dev,3
+ACH-000391,PT-APr9xS,Bone,dev,2
+ACH-000393,PT-saZI6H,Liver,dev,1
+ACH-000395,PT-mQfWto,Lung,dev,4
+ACH-000396,PT-jGS2bl,Bladder/Urinary Tract,test,-1
+ACH-000397,PT-lpuBPT,Uterus,dev,3
+ACH-000398,PT-OW2fam,Lymphoid,dev,4
+ACH-000401,PT-hf4hbl,Skin,dev,4
+ACH-000402,PT-ieu86J,Lymphoid,dev,1
+ACH-000403,PT-cabct5,Bowel,dev,2
+ACH-000404,PT-xgu7do,Skin,test,-1
+ACH-000405,PT-2VMIkL,Lymphoid,dev,2
+ACH-000406,PT-ZwaNYv,Myeloid,dev,2
+ACH-000407,PT-iaJKdg,Uterus,dev,3
+ACH-000408,PT-Tt9e9T,Esophagus/Stomach,test,-1
+ACH-000410,PT-mOrUlf,Bone,dev,3
+ACH-000411,PT-Kwk2bU,Kidney,dev,2
+ACH-000414,PT-0Fp6tq,Lung,dev,1
+ACH-000415,PT-Typnjw,Head and Neck,dev,1
+ACH-000416,PT-YdBNCw,Lung,dev,0
+ACH-000417,PT-9CcA8P,Pancreas,dev,3
+ACH-000420,PT-zjdwU2,Liver,dev,2
+ACH-000421,PT-M67oxD,Bowel,dev,0
+ACH-000422,PT-UjP297,Liver,dev,4
+ACH-000424,PT-BIG8te,Bone,dev,2
+ACH-000425,PT-Zu8A8i,Skin,dev,2
+ACH-000426,PT-9qQHFN,Lymphoid,dev,2
+ACH-000427,PT-e4bHZ8,Esophagus/Stomach,dev,4
+ACH-000430,PT-z46I0M,Ovary/Fallopian Tube,dev,4
+ACH-000431,PT-5l8uJX,Lung,dev,4
+ACH-000433,PT-0UOmyW,Kidney,dev,3
+ACH-000434,PT-3DrWN5,Lung,dev,4
+ACH-000435,PT-HWnYva,Uterus,test,-1
+ACH-000436,PT-vvCo6J,Lymphoid,dev,3
+ACH-000437,PT-uhtVUf,CNS/Brain,dev,4
+ACH-000438,PT-DJtGj2,Lung,test,-1
+ACH-000441,PT-wx4HmM,Skin,dev,0
+ACH-000442,PT-uWXLpm,Lung,dev,2
+ACH-000444,PT-IpPvfc,Lung,dev,4
+ACH-000445,PT-N1UIhD,CNS/Brain,dev,1
+ACH-000446,PT-QRDJzM,Peripheral Nervous System,test,-1
+ACH-000448,PT-3icxN1,Lung,dev,0
+ACH-000450,PT-tIdwwm,Skin,dev,1
+ACH-000452,PT-xIsO4O,Esophagus/Stomach,dev,1
+ACH-000454,PT-u7ecNk,Lung,dev,2
+ACH-000455,PT-XOGcZJ,CNS/Brain,dev,1
+ACH-000456,PT-UFvK3A,Thyroid,test,-1
+ACH-000458,PT-CfuEas,Skin,dev,2
+ACH-000459,PT-myAfV5,Kidney,dev,0
+ACH-000460,PT-OIFKmV,Ovary/Fallopian Tube,dev,3
+ACH-000461,PT-1PHTgt,Biliary Tract,test,-1
+ACH-000463,PT-gfHIRD,Lung,dev,1
+ACH-000464,PT-3nLBts,CNS/Brain,dev,1
+ACH-000466,PT-IGNlGv,Esophagus/Stomach,dev,3
+ACH-000467,PT-2RDjdA,Bowel,dev,1
+ACH-000468,PT-Ej6iPJ,Pancreas,dev,4
+ACH-000469,PT-hzuTX4,CNS/Brain,dev,2
+ACH-000470,PT-XPa83T,Bowel,test,-1
+ACH-000471,PT-6EhW80,Liver,test,-1
+ACH-000472,PT-MxVfNi,Head and Neck,dev,3
+ACH-000473,PT-ESM25t,Bladder/Urinary Tract,dev,0
+ACH-000475,PT-fHVhJI,Liver,dev,2
+ACH-000476,PT-UVxXgl,Liver,dev,2
+ACH-000477,PT-A0Pe6P,Skin,dev,3
+ACH-000478,PT-KvGBYp,Liver,dev,0
+ACH-000479,PT-hM3DN4,CNS/Brain,dev,0
+ACH-000480,PT-cw7s0S,Liver,test,-1
+ACH-000481,PT-CazMr1,Lung,dev,0
+ACH-000483,PT-YTIYsu,Liver,dev,3
+ACH-000484,PT-BHz6vU,Kidney,test,-1
+ACH-000485,PT-JcZulh,Esophagus/Stomach,dev,4
+ACH-000486,PT-W6AZYO,Bladder/Urinary Tract,dev,4
+ACH-000487,PT-fzbPIv,Myeloid,dev,3
+ACH-000488,PT-wdkGZi,Esophagus/Stomach,dev,3
+ACH-000489,PT-EtFrRG,Bowel,test,-1
+ACH-000490,PT-Ag8pMW,Cervix,dev,1
+ACH-000491,PT-5GhHA6,Bowel,dev,1
+ACH-000493,PT-nNGWmq,Liver,test,-1
+ACH-000495,PT-GcbNSr,Kidney,dev,4
+ACH-000496,PT-5umTu0,Lung,dev,0
+ACH-000498,PT-pWs9uO,Myeloid,test,-1
+ACH-000499,PT-m8xCzo,Bone,dev,0
+ACH-000500,PT-7wjU8J,Head and Neck,test,-1
+ACH-000501,PT-kCvNaO,Bowel,test,-1
+ACH-000502,PT-HGOuqa,Pancreas,dev,4
+ACH-000503,PT-9uZV0s,Head and Neck,test,-1
+ACH-000504,PT-YFHa1n,CNS/Brain,dev,4
+ACH-000505,PT-yLm1aj,Soft Tissue,dev,2
+ACH-000507,PT-6nN2YI,Esophagus/Stomach,dev,1
+ACH-000510,PT-7qWq2K,Lung,dev,1
+ACH-000511,PT-R4QjAn,Lung,dev,0
+ACH-000512,PT-H09155,Lymphoid,test,-1
+ACH-000514,PT-Jj10yy,Lung,dev,3
+ACH-000515,PT-BuE22y,Lung,dev,3
+ACH-000516,PT-gEiUjw,Bone,dev,0
+ACH-000517,PT-V7OSXp,Pancreas,test,-1
+ACH-000518,PT-czsVU5,Head and Neck,dev,3
+ACH-000519,PT-qXF8IT,Lymphoid,dev,4
+ACH-000520,PT-tv8Ku2,Ovary/Fallopian Tube,test,-1
+ACH-000521,PT-hEuGfg,Lung,dev,4
+ACH-000522,PT-sPPqcj,Bladder/Urinary Tract,test,-1
+ACH-000524,PT-6ZFCGi,Ovary/Fallopian Tube,dev,0
+ACH-000525,PT-NNs10U,Lung,dev,2
+ACH-000527,PT-oYazft,Ovary/Fallopian Tube,dev,2
+ACH-000528,PT-id2eBb,Lung,dev,1
+ACH-000532,PT-663aNr,Bowel,dev,2
+ACH-000533,PT-x2jmX9,Kidney,dev,3
+ACH-000535,PT-xfjEoE,Pancreas,dev,4
+ACH-000537,PT-CLc6my,Liver,dev,0
+ACH-000541,PT-K9dsbf,Lymphoid,dev,0
+ACH-000542,PT-0hMOxQ,Ovary/Fallopian Tube,dev,3
+ACH-000544,PT-SDTBu5,Esophagus/Stomach,dev,0
+ACH-000545,PT-LSFu4z,Bladder/Urinary Tract,test,-1
+ACH-000546,PT-F3GXIi,Head and Neck,dev,2
+ACH-000547,PT-Tid1hK,Bladder/Urinary Tract,dev,1
+ACH-000548,PT-p0K5QM,Head and Neck,dev,4
+ACH-000549,PT-1JhWBd,Head and Neck,test,-1
+ACH-000550,PT-Wg8rkx,Skin,dev,2
+ACH-000551,PT-y8u0p3,Myeloid,dev,4
+ACH-000552,PT-sF39aT,Bowel,dev,2
+ACH-000554,PT-i8kZN9,Breast,dev,1
+ACH-000556,PT-ahSjGm,Cervix,test,-1
+ACH-000557,PT-CVf0Wr,Myeloid,dev,2
+ACH-000558,PT-LA0Wfj,CNS/Brain,dev,0
+ACH-000559,PT-xIjoai,Lung,dev,0
+ACH-000561,PT-k9mv4v,Esophagus/Stomach,dev,1
+ACH-000562,PT-TdkTP0,Lung,dev,3
+ACH-000563,PT-YTpbR2,Lung,dev,3
+ACH-000565,PT-XIcCcb,Bowel,dev,3
+ACH-000567,PT-PA3Bay,Lymphoid,dev,4
+ACH-000569,PT-uTRkEi,Pleura,test,-1
+ACH-000570,PT-mxsdQX,CNS/Brain,test,-1
+ACH-000571,PT-dw7sni,CNS/Brain,dev,3
+ACH-000573,PT-aOGEYV,Breast,dev,2
+ACH-000576,PT-EvS9IW,Lymphoid,dev,0
+ACH-000577,PT-DNXpFr,Liver,dev,2
+ACH-000579,PT-KoNkGk,Skin,dev,4
+ACH-000580,PT-Dlqu1U,Skin,dev,3
+ACH-000581,PT-NDi54R,Esophagus/Stomach,dev,3
+ACH-000583,PT-Lrf7XT,Lymphoid,dev,1
+ACH-000584,PT-g4qhEH,Ovary/Fallopian Tube,dev,2
+ACH-000585,PT-HU0uli,Lung,dev,3
+ACH-000587,PT-HkdFKw,Lung,dev,0
+ACH-000588,PT-wXGfqR,Lymphoid,dev,1
+ACH-000589,PT-KKsvGZ,Lung,dev,0
+ACH-000591,PT-8XX4Me,CNS/Brain,dev,1
+ACH-000592,PT-ruaWWk,CNS/Brain,dev,3
+ACH-000593,PT-SQ6fkx,Bladder/Urinary Tract,test,-1
+ACH-000595,PT-jhnjmL,CNS/Brain,dev,3
+ACH-000596,PT-9Zamyo,Lung,dev,4
+ACH-000597,PT-XDzUk4,Soft Tissue,dev,0
+ACH-000599,PT-cDj854,Pancreas,dev,0
+ACH-000601,PT-EzM7Ui,Pancreas,dev,0
+ACH-000602,PT-JpUzYa,Myeloid,dev,4
+ACH-000604,PT-yTztZ0,Myeloid,dev,0
+ACH-000605,PT-4Pwq3T,Esophagus/Stomach,dev,4
+ACH-000606,PT-qno39F,Head and Neck,dev,3
+ACH-000607,PT-UnVDKb,Kidney,test,-1
+ACH-000608,PT-lr2HyG,Ovary/Fallopian Tube,test,-1
+ACH-000609,PT-w4DAqh,CNS/Brain,dev,1
+ACH-000614,PT-Zy2EsL,Skin,dev,4
+ACH-000616,PT-8WpAkT,Esophagus/Stomach,test,-1
+ACH-000618,PT-BJe5Qe,Head and Neck,dev,0
+ACH-000619,PT-UF0NQM,Head and Neck,dev,2
+ACH-000620,PT-JMO4rY,Liver,dev,2
+ACH-000621,PT-ER2PWK,Breast,dev,4
+ACH-000622,PT-25ATIE,CNS/Brain,test,-1
+ACH-000623,PT-llEy7t,CNS/Brain,dev,3
+ACH-000624,PT-j1ziCB,Breast,dev,3
+ACH-000627,PT-Rd3J4D,Lung,dev,3
+ACH-000630,PT-uty9xg,Head and Neck,dev,1
+ACH-000631,PT-j6IJnV,CNS/Brain,dev,0
+ACH-000632,PT-CeiJLF,Skin,dev,0
+ACH-000633,PT-zUYVjw,Esophagus/Stomach,dev,1
+ACH-000634,PT-FYoibe,CNS/Brain,dev,1
+ACH-000637,PT-bnLm4Y,Esophagus/Stomach,dev,1
+ACH-000638,PT-xglezn,Lung,dev,3
+ACH-000639,PT-PkJ80f,Lung,dev,2
+ACH-000645,PT-igc1W1,Pleura,dev,2
+ACH-000646,PT-nonBNX,Ovary/Fallopian Tube,test,-1
+ACH-000647,PT-bxGrwa,Esophagus/Stomach,dev,2
+ACH-000648,PT-pVwyuS,Pleura,dev,2
+ACH-000649,PT-4QH2lI,Kidney,dev,3
+ACH-000651,PT-IPboWn,Bowel,dev,3
+ACH-000652,PT-ETHfq8,Pancreas,dev,3
+ACH-000653,PT-vA8rQh,Lymphoid,test,-1
+ACH-000654,PT-WEYO1e,Lymphoid,dev,2
+ACH-000655,PT-ZQKvHU,CNS/Brain,dev,0
+ACH-000656,PT-qpbJK2,Lymphoid,test,-1
+ACH-000657,PT-ug3gCf,Ovary/Fallopian Tube,dev,3
+ACH-000660,PT-PDsx7s,Lymphoid,test,-1
+ACH-000661,PT-VxRt2m,Skin,test,-1
+ACH-000662,PT-S1tr6I,Lung,dev,3
+ACH-000663,PT-kymkHN,Ovary/Fallopian Tube,dev,3
+ACH-000664,PT-jm7IYN,Lymphoid,dev,4
+ACH-000665,PT-41lHFE,Lung,dev,4
+ACH-000666,PT-ELrBOm,Lung,dev,2
+ACH-000667,PT-uY17tx,Lung,dev,1
+ACH-000668,PT-3DyHhv,Breast,dev,0
+ACH-000671,PT-TtIXsL,Liver,dev,2
+ACH-000672,PT-C7amr4,Lung,dev,4
+ACH-000673,PT-6DJ7vB,CNS/Brain,dev,1
+ACH-000676,PT-iObwE0,Skin,dev,0
+ACH-000677,PT-Z9x3iF,Lung,dev,1
+ACH-000681,PT-cqv92I,Lung,dev,0
+ACH-000682,PT-Svdo1R,Head and Neck,dev,2
+ACH-000683,PT-O04gFy,Bowel,dev,3
+ACH-000684,PT-wbA1oa,Kidney,dev,1
+ACH-000685,PT-rSVcxp,Pancreas,test,-1
+ACH-000688,PT-iVAxAa,Ovary/Fallopian Tube,test,-1
+ACH-000693,PT-mOm35A,Esophagus/Stomach,dev,1
+ACH-000694,PT-bNO06l,Esophagus/Stomach,dev,1
+ACH-000695,PT-WHXDvG,Lung,dev,1
+ACH-000696,PT-AlUnJX,Ovary/Fallopian Tube,test,-1
+ACH-000697,PT-T19rUu,Lymphoid,dev,1
+ACH-000698,PT-ERlBcq,Lung,dev,1
+ACH-000699,PT-8MisfZ,Breast,dev,0
+ACH-000700,PT-o9axOH,Lung,dev,2
+ACH-000701,PT-ColGZ0,Ovary/Fallopian Tube,dev,3
+ACH-000702,PT-ImJeys,Lymphoid,dev,1
+ACH-000704,PT-9pirK7,Ovary/Fallopian Tube,dev,0
+ACH-000706,PT-srkn4o,Lung,dev,0
+ACH-000709,PT-TF1Jzt,Kidney,dev,0
+ACH-000711,PT-K0vetf,Breast,dev,4
+ACH-000713,PT-FQOeFS,Ovary/Fallopian Tube,dev,0
+ACH-000714,PT-KR5FTA,Lymphoid,dev,3
+ACH-000716,PT-EhboSJ,Thyroid,dev,2
+ACH-000717,PT-es34jp,Esophagus/Stomach,test,-1
+ACH-000718,PT-8wDCNH,Lung,dev,4
+ACH-000719,PT-bnZfQQ,Ovary/Fallopian Tube,dev,2
+ACH-000720,PT-ACqBkd,Bladder/Urinary Tract,dev,1
+ACH-000721,PT-tXW4rS,Breast,dev,0
+ACH-000722,PT-04KbrE,Bowel,dev,4
+ACH-000724,PT-B0Dqk6,Bladder/Urinary Tract,dev,2
+ACH-000725,PT-gUhFHU,Breast,dev,1
+ACH-000732,PT-mK3rFG,Head and Neck,dev,3
+ACH-000734,PT-s6JoAb,Liver,dev,0
+ACH-000735,PT-M3R2ei,Head and Neck,test,-1
+ACH-000736,PT-2GXHBV,Esophagus/Stomach,dev,3
+ACH-000738,PT-8oCN4x,CNS/Brain,dev,2
+ACH-000739,PT-qL6HtY,Liver,test,-1
+ACH-000740,PT-T4PL7e,Head and Neck,test,-1
+ACH-000741,PT-iooYtf,Bladder/Urinary Tract,dev,4
+ACH-000746,PT-dpLnUY,Esophagus/Stomach,dev,2
+ACH-000747,PT-CmsNht,Lung,dev,1
+ACH-000748,PT-OexHxF,Bone,test,-1
+ACH-000749,PT-d1NyBL,Lung,test,-1
+ACH-000753,PT-Jv3gwf,Bladder/Urinary Tract,test,-1
+ACH-000754,PT-Pi0OS5,Lymphoid,test,-1
+ACH-000756,PT-cJo3y3,CNS/Brain,dev,4
+ACH-000757,PT-kI5CjI,Lung,dev,2
+ACH-000758,PT-T2KFTw,Esophagus/Stomach,test,-1
+ACH-000760,PT-zboiLS,CNS/Brain,dev,2
+ACH-000762,PT-M2rHki,Head and Neck,dev,3
+ACH-000763,PT-wvxTew,Lymphoid,dev,0
+ACH-000764,PT-dxw7SI,Esophagus/Stomach,dev,4
+ACH-000765,PT-mH5ckQ,Skin,dev,2
+ACH-000766,PT-wZGKqJ,Lung,dev,4
+ACH-000767,PT-1nXRn7,Lung,dev,2
+ACH-000768,PT-pYG6Rc,Breast,dev,0
+ACH-000769,PT-U2PG43,Lung,dev,1
+ACH-000770,PT-7N6azV,Myeloid,test,-1
+ACH-000771,PT-59aO2P,Head and Neck,dev,1
+ACH-000773,PT-vEVB0H,Lymphoid,dev,3
+ACH-000774,PT-lbbkFm,Lung,dev,1
+ACH-000775,PT-u3m7Of,Lung,dev,2
+ACH-000776,PT-DtdDWT,CNS/Brain,dev,4
+ACH-000777,PT-kporZQ,Esophagus/Stomach,dev,4
+ACH-000778,PT-XJviYz,Head and Neck,dev,4
+ACH-000781,PT-CKs1VS,Lung,dev,3
+ACH-000782,PT-IjgcRg,Lymphoid,dev,1
+ACH-000783,PT-dK1tBm,Breast,dev,3
+ACH-000784,PT-YTdWR1,Esophagus/Stomach,dev,1
+ACH-000785,PT-AOPcW9,Lung,dev,0
+ACH-000787,PT-w7dxuB,Lung,dev,1
+ACH-000788,PT-ZSJTWI,Skin,test,-1
+ACH-000790,PT-EI5eP1,Lung,dev,3
+ACH-000791,PT-sAWSgy,Lung,dev,4
+ACH-000792,PT-FrUuvH,Kidney,dev,4
+ACH-000793,PT-xOmD9v,Esophagus/Stomach,test,-1
+ACH-000794,PT-zkbKhd,Head and Neck,test,-1
+ACH-000796,PT-Tlf0ul,Ovary/Fallopian Tube,dev,4
+ACH-000798,PT-maJywx,Bowel,dev,3
+ACH-000799,PT-mZ69Vl,Skin,dev,4
+ACH-000800,PT-RmrNlb,Lung,dev,0
+ACH-000801,PT-1I8hCi,Skin,dev,1
+ACH-000802,PT-YqLKaW,Bladder/Urinary Tract,dev,2
+ACH-000804,PT-dk8yt2,Peripheral Nervous System,dev,1
+ACH-000805,PT-SscYEx,Skin,dev,4
+ACH-000807,PT-Yppu5U,CNS/Brain,dev,4
+ACH-000809,PT-zFPWWq,Esophagus/Stomach,dev,1
+ACH-000810,PT-1TshCj,Skin,dev,3
+ACH-000811,PT-RV3Y6W,Ovary/Fallopian Tube,dev,3
+ACH-000817,PT-pWj35D,Lymphoid,dev,3
+ACH-000819,PT-1DyLm0,CNS/Brain,test,-1
+ACH-000820,PT-EteVig,Bowel,dev,3
+ACH-000821,PT-G4TwMh,Lymphoid,dev,3
+ACH-000822,PT-n2hnAf,Skin,dev,1
+ACH-000823,PT-O7zBRO,Esophagus/Stomach,dev,3
+ACH-000824,PT-ItKoPJ,Esophagus/Stomach,dev,0
+ACH-000826,PT-nAjtb0,Lung,dev,4
+ACH-000827,PT-L3eOYW,Skin,dev,4
+ACH-000829,PT-h5fVs5,Lymphoid,dev,3
+ACH-000831,PT-cmj7jX,Uterus,dev,2
+ACH-000832,PT-JCJHPr,Head and Neck,dev,4
+ACH-000833,PT-lbYOig,Soft Tissue,test,-1
+ACH-000834,PT-oxE5Td,Bladder/Urinary Tract,dev,3
+ACH-000835,PT-0RBdNq,Soft Tissue,test,-1
+ACH-000836,PT-ZS5SNw,Head and Neck,dev,4
+ACH-000837,PT-9eMhTl,Lung,test,-1
+ACH-000838,PT-CmSm57,Lymphoid,dev,2
+ACH-000839,PT-l3KlxJ,Bladder/Urinary Tract,dev,2
+ACH-000840,PT-1JVU53,Lung,dev,0
+ACH-000841,PT-lYuNel,Lung,dev,2
+ACH-000843,PT-gQzNzd,Lung,test,-1
+ACH-000845,PT-LL5Hxl,Lung,dev,2
+ACH-000846,PT-tolPHE,Head and Neck,dev,4
+ACH-000847,PT-dAMXIu,Esophagus/Stomach,dev,4
+ACH-000848,PT-WkfAGI,Liver,test,-1
+ACH-000849,PT-58loXx,Breast,dev,0
+ACH-000851,PT-klVvXs,Lung,dev,3
+ACH-000853,PT-FGrsoV,Lung,dev,2
+ACH-000855,PT-8JwTBr,Esophagus/Stomach,dev,4
+ACH-000856,PT-PgOEtc,Breast,dev,4
+ACH-000858,PT-obWM4y,Lung,test,-1
+ACH-000859,PT-603OA3,Breast,test,-1
+ACH-000860,PT-W8OaFq,Lung,dev,0
+ACH-000861,PT-ExToNn,Lung,test,-1
+ACH-000862,PT-y8P9Yk,Bladder/Urinary Tract,test,-1
+ACH-000863,PT-LeOcTX,CNS/Brain,test,-1
+ACH-000864,PT-8fO9EH,Uterus,dev,3
+ACH-000865,PT-zNE9qB,Esophagus/Stomach,test,-1
+ACH-000866,PT-l2795j,Lung,dev,0
+ACH-000867,PT-3nyeTa,Lung,test,-1
+ACH-000869,PT-JylhbS,Lung,dev,0
+ACH-000871,PT-IG35r8,Lung,dev,2
+ACH-000872,PT-CXILSG,Lung,test,-1
+ACH-000873,PT-8iaWjG,Esophagus/Stomach,dev,1
+ACH-000874,PT-eEEvwF,Lymphoid,dev,0
+ACH-000876,PT-FjJcwU,Breast,dev,0
+ACH-000878,PT-WMdXaj,Lung,dev,2
+ACH-000879,PT-wMzIqz,Uterus,dev,2
+ACH-000880,PT-VHRCrj,Esophagus/Stomach,test,-1
+ACH-000881,PT-9PTPLm,Skin,dev,3
+ACH-000882,PT-MRf5jM,Skin,dev,4
+ACH-000884,PT-3NwoWt,Skin,dev,1
+ACH-000885,PT-6zI98h,Ovary/Fallopian Tube,dev,1
+ACH-000886,PT-bwPYLi,Lung,dev,4
+ACH-000887,PT-Wth0p2,CNS/Brain,dev,4
+ACH-000888,PT-JWHrxe,Lung,dev,2
+ACH-000889,PT-xlEnkN,Lymphoid,dev,3
+ACH-000890,PT-Np75OL,Lung,test,-1
+ACH-000894,PT-RPtiPJ,Lung,dev,3
+ACH-000896,PT-bDT6oy,Bladder/Urinary Tract,dev,3
+ACH-000898,PT-lvKDUW,Esophagus/Stomach,dev,4
+ACH-000899,PT-j60QIc,Skin,dev,1
+ACH-000900,PT-rWMXJp,Lung,dev,1
+ACH-000901,PT-gBcBSy,Lung,dev,1
+ACH-000903,PT-ZSsyUS,Thyroid,dev,1
+ACH-000905,PT-nC0LDL,Bladder/Urinary Tract,dev,0
+ACH-000906,PT-rH0cpo,Ovary/Fallopian Tube,test,-1
+ACH-000907,PT-20TYLm,Kidney,dev,1
+ACH-000910,PT-TFQ2Kc,Breast,dev,1
+ACH-000911,PT-BTCHFg,Esophagus/Stomach,dev,2
+ACH-000912,PT-wNpw5y,Lung,test,-1
+ACH-000913,PT-6MnPg3,Uterus,dev,3
+ACH-000914,PT-zrYGap,Lymphoid,dev,1
+ACH-000915,PT-Jc7cdo,Skin,dev,1
+ACH-000916,PT-tMdDt6,Lung,dev,1
+ACH-000917,PT-2HckVI,Esophagus/Stomach,dev,3
+ACH-000919,PT-Iu2j9I,Esophagus/Stomach,test,-1
+ACH-000920,PT-9UeFHL,Myeloid,dev,4
+ACH-000921,PT-jKAU6d,Lung,test,-1
+ACH-000922,PT-0mdkef,Lymphoid,test,-1
+ACH-000924,PT-4qxYZb,Lung,dev,4
+ACH-000926,PT-vAncSZ,Bowel,dev,0
+ACH-000928,PT-C2kgmR,Uterus,dev,1
+ACH-000929,PT-29i6JV,Lung,dev,2
+ACH-000932,PT-3F7Xgi,Esophagus/Stomach,dev,3
+ACH-000934,PT-0VWXIm,Breast,test,-1
+ACH-000935,PT-snQqpb,Bowel,dev,4
+ACH-000936,PT-AiIzwN,Ovary/Fallopian Tube,dev,0
+ACH-000937,PT-UEq5KV,Lymphoid,dev,1
+ACH-000938,PT-rgsUoa,Lymphoid,dev,4
+ACH-000939,PT-b2KmUs,Uterus,dev,1
+ACH-000941,PT-YZF57N,Uterus,dev,3
+ACH-000943,PT-9E5O4L,Bowel,dev,0
+ACH-000944,PT-grWxm0,Lymphoid,test,-1
+ACH-000945,PT-0uFhp8,Lung,dev,4
+ACH-000946,PT-ANEQ4x,Uterus,test,-1
+ACH-000947,PT-MsM9mi,Ovary/Fallopian Tube,test,-1
+ACH-000948,PT-VDIRwk,Esophagus/Stomach,dev,1
+ACH-000950,PT-6USEGU,Bowel,dev,4
+ACH-000953,PT-Zkuf8L,Lymphoid,dev,0
+ACH-000956,PT-FFSOW0,Prostate,dev,1
+ACH-000957,PT-FXUrcz,Bowel,dev,4
+ACH-000958,PT-EB6qeM,Bowel,dev,1
+ACH-000959,PT-ulmNPq,Bowel,dev,2
+ACH-000960,PT-N5YXV2,Lymphoid,dev,0
+ACH-000961,PT-P06fLR,Uterus,dev,0
+ACH-000962,PT-3doOpy,Ovary/Fallopian Tube,test,-1
+ACH-000963,PT-c4ZGOD,Bowel,dev,1
+ACH-000965,PT-de7J0H,Uterus,dev,2
+ACH-000966,PT-bGFaJu,Ovary/Fallopian Tube,dev,4
+ACH-000968,PT-z7yLU0,Skin,dev,2
+ACH-000969,PT-ue72rD,Bowel,test,-1
+ACH-000970,PT-B2n6IN,Bowel,dev,4
+ACH-000971,PT-2Roqq2,Bowel,dev,3
+ACH-000972,PT-KBFu4S,Uterus,dev,1
+ACH-000973,PT-P31KFG,Bladder/Urinary Tract,dev,2
+ACH-000974,PT-cgXnS7,Uterus,dev,0
+ACH-000975,PT-gNoIDb,Lung,dev,1
+ACH-000976,PT-z66Tka,Biliary Tract,dev,4
+ACH-000977,PT-tY34fU,Prostate,test,-1
+ACH-000978,PT-bmKWJL,Uterus,test,-1
+ACH-000979,PT-05dldv,Prostate,dev,3
+ACH-000980,PT-DdDGB6,Lung,test,-1
+ACH-000981,PT-zhUnhJ,Lymphoid,test,-1
+ACH-000983,PT-AcI1bM,Myeloid,test,-1
+ACH-000984,PT-UZ2uk5,Uterus,dev,0
+ACH-000985,PT-KI0Di1,Bowel,dev,1
+ACH-000986,PT-EoHcfh,Bowel,dev,3
+ACH-000988,PT-blqauC,Uterus,dev,3
+ACH-000991,PT-pBOr7s,Bowel,dev,0
+ACH-000993,PT-MEVEw0,Uterus,test,-1
+ACH-000994,PT-9r7KW8,Uterus,dev,4
+ACH-000995,PT-lj83Ht,Lymphoid,dev,3
+ACH-000996,PT-GnDRP6,Uterus,dev,4
+ACH-000997,PT-i0VYNQ,Bowel,dev,2
+ACH-001001,PT-epgMPc,Bone,dev,4
+ACH-001016,PT-Pxi6oo,CNS/Brain,dev,4
+ACH-001020,PT-WLHxY0,CNS/Brain,dev,0
+ACH-001021,PT-qL6HtY,Liver,test,-1
+ACH-001028,PT-kX7CzT,CNS/Brain,dev,1
+ACH-001029,PT-NX1XUV,Bone,dev,4
+ACH-001031,PT-nuzviS,CNS/Brain,dev,1
+ACH-001033,PT-FSTNvW,CNS/Brain,test,-1
+ACH-001036,PT-XYdNvp,Myeloid,dev,4
+ACH-001038,PT-Wd5HrW,Bone,test,-1
+ACH-001041,PT-rXLMnY,Skin,dev,0
+ACH-001048,PT-gZt1Og,Ovary/Fallopian Tube,dev,4
+ACH-001050,PT-30CR5P,Soft Tissue,dev,3
+ACH-001053,PT-HMzBz8,CNS/Brain,dev,1
+ACH-001054,PT-HMzBz8,CNS/Brain,dev,1
+ACH-001061,PT-i0VYNQ,Bowel,dev,2
+ACH-001067,PT-0woxaX,CNS/Brain,dev,4
+ACH-001075,PT-nKyqod,Lung,dev,4
+ACH-001096,PT-BarDvA,Soft Tissue,test,-1
+ACH-001098,PT-htpobI,Pancreas,dev,0
+ACH-001099,PT-FynJTm,Soft Tissue,dev,2
+ACH-001111,PT-glFbpW,Lymphoid,dev,2
+ACH-001119,PT-eHvuQ3,Lymphoid,dev,3
+ACH-001128,PT-u43maP,Soft Tissue,dev,4
+ACH-001129,PT-ej13Dz,Myeloid,dev,2
+ACH-001134,PT-YD7WB8,Lymphoid,dev,1
+ACH-001145,PT-3doOpy,Ovary/Fallopian Tube,test,-1
+ACH-001151,PT-u4FBpq,Ovary/Fallopian Tube,dev,2
+ACH-001163,PT-wOhyc6,Kidney,dev,3
+ACH-001164,PT-VJQa5v,Soft Tissue,dev,3
+ACH-001172,PT-88IC1n,CNS/Brain,dev,0
+ACH-001183,PT-ESM25t,Bladder/Urinary Tract,dev,0
+ACH-001184,PT-4E3Ck9,Soft Tissue,test,-1
+ACH-001188,PT-ombRgU,Peripheral Nervous System,dev,0
+ACH-001190,PT-IHNbDy,Skin,dev,4
+ACH-001192,PT-MPUfgI,Bone,dev,2
+ACH-001193,PT-zjZ0Ko,Bone,dev,0
+ACH-001194,PT-sWRqxl,Kidney,dev,1
+ACH-001196,PT-9a1vbV,Soft Tissue,dev,3
+ACH-001197,PT-3YIeN9,Lymphoid,dev,0
+ACH-001201,PT-ONhJf5,CNS/Brain,dev,4
+ACH-001205,PT-eQaQl0,Bone,test,-1
+ACH-001211,PT-ZmNOms,Soft Tissue,dev,3
+ACH-001227,PT-k3C7C0,Head and Neck,dev,4
+ACH-001228,PT-k3C7C0,Head and Neck,dev,4
+ACH-001229,PT-FRJzoR,Head and Neck,dev,3
+ACH-001232,PT-Qe9Gjx,CNS/Brain,dev,3
+ACH-001239,PT-JAyPtz,Skin,test,-1
+ACH-001270,PT-isOde8,Soft Tissue,dev,0
+ACH-001274,PT-IfpyhV,Soft Tissue,dev,0
+ACH-001275,PT-WqcWC9,Soft Tissue,dev,2
+ACH-001277,PT-yyLDZV,Soft Tissue,dev,1
+ACH-001278,PT-ZkKui4,Ovary/Fallopian Tube,dev,0
+ACH-001279,PT-z5pG5i,Ovary/Fallopian Tube,dev,3
+ACH-001280,PT-u27nif,Soft Tissue,dev,1
+ACH-001283,PT-yXtSGR,Bone,dev,3
+ACH-001289,PT-773uN4,CNS/Brain,dev,4
+ACH-001295,PT-KinR5m,Eye,dev,1
+ACH-001300,PT-ZhCETu,Peripheral Nervous System,test,-1
+ACH-001301,PT-9ShVj5,Peripheral Nervous System,dev,2
+ACH-001302,PT-37DeSd,Peripheral Nervous System,test,-1
+ACH-001303,PT-IFd9cu,Peripheral Nervous System,dev,1
+ACH-001306,PT-Dn9adW,Thyroid,test,-1
+ACH-001307,PT-1llqWx,Thyroid,dev,3
+ACH-001310,PT-1UiNjR,Kidney,noncancerous,-1
+ACH-001318,PT-E7izN5,Liver,dev,0
+ACH-001322,PT-NzxvhN,Soft Tissue,dev,2
+ACH-001328,PT-BB1vF7,Skin,dev,4
+ACH-001329,PT-tYbbCQ,CNS/Brain,test,-1
+ACH-001332,PT-aRE4u7,Head and Neck,dev,3
+ACH-001333,PT-9q6tDV,Cervix,dev,1
+ACH-001334,PT-ERAmPK,Cervix,dev,0
+ACH-001335,PT-ERAmPK,Cervix,dev,0
+ACH-001336,PT-QAGzTB,Cervix,test,-1
+ACH-001338,PT-cvCz0R,Peripheral Nervous System,dev,1
+ACH-001340,PT-G1dQTb,Ovary/Fallopian Tube,test,-1
+ACH-001341,PT-tTbVoL,Cervix,test,-1
+ACH-001344,PT-smWXLD,Peripheral Nervous System,test,-1
+ACH-001345,PT-sGJOXH,Bowel,dev,1
+ACH-001346,PT-VXDXrs,Head and Neck,dev,4
+ACH-001347,PT-C880aD,Head and Neck,test,-1
+ACH-001349,PT-S14wo4,CNS/Brain,test,-1
+ACH-001353,PT-dEG8Km,Pancreas,test,-1
+ACH-001354,PT-6gsVP1,Peripheral Nervous System,dev,3
+ACH-001356,PT-b1GXgx,Thyroid,dev,0
+ACH-001360,PT-wH5ORo,Cervix,test,-1
+ACH-001366,PT-jZHQTi,Peripheral Nervous System,dev,0
+ACH-001367,PT-7QJIsM,Peripheral Nervous System,test,-1
+ACH-001368,PT-1Sm4U9,Esophagus/Stomach,dev,3
+ACH-001370,PT-rC8bwa,Ovary/Fallopian Tube,dev,0
+ACH-001374,PT-EoMkUH,Ovary/Fallopian Tube,dev,1
+ACH-001375,PT-F5I5LU,Pancreas,dev,4
+ACH-001376,PT-4cABry,Pancreas,dev,2
+ACH-001377,PT-gL0WpK,Pancreas,dev,4
+ACH-001379,PT-wftWQy,Pancreas,dev,2
+ACH-001380,PT-8QBQO2,Pancreas,dev,0
+ACH-001382,PT-eGohb8,Pancreas,dev,1
+ACH-001385,PT-a3pn8l,Head and Neck,test,-1
+ACH-001386,PT-hfsFIb,Lung,dev,3
+ACH-001388,PT-UklPiT,Breast,dev,0
+ACH-001389,PT-huyXeM,Breast,test,-1
+ACH-001390,PT-SMhk4C,Breast,dev,0
+ACH-001391,PT-OlQpj4,Breast,dev,2
+ACH-001392,PT-i9dYpA,Breast,test,-1
+ACH-001393,PT-Zd61pI,Breast,dev,3
+ACH-001394,PT-jgjbSo,Breast,dev,1
+ACH-001396,PT-sYFvXw,Breast,dev,3
+ACH-001398,PT-Xr379n,Kidney,dev,3
+ACH-001399,PT-V8yAFO,Bowel,dev,3
+ACH-001400,PT-2KkY6l,Vulva/Vagina,dev,4
+ACH-001401,PT-7a0mgm,Adrenal Gland,dev,0
+ACH-001402,PT-zjOA3C,Cervix,dev,3
+ACH-001403,PT-tuE0iI,Ovary/Fallopian Tube,dev,3
+ACH-001407,PT-SuuJak,Bladder/Urinary Tract,dev,1
+ACH-001408,PT-uUFQYJ,Bladder/Urinary Tract,dev,0
+ACH-001409,PT-8JQP9N,Bladder/Urinary Tract,test,-1
+ACH-001411,PT-gYhX0x,Bladder/Urinary Tract,test,-1
+ACH-001412,PT-IRdqMO,Bladder/Urinary Tract,test,-1
+ACH-001413,PT-Yc254j,Bladder/Urinary Tract,dev,0
+ACH-001414,PT-8XYADU,Bladder/Urinary Tract,dev,0
+ACH-001415,PT-gUUbZP,Bladder/Urinary Tract,dev,3
+ACH-001416,PT-pf2odi,Bladder/Urinary Tract,dev,1
+ACH-001418,PT-JGzDYG,Ovary/Fallopian Tube,dev,3
+ACH-001419,PT-vA9Pcv,Breast,dev,2
+ACH-001421,PT-WBS2Hf,Eye,dev,1
+ACH-001422,PT-EhPRzn,Prostate,noncancerous,-1
+ACH-001428,PT-XQvpFQ,Bone,dev,1
+ACH-001430,PT-uuajSv,Bone,dev,0
+ACH-001431,PT-VGGhv1,Bone,dev,4
+ACH-001433,PT-rJIZ1y,Soft Tissue,dev,2
+ACH-001442,PT-QwG6Ej,Skin,test,-1
+ACH-001443,PT-xji0Xg,Thyroid,dev,2
+ACH-001450,PT-wk0KRr,Lymphoid,dev,4
+ACH-001451,PT-gPKmS2,Cervix,dev,2
+ACH-001453,PT-pIyNqk,Prostate,noncancerous,-1
+ACH-001454,PT-LAy4cf,Bowel,dev,2
+ACH-001458,PT-gDrzwl,Bowel,test,-1
+ACH-001459,PT-4HbM7P,Bowel,dev,1
+ACH-001460,PT-7da898,Bowel,dev,2
+ACH-001461,PT-3wMRZS,Bowel,dev,2
+ACH-001465,PT-7eVJ3u,Peripheral Nervous System,test,-1
+ACH-001481,PT-GWiky5,Peripheral Nervous System,dev,3
+ACH-001484,PT-zwxgMM,Lymphoid,dev,4
+ACH-001494,PT-KZb32w,Biliary Tract,dev,2
+ACH-001495,PT-bHINin,Uterus,test,-1
+ACH-001496,PT-YHsN9r,Esophagus/Stomach,test,-1
+ACH-001497,PT-CNzzSN,Esophagus/Stomach,dev,4
+ACH-001498,PT-5d2l7D,Lymphoid,dev,2
+ACH-001500,PT-JtOhdx,Esophagus/Stomach,test,-1
+ACH-001502,PT-xmuA7w,Testis,test,-1
+ACH-001508,PT-SHOmTE,Head and Neck,dev,4
+ACH-001509,PT-jrbPZG,Head and Neck,dev,3
+ACH-001510,PT-8wgZXD,Head and Neck,test,-1
+ACH-001511,PT-L1Obji,Head and Neck,dev,3
+ACH-001513,PT-KwMOW6,Cervix,dev,1
+ACH-001515,PT-4kA9Xl,Cervix,dev,3
+ACH-001517,PT-YZF57N,Uterus,dev,3
+ACH-001518,PT-emUGGo,Uterus,dev,3
+ACH-001520,PT-vloZI6,Lymphoid,noncancerous,-1
+ACH-001521,PT-thO68X,Skin,dev,4
+ACH-001522,PT-wEoiUI,Skin,dev,1
+ACH-001523,PT-ae7zps,Skin,dev,4
+ACH-001524,PT-hQHCaO,Skin,dev,1
+ACH-001525,PT-GR4jOd,Cervix,dev,0
+ACH-001526,PT-JCLa8x,Bone,dev,2
+ACH-001528,PT-1Qm9m0,Thyroid,dev,3
+ACH-001529,PT-RI1Xeu,Uterus,dev,2
+ACH-001530,PT-hB4ARO,Uterus,test,-1
+ACH-001532,PT-IYnIVo,Kidney,dev,2
+ACH-001533,PT-04HLfu,Lymphoid,test,-1
+ACH-001536,PT-BemhJ7,Biliary Tract,dev,0
+ACH-001538,PT-LDOCPR,Biliary Tract,dev,0
+ACH-001539,PT-FzFmMI,Lymphoid,dev,0
+ACH-001542,PT-wu5c1x,Head and Neck,dev,3
+ACH-001543,PT-1EAB3W,Head and Neck,dev,0
+ACH-001547,PT-xjKkQm,Pleura,dev,1
+ACH-001548,PT-TA4RrC,Peripheral Nervous System,dev,0
+ACH-001549,PT-QtHHhA,Lung,dev,3
+ACH-001550,PT-UFhSa8,Skin,dev,1
+ACH-001551,PT-kTtYJG,Skin,dev,4
+ACH-001552,PT-FEgBWK,Skin,dev,1
+ACH-001554,PT-2AwIuw,Eye,test,-1
+ACH-001555,PT-1Sf7Sz,Pleura,dev,1
+ACH-001556,PT-go6neE,Pleura,dev,2
+ACH-001557,PT-LIQ4kC,Pleura,dev,4
+ACH-001558,PT-WxXGiC,Pleura,test,-1
+ACH-001559,PT-KmK0MJ,Pleura,test,-1
+ACH-001560,PT-B0HUMd,Pleura,dev,3
+ACH-001562,PT-9C9m7Z,Pleura,dev,2
+ACH-001563,PT-uwdvUG,Skin,dev,1
+ACH-001566,PT-4UAKiS,Skin,dev,1
+ACH-001567,PT-fN0pV5,Skin,dev,3
+ACH-001568,PT-QuhZbF,Skin,dev,4
+ACH-001570,PT-bKFeuG,Skin,dev,3
+ACH-001574,PT-H3wdRq,Myeloid,dev,2
+ACH-001577,PT-wizE6v,Myeloid,dev,1
+ACH-001578,PT-OqrZ3f,Testis,dev,0
+ACH-001603,PT-HjdUWT,Peripheral Nervous System,dev,4
+ACH-001605,PT-5s2EZm,CNS/Brain,dev,2
+ACH-001606,PT-jZhsXq,CNS/Brain,dev,2
+ACH-001607,PT-yeY4QM,Biliary Tract,dev,2
+ACH-001608,PT-NaLtZ9,CNS/Brain,dev,0
+ACH-001609,PT-OT2kJe,CNS/Brain,dev,1
+ACH-001610,PT-WoVaBP,CNS/Brain,dev,0
+ACH-001611,PT-62G0ep,CNS/Brain,dev,0
+ACH-001613,PT-VzJIqw,Myeloid,dev,3
+ACH-001616,PT-oQqqCS,Lymphoid,dev,1
+ACH-001618,PT-Oev2PO,Myeloid,dev,3
+ACH-001619,PT-xi87qq,Biliary Tract,dev,0
+ACH-001622,PT-D5Ft7E,CNS/Brain,test,-1
+ACH-001623,PT-QBDrgb,CNS/Brain,dev,4
+ACH-001624,PT-dDtvIC,CNS/Brain,dev,1
+ACH-001625,PT-FeUEcM,Head and Neck,dev,3
+ACH-001626,PT-CVPxmk,Head and Neck,test,-1
+ACH-001627,PT-a2ltr5,Prostate,noncancerous,-1
+ACH-001628,PT-i3tIXN,Ovary/Fallopian Tube,dev,4
+ACH-001630,PT-FMp5RI,Ovary/Fallopian Tube,dev,4
+ACH-001632,PT-FMp5RI,Ovary/Fallopian Tube,dev,4
+ACH-001634,PT-cBta1E,Lymphoid,dev,4
+ACH-001641,PT-4X1Phg,Head and Neck,dev,1
+ACH-001642,PT-HcsCe7,Lymphoid,dev,1
+ACH-001645,PT-pmeBkH,Skin,dev,3
+ACH-001647,PT-8Jr4Fd,Myeloid,dev,3
+ACH-001648,PT-F8MgcH,Prostate,noncancerous,-1
+ACH-001649,PT-iy858F,Prostate,noncancerous,-1
+ACH-001650,PT-97kTPc,Cervix,dev,1
+ACH-001651,PT-aKpEm3,Cervix,dev,3
+ACH-001652,PT-IwYShD,Cervix,dev,0
+ACH-001653,PT-ZJjbcp,Esophagus/Stomach,dev,4
+ACH-001654,PT-2qao55,Esophagus/Stomach,dev,0
+ACH-001655,PT-yc0xLp,Uterus,dev,0
+ACH-001656,PT-YKJPHt,Myeloid,dev,2
+ACH-001662,PT-v3hnay,Breast,dev,0
+ACH-001664,PT-k5HJNy,Esophagus/Stomach,dev,2
+ACH-001668,PT-2w1URA,Testis,dev,2
+ACH-001669,PT-ffpEbF,Lymphoid,dev,0
+ACH-001670,PT-SJ98Vo,CNS/Brain,dev,2
+ACH-001673,PT-oSlXkO,Biliary Tract,dev,2
+ACH-001674,PT-o4jARg,Peripheral Nervous System,dev,2
+ACH-001675,PT-6uEn4i,Head and Neck,dev,2
+ACH-001676,PT-41SYJa,Head and Neck,dev,2
+ACH-001677,PT-PFlyLY,Lymphoid,dev,0
+ACH-001683,PT-toAH2F,Breast,dev,1
+ACH-001685,PT-A1mKo8,Lymphoid,dev,0
+ACH-001687,PT-V3AbhR,Kidney,dev,4
+ACH-001688,PT-tocbjR,Kidney,dev,2
+ACH-001690,PT-uLUnir,Head and Neck,dev,0
+ACH-001691,PT-km3C7x,Head and Neck,test,-1
+ACH-001692,PT-pvMW8r,Head and Neck,dev,0
+ACH-001694,PT-GgnlK1,Head and Neck,dev,3
+ACH-001695,PT-Rb8OWd,Head and Neck,dev,1
+ACH-001696,PT-YWwuRp,Head and Neck,dev,1
+ACH-001698,PT-sxiEGA,Head and Neck,dev,2
+ACH-001699,PT-uhmv08,Head and Neck,dev,4
+ACH-001701,PT-CvPqts,Head and Neck,dev,4
+ACH-001702,PT-vslXtO,Soft Tissue,dev,4
+ACH-001707,PT-XqTlID,Lymphoid,test,-1
+ACH-001709,PT-scpPOF,Lymphoid,dev,0
+ACH-001711,PT-lzKK9W,CNS/Brain,test,-1
+ACH-001715,PT-fcGStb,Bone,test,-1
+ACH-001719,PT-l7kiMr,Ovary/Fallopian Tube,test,-1
+ACH-001735,PT-IjgcRg,Lymphoid,dev,1
+ACH-001736,PT-PmkoYV,Lymphoid,dev,1
+ACH-001737,PT-KaownI,Lymphoid,test,-1
+ACH-001745,PT-s7RWi4,Soft Tissue,dev,0
+ACH-001750,PT-Hk36HO,Soft Tissue,test,-1
+ACH-001765,PT-BN67ox,Soft Tissue,dev,4
+ACH-001786,PT-LbUj3S,Bowel,dev,2
+ACH-001791,PT-lRwItD,Soft Tissue,dev,0
+ACH-001793,PT-TTxLCZ,Soft Tissue,dev,2
+ACH-001794,PT-jDDO2a,Soft Tissue,dev,4
+ACH-001795,PT-jDDO2a,Soft Tissue,dev,4
+ACH-001796,PT-7RM5sK,Soft Tissue,dev,3
+ACH-001799,PT-VjYY7b,Soft Tissue,dev,4
+ACH-001802,PT-JmLeEs,Soft Tissue,dev,1
+ACH-001804,PT-0lPf2W,Soft Tissue,dev,2
+ACH-001814,PT-2XpRTn,Bone,dev,0
+ACH-001819,PT-FVLPZS,Breast,dev,1
+ACH-001820,PT-UXPdpL,Breast,dev,3
+ACH-001834,PT-EXxLVu,Biliary Tract,test,-1
+ACH-001835,PT-EXxLVu,Biliary Tract,test,-1
+ACH-001836,PT-EXxLVu,Biliary Tract,test,-1
+ACH-001838,PT-cRrqep,Biliary Tract,dev,3
+ACH-001839,PT-oAAItB,Biliary Tract,test,-1
+ACH-001841,PT-wNrZ5J,Biliary Tract,dev,0
+ACH-001842,PT-QTHAca,Biliary Tract,dev,4
+ACH-001843,PT-c6a9E7,Biliary Tract,dev,0
+ACH-001844,PT-fiox7O,Biliary Tract,dev,2
+ACH-001848,PT-PUXC1Q,Biliary Tract,dev,0
+ACH-001849,PT-mD4L5a,Biliary Tract,test,-1
+ACH-001850,PT-rx5EvX,Biliary Tract,test,-1
+ACH-001852,PT-eIYOff,Biliary Tract,test,-1
+ACH-001853,PT-0MsFyj,Liver,test,-1
+ACH-001856,PT-E0gpbj,Biliary Tract,test,-1
+ACH-001857,PT-Sv5Y9u,Biliary Tract,dev,0
+ACH-001858,PT-hoMjwu,Biliary Tract,dev,1
+ACH-001861,PT-5pDw3E,Biliary Tract,dev,4
+ACH-001862,PT-6N8kTd,Ampulla of Vater,dev,2
+ACH-001863,PT-VWXKPj,Biliary Tract,dev,3
+ACH-001864,PT-mhrkCC,Biliary Tract,dev,2
+ACH-001959,PT-x2cqmS,Biliary Tract,dev,2
+ACH-001960,PT-9dwZW4,Biliary Tract,dev,0
+ACH-001961,PT-v333Dc,Biliary Tract,dev,2
+ACH-001970,PT-75oSJn,Skin,test,-1
+ACH-001972,PT-Czk2qo,Skin,dev,0
+ACH-001973,PT-oJTeSY,Skin,dev,4
+ACH-001975,PT-IBpd8U,Skin,test,-1
+ACH-001977,PT-YF5RFe,Pleura,dev,2
+ACH-001982,PT-6BEu4D,Skin,dev,4
+ACH-001986,PT-EpCvHQ,Skin,dev,1
+ACH-001990,PT-PCXcZ8,Skin,dev,3
+ACH-001991,PT-WTNLuu,Ovary/Fallopian Tube,dev,4
+ACH-001992,PT-nrQ0Fm,Pleura,dev,2
+ACH-001993,PT-22pOAT,Lymphoid,dev,0
+ACH-001997,PT-jmmNcQ,Ampulla of Vater,dev,2
+ACH-001999,PT-pmGuZF,Pancreas,dev,2
+ACH-002001,PT-3FxmoJ,Skin,dev,4
+ACH-002002,PT-3FxmoJ,Skin,dev,4
+ACH-002003,PT-3FxmoJ,Skin,dev,4
+ACH-002004,PT-Zu8A8i,Skin,dev,2
+ACH-002005,PT-4QtR2m,Skin,test,-1
+ACH-002014,PT-5vJu3k,Eye,dev,1
+ACH-002015,PT-N7xRpa,Eye,dev,0
+ACH-002016,PT-MucJf6,Eye,test,-1
+ACH-002018,PT-5vJu3k,Eye,dev,1
+ACH-002019,PT-AOzYCt,Cervix,dev,1
+ACH-002020,PT-3SrUkP,Cervix,dev,2
+ACH-002021,PT-UGz23U,Uterus,dev,4
+ACH-002023,PT-hlvUsv,Ampulla of Vater,test,-1
+ACH-002024,PT-2Stxl0,Bowel,dev,2
+ACH-002025,PT-mIVrGc,Bowel,dev,1
+ACH-002026,PT-cgXnS7,Uterus,dev,0
+ACH-002027,PT-vIwQtl,Uterus,dev,2
+ACH-002029,PT-rJXazG,Head and Neck,dev,0
+ACH-002030,PT-f3QT3w,Head and Neck,dev,4
+ACH-002033,PT-zLKvmC,Pleura,test,-1
+ACH-002035,PT-5NWbnb,Lung,test,-1
+ACH-002039,PT-mXNlfw,Pancreas,dev,3
+ACH-002040,PT-YbtlK5,Vulva/Vagina,test,-1
+ACH-002041,PT-PqWEZm,Thyroid,dev,3
+ACH-002042,PT-vhf9cn,Head and Neck,dev,4
+ACH-002043,PT-gB4Jfi,Head and Neck,dev,0
+ACH-002044,PT-v9ccBc,Head and Neck,dev,4
+ACH-002045,PT-a3mx1w,Head and Neck,dev,0
+ACH-002046,PT-SKC9qY,Uterus,test,-1
+ACH-002048,PT-oslMHT,Soft Tissue,dev,1
+ACH-002051,PT-K31XId,Lung,test,-1
+ACH-002052,PT-0531Uw,Lung,test,-1
+ACH-002055,PT-tk6NTJ,Lymphoid,dev,3
+ACH-002059,PT-reOMOW,Lymphoid,dev,1
+ACH-002060,PT-DWKd8J,Myeloid,dev,1
+ACH-002061,PT-y8u0p3,Myeloid,dev,4
+ACH-002062,PT-2hETfh,Lymphoid,dev,4
+ACH-002066,PT-coZfvw,Peripheral Nervous System,dev,3
+ACH-002067,PT-EcVEYs,Bone,dev,4
+ACH-002069,PT-3pqp8N,Bone,dev,3
+ACH-002070,PT-kM7sLu,CNS/Brain,dev,3
+ACH-002077,PT-qVbV4Q,Lung,dev,0
+ACH-002080,PT-rlExpa,Peripheral Nervous System,dev,0
+ACH-002084,PT-Qsi22o,Skin,dev,2
+ACH-002142,PT-3yhqod,Bone,test,-1
+ACH-002214,PT-83LwGP,Lymphoid,test,-1
+ACH-002215,PT-tSpUfL,Lymphoid,dev,3
+ACH-002283,PT-x400Sq,Peripheral Nervous System,test,-1
+ACH-002291,PT-4gdieL,Testis,dev,0
+ACH-002399,PT-iW8GZP,Breast,dev,0
+ACH-002400,PT-iW8GZP,Breast,dev,0
+ACH-002401,PT-iW8GZP,Breast,dev,0
+ACH-002408,PT-cALAkO,CNS/Brain,dev,4
+ACH-002410,PT-suWZbo,CNS/Brain,dev,3
+ACH-002411,PT-Og0CpQ,CNS/Brain,test,-1
+ACH-002414,PT-zeqzlB,CNS/Brain,dev,3
+ACH-002415,PT-mAJCiX,CNS/Brain,dev,2
+ACH-002418,PT-mwvb8I,CNS/Brain,dev,2
+ACH-002433,PT-k1gvKS,Bone,dev,4
+ACH-002446,PT-i9nBPr,Esophagus/Stomach,dev,4
+ACH-002449,PT-arWRjk,CNS/Brain,test,-1
+ACH-002456,PT-rWyhmW,CNS/Brain,dev,3
+ACH-002458,PT-czDcsE,Skin,dev,1
+ACH-002460,PT-czDcsE,Skin,dev,1
+ACH-002461,PT-Zy2EsL,Skin,dev,4
+ACH-002462,PT-JWRsco,Eye,noncancerous,-1
+ACH-002463,PT-JWRsco,Eye,noncancerous,-1
+ACH-002464,PT-JWRsco,Eye,noncancerous,-1
+ACH-002465,PT-JWRsco,Eye,noncancerous,-1
+ACH-002467,PT-JWRsco,Eye,noncancerous,-1
+ACH-002470,PT-873wzV,Bone,dev,4
+ACH-002471,PT-UbzBsY,Bone,test,-1
+ACH-002475,PT-gjpFPM,Myeloid,dev,2
+ACH-002478,PT-pqMaYc,Lymphoid,dev,2
+ACH-002485,PT-NJ3wbw,Lymphoid,dev,1
+ACH-002486,PT-pyZjZu,Ovary/Fallopian Tube,test,-1
+ACH-002490,PT-0a2F5a,Lung,dev,4
+ACH-002499,PT-j6UudO,Breast,dev,3
+ACH-002500,PT-GjFsxJ,Lymphoid,test,-1
+ACH-002506,PT-9iph8g,CNS/Brain,test,-1
+ACH-002508,PT-SogXKU,Skin,test,-1
+ACH-002510,PT-6g2PcW,Skin,test,-1
+ACH-002511,PT-iI63vt,Skin,dev,1
+ACH-002512,PT-YwNqCa,Skin,test,-1
+ACH-002522,PT-7B82nW,Lung,dev,4
+ACH-002523,PT-0yqjae,Liver,test,-1
+ACH-002524,PT-itoB60,Ovary/Fallopian Tube,dev,0
+ACH-002526,PT-z0Yk96,Lung,test,-1
+ACH-002528,PT-Zod1Nb,Kidney,dev,1
+ACH-002531,PT-GWa6kp,Lung,dev,2
+ACH-002533,PT-wkGMuS,Kidney,dev,0
+ACH-002535,PT-W0h0s9,Bowel,dev,3
+ACH-002538,PT-WkPESC,Bowel,dev,3
+ACH-002544,PT-3szZZM,Esophagus/Stomach,dev,1
+ACH-002647,PT-O1x5GT,Biliary Tract,dev,0
+ACH-002650,PT-6fwwV7,Lung,dev,2
+ACH-002654,PT-anuBoi,Bowel,dev,3
+ACH-002659,PT-btmPL5,Bowel,test,-1
+ACH-002660,PT-iZtOKB,Bowel,dev,2
+ACH-002662,PT-iwSeHI,Bowel,dev,2
+ACH-002664,PT-FT4DA3,Bowel,test,-1
+ACH-002669,PT-53ZOQS,Bowel,dev,4
+ACH-002672,PT-yBlD98,Pancreas,dev,1
+ACH-002677,PT-6AFvnc,Lymphoid,test,-1
+ACH-002678,PT-EV9I7F,Lymphoid,dev,3
+ACH-002680,PT-UACtvx,CNS/Brain,dev,0
+ACH-002681,PT-2QAfke,CNS/Brain,dev,1
+ACH-002687,PT-VBCF1O,Eye,test,-1
+ACH-002688,PT-A4Rqd9,Bone,test,-1
+ACH-002690,PT-6Xf1w4,Bone,dev,1
+ACH-002693,PT-DyxJsT,Peripheral Nervous System,dev,1
+ACH-002705,PT-qcon1I,Esophagus/Stomach,dev,1
+ACH-002706,PT-qcon1I,Esophagus/Stomach,dev,1
+ACH-002708,PT-03AcoW,Soft Tissue,dev,0
+ACH-002709,PT-92FgnG,Myeloid,dev,3
+ACH-002710,PT-nQk25T,Peripheral Nervous System,dev,1
+ACH-002711,PT-Jn4RNo,Head and Neck,dev,2
+ACH-002714,PT-VhvAPf,CNS/Brain,dev,1
+ACH-002715,PT-a7ucuV,CNS/Brain,dev,1
+ACH-002730,PT-LfJQoV,Esophagus/Stomach,dev,4
+ACH-002731,PT-YWXyEG,Esophagus/Stomach,dev,4
+ACH-002736,PT-8A5ghT,Esophagus/Stomach,dev,1
+ACH-002742,PT-ZlbSbz,Pancreas,dev,4
+ACH-002743,PT-GQNnO1,Pancreas,dev,1
+ACH-002744,PT-0o7FOB,Pancreas,dev,1
+ACH-002745,PT-urO852,Pancreas,dev,2
+ACH-002778,PT-iPKVUD,Bone,test,-1
+ACH-002779,PT-eB3Nou,Bone,dev,3
+ACH-002780,PT-wlbuKV,Bone,test,-1
+ACH-002782,PT-z4CfZ2,Soft Tissue,dev,0
+ACH-002784,PT-ucxyns,Soft Tissue,test,-1
+ACH-002785,PT-6sPicj,Soft Tissue,dev,0
+ACH-002792,PT-wrg9dD,Soft Tissue,dev,4
+ACH-002799,PT-qqzgSc,Peripheral Nervous System,dev,2
+ACH-002800,PT-WTpRkW,Peripheral Nervous System,dev,2
+ACH-002801,PT-hmiIEB,Peripheral Nervous System,dev,4
+ACH-002806,PT-k6klta,CNS/Brain,dev,0
+ACH-002810,PT-UIGxsM,CNS/Brain,test,-1
+ACH-002811,PT-Q34uxD,CNS/Brain,dev,2
+ACH-002813,PT-rcnTNb,CNS/Brain,dev,4
+ACH-002814,PT-bJksJE,CNS/Brain,dev,2
+ACH-002816,PT-vNiiSm,CNS/Brain,test,-1
+ACH-002817,PT-qb1Ciz,CNS/Brain,dev,4
+ACH-002818,PT-1hPtyP,CNS/Brain,dev,1
+ACH-002821,PT-mDKTMq,CNS/Brain,dev,4
+ACH-002822,PT-0E9rgp,CNS/Brain,dev,3
+ACH-002824,PT-Sf3Zdi,CNS/Brain,test,-1
+ACH-002826,PT-p0FADW,CNS/Brain,test,-1
+ACH-002828,PT-scLNrP,CNS/Brain,dev,4
+ACH-002834,PT-EcUHFc,Bone,test,-1
+ACH-002836,PT-EMxy9U,Esophagus/Stomach,dev,0
+ACH-002837,PT-M6KcwA,Esophagus/Stomach,dev,1
+ACH-002839,PT-aXPS8n,Bowel,test,-1
+ACH-002841,PT-VnbLEO,Bowel,dev,1
+ACH-002847,PT-AFnHpd,Skin,test,-1
+ACH-002849,PT-Epo03H,CNS/Brain,dev,2
+ACH-002862,PT-FfygaM,CNS/Brain,dev,4
+ACH-002863,PT-n5LXoh,CNS/Brain,dev,1
+ACH-002877,PT-BJob34,Prostate,dev,3
+ACH-002878,PT-48b2Wa,Prostate,dev,2
+ACH-002879,PT-hiPAD9,Prostate,dev,1
+ACH-002883,PT-N65Hvq,Breast,dev,4
+ACH-002884,PT-N65Hvq,Breast,dev,4
+ACH-002885,PT-pPJgGC,Breast,dev,3
+ACH-002890,PT-A3UwdA,CNS/Brain,dev,4
+ACH-002893,PT-lxjugB,CNS/Brain,dev,0
+ACH-002907,PT-kHE9I1,CNS/Brain,dev,2
+ACH-002922,PT-LKZDpW,Peripheral Nervous System,dev,1
+ACH-002923,PT-22FXN6,Peripheral Nervous System,test,-1
+ACH-002925,PT-abxYPP,Eye,dev,1
+ACH-002926,PT-vu5jnE,Eye,test,-1
+ACH-002928,PT-M9rUlw,Skin,dev,0
+ACH-002947,PT-Jlfsle,Breast,dev,4
+ACH-002948,PT-0ZDLSk,Breast,dev,0
+ACH-002950,PT-hxORJf,Breast,test,-1
+ACH-002951,PT-URKT9Y,Breast,dev,2
+ACH-002954,PT-piVxVb,Esophagus/Stomach,dev,1
+ACH-002958,PT-6y7Z6k,Esophagus/Stomach,dev,4
+ACH-002959,PT-4i9LU8,Esophagus/Stomach,dev,3
+ACH-002964,PT-zfPfIU,Esophagus/Stomach,test,-1
+ACH-002965,PT-V5nWqf,Esophagus/Stomach,dev,1
+ACH-002966,PT-vokZHv,Esophagus/Stomach,dev,3
+ACH-002968,PT-pjhrsc,Esophagus/Stomach,test,-1
+ACH-002975,PT-ZFEmQk,Esophagus/Stomach,dev,3
+ACH-002978,PT-FxhBrM,Esophagus/Stomach,dev,2
+ACH-002979,PT-lyHTzo,Esophagus/Stomach,test,-1
+ACH-002982,PT-6y7Z6k,Esophagus/Stomach,dev,4
+ACH-002983,PT-S3dev7,Esophagus/Stomach,dev,2
+ACH-002989,PT-jpF6oB,Prostate,dev,0
+ACH-002991,PT-74D7l9,Prostate,dev,3
+ACH-002999,PT-AMOVH8,Pancreas,test,-1
+ACH-003000,PT-FocDV1,Pancreas,dev,1
+ACH-003005,PT-kbuuQX,Ovary/Fallopian Tube,test,-1
+ACH-003012,PT-cqv92I,Lung,dev,0
+ACH-003013,PT-XECxCo,Pancreas,test,-1
+ACH-003014,PT-LDx0W3,Pancreas,dev,3
+ACH-003015,PT-qIvRWj,Pancreas,dev,2
+ACH-003030,PT-OJEWd8,Breast,test,-1
+ACH-003035,PT-4ca0aU,Pancreas,dev,3
+ACH-003036,PT-4ca0aU,Pancreas,dev,3
+ACH-003039,PT-zOZo3f,Pancreas,dev,3
+ACH-003040,PT-nGXRDG,Pancreas,dev,2
+ACH-003041,PT-81s9h1,Pancreas,dev,3
+ACH-003045,PT-TZOWm8,Pancreas,dev,0
+ACH-003047,PT-ts2yuC,Pancreas,dev,0
+ACH-003064,PT-57BDo9,Bone,test,-1
+ACH-003065,PT-eRqT4h,CNS/Brain,test,-1
+ACH-003126,PT-LDx0W3,Pancreas,dev,3
+ACH-003130,PT-GynqTj,Breast,dev,0
+ACH-003167,PT-c8RL1g,CNS/Brain,test,-1
+ACH-003169,PT-gTqDes,CNS/Brain,dev,0
+ACH-003171,PT-i9JRNE,Bone,dev,1
+ACH-003176,PT-VbQDpc,Bone,dev,0
+ACH-003177,PT-72jDHL,Soft Tissue,dev,2
+ACH-003178,PT-or8OCW,Bone,dev,1
+ACH-003180,PT-EMnXLI,Soft Tissue,dev,2
+ACH-003184,PT-21NMVa,Soft Tissue,dev,4
+ACH-003185,PT-McNlZE,Bone,test,-1
+ACH-003186,PT-DbN4gj,Soft Tissue,dev,3
+ACH-003189,PT-eY3uqu,Soft Tissue,dev,0
+ACH-003190,PT-8LUb74,Soft Tissue,dev,2
+ACH-003191,PT-B8KJKw,Bone,dev,3
+ACH-003193,PT-SI7c85,Pancreas,dev,1
+ACH-003203,PT-xsDasM,CNS/Brain,dev,4
+ACH-003209,PT-ExiRNd,CNS/Brain,dev,4
+ACH-003216,PT-MPuz9u,Breast,dev,2
+ACH-003229,PT-okR1TE,CNS/Brain,dev,4
+ACH-003230,PT-zy2Tek,CNS/Brain,dev,0
+ACH-003233,PT-BbGUwD,Prostate,dev,1
+ACH-003235,PT-yJltih,Prostate,test,-1
+ACH-003236,PT-dBEQQW,Prostate,dev,2
+ACH-003237,PT-Kz9xz7,Prostate,test,-1
+ACH-003238,PT-VbblkK,Uterus,dev,2
+ACH-003273,PT-44yhk7,Myeloid,dev,3
+ACH-003323,PT-gTXeL4,CNS/Brain,dev,4
+ACH-003331,PT-GoHfCC,Pancreas,dev,3
+ACH-003332,PT-S0UaGz,Bowel,test,-1
+ACH-003334,PT-zuTmVR,Bowel,dev,3
+ACH-003337,PT-J1THKH,Bowel,dev,1
+ACH-003338,PT-MreuEh,Ampulla of Vater,dev,2
+ACH-003339,PT-MreuEh,Ampulla of Vater,dev,2
+ACH-003340,PT-mpveVX,Ampulla of Vater,dev,0
+ACH-003341,PT-ZVNzH6,Pancreas,dev,2
+ACH-003342,PT-eWJNaJ,Pancreas,dev,1
+ACH-003345,PT-EkYpcH,Bowel,dev,0
+ACH-003346,PT-NHhlTN,Bowel,dev,2
+ACH-003348,PT-dNvUSb,Bowel,dev,4
+ACH-003350,PT-aAZ8jl,Ovary/Fallopian Tube,test,-1
+ACH-003355,PT-G4Fp7D,Esophagus/Stomach,dev,1
+ACH-003356,PT-qEPGoM,Esophagus/Stomach,test,-1
+ACH-003357,PT-iRoenY,Esophagus/Stomach,dev,4
+ACH-003358,PT-BBMr2k,Ampulla of Vater,dev,1
+ACH-003359,PT-HjUad6,Breast,dev,2
+ACH-003360,PT-w0yi0u,Breast,dev,4
+ACH-003364,PT-CYIwDN,Bowel,dev,1
+ACH-003368,PT-4fW2FC,Biliary Tract,test,-1
+ACH-003369,PT-QKBqJJ,Pancreas,dev,0
+ACH-003372,PT-sRqpo4,Biliary Tract,dev,4
+ACH-003374,PT-jlMSq2,Breast,dev,3
+ACH-003377,PT-j86XYy,Bowel,dev,2
+ACH-003380,PT-ol6dpP,Pancreas,dev,0
+ACH-003383,PT-tUXvml,Bowel,dev,0
+ACH-003386,PT-eGKsTy,Bowel,dev,4
+ACH-003387,PT-soPkDJ,Bowel,dev,3
+ACH-003388,PT-7K4u3E,Bowel,test,-1
+ACH-003390,PT-1WWaGt,Bowel,dev,2
+ACH-003391,PT-6szdAT,Bowel,dev,4
+ACH-003394,PT-4JXZFH,Esophagus/Stomach,dev,0
+ACH-003395,PT-TpVLOZ,Esophagus/Stomach,dev,0
+ACH-003397,PT-gDZsyK,Esophagus/Stomach,dev,1
+ACH-003398,PT-i7Z9nq,Esophagus/Stomach,dev,2
+ACH-003399,PT-Mjitqt,Bowel,dev,4
+ACH-003400,PT-zfBIBt,Bowel,dev,4
+ACH-003401,PT-gLVpZh,Bowel,dev,0
+ACH-003402,PT-5cyUgJ,Bowel,dev,3
+ACH-003405,PT-tVav3p,CNS/Brain,dev,1
+ACH-003410,PT-Dz7ENW,Bone,dev,4
+ACH-003427,PT-MXzfiQ,Esophagus/Stomach,dev,4
+ACH-003535,PT-x0kg7a,CNS/Brain,test,-1
+ACH-003565,PT-i9Raip,CNS/Brain,dev,3
+ACH-003573,PT-s4DSO4,Bone,dev,3
+ACH-003587,PT-g8kcwe,Bone,dev,4
+ACH-003590,PT-JkwieL,Lymphoid,dev,0
+ACH-003636,PT-GX6ehk,CNS/Brain,dev,3
+ACH-003704,PT-3w3Rm1,Breast,dev,4
+ACH-003709,PT-apwl7i,Uterus,dev,2
+ACH-003710,PT-94ut6c,Uterus,dev,0
+ACH-003711,PT-a92iiq,Uterus,dev,4
+ACH-003713,PT-se77ur,Esophagus/Stomach,dev,2
+ACH-003716,PT-19rudi,Esophagus/Stomach,dev,2
+ACH-003722,PT-g5yye4,Bowel,noncancerous,-1
+ACH-003723,PT-aAZ8jl,Ovary/Fallopian Tube,test,-1
+ACH-003724,PT-10du6i,Bowel,dev,0
+ACH-003758,PT-6XcWan,CNS/Brain,dev,3

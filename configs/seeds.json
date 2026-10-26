@@ -1,0 +1,3 @@
+{"_comment": "Fixed seed list. split_seed defines the locked test split; model_seeds are used for every stochastic model (report mean and spread).",
+ "split_seed": 20261026,
+ "model_seeds": [0, 1, 2, 3, 4]}

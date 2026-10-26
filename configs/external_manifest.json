@@ -19,7 +19,12 @@
  },
  "biogrid": {
   "url": "https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ALL-LATEST.tab3.zip",
-  "error": "CalledProcessError(56, ['curl', '-sSfL', '-m', '1800', '-o', 'data\\\\raw_external\\\\biogrid\\\\BIOGRID-ALL-LATEST.tab3.zip', 'https://downloads.thebiogrid.org/Download/BioGRID/Latest-Release/BIOGRID-ALL-LATEST.tab3.zip'])"
+  "file": "data/raw_external/biogrid/BIOGRID-ALL-LATEST.tab3.zip",
+  "bytes": 182882024,
+  "sha256": "7221dad43bd90ec24d1fca5e9e5989e021cb6dfb002a205d92cae5ca4219c86b",
+  "version": "from file name in archive",
+  "licence": "MIT",
+  "retrieved": "2026-10-26"
  },
  "huri": {
   "url": "https://interactome-atlas.org/data/HuRI.tsv",
