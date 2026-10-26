@@ -76,8 +76,18 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   over median LFC. Caveat: HAP1 is the single TKOv3 anchor.
   Outcome: Chronos raised HAP1 agreement 0.061 → 0.074 (+0.013), so it is **not adopted**. SSMD improved on 10/11.
 - D12 (G5a): Wang-library gene-wise correction not applied to Yilmaz 2018. Why: the anchors are published CS gene
-  scores, while Yilmaz is count-scored by us, so the pipelines differ; the correction also lowered hPSC replicate
-  agreement.
+  scores, while Yilmaz is count-scored by us, so the pipelines differ. (Rationale restated in D13 as pipeline
+  mismatch only; the replicate-agreement drop was an observation, not the criterion.)
+- D13 (pre-freeze-transfer): transfer criteria rebuilt after an independent review found the draft was not a true
+  pre-registration (wrong MDE quantity, pseudoreplication over 18 correlated RPE1 arms, undefined anchor gate,
+  undefined B1 for set B).
+  - Study = unit (one consensus profile per study and TP53 status). Hierarchical bootstrap over studies and paralog
+    blocks. MDE = 2 × SE of ceiling skill.
+  - "Transfers" = lower CI > 0 and skill ≥ 50% of the replicate-ceiling skill. The anchor gate (library-matched)
+    is used only to attribute "fails".
+  - Q3a primary label: scale-free top-10% rank. Q3b comparator: B1 with a frozen nearest DepMap lineage.
+  - Scaling-half control genes are excluded from headline metrics. H1–H3 are operational; H4 is inconclusive by
+    declaration.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader

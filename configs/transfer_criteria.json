@@ -1,239 +1,810 @@
 {
- "_status": "DRAFT (scripts/transfer_criteria.py). Binding only once committed by the PI at G5, before any set-B prediction (DESIGN v3 \u00a77.6). Thresholds derived from anchors, controls and observed-vs-observed replicate agreement only; no model has been applied to set A or set B.",
+ "_status": "PRE-FREEZE (D13). Written by scripts/transfer_criteria.py; binding once committed with tag freeze-transfer-criteria. VOID for any set-B prediction unless configs/finalists.json (T, full model, H3 no-EC variant, B0/B1/B2 run ids and config hashes) is committed BEFORE that prediction (tag freeze-transfer-models). No model has been applied to set A or set B.",
  "decisions": {
-  "D7": "set-A/B skill = mean over the per-fold (5 dev CV) frozen models; it is matched against anchor skill computed with single out-of-fold (OOF) anchor predictions (each anchor line predicted by the fold model that did not train on it)",
-  "D10": "harmonised effects on the DepMap-matched affine scale (configs/harmonisation_frozen.json)",
-  "D12": "no gene-wise correction for Yilmaz 2018; Wang-library anchors are not a same-pipeline anchor for it -> its verdicts are 'inconclusive' only"
+  "D7": "skill is computed separately for each of the 5 dev fold models and the 5 skill values are averaged (within every bootstrap replicate); the 5-model prediction ensemble is secondary. Anchors: the single out-of-fold model (the fold whose training set excludes the anchor line).",
+  "D8": "rare-selective >= 1% floor (gene_classes.csv); does not enter the primary statistics",
+  "D9": "expression inputs = quantile-normalised to DepMap dev (configs/expression_harmonisation.json)",
+  "D10": "harmonised effects on the DepMap-matched affine scale (scaling set -> -1.468, NEG -> 0.007)",
+  "D11": "Chronos for TKOv3 not adopted (median guide LFC). The adoption statistic came from a joint fit that included set-B count screens; re-enabling Chronos requires a new decision on an anchor-only fit.",
+  "D12": "no gene-wise correction for Yilmaz 2018 because of a pipeline mismatch: the Wang-library anchors are published gene-level scores, Yilmaz is count-scored here. Yilmaz is a predictor-only study.",
+  "D13": "this file: study = unit; LOSO replicate ceiling; hierarchical bootstrap; MDE = 2 x SE(ceiling skill); transfers needs >= 50% of the ceiling skill; library-matched anchor gate for fails only."
  },
- "inputs": {
-  "harmonisation": "configs/harmonisation_frozen.json",
-  "screen_plan": "configs/screen_plan.csv",
-  "control_split": "configs/control_split.json",
-  "gene_classes": "configs/gene_classes.csv"
+ "inputs_sha256": {
+  "configs/harmonisation_frozen.json": "2657924ee8172fca2339b0b9ee138a64eddea2ecf246a8994bf8749173d85176",
+  "configs/harmonisation_screens.json": "414eea0a8ac6a76b7c8d90b6e2bf92a83f4ff6d341bf25b3d19ac2d7e7517a3b",
+  "configs/screen_plan.csv": "cd3372ec1a867dd679d7ecb31e10094e137ac773414a494150d27d01dba85c78",
+  "configs/control_split.json": "725a09cd3f036e5d78b2f2f0184343d61f0ebc5eadc8872c0b5b4a5ff9c14dc5",
+  "configs/gene_classes.csv": "67b155074d60175bcb48182df00c4886079e4020c04971c3325a21db8a93c0ba",
+  "configs/eval_genes.csv": "097193644c3c73fcec934ca93ea0b0ad4b29555162bef5a8c05b8699e30c168b",
+  "configs/expression_harmonisation.json": "a453b8c524c73d7279ffd023890188ef60b6a73fc1d898565042e3e280f59d62",
+  "configs/seeds.json": "9f4f5244be6b837ae870207eae44fe37306caa608092594d34c1e09b2489f3cf",
+  "configs/splits.csv": "84a75eb54e68c6f0b016c20ff26ea7fc5f73b6f65094cd185eecfd82571438d4",
+  "results/expression_harmonisation/profiles.csv": "fb1f8580094f105b7863f766b9d92cdff2a97f9e6d8fb3a08f7b2e8205913ace",
+  "cache/priors/paralog_pairs.parquet": "043935827efff016fb2d6aed3d3568b41d74c8ffea4403f6f389f736c85b07f8",
+  "cache/external_expr/harmonised.parquet": "e9b01c391432a650e42a7e2e056b904d966b67fab42934315919f89cdb3d6e30",
+  "cache/transfer/comparators.parquet": "a0f24ce7810de11ebe0a592bebf9be10fb20a833d17d88f2804e5cde5d3b15da",
+  "results/runs/20261026-151647_b1_0e2a7a27/summary.json": "282770fdb9c66857c6f6a997fffa2a354d065e93be2ad52b25f5e7482ab2fd97",
+  "src/essml/transfer.py": "b2fa0566458912a50c6c3f3555455aa4d43d6214b2a5c82fb8d58e7f5c5a35e8",
+  "scripts/transfer_criteria.py": "7982a51fc495104684315b68261dc7d812a7440e78142d94db3af4127fffae15"
  },
- "qc": {
-  "from": "configs/harmonisation_frozen.json",
-  "ssmd_max_non_avana": -1.0,
-  "nnmd_max_avana": -1.0,
-  "min_eval_controls": 10
+ "models": {
+  "T": "model T as named in configs/finalists.json (E + TP53/RB1 flags, no lineage); full = headline model; H3 no-EC = T trained without the 7 germ-cell/EC dev lines",
+  "B0": "per-gene mean over all 1022 dev lines (comparators.parquet column B0)",
+  "B1_nearest": "shrunk lineage mean (kappa = 10, modal per-fold choice of results/runs/20261026-151647_b1_0e2a7a27/summary.json) over all 1022 dev lines of the frozen nearest lineage (columns B1_<lineage>)",
+  "B2": "kNN in harmonised expression space, frozen B2 run (secondary comparator only)",
+  "comparator_note": "B0/B1 comparators are the fixed all-dev vectors for every fold model of T (the 80% fold-training versions differ negligibly); for anchors the comparators are refit on the anchor's OOF fold training lines"
  },
- "shrinkage_prior": {
-  "kappa": 2.0,
-  "note": "EB gene-wise correction, see harmonisation_frozen.json"
+ "harmonisation": {
+  "qc": {
+   "ssmd_max_non_avana": -1.0,
+   "nnmd_max_avana": -1.0,
+   "min_eval_controls": 10
+  },
+  "shrinkage_kappa": 2.0,
+  "anchor_agreement_improvement_margin": 0.01,
+  "affine_targets": [
+   -1.4676622152328491,
+   0.0072499781381338835
+  ],
+  "validation_passed_definition": "every arm of every verdict study has qc_pass in screen_plan.csv AND every entry consensus passes the same QC (SSMD of evaluation halves < -1.0, >= 10 of each)"
  },
- "anchor_agreement_improvement_margin": 0.01,
- "labels": {
-  "primary": "harmonised effect < -0.5 (DepMap-matched scale)",
-  "scale_free": "10% most depleted genes per screen",
-  "evaluable_genes": "eval_genes_external: genes scored in the screen and in the model output",
-  "rpe1_cegv2_sensitivity": "RPE1 results also reported without CEGv2 genes (CEGv2 partly derives from RPE1)"
+ "population": {
+  "unit": "study (publication). Entry = study x TP53 status = per-gene NaN-skipping mean of its QC-passing genome-wide fitness arms. Study value = mean over its entries; background value = mean over verdict studies. Focused libraries and QC-failed arms are excluded from Q3a/Q3b.",
+  "gene_universe": "U_e = configs/eval_genes.csv genes observed in the entry consensus minus the scaling halves (ceg_scaling U neg_scaling U scaling_set of control_split.json, pinned by the affine step); evaluation-half CEGv2/NEGv1 retained",
+  "minimum_n": {
+   "universe": 1000,
+   "q3b_positives": 10,
+   "q3b_negatives": 100,
+   "rule": "an entry below a minimum is NaN and dropped; a study with no finite entry is dropped; a background with no finite study is inconclusive; NaN bootstrap replicates are dropped (n_boot_valid reported)"
+  },
+  "prediction_sharing": "within RPE1 every entry shares one expression input, so T's prediction is one vector per TP53 flag; the CI describes study choice and gene sampling, not independent replication of the prediction"
  },
  "Q3a": {
-  "primary_reported": "absolute AUPRC of model T per screen and per label, reported relative to the replicate ceiling of its background (ratio AUPRC_T / ceiling AUPRC)",
-  "verdict_statistic": "skill = AUPRC(T) - AUPRC(B0) (per-gene dev mean), per screen; background skill = mean over the background's evaluable screens; CI from the gene-block bootstrap",
-  "secondary": [
-   "dAUPRC vs B0",
-   "AUPRC/AUROC of T and of the full model vs B0, B1, B2",
-   "lost/gained essentials (direction and rank predicted?)"
+  "primary": {
+   "label": "rank label: genes <= the 10% quantile (numpy linear) of the entry consensus over U_e",
+   "statistic": "skill = AP(T) - AP(B0); AP = sklearn step-wise average precision (ties grouped), score = -prediction (essml.transfer.APPrep)",
+   "model": "T only"
+  },
+  "secondary_not_verdict_bearing": [
+   "label effect < -0.5",
+   "absolute AUPRC of T, B0 and of the ceiling predictor",
+   "full model",
+   "B2 comparator",
+   "RPE1 without CEGv2",
+   "lost/gained essentials"
   ]
  },
  "Q3b": {
-  "screen_specific": "observed harmonised effect < -0.5 AND DepMap dev dependency fraction <= 0.5 (configs/gene_classes.csv frac_below); secondary: fraction <= 0.05",
-  "verdict_statistic": "skill = recall(T) - recall(B1) at the threshold giving 5% FPR on the NEGv1 EVALUATION half (configs/control_split.json neg_evaluation); also reported vs B0 (and B2); Clopper-Pearson CIs per screen; background skill = mean over evaluable screens with a gene-block bootstrap CI",
-  "secondary": "deviation correlation over selective + rare-selective genes"
+  "primary": {
+   "positives": "consensus < -0.5 AND DepMap-dev frac_below <= 0.5 (gene_classes.csv), within U_e, excluding NEGv1 evaluation genes",
+   "negatives": "NEGv1 evaluation half (control_split.json neg_evaluation) within U_e",
+   "statistic": "recall at 5% FPR (threshold = (k+1)-th highest negative score, k = floor(0.05 n_neg), called iff score > threshold; metrics.recall_at_fpr convention) of T minus that of B1-nearest",
+   "model": "T only"
+  },
+  "secondary_not_verdict_bearing": [
+   "vs B0",
+   "frac_below <= 0.05 positives",
+   "full model",
+   "B2",
+   "deviation correlation (selective + rare)",
+   "Clopper-Pearson recall CIs per entry"
+  ]
+ },
+ "replicate_ceiling": {
+  "definition": "for entry e of study s: the same statistic with the predictor = mean of the study profiles of the OTHER studies of the background (study profile = mean of its entries; predictor-only studies included), B0 for genes no other study observes; ceiling skill over B0 (Q3a) / B1-nearest (Q3b)",
+  "background_ceiling": "mean over verdict studies of the study mean over entries"
  },
  "bootstrap": {
-  "scheme": "gene-block bootstrap; blocks = paralog families = connected components of cache/priors/paralog_pairs.parquet pairs with min(identity, rev_identity) >= 30%; unpaired genes are singleton blocks",
-  "n_resamples": 1000,
-  "seed": 20261127,
-  "seed_rule": "configs/seeds.json split_seed + 101 (RPE1), + 102 (hPSC)",
-  "ci": "percentile 95%"
+  "n_resamples": 2000,
+  "seed": 20261026,
+  "seed_source": "configs/seeds.json split_seed",
+  "streams": "np.random.SeedSequence(seed).spawn(3): [0] verdict-study draws (n_studies with replacement), [1] gene-block draws (n_blocks with replacement; gene weight = multiplicity, shared by all entries), [2] ceiling only: each verdict study's LOSO predictor pool resampled with replacement (studies in sorted order)",
+  "pairing": "the T-skill bootstrap and the ceiling bootstrap of a background use identical study and gene draws (same plan genes, blocks and seed)",
+  "blocks": "paralog families: connected components of cache/priors/paralog_pairs.parquet pairs with min(identity, rev_identity) >= 30%; unpaired genes are singletons (D13.6; complexes not added)",
+  "plan_genes": "union of U_e over the background's verdict entries",
+  "ci": "percentile 95% (numpy linear)",
+  "se": "SD (ddof=1) of the bootstrap replicates",
+  "MDE": "2 x SE of the background ceiling skill (no anchor-noise term: struck by D13)"
  },
  "verdicts": {
-  "transfers": "lower 95% CI bound of background skill over B0 (Q3a) or B1 (Q3b) > 0 AND skill >= 50% of the same-pipeline anchor skill (same lab/library anchors through the same harmonisation, D7 OOF)",
-  "fails": "ALL of: (1) skill <= 0 (point estimate not above the B0/B1 comparator); (2) upper 95% CI bound of skill < MDE of the background; (3) same-pipeline anchors show positive skill (lower CI > 0); (4) harmonisation validation passed for the screens (QC pass, configs/screen_plan.csv)",
-  "inconclusive": "otherwise, and always when a screen has no same-pipeline anchor or no replicate ceiling",
-  "expression_swap_cap": "profile-swap null: each screen is also predicted from other screens' expression profiles; matched must beat mismatched. If the swapped-profile skill has a lower 95% CI bound > 0, the verdict for that background is capped at 'inconclusive'",
-  "nearest_lineage_comparator": "B1 prediction for the closest cancer lineage is reported alongside",
-  "overall": "per question, 'transfers' if a strict majority of EVALUABLE backgrounds transfer; 'fails' if a strict majority fail; otherwise 'inconclusive'. With the two evaluable backgrounds (RPE1, hPSC) this means both must agree"
+  "transfers": "lower CI(skill) > 0 AND point skill >= 0.5 x ceiling skill (applied literally: with a ceiling skill <= 0 the ratio condition is vacuous and only the lower-CI condition binds; flagged in the output)",
+  "fails": "upper CI(skill) < MDE (strict) AND harmonisation validation passed AND the library-matched anchor gate is informative and positive",
+  "both_conditions_met": "inconclusive",
+  "otherwise": "inconclusive",
+  "anchor_gate": {
+   "mapping": {
+    "TKOv3": [
+     "A_mair2019_HAP1_T18"
+    ],
+    "TKOv1": [
+     "A_hart2015_DLD1",
+     "A_hart2015_HCT116"
+    ],
+    "Brunello": [
+     "A_sanson2018_A375"
+    ],
+    "TKOv2": []
+   },
+   "anchor_details": {
+    "TKOv3": [
+     {
+      "id": "A_mair2019_HAP1_T18",
+      "depmap_id": "ACH-002475",
+      "data_level": "counts"
+     }
+    ],
+    "TKOv1": [
+     {
+      "id": "A_hart2015_DLD1",
+      "depmap_id": "ACH-001061",
+      "data_level": "guide_lfc"
+     },
+     {
+      "id": "A_hart2015_HCT116",
+      "depmap_id": "ACH-000971",
+      "data_level": "guide_lfc"
+     }
+    ],
+    "Brunello": [
+     {
+      "id": "A_sanson2018_A375",
+      "depmap_id": "ACH-000219",
+      "data_level": "counts"
+     }
+    ],
+    "TKOv2": []
+   },
+   "statistic": "the same primary statistic computed on each anchor's harmonised external profile (frozen step: affine; no gene-wise step for TKOv1/TKOv3/Brunello), U = eval genes observed in the anchor minus scaling halves; predictions = the single OOF fold model of T (D7); Q3a comparator = B0 and Q3b comparator = B1 of the anchor's own DepMap lineage, both refit on that fold's training lines (kappa 10); CI = gene-block bootstrap, same seed",
+   "informative_positive": ">= 1 library-matched anchor of the background with lower CI > 0",
+   "TKOv1_usability": "Hart 2015 DLD1/HCT116 are published guide LFCs scored by the same median-guide-LFC step; declared usable (both pass QC); data-level difference recorded",
+   "TKOv2": "no TKOv2 anchor exists (Brown 2019 null entry); the background gate uses the anchors of its other libraries",
+   "role": "used only to attribute 'fails'"
+  },
+  "expression_swap_null": "T predicted for this background's entries with each declared swap profile (other verdict background's expression; same TP53 flag as the entry); same statistic, same plan. If any swap has lower CI > 0, 'transfers' is capped at 'inconclusive' ('fails' unaffected). The paired matched-minus-swap difference is reported (secondary).",
+  "overall": "per question: 'transfers' / 'fails' only if every verdict-eligible background (RPE1, hPSC) has that verdict; 'mixed' if both transfers and fails occur; otherwise 'inconclusive'. The conjunction is an intersection-union test, so no multiplicity adjustment is applied to the 2 primary statistics x 2 backgrounds."
  },
  "backgrounds": {
   "RPE1": {
-   "evaluable_screens": [
-    "olivieri2020_TKOv3_S02",
-    "olivieri2020_TKOv3_S04",
-    "olivieri2020_TKOv3_S05",
-    "olivieri2020_TKOv3_S06",
-    "olivieri2020_TKOv3_S07",
-    "olivieri2020_TKOv3_S12",
-    "olivieri2020_TKOv2_S08",
-    "olivieri2020_TKOv2_S09",
-    "olivieri2020_TKOv2_S10",
-    "brown2019_WT_Durocher_T3",
-    "brown2019_WT_PACE002_T18",
-    "brown2019_WT_PACE002_T30",
-    "brown2019_WT_PACE006_T25",
-    "brown2019_p53null_TKOv2_T18",
-    "haapaniemi2018_null_D28",
-    "hart2015_RPE1_T18",
-    "bowden2020_WT_D19",
-    "bowden2020_KO_D19"
+   "verdict_eligible": true,
+   "studies": {
+    "hart2015": {
+     "role": "verdict",
+     "citation": "Hart 2015 RPE1 TKOv1",
+     "entries": {
+      "WT": {
+       "arms": [
+        "hart2015_RPE1_T18"
+       ],
+       "library": "TKOv1"
+      }
+     }
+    },
+    "brown2019": {
+     "role": "verdict",
+     "citation": "Brown 2019 (GSE128210) RPE1",
+     "entries": {
+      "WT": {
+       "arms": [
+        "brown2019_WT_Durocher_T3",
+        "brown2019_WT_PACE002_T30",
+        "brown2019_WT_PACE006_T25"
+       ],
+       "library": "TKOv3",
+       "note": "one arm per independent screen; PACE002 enters at its final timepoint T30 (T18 is an earlier timepoint of the same arm)"
+      },
+      "null": {
+       "arms": [
+        "brown2019_p53null_TKOv2_T18"
+       ],
+       "library": "TKOv2"
+      }
+     }
+    },
+    "olivieri2020": {
+     "role": "verdict",
+     "citation": "Olivieri 2020 RPE1 TP53-/- NT arms, TKOv3",
+     "entries": {
+      "null": {
+       "arms": [
+        "olivieri2020_TKOv3_S02",
+        "olivieri2020_TKOv3_S04",
+        "olivieri2020_TKOv3_S05",
+        "olivieri2020_TKOv3_S06",
+        "olivieri2020_TKOv3_S07",
+        "olivieri2020_TKOv3_S12"
+       ],
+       "library": "TKOv3"
+      }
+     }
+    },
+    "haapaniemi2018": {
+     "role": "verdict",
+     "citation": "Haapaniemi 2018 RPE1 Brunello",
+     "entries": {
+      "null": {
+       "arms": [
+        "haapaniemi2018_null_D28"
+       ],
+       "library": "Brunello"
+      }
+     }
+    }
+   },
+   "excluded_arms": {
+    "haapaniemi2018_WT_D28": "QC fail (SSMD -0.42)",
+    "olivieri2020_TKOv2_S08": "TKOv2 arm: D13 names the Olivieri TKOv3 NT consensus only",
+    "olivieri2020_TKOv2_S09": "TKOv2 arm: D13 names the Olivieri TKOv3 NT consensus only",
+    "olivieri2020_TKOv2_S10": "TKOv2 arm: D13 names the Olivieri TKOv3 NT consensus only",
+    "brown2019_WT_PACE002_T18": "earlier timepoint of the PACE002 arm (T30 used)",
+    "bowden2020_WT_D19": "focused DDR library: H2 only",
+    "bowden2020_KO_D19": "focused DDR library: H2 only",
+    "ORCS_799, ORCS_1791, ORCS_1792, ORCS_1932, ORCS_1933": "rank-only published gene scores (no effect scale, no same-pipeline anchor); not in D13 list",
+    "ORCS_1934, ORCS_1935": "QC fail",
+    "ORCS_28": "duplicate of hart2015_RPE1_T18",
+    "ORCS_1487, ORCS_1488": "117-gene DUB library"
+   },
+   "expression_input_T": {
+    "profile_id": "state:DepMap_RPE1",
+    "file": "cache/external_expr/harmonised.parquet",
+    "note": "DepMap 26Q3 RPE1-ss sublines (native DepMap expression, set-A input); identical for every RPE1 entry, so T's prediction differs between entries only via the TP53 flag and the gene universe"
+   },
+   "nearest_depmap_lineage": {
+    "lineage": "CNS/Brain",
+    "votes": "5/6",
+    "profiles": [
+     "depmap:RPE1-ss48",
+     "depmap:RPE1-ss77",
+     "depmap:RPE1-ss6",
+     "depmap:RPE1-ss119",
+     "depmap:RPE1-ss111",
+     "depmap:RPE1-ss51"
+    ],
+    "counts": {
+     "CNS/Brain": 5,
+     "Soft Tissue": 1
+    },
+    "n_dev_lines_in_lineage": 102
+   },
+   "B1_nearest_column": "B1_CNS/Brain",
+   "library_matched_anchors": [
+    "A_hart2015_DLD1",
+    "A_hart2015_HCT116",
+    "A_mair2019_HAP1_T18",
+    "A_sanson2018_A375"
    ],
-   "ceiling_study_representatives": {
-    "olivieri2020": "olivieri2020_TKOv3_S05",
-    "brown2019_durocher": "brown2019_WT_Durocher_T3",
-    "brown2019_pace002": "brown2019_WT_PACE002_T30",
-    "brown2019_pace006": "brown2019_WT_PACE006_T25",
-    "brown2019_p53null": "brown2019_p53null_TKOv2_T18",
-    "haapaniemi2018": "haapaniemi2018_null_D28",
-    "hart2015": "hart2015_RPE1_T18"
+   "expression_swap_profiles": {
+    "hPSC (Mair 2019 states)": [
+     "state:H1_iCas9_MEF",
+     "state:H1_iCas9_laminin"
+    ]
    },
-   "n_directed_pairs": 42,
-   "n_genes_universe": 19179,
-   "n_paralog_blocks": 11934,
-   "max_block_size": 162,
+   "harmonisation_validation": {
+    "arm_qc_pass": {
+     "hart2015_RPE1_T18": true,
+     "brown2019_WT_Durocher_T3": true,
+     "brown2019_WT_PACE002_T30": true,
+     "brown2019_WT_PACE006_T25": true,
+     "brown2019_p53null_TKOv2_T18": true,
+     "olivieri2020_TKOv3_S02": true,
+     "olivieri2020_TKOv3_S04": true,
+     "olivieri2020_TKOv3_S05": true,
+     "olivieri2020_TKOv3_S06": true,
+     "olivieri2020_TKOv3_S07": true,
+     "olivieri2020_TKOv3_S12": true,
+     "haapaniemi2018_null_D28": true
+    },
+    "consensus_qc": {
+     "brown2019:WT": {
+      "ssmd": -2.3348,
+      "median_neg_eval": -0.015,
+      "median_ceg_eval": -1.4665,
+      "qc_pass": true
+     },
+     "brown2019:null": {
+      "ssmd": -1.9299,
+      "median_neg_eval": 0.0079,
+      "median_ceg_eval": -1.6028,
+      "qc_pass": true
+     },
+     "haapaniemi2018:null": {
+      "ssmd": -1.2275,
+      "median_neg_eval": -0.1054,
+      "median_ceg_eval": -1.4149,
+      "qc_pass": true
+     },
+     "hart2015:WT": {
+      "ssmd": -1.8052,
+      "median_neg_eval": 0.012,
+      "median_ceg_eval": -2.0281,
+      "qc_pass": true
+     },
+     "olivieri2020:null": {
+      "ssmd": -1.9234,
+      "median_neg_eval": 0.0084,
+      "median_ceg_eval": -1.4869,
+      "qc_pass": true
+     }
+    },
+    "passed": true
+   },
+   "bootstrap_plan": {
+    "verdict_studies": [
+     "brown2019",
+     "haapaniemi2018",
+     "hart2015",
+     "olivieri2020"
+    ],
+    "n_genes": 16839,
+    "n_blocks": 10645,
+    "max_block_size": 154
+   },
    "replicate_ceiling": {
-    "auprc_all": 0.6613,
-    "auprc_ctrlfree": 0.5436,
-    "auprc_rank10": 0.6998,
-    "recall_q3b": 0.3815
-   },
-   "replicate_ceiling_bootstrap_se": {
-    "auprc_all": 0.0078,
-    "auprc_ctrlfree": 0.01,
-    "auprc_rank10": 0.0115,
-    "recall_q3b": 0.0186
-   },
-   "MDE": {
-    "Q3a_dAUPRC": 0.0157,
-    "Q3a_dAUPRC_ctrlfree": 0.02,
-    "Q3a_dAUPRC_rank10": 0.0229,
-    "Q3b_dRecall": 0.0372
+    "Q3a_primary": {
+     "ceiling_skill": 0.0307,
+     "bootstrap_se": 0.0505,
+     "ci95": [
+      -0.1134,
+      0.0838
+     ],
+     "MDE": 0.101,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "brown2019": 0.031,
+      "haapaniemi2018": 0.0383,
+      "hart2015": 0.0065,
+      "olivieri2020": 0.0472
+     },
+     "per_entry": {
+      "brown2019:WT": 0.0159,
+      "brown2019:null": 0.046,
+      "haapaniemi2018:null": 0.0383,
+      "hart2015:WT": 0.0065,
+      "olivieri2020:null": 0.0472
+     },
+     "entries_invalid": [],
+     "verdict_bearing": true,
+     "sensitivity_fixed_pool": {
+      "bootstrap_se": 0.0101,
+      "MDE": 0.0203,
+      "ci95": [
+       0.0109,
+       0.0503
+      ]
+     }
+    },
+    "Q3a_effect_label": {
+     "ceiling_skill": 0.0362,
+     "bootstrap_se": 0.0514,
+     "ci95": [
+      -0.1072,
+      0.0908
+     ],
+     "MDE": 0.1027,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "brown2019": 0.0276,
+      "haapaniemi2018": 0.0289,
+      "hart2015": 0.0039,
+      "olivieri2020": 0.0845
+     },
+     "per_entry": {
+      "brown2019:WT": 0.0067,
+      "brown2019:null": 0.0485,
+      "haapaniemi2018:null": 0.0289,
+      "hart2015:WT": 0.0039,
+      "olivieri2020:null": 0.0845
+     },
+     "entries_invalid": [],
+     "verdict_bearing": false
+    },
+    "Q3b_primary": {
+     "ceiling_skill": 0.0019,
+     "bootstrap_se": 0.0808,
+     "ci95": [
+      -0.2046,
+      0.1152
+     ],
+     "MDE": 0.1617,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "brown2019": -0.0469,
+      "haapaniemi2018": 0.0675,
+      "hart2015": -0.1031,
+      "olivieri2020": 0.0902
+     },
+     "per_entry": {
+      "brown2019:WT": -0.09,
+      "brown2019:null": -0.0039,
+      "haapaniemi2018:null": 0.0675,
+      "hart2015:WT": -0.1031,
+      "olivieri2020:null": 0.0902
+     },
+     "entries_invalid": [],
+     "verdict_bearing": true,
+     "sensitivity_fixed_pool": {
+      "bootstrap_se": 0.0497,
+      "MDE": 0.0995,
+      "ci95": [
+       -0.0955,
+       0.1022
+      ]
+     }
+    },
+    "Q3b_vs_B0": {
+     "ceiling_skill": 0.0089,
+     "bootstrap_se": 0.0795,
+     "ci95": [
+      -0.1963,
+      0.1128
+     ],
+     "MDE": 0.159,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "brown2019": -0.0354,
+      "haapaniemi2018": 0.0588,
+      "hart2015": -0.0819,
+      "olivieri2020": 0.094
+     },
+     "per_entry": {
+      "brown2019:WT": -0.0683,
+      "brown2019:null": -0.0026,
+      "haapaniemi2018:null": 0.0588,
+      "hart2015:WT": -0.0819,
+      "olivieri2020:null": 0.094
+     },
+     "entries_invalid": [],
+     "verdict_bearing": false
+    },
+    "Q3b_rare_vs_B1n": {
+     "ceiling_skill": 0.2518,
+     "bootstrap_se": 0.1434,
+     "ci95": [
+      0.0128,
+      0.5511
+     ],
+     "MDE": 0.2867,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "brown2019": 0.1696,
+      "haapaniemi2018": 0.1238,
+      "hart2015": 0.004,
+      "olivieri2020": 0.7097
+     },
+     "per_entry": {
+      "brown2019:WT": 0.1744,
+      "brown2019:null": 0.1648,
+      "haapaniemi2018:null": 0.1238,
+      "hart2015:WT": 0.004,
+      "olivieri2020:null": 0.7097
+     },
+     "entries_invalid": [],
+     "verdict_bearing": false
+    }
    }
   },
   "hPSC": {
-   "evaluable_screens": [
-    "mair2019_H1_MEF_T8",
-    "mair2019_H1_laminin_T12",
-    "yilmaz2018_hpES10_D23",
-    "ihry2019_hPSC_D18"
+   "verdict_eligible": true,
+   "studies": {
+    "mair2019": {
+     "role": "verdict",
+     "citation": "Mair 2019 H1 TKOv3 (unsorted MEF T8, laminin T12)",
+     "entries": {
+      "WT": {
+       "arms": [
+        "mair2019_H1_MEF_T8",
+        "mair2019_H1_laminin_T12"
+       ],
+       "library": "TKOv3"
+      }
+     }
+    },
+    "ihry2019": {
+     "role": "predictor_only",
+     "citation": "Ihry 2019 hPSC, Novartis library (no anchor)",
+     "entries": {
+      "WT": {
+       "arms": [
+        "ihry2019_hPSC_D18"
+       ],
+       "library": "Novartis genome-wide"
+      }
+     }
+    },
+    "yilmaz2018": {
+     "role": "predictor_only",
+     "citation": "Yilmaz 2018 h-pES10, Wang library (D12)",
+     "entries": {
+      "WT": {
+       "arms": [
+        "yilmaz2018_hpES10_D23"
+       ],
+       "library": "Wang 2015 genome-wide"
+      }
+     }
+    }
+   },
+   "excluded_arms": {
+    "X_mair2019_H1_MEF_T12_Oct4high": "FACS-sorted arm (DESIGN §7.1)",
+    "ORCS_94, ORCS_2089, ORCS_597": "see screen_plan.csv (top-1000 deposit / differential / duplicate)"
+   },
+   "expression_input_T": {
+    "per_arm": {
+     "mair2019_H1_MEF_T8": "state:H1_iCas9_MEF",
+     "mair2019_H1_laminin_T12": "state:H1_iCas9_laminin"
+    },
+    "file": "cache/external_expr/harmonised.parquet",
+    "note": "study prediction = mean of the two arm predictions (each with its matched expression state), mirroring the label consensus"
+   },
+   "nearest_depmap_lineage": {
+    "lineage": "Testis",
+    "votes": "8/8",
+    "profiles": [
+     "mair2019:AAVS1_Laminin_1",
+     "mair2019:AAVS1_Laminin_2",
+     "mair2019:WT_Laminin_1",
+     "mair2019:WT_Laminin_2",
+     "mair2019:AAVS1_A_MEF",
+     "mair2019:AAVS1_B_MEF",
+     "mair2019:WT_A_MEFs",
+     "mair2019:WT_B_MEFs"
+    ],
+    "counts": {
+     "Testis": 8
+    },
+    "n_dev_lines_in_lineage": 3
+   },
+   "B1_nearest_column": "B1_Testis",
+   "library_matched_anchors": [
+    "A_mair2019_HAP1_T18"
    ],
-   "ceiling_study_representatives": {
-    "mair2019": "mair2019_H1_laminin_T12",
-    "yilmaz2018": "yilmaz2018_hpES10_D23",
-    "ihry2019": "ihry2019_hPSC_D18"
+   "expression_swap_profiles": {
+    "RPE1": [
+     "state:DepMap_RPE1"
+    ]
    },
-   "n_directed_pairs": 6,
-   "n_genes_universe": 18979,
-   "n_paralog_blocks": 11894,
-   "max_block_size": 160,
+   "harmonisation_validation": {
+    "arm_qc_pass": {
+     "mair2019_H1_MEF_T8": true,
+     "mair2019_H1_laminin_T12": true
+    },
+    "consensus_qc": {
+     "mair2019:WT": {
+      "ssmd": -1.4665,
+      "median_neg_eval": -0.0757,
+      "median_ceg_eval": -1.5344,
+      "qc_pass": true
+     }
+    },
+    "passed": true
+   },
+   "bootstrap_plan": {
+    "verdict_studies": [
+     "mair2019"
+    ],
+    "n_genes": 16270,
+    "n_blocks": 10447,
+    "max_block_size": 142
+   },
    "replicate_ceiling": {
-    "auprc_all": 0.5161,
-    "auprc_ctrlfree": 0.4481,
-    "auprc_rank10": 0.3381,
-    "recall_q3b": 0.1178
+    "Q3a_primary": {
+     "ceiling_skill": -0.0984,
+     "bootstrap_se": 0.041,
+     "ci95": [
+      -0.2021,
+      -0.0729
+     ],
+     "MDE": 0.082,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "mair2019": -0.0984
+     },
+     "per_entry": {
+      "mair2019:WT": -0.0984
+     },
+     "entries_invalid": [],
+     "verdict_bearing": true,
+     "sensitivity_fixed_pool": {
+      "bootstrap_se": 0.011,
+      "MDE": 0.0219,
+      "ci95": [
+       -0.119,
+       -0.0764
+      ]
+     }
+    },
+    "Q3a_effect_label": {
+     "ceiling_skill": -0.041,
+     "bootstrap_se": 0.0241,
+     "ci95": [
+      -0.107,
+      -0.0303
+     ],
+     "MDE": 0.0481,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "mair2019": -0.041
+     },
+     "per_entry": {
+      "mair2019:WT": -0.041
+     },
+     "entries_invalid": [],
+     "verdict_bearing": false
+    },
+    "Q3b_primary": {
+     "ceiling_skill": -0.0649,
+     "bootstrap_se": 0.0408,
+     "ci95": [
+      -0.167,
+      -0.004
+     ],
+     "MDE": 0.0816,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "mair2019": -0.0649
+     },
+     "per_entry": {
+      "mair2019:WT": -0.0649
+     },
+     "entries_invalid": [],
+     "verdict_bearing": true,
+     "sensitivity_fixed_pool": {
+      "bootstrap_se": 0.0329,
+      "MDE": 0.0657,
+      "ci95": [
+       -0.1294,
+       0.004
+      ]
+     }
+    },
+    "Q3b_vs_B0": {
+     "ceiling_skill": -0.0566,
+     "bootstrap_se": 0.0434,
+     "ci95": [
+      -0.1624,
+      0.0069
+     ],
+     "MDE": 0.0867,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "mair2019": -0.0566
+     },
+     "per_entry": {
+      "mair2019:WT": -0.0566
+     },
+     "entries_invalid": [],
+     "verdict_bearing": false
+    },
+    "Q3b_rare_vs_B1n": {
+     "ceiling_skill": 0.0339,
+     "bootstrap_se": 0.0333,
+     "ci95": [
+      -0.0445,
+      0.0887
+     ],
+     "MDE": 0.0666,
+     "n_boot_valid": 2000,
+     "per_study": {
+      "mair2019": 0.0339
+     },
+     "per_entry": {
+      "mair2019:WT": 0.0339
+     },
+     "entries_invalid": [],
+     "verdict_bearing": false
+    }
    },
-   "replicate_ceiling_bootstrap_se": {
-    "auprc_all": 0.0067,
-    "auprc_ctrlfree": 0.0065,
-    "auprc_rank10": 0.0085,
-    "recall_q3b": 0.0153
-   },
-   "MDE": {
-    "Q3a_dAUPRC": 0.0134,
-    "Q3a_dAUPRC_ctrlfree": 0.013,
-    "Q3a_dAUPRC_rank10": 0.0171,
-    "Q3b_dRecall": 0.0306
-   }
+   "note": "one verdict-eligible study: the T-skill CI carries gene-block variance only (study resampling of one study is the identity); the ceiling CI also carries predictor-pool resampling over {Ihry 2019, Yilmaz 2018}, which are predictors only and never evaluated"
   },
   "primary_T": {
+   "verdict_eligible": false,
    "status": "inconclusive by declaration",
-   "reason": "Shifrut 2018 (SSMD -0.81) and Carnevale 2022 ORCS (-0.79) fail QC; Ting 2018 CD4 passes but covers ~2.5k genes with no same-pipeline anchor and no replicate ceiling"
+   "reason": "Shifrut 2018 (SSMD -0.81) and Carnevale 2022 ORCS fail QC; Ting 2018 CD4 is a ~2.5k-gene focused chip without anchor or ceiling"
   },
   "HMEC": {
+   "verdict_eligible": false,
    "status": "not assessable",
-   "reason": "Tuano 2023 targeted libraries contain 2 NEGv1 evaluation genes (QC not assessable); Sack 2018 scores have unknown direction"
+   "reason": "Tuano 2023 libraries hold < 10 NEGv1 evaluation genes; Sack 2018 score direction unknown"
+  },
+  "CRISPRi (iPSC, neurons, microglia)": {
+   "verdict_eligible": false,
+   "status": "descriptive only"
   },
   "other": {
+   "verdict_eligible": false,
    "status": "not evaluated (no matched expression profile)",
-   "screens": "fetal NSC (ORCS 572/573/1030/1031), MCF-10A (2086/2087), HUDEP-2 (2443), intestinal organoid (2485/2486)"
+   "screens": "fetal NSC (ORCS 572/573/1030/1031), MCF-10A, HUDEP-2, intestinal organoid"
   }
  },
- "screen_level_notes": {
-  "hPSC": "Ihry 2019 (Novartis, no anchor) and Yilmaz 2018 (D12) are 'inconclusive only'; Mair 2019 (TKOv3, anchor HAP1: weak, single anchor) is the only hPSC screen that can reach transfers/fails",
-  "RPE1_TP53": {
-   "olivieri2020_TKOv3_S02": "KO",
-   "olivieri2020_TKOv3_S04": "KO",
-   "olivieri2020_TKOv3_S05": "KO",
-   "olivieri2020_TKOv3_S06": "KO",
-   "olivieri2020_TKOv3_S07": "KO",
-   "olivieri2020_TKOv3_S12": "KO",
-   "olivieri2020_TKOv2_S08": "KO",
-   "olivieri2020_TKOv2_S09": "KO",
-   "olivieri2020_TKOv2_S10": "KO",
-   "brown2019_WT_Durocher_T3": "WT",
-   "brown2019_WT_PACE002_T18": "WT",
-   "brown2019_WT_PACE002_T30": "WT",
-   "brown2019_WT_PACE006_T25": "WT",
-   "brown2019_p53null_TKOv2_T18": "KO",
-   "haapaniemi2018_null_D28": "KO",
-   "hart2015_RPE1_T18": "WT",
-   "bowden2020_WT_D19": "WT",
-   "bowden2020_KO_D19": "KO"
+ "set_A": {
+  "tier_A1": {
+   "lines": [
+    "ACH-002462",
+    "ACH-002463",
+    "ACH-002464",
+    "ACH-002465",
+    "ACH-002467"
+   ],
+   "names": "RPE1-ss48, -ss77, -ss6, -ss119, -ss51 (one genetic background)",
+   "lineage": "Eye (DepMap annotation; 6 dev lines): B1 = B1_Eye column (kappa 10); no nearest mapping needed",
+   "statistics": "per line the Q3a/Q3b primary statistics with B1-nearest replaced by B1_Eye; U = eval genes observed in >= 3 of the A1 lines and in the line, minus scaling halves; CI = gene-block bootstrap (same seed); expression = the line's own DepMap expression, TP53 flag WT",
+   "ranking": "within-test percentile = 100 x fraction of cancer-test lines (per-line statistic with B1 of their own lineage, same model) <= the line's value",
+   "descriptive_verdict": "median percentile >= 25: comparable to cancer test lines; 5-25: lower than most; < 5: outside the cancer range (not verdict-bearing)"
   }
  },
  "hypotheses": {
   "H1": {
-   "genes": [
-    "MDM2",
-    "PPM1D"
-   ],
-   "criterion": "within-screen percentile rank (low = more depleted) of the PREDICTED effect of MDM2 and of PPM1D is lower in TP53-WT backgrounds (RPE1 WT screens, hPSC) than in the TP53-null RPE1 screens, for BOTH genes (difference of mean percentiles < 0; gene-block bootstrap not applicable to 2 genes: screen-level permutation p < 0.05 across WT vs null screens)",
+   "genes": {
+    "MDM2": "4193",
+    "PPM1D": "8493"
+   },
+   "criterion": "model T (flag WT) - T (flag null), RPE1 expression input, fold-averaged, < 0 for both genes AND observed Brown 2019 WT entry - Brown 2019 null entry < 0 for both; sign agreement (k/2) reported",
+   "label": "TP53-feature sanity check (single two-point counterfactual); not independent of H2; hPSC reported descriptively",
    "excluded": "USP7 (broadly essential)"
   },
   "H1_prime": {
    "type": "diagnostic only",
-   "genes": [
-    "TP53",
-    "CDKN1A",
-    "TP53BP1",
-    "USP28",
-    "CHEK2",
-    "ATM"
-   ],
-   "statistic": "observed positive effects in TP53-WT screens vs the cancer range (descriptive)"
-  },
-  "H2": {
-   "criterion": "model's WT - null delta (TP53 genotype feature flipped, same expression input) vs the observed WT - null delta over the 15 p53/DDR genes of configs/harmonisation_frozen.json: pass if sign agreement >= 70% over genes with |observed delta| > 0.25 AND Pearson r > 0.3",
-   "observed_pairs": {
-    "primary": "Bowden 2020 isogenic WT vs KO (custom DDR library)",
-    "secondary": "Brown 2019 PACE002 T18 (WT, TKOv3) vs Olivieri 2020 TKOv3 NT mean (TP53-/-, TKOv3); Haapaniemi WT fails QC"
+   "genes": {
+    "TP53": "7157",
+    "CDKN1A": "1026",
+    "TP53BP1": "7158",
+    "USP28": "57646",
+    "CHEK2": "11200",
+    "ATM": "472"
    }
   },
+  "H2": {
+   "genes": {
+    "ATM": "472",
+    "CDKN1A": "1026",
+    "CHEK2": "11200",
+    "DDB2": "1643",
+    "FDXR": "2232",
+    "MDM2": "4193",
+    "MDM4": "4194",
+    "PPM1D": "8493",
+    "RRM2B": "50484",
+    "SESN1": "27244",
+    "TNFRSF10B": "8795",
+    "TP53": "7157",
+    "TP53BP1": "7158",
+    "USP28": "57646",
+    "ZMAT3": "64393"
+   },
+   "gene_source": "DESIGN §7.2 p53/DDR list + p53-target score genes (harmonisation_frozen.json p53_ddr_genes)",
+   "observed_delta": "per study WT - null consensus delta: Brown 2019 (WT entry - null entry) and Bowden 2020 (WT_D19 - KO_D19, affine-scaled); per gene the mean over the studies observing it (study = unit); each study also reported alone; the same delta on the pre-affine ('raw') scale is reported as a secondary",
+   "criterion": "n genes >= 10 (else inconclusive) AND Spearman(model delta, observed delta) > 0.3 AND sign agreement >= 70%, over all genes with both deltas"
+  },
   "H3": {
-   "genes": [
-    "POU5F1",
-    "LIN28A",
-    "NANOG",
-    "SOX2",
-    "DPPA4",
-    "L1TD1",
-    "ZFP42",
-    "PRDM14"
+   "genes": {
+    "POU5F1": "5460",
+    "NANOG": "79923",
+    "SOX2": "6657",
+    "LIN28A": "79727",
+    "DNMT3B": "1789",
+    "PRDM14": "63978",
+    "ZIC2": "7546",
+    "L1TD1": "54596",
+    "TDGF1": null,
+    "DPPA4": "55211"
+   },
+   "not_in_depmap": [
+    "TDGF1"
    ],
-   "criterion": "in hPSC screens, predicted effect < -0.5 for >= half of the set with the 7 germ-cell/EC lines in training; if this holds only with EC lines present (fewer than half without), the claim is 'narrow EC transfer'",
-   "observed_check": "observed hPSC effects for the set are reported descriptively"
+   "criterion": "among genes observed < -0.5 in the Mair 2019 consensus and predicted by T (>= 3 needed, else inconclusive): pass if T predicts < -0.5 for >= 50%; the no-EC variant's count is reported; 'narrow EC transfer' if T passes and the no-EC variant does not",
+   "prediction": "T for the Mair entry = mean of the two arm predictions (MEF, laminin states)"
   },
   "H4": {
    "status": "inconclusive by declaration",
-   "reason": "primary T-cell screens fail QC (Shifrut SSMD -0.81); CD34+ (Ting) is a marker sort; SPI1 sits in the descriptive microglia CRISPRi stratum"
+   "reason": "primary T-cell screens fail QC"
   }
  },
- "negative_controls": [
+ "negative_controls_descriptive": [
   "oncogene addictions KRAS/BRAF/CTNNB1 predicted ~0",
-  "TCR-signalling genes in T-cell screens",
   "suppressor tail",
-  "neuron-specific biology",
-  "CN null: SMARCA2, ARID1B, STAG1, ME2/ME3, ENO1 ~0 in prediction and observation"
- ]
+  "CN null: SMARCA2, ARID1B, STAG1, ME2/ME3, ENO1 ~0"
+ ],
+ "superseded": {
+  "results/harmonisation/transfer_ceiling_pairs.csv": "pre-D13 directed-pair ceilings (deleted)",
+  "pre-D13 MDEs": "2 x SE of absolute AUPRC over study representatives (wrong quantity, F1)"
+ }
 }

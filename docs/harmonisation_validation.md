@@ -203,13 +203,17 @@ available. Values are medians over study pairs, with ranges in brackets.
 **RPE1.** Agreement is moderate. It is best between the TKO-lab screens: Olivieri vs Brown p53-null 0.62 CEG/NEG-free
 (DESIGN scale). Haapaniemi null and Hart 2015 agree least.
 
-**hPSC.** Agreement is low, so "fails" will be near-unreachable for hPSC (large MDE).
+**hPSC.** Agreement is low. The pre-D13 claim that this makes "fails" near-unreachable was wrong (the old gene-only
+MDE was smaller for hPSC than for RPE1); D13 recomputes the MDE from the ceiling *skill* with study-level resampling
+(`configs/transfer_criteria.json`).
 
 **D12 (PI decision).** No gene-wise correction for Yilmaz 2018. DESIGN §7.2 defines corrections per lab/library
 pipeline, with anchors processed the same way as the targets. The Wang anchors are published gene-level CS (mean
-log2FC), while Yilmaz is scored here from counts (median guide LFC). The mismatch was visible: applying the correction
-lowered Yilmaz's agreement with Mair and Ihry (hPSC 0.13 → 0.08). For the same reason, the Wang anchors are not a
-same-pipeline anchor for Yilmaz, so its §7.6 verdicts are "inconclusive only". The override is recorded per screen in
+log2FC), while Yilmaz is scored here from counts (median guide LFC). That pipeline mismatch is the whole rationale
+(restated by D13): an agreement statistic computed on non-control genes of set-B screens is not a permitted selection
+criterion (§7.2), so the hPSC agreement before/after the correction (table above) is a recorded observation only. For
+the same reason, the Wang anchors are not a same-pipeline anchor for Yilmaz; under D13 Yilmaz is a predictor-only
+study (it serves in the Mair replicate ceiling and is never evaluated). The override is recorded per screen in
 `harmonisation_frozen.json → genewise.per_screen` (`gene_wise_applied: false`, reason, decision D12).
 
 ## 8. Screen plan (`configs/screen_plan.csv`, 94 rows)

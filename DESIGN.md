@@ -210,7 +210,8 @@ Run on the same folds, for fair prior-work comparison:
 ### Frozen models for evaluation
 - Cancer test set: the model refit on all 1022 dev lines.
 - Set A and set B: the average of the 5 dev fold-models.
-- Anchors: the average of the **4 fold-models not trained on that anchor**. Ensembling is then matched between
+- Anchors: ~~the average of the 4 fold-models not trained on that anchor~~ (impossible with 5-fold CV; superseded by
+  RESEARCH_TREE D7: set A/B skill is averaged over per-fold models, and each anchor uses its single out-of-fold model). Ensembling is then matched between
   anchors and external screens, so ensembling cannot bias the "≥50% of anchor skill" criterion.
 - `configs/finalists.json` freezes the headline model, model T and the H3 no-EC variant at gate G4.
 

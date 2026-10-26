@@ -492,7 +492,7 @@
     "library": "Wang 2015 genome-wide",
     "modality": "KO",
     "gene_wise_applied": false,
-    "reason": "PI decision D12: the Wang-library anchors are published gene-level CRISPR scores while Yilmaz is scored by us from counts (median guide LFC) - a different pipeline (DESIGN \u00a77.2: corrections are per lab/library pipeline, anchors processed the same way); the mismatch lowers hPSC replicate agreement",
+    "reason": "PI decision D12: the Wang-library anchors are published gene-level CRISPR scores while Yilmaz is scored by us from counts (median guide LFC) - a different pipeline (DESIGN \u00a77.2: corrections are per lab/library pipeline, anchors processed the same way). D13: the rationale is the pipeline mismatch only",
     "decision": "D12"
    },
    {
