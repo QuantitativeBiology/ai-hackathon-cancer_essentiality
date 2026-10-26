@@ -170,13 +170,20 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     registry numbers exactly (P1var 0.183737, P2a 0.906274, P2b 0.086748). Fixed: guard bypass via a substitute
     splits file; control-gene reads for test lines; committed audit tables with test-line CRISPR stats (now dev-only;
     the older commit b868f4d still holds them in history; no model used them).
-  - [ ] Pending after G2/G5a finish:
+  - [x] Provenance and freeze (after G2/G5a):
     - [x] registry columns eval_genes_sha256, gene_classes_sha256, tree_clean (old rows empty);
     - [x] guarded reader `guard.load_harmonised` for cache/harmonised (direct readers routed; static test);
     - [x] disk: models persist only with `--save-models` / `save_models` (default off); cache/models and
       regenerable cache/runs cleared (about 19 GB);
-    - [ ] `freeze-eval` tag;
-    - [ ] B0/B1/B2 re-run on a clean tagged tree.
+    - [x] `freeze-eval` tag at 62aab5b (guard.py hash refreshed for load_harmonised);
+    - [x] Re-run on frozen evaluation code, 6 threads, tree_clean=1. Every number is identical to the earlier rows.
+      - B0 20261026-220531; B1 -220921 (0.18374); B2 -221456 (0.25267);
+      - m1_E_resB0 -222117 (0.3081; headline candidate, D17); t_E_status -224125 (0.3082); m1_E -225039
+        (0.2997);
+      - r1_E -223037 (0.3073) registered tree_clean=0, most likely because the new test file was briefly untracked.
+        Its numbers are identical.
+    - Note: transfer_criteria.json is committed, so the guard now refuses full-profile re-runs of the
+      replicate-ceiling/transfer-criteria scripts. This is intended: they are frozen.
 - [x] G2 M1/M1b kernel ridge, R1, transfer model T, modality ablation, M2 local stage (docs/g2_results.md)
   - [x] M1-E (B1 residual) 0.2997; R1 0.3073; M1-E B0 residual 0.3081; T 0.3082. All 5/5 folds above B2 (+0.047
     to +0.055). Runtime about 400–490 s for 5 folds.
@@ -191,7 +198,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [!] Non-essential genes P1 0.110 (B1 0.068). Not line offsets (centring keeps 99%). It is library- and
     lineage-linked; within-library P1 0.279 (D16).
 - [ ] G3 model ladder continued
-  - [ ] Re-run m1_E_resB0, r1_E, t_E_status and m1_E on the clean `freeze-eval` tree; cite those run IDs
+  - [x] Re-run m1_E_resB0, r1_E, t_E_status and m1_E on frozen evaluation code (run IDs above, under G0)
   - [ ] Report columns: within-library and within-lineage P1; Nadeau–Bengio SE (D16, D17)
   - [ ] Stronger negative controls: E permuted within lineage (and within lineage × library); permuted B0 path
   - [ ] Move check_solver tests (p>n, LOO with offset, held-out feature perturbation) into tests/
