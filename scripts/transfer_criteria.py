@@ -169,12 +169,10 @@ def main():
     # ---- observed consensus profiles (replicate-ceiling computation only; aggregates leave this function)
     results, entry_rows, boot_tabs = {}, [], []
     for bg, spec in BACKGROUNDS.items():
-        arms = [a for s in spec["studies"].values() for e in s["entries"].values() for a in e["arms"]]
-        guard._log("replicate_ceiling_aggregate", pd.Series(["external"] * len(arms), index=arms), True,
-                   caller="transfer_criteria.py:main", scope=f"setB:ceiling_d13_{bg}",
-                   reason="D13 LOSO replicate-ceiling skill, hierarchical bootstrap (aggregate only; no model)")
+        # guarded reads of the observed screens (D13 LOSO replicate ceiling; aggregate only, no model)
         eligible, everyone = TR.build_entries(
-            spec, lambda a: pd.read_parquet(CACHE / f"{a}.parquet")["final"].astype(float).rename(a))
+            spec, lambda a: guard.load_harmonised(a, purpose="replicate_ceiling_aggregate",
+                                                  harmonised_dir=CACHE)["final"].astype(float).rename(a))
         profiles = TR.study_profiles(everyone)
         pools = TR.loso_pools(spec)
         studies = sorted({e.study for e in eligible})

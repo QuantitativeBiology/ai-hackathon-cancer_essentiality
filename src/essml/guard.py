@@ -22,6 +22,13 @@ Logged exceptions (no unblinding needed):
   - control-gene reads (CEGv2 / NEGv1 / scaling-set = dev common essentials) for harmonisation and QC:
     ``load_control_targets(ids)`` for DepMap rows and ``load_external_screen(..., controls_only=True)``
     (access_type 'control_only').
+Harmonised set-B screen profiles written to ``cache/harmonised/`` are test data for the transfer
+evaluation and are read ONLY through ``load_harmonised`` (tests/test_no_direct_cache_harmonised.py):
+control-gene rows without unblinding (logged 'control_only'); a DepMap dev anchor's own profile
+(``anchor_model_id`` a dev line); full rows only under conditions a-f with scope 'setB:<name>', or,
+for the two criteria-derivation aggregates (``purpose`` in HARMONISED_AGGREGATE_PURPOSES: replicate
+ceilings, the blind harmonisation pipeline), only while ``configs/transfer_criteria.json`` is not yet
+committed (pre-freeze); logged 'aggregate_only'. After the transfer freeze they need full unblinding.
 Every non-dev access (granted or refused) is appended to ``results/test_access_log.csv``.
 ``screened_model_ids()`` returns the CRISPR row index only (no values).
 
@@ -46,6 +53,8 @@ SPLITS = ROOT / "configs" / "splits.csv"
 FINALISTS = "configs/finalists.json"  # relative to repo root
 TRANSFER_FREEZE = ["configs/harmonisation_frozen.json", "configs/transfer_criteria.json"]
 CRISPR_PARQUET = ROOT / "cache" / "crispr.parquet"
+HARMONISED_DIR = ROOT / "cache" / "harmonised"
+HARMONISED_AGGREGATE_PURPOSES = ("replicate_ceiling_aggregate", "blind_harmonisation_pipeline")
 ACCESS_LOG = ROOT / "results" / "test_access_log.csv"
 LOG_COLS = ["timestamp", "caller", "access_type", "scope", "config_hash", "n_ids", "n_genes",
             "roles", "granted", "reason"]
@@ -296,6 +305,51 @@ def load_external_screen(path, screen, reader, config_hash=None, controls_only=F
     if not ok:
         raise BlindingError(f"refused external screen {screen}: {reason}")
     return reader(path)
+
+
+def load_harmonised(name, reader=None, config_hash=None, controls_only=False, purpose=None,
+                    anchor_model_id=None, controls=None, harmonised_dir=HARMONISED_DIR,
+                    splits_path=SPLITS, log_path=ACCESS_LOG, repo_root=ROOT) -> pd.DataFrame:
+    """Read ``cache/harmonised/<name>.parquet`` (rows = Entrez genes) through the guard.
+
+    reader(path) -> DataFrame, default ``pd.read_parquet``. Modes, first match wins:
+      controls_only=True      only rows whose Entrez index is a control gene; logged 'control_only';
+      anchor_model_id (dev)   the profile of a DepMap dev-line anchor (not set-B data); logged;
+      purpose in HARMONISED_AGGREGATE_PURPOSES and transfer_criteria.json not yet tracked in git
+                              (criteria derivation, pre-freeze); logged 'aggregate_only';
+      otherwise               conditions a-f with scope 'setB:<name>' (finalists, ESSML_UNBLIND=1, clean tree).
+    """
+    path = Path(harmonised_dir) / f"{name}.parquet"
+    read = reader or pd.read_parquet
+    scope = f"setB:{name}"
+    roles = pd.Series(["external"], index=[name])
+    if controls_only:
+        controls = control_genes() if controls is None else set(map(str, controls))
+        df = read(path)
+        df = df[[str(i) in controls for i in df.index]]
+        _log("control_only", roles, True, log_path, caller=_caller(2), reason="harmonised control genes",
+             scope=scope, n_genes=len(df))
+        return df
+    if anchor_model_id is not None:
+        r = roles_of([anchor_model_id], splits_path)
+        if (r != "dev").any():
+            _log("targets", roles, False, log_path, caller=_caller(2), scope=scope,
+                 reason="anchor is not a DepMap dev line")
+            raise BlindingError(f"harmonised profile {name}: anchor {anchor_model_id} is not a dev line")
+        _log("anchor_profile", roles, True, log_path, caller=_caller(2), scope=scope,
+             reason="DepMap dev-line anchor profile")
+        return read(path)
+    if purpose in HARMONISED_AGGREGATE_PURPOSES and not _tracked("configs/transfer_criteria.json",
+                                                                 repo_root):
+        _log("aggregate_only", roles, True, log_path, caller=_caller(2), scope=scope,
+             reason=f"{purpose} (pre-freeze criteria derivation; no model)")
+        return read(path)
+    ok, reason = unblinding_check(config_hash, scope, repo_root, log_path)
+    _log("targets", roles, ok, log_path, caller=_caller(2), config_hash=config_hash, reason=reason,
+         scope=scope)
+    if not ok:
+        raise BlindingError(f"refused harmonised screen {name}: {reason}")
+    return read(path)
 
 
 def screened_model_ids(crispr_path=CRISPR_PARQUET) -> pd.Index:

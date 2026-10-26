@@ -132,8 +132,11 @@ def raw_arm_scores(entry, symmap):
         rep.update(score="ORCS SCORE.1", n_genes=int(len(s)))
         return s, rep
     if lvl == "counts" and entry.get("chronos_screen") and CHRONOS_ADOPTED:
-        f = CACHE / f"chronos_TKOv3__{entry['chronos_screen']}.parquet"
-        sc = pd.read_parquet(f)["chronos_raw"].astype(float).dropna()
+        # guarded read: set-B profiles are test data (anchors are DepMap dev lines)
+        sc = guard.load_harmonised(f"chronos_TKOv3__{entry['chronos_screen']}",
+                                   purpose="blind_harmonisation_pipeline",
+                                   anchor_model_id=entry.get("depmap_id"),
+                                   harmonised_dir=CACHE)["chronos_raw"].astype(float).dropna()
         rep.update(score="Chronos gene effect (joint TKOv3 fit)", t0_filter="reference reads >= 30 (late timepoints masked)",
                    n_genes=int(len(sc)))
         return sc, rep
@@ -470,11 +473,9 @@ def replicate_ceilings(nt_entries, qc_pass, cs, mdev, gc, ctrl_free):
               and not e.get("rank_only") and e.get("modality", "KO") == "KO" and not e.get("focused")]
         prof = {}
         for e in es:
-            p = CACHE / f"{e['id']}.parquet"
-            prof[e["id"]] = pd.read_parquet(p)
-        guard._log("replicate_ceiling_aggregate", pd.Series(["external"] * len(es), index=[e["id"] for e in es]),
-                   True, caller="harmonise_screens.py:replicate_ceilings",
-                   reason="pairwise aggregate agreement between observed screens (no model)", scope=f"setB:ceiling_{bg}")
+            # guarded read (logged 'aggregate_only' pre-freeze; later needs unblinding)
+            prof[e["id"]] = guard.load_harmonised(e["id"], purpose="replicate_ceiling_aggregate",
+                                                  harmonised_dir=CACHE)
         for i, ei in enumerate(es):
             for ej in es:
                 if ei["id"] == ej["id"]:

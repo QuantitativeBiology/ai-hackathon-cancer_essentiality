@@ -1,11 +1,11 @@
 {
  "_comment": "sha256 (CRLF->LF normalised) of frozen evaluation modules; see DESIGN \u00a79. Any change requires a RESEARCH_TREE note and re-running baselines.",
- "frozen_at": "2026-10-26T16:31:35",
- "parent_commit": "5181e5187629014c745c648d8a695b2a1293ae5a",
+ "frozen_at": "2026-10-26T21:45:40",
+ "parent_commit": "081f73fd1684809a3ad261a03e77a345d60d5d1d",
  "files": {
   "src/essml/metrics.py": "2b51e36fba824f96effadb23fb7cbf37b0894bfbb86a951d971b1cf64cad1d37",
   "src/essml/evaluate.py": "83502d610a53c3a788332bc6db415b0b737156e393fd62118fb061c90759948a",
   "src/essml/genesets.py": "0d3430da72b656a4aa35289f7e955b87acde16d6e3cf207e4a01db562b9589a8",
-  "src/essml/guard.py": "e7b38e141af2e528e3d8cb858fec243e71b9473516574e379995d1f73f2652ed"
+  "src/essml/guard.py": "1442566993bb96e1a2d8ef543fd88eaa9a1cd7717d1f298e88ab292a5ee564ad"
  }
 }
