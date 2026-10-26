@@ -1,0 +1,46 @@
+{
+ "name": "t_E_status_noEC",
+ "model": "T",
+ "features": [],
+ "params": {
+  "modalities": [
+   "E",
+   "status"
+  ]
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "exclude_from_training": [
+  "ACH-001578",
+  "ACH-002291",
+  "ACH-001374",
+  "ACH-001668"
+ ],
+ "expected": "H3 no-EC variant (configs/transfer_criteria.json models.T): model T trained without the dev germ-cell/EC lines (4 of the DESIGN \u00a73 seven are dev lines). Dev CV only here; frozen at G4."
+}

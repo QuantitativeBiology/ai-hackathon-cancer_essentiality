@@ -1,0 +1,41 @@
+{
+ "name": "t_E_status_lolo",
+ "model": "T",
+ "features": [],
+ "params": {
+  "modalities": [
+   "E",
+   "status"
+  ]
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 20,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "fold_scheme": "lineage",
+ "expected": "Secondary split (DESIGN \u00a73): each dev lineage held out in turn. min_obs 20 = DESIGN \u00a74 'within-lineage per-gene r (lineages with >= 20 held-out lines)'; smaller lineages are predicted but not scored per lineage. B1 = B0 for an unseen lineage, so its P1 is 0 by construction."
+}
