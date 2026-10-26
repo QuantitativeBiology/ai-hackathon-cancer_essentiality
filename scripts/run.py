@@ -11,16 +11,24 @@ Config keys:
     reference_baselines  {"B0": {}, "B1": {"grid": {"kappa": [...]}}} computed inline on the same
                          folds for dP1 / dP2a (their runtime is not counted in the run's runtime)
     inner_folds, min_obs, inner_min_obs, threads, seed (default: configs/seeds.json split_seed)
+    requires_gate        gate whose results/gates/<gate>.json must have pass=true (default "G0")
+    leaky                1 for deliberately leaky diagnostic runs (flagged in the registry)
 
 Protocol per outer fold k (dev lines only; targets come from essml.guard.load_targets):
     training lines = dev folds != k; held-out = fold k.
-    gene classes, hyper-parameter tuning (inner StratifiedGroupKFold by PatientID, stratified by
-    lineage), feature selection and fitting see TRAINING lines only. Every fit is checked by a
+    hyper-parameter tuning (inner StratifiedGroupKFold by PatientID, stratified by lineage; the
+    criterion uses variable genes of the INNER training part), feature selection and fitting see
+    TRAINING lines only. Every fit is checked by a
     sentinel that raises if any held-out ID reaches it, and recorded in FIT_LOG (tests).
-    Held-out targets are used only by essml.evaluate after all predictions are made.
+    Held-out targets are used only by essml.evaluate after all predictions are made, with the
+    dev-wide gene classes configs/gene_classes.csv (identical for every model; DESIGN v3 §3) and
+    the fixed evaluable genes configs/eval_genes.csv.
 Outputs: results/runs/<run_id>/{summary.json, per_fold.csv, per_gene.csv.gz};
     cache/runs/<run_id>/{pred.parquet, per_gene_fold.parquet, per_line.parquet};
-    cache/models/<run_id>/fold<k>.pkl; one row appended to results/registry.csv (also on failure).
+    cache/models/<run_id>/fold<k>.pkl (essml.modelstore.predict_new averages them for new lines);
+    results/registry.csv: a row written at start (status=running) and replaced at the end
+    (ok / partial_folds / failed: ...), with config hash, commit, dirty-tree flag, splits.csv
+    sha256, roles of the target rows loaded, number of distinct IDs that reached any fit.
 """
 from __future__ import annotations
 
@@ -67,10 +75,12 @@ from sklearn.model_selection import StratifiedGroupKFold  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from essml import baselines, genesets, guard, io, metrics, modelstore  # noqa: E402
+from essml.modelstore import predict_anchor, predict_new  # noqa: E402,F401  (re-exported)
 from essml.evaluate import evaluate  # noqa: E402
 
 REGISTRY = ROOT / "results" / "registry.csv"
-REG_COLS = ["run_id", "timestamp", "name", "model", "config", "config_hash", "git_commit", "status",
+REG_COLS = ["run_id", "timestamp", "name", "model", "config", "config_hash", "git_commit",
+            "dirty_tree", "splits_sha256", "roles_used", "n_train_ids", "leaky", "status",
             "n_lines", "n_genes_eval", "chosen_params",
             "P1_variable", "P1_variable_sd", "P1_all", "P1_all_sd", "P1_selective", "P1_selective_sd",
             "P1_rare_selective", "P1_median_variable", "n_r_gt_0.3_variable",
@@ -191,19 +201,18 @@ def run_cv(Y, folds, groups, lineage, X, cfg, eval_genes, neg, seed, folds_to_ru
            log=print):
     """Outer grouped dev CV. Y: dev targets (DataFrame). folds: Series ModelID -> outer fold.
 
-    Returns dict with OOF predictions, reference baseline predictions, per-fold gene classes,
+    Returns dict with OOF predictions, reference baseline predictions,
     fitted models, chosen params, inner tables and timings. Held-out targets are never read here.
     """
     refs = cfg.get("reference_baselines", {})
-    fl = sorted(folds.unique()) if folds_to_run is None else list(folds_to_run)
+    fl = [int(f) for f in (sorted(folds.unique()) if folds_to_run is None else folds_to_run)]
     preds, ref_preds = [], {b: [] for b in refs}
-    out = {"classes": {}, "models": {}, "chosen": {}, "inner": {}, "fit_s": {}, "predict_s": {}}
+    out = {"models": {}, "chosen": {}, "inner": {}, "fit_s": {}, "predict_s": {}}
     for f in fl:
         ho = folds.index[folds == f]
         tr = folds.index[folds != f]
         Y_tr = Y.loc[tr]  # training targets only from here on
         sent = Sentinel(ho, f)
-        out["classes"][f] = genesets.gene_classes(Y_tr, neg)
         model, pred, best, table, tf, tp = fit_predict_fold(
             cfg["model"], cfg.get("params", {}), cfg.get("grid", {}), Y_tr, ho, lineage, X, groups,
             sent, eval_genes, neg, cfg.get("inner_folds", 5), seed + int(f),
@@ -231,14 +240,26 @@ def config_hash(cfg):
 
 
 def git_commit():
+    """(HEAD commit, dirty flag 0/1 for modified tracked files)."""
     try:
         h = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
                            text=True).stdout.strip()
         dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=ROOT,
                                capture_output=True, text=True).stdout.strip()
-        return h + ("-dirty" if dirty else "")
+        return h, int(bool(dirty))
     except OSError:
-        return "unknown"
+        return "unknown", 1
+
+
+def file_sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def require_gate(gate, gates_dir=ROOT / "results" / "gates"):
+    """Refuse to start unless results/gates/<gate>.json exists with pass == true (DESIGN §9)."""
+    p = Path(gates_dir) / f"{gate}.json"
+    if not p.exists() or not json.loads(p.read_text()).get("pass"):
+        raise RuntimeError(f"gate {gate} has not passed ({p} missing or pass != true)")
 
 
 def peak_rss_mb():
@@ -256,15 +277,23 @@ def peak_rss_mb():
         return np.nan, "psutil unavailable"
 
 
-def append_registry(row, path=REGISTRY):
+def write_registry(row, path=REGISTRY):
+    """Insert the row, or replace the existing row with the same run_id (start -> end update)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    new = not path.exists()
-    with open(path, "a", newline="", encoding="utf-8") as fh:
+    rows = []
+    if path.exists():
+        with open(path, newline="", encoding="utf-8") as fh:
+            rows = list(csv.DictReader(fh))
+    new = {k: row.get(k, "") for k in REG_COLS}
+    rows = [r for r in rows if r.get("run_id") != row["run_id"]] + [new]
+    tmp = path.with_suffix(".tmp")
+    with open(tmp, "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=REG_COLS, extrasaction="ignore")
-        if new:
-            w.writeheader()
-        w.writerow({k: row.get(k, "") for k in REG_COLS})
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: r.get(k, "") for k in REG_COLS})
+    os.replace(tmp, path)
 
 
 def _fmt(x):
@@ -305,18 +334,26 @@ def main(argv=None):
     ch = config_hash(cfg)
     stamp = dt.datetime.now()
     run_id = f"{stamp:%Y%m%d-%H%M%S}_{cfg['name']}_{ch[:8]}"
+    commit, dirty = git_commit()
+    splits_path = ROOT / "configs" / "splits.csv"
     row = {"run_id": run_id, "timestamp": stamp.isoformat(timespec="seconds"), "name": cfg["name"],
            "model": cfg["model"], "config": str(Path(a.config).as_posix()), "config_hash": ch,
-           "git_commit": git_commit(), "threads": threads, "status": "running"}
+           "git_commit": commit, "dirty_tree": dirty, "splits_sha256": file_sha256(splits_path),
+           "leaky": int(bool(cfg.get("leaky", 0))), "threads": threads, "status": "running"}
     t_start = time.perf_counter()
+    write_registry(row)  # row at start; replaced at the end (also on failure)
     try:
-        splits = pd.read_csv(ROOT / "configs" / "splits.csv", index_col=0)
+        require_gate(cfg.get("requires_gate", "G0"))
+        splits = pd.read_csv(splits_path, index_col=0)
         dev = splits[splits["role"] == "dev"]
         folds = dev["cv_fold"].astype(int)
         lineage = dev["OncotreeLineage"].astype(str)
         groups = dev["PatientID"].astype(str)
-        Y = guard.load_targets(dev.index).astype(np.float64)
+        Y = guard.load_targets(dev.index, config_hash=ch).astype(np.float64)
+        roles = guard.roles_of(Y.index).value_counts()
+        row["roles_used"] = ";".join(f"{k}:{v}" for k, v in sorted(roles.items()))
         eval_genes = load_eval_genes()
+        gene_cls = genesets.load_gene_classes()  # dev-wide, committed (evaluation reporting)
         X = None
         feats = cfg.get("features", [])
         if feats:
@@ -328,12 +365,17 @@ def main(argv=None):
         print(f"run {run_id}: {cfg['model']} dev lines {len(Y)}, eval genes {len(eval_genes)}, "
               f"NEGv1 mapped {neg_rep['n_mapped']}/{neg_rep['n_neg']}")
         fl = None if a.folds is None else [int(x) for x in a.folds.split(",")]
+        n_log = len(FIT_LOG)
         res = run_cv(Y, folds, groups, lineage, X, cfg, eval_genes, neg, seed, fl)
+        train_ids = set().union(*[set(e["ids"]) for e in FIT_LOG[n_log:]])
+        if (guard.roles_of(sorted(train_ids)) != "dev").any():
+            raise LeakageError("non-dev IDs reached a fit")
+        row["n_train_ids"] = len(train_ids)
 
         ho_ids = res["pred"].index
         if fl is not None:
             row["status"] = "partial_folds"
-        ev = evaluate(res["pred"], Y.loc[ho_ids], res["classes"], folds.loc[ho_ids],
+        ev = evaluate(res["pred"], Y.loc[ho_ids], gene_cls, folds.loc[ho_ids],
                       baseline_preds={b: p for b, p in res["ref_pred"].items()},
                       genes=eval_genes, min_obs=int(cfg.get("min_obs", 40)))
         hl = ev["headline"]
@@ -352,7 +394,9 @@ def main(argv=None):
                                        [] if X is None else X.columns)
         fit_s, pred_s = sum(res["fit_s"].values()), sum(res["predict_s"].values())
         rss, rss_m = peak_rss_mb()
-        summary = {"run_id": run_id, "config": cfg, "config_hash": ch, "git_commit": row["git_commit"],
+        summary = {"run_id": run_id, "config": cfg, "config_hash": ch, "git_commit": commit,
+                   "dirty_tree": dirty, "splits_sha256": row["splits_sha256"],
+                   "roles_used": row["roles_used"], "n_train_ids": row["n_train_ids"],
                    "threads": threads, "seed": seed, "n_lines": len(ho_ids),
                    "n_eval_genes": len(eval_genes), "neg_mapping": neg_rep,
                    "chosen_params": {str(k): v for k, v in res["chosen"].items()},
@@ -371,14 +415,14 @@ def main(argv=None):
                     "fit_s": round(fit_s, 2), "predict_s": round(pred_s, 2),
                     "total_s": round(time.perf_counter() - t_start, 1),
                     "peak_rss_mb": round(rss, 1), "rss_method": rss_m})
-        append_registry(row)
+        write_registry(row)
         print(json.dumps({k: _fmt(v) for k, v in hl.items() if not k.endswith("_sd")}, indent=1))
         print(f"saved results/runs/{run_id}")
         return run_id
     except BaseException as e:
         row.update({"status": f"failed: {type(e).__name__}: {str(e)[:200]}",
                     "total_s": round(time.perf_counter() - t_start, 1)})
-        append_registry(row)
+        write_registry(row)
         traceback.print_exc()
         raise
 

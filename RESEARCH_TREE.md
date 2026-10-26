@@ -74,7 +74,13 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] 2.3 Round 3: fresh consistency/over-engineering review → v3 frozen
 - [~] G0 evaluation infrastructure (metrics, guard, registry, tests) + G1 baselines
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
-- [~] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
+- [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
+  - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.
+  - Control-gene sanity AUROC: ≥0.86 for RPE1/hPSC KO screens. Fails: Haapaniemi RPE1-WT Brunello (0.66) and
+    Dräger microglia CRISPRi (0.64).
+  - Gaps: iPSC-derived screens are CRISPRi gene-level only; primary blood screens are sort-based (Shifrut, Ting CD34+).
+- [~] G5a Screen harmonisation (anchors + controls only) → configs/harmonisation_frozen.json, screen_plan.csv
+- [~] G5b Expression harmonisation (matched DepMap dev lines) → configs/expression_harmonisation.json
 - [ ] 3. Data pipeline and verification (toy data, controls)
 - [ ] 4. Baselines (per-gene mean, per-gene lineage mean)
 - [ ] 5. Models and feature ablation

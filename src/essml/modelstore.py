@@ -5,8 +5,9 @@ Layout: cache/models/<run_id>/fold<k>.pkl (gitignored), one pickled dict per out
 Large training-target arrays (e.g. B2's neighbour profiles, attribute ``Y_``) are not pickled; they
 are re-read from dev targets through ``guard.load_targets`` (dev IDs only) on load.
 
-``predict_new(run_id, index, lineage, X)`` averages the fold models' predictions (DESIGN: set A/B
-predictions use the mean of the 5 dev fold-models).
+``predict_new(run_id, index, lineage, X)`` averages the fold models' predictions (DESIGN v3 §5:
+set A/B predictions use the mean of the 5 dev fold-models). ``predict_anchor(run_id, model_id, ...)``
+uses only the fold models whose training set excludes that anchor line.
 """
 from __future__ import annotations
 
@@ -53,8 +54,29 @@ def load_fold_models(run_id, model_dir=MODEL_DIR, target_loader=None):
     return out
 
 
-def predict_new(run_id, index, lineage=None, X=None, model_dir=MODEL_DIR, target_loader=None):
-    """Mean prediction of the run's fold models for new lines (index) given lineage / features."""
-    preds = [m.predict(index, lineage=lineage, X=X)
-             for _, m, _ in load_fold_models(run_id, model_dir, target_loader)]
-    return sum(preds) / len(preds)
+def predict_new(run_id, index, lineage=None, X=None, model_dir=MODEL_DIR, target_loader=None,
+                per_model=False):
+    """Mean prediction of the run's fold models for new lines (index) given lineage / features.
+
+    per_model=True returns {fold: prediction} instead (for ensemble-size-matched comparisons).
+    """
+    preds = {f: m.predict(index, lineage=lineage, X=X)
+             for f, m, _ in load_fold_models(run_id, model_dir, target_loader)}
+    return preds if per_model else sum(preds.values()) / len(preds)
+
+
+def predict_anchor(run_id, model_id, lineage=None, X=None, model_dir=MODEL_DIR,
+                   target_loader=None):
+    """Prediction for an anchor (a dev line) from the fold models NOT trained on it, averaged.
+
+    With 5-fold CV a dev line is in the training set of 4 fold models and held out of exactly 1,
+    so this is the single out-of-fold model (the line's own CV prediction). Returns
+    (prediction DataFrame [1 x gene], list of folds used). Raises if every model saw the line.
+    """
+    mid = str(model_id)
+    use = [(f, m) for f, m, meta in load_fold_models(run_id, model_dir, target_loader)
+           if mid not in set(meta["train_ids"])]
+    if not use:
+        raise ValueError(f"every fold model of {run_id} was trained on {mid}")
+    preds = [m.predict([mid], lineage=lineage, X=X) for _, m in use]
+    return sum(preds) / len(preds), [f for f, _ in use]

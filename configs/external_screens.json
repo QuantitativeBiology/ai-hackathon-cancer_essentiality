@@ -135,7 +135,46 @@
   "sack2018_hmec_gse109326": {"root": "external_expr", "source": "GEO GSE109326 (Sack 2018; HMEC empty-vector controls EV-1/EV-2 + overexpression; voom-normalised counts)", "licence": "GEO: no NCBI restrictions",
    "files": [
     {"name": "GSE109326_RAW.tar", "template": "geo_series_suppl", "gse": "GSE109326"},
-    {"name": "GSE109326_family.soft.gz", "template": "geo_series_soft", "gse": "GSE109326"}]}
+    {"name": "GSE109326_family.soft.gz", "template": "geo_series_soft", "gse": "GSE109326"}]},
+  "encode_geo_polyA_rnaseq": {"root": "external_expr", "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)", "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+   "files": [
+    {"name": "GSM2308418_ENCFF768TKT_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2308418", "gse": "GSE86660"},
+    {"name": "GSM2308419_ENCFF172GIN_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2308419", "gse": "GSE86660"},
+    {"name": "GSM2308412_ENCFF369ZNM_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2308412", "gse": "GSE86657"},
+    {"name": "GSM2308413_ENCFF627QMV_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2308413", "gse": "GSE86657"},
+    {"name": "GSM2453357_ENCFF067ZMG_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453357", "gse": "GSE93449"},
+    {"name": "GSM2453358_ENCFF390KQP_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453358", "gse": "GSE93449"},
+    {"name": "GSM2453343_ENCFF601IKR_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453343", "gse": "GSE93442"},
+    {"name": "GSM2453344_ENCFF172ATN_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453344", "gse": "GSE93442"},
+    {"name": "GSM2453359_ENCFF248YCR_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453359", "gse": "GSE93450"},
+    {"name": "GSM2453360_ENCFF890DEQ_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453360", "gse": "GSE93450"},
+    {"name": "GSM2453329_ENCFF558JTV_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453329", "gse": "GSE93435"},
+    {"name": "GSM2453330_ENCFF489SJY_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453330", "gse": "GSE93435"},
+    {"name": "GSM2453355_ENCFF238HUZ_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453355", "gse": "GSE93448"},
+    {"name": "GSM2453356_ENCFF396XRF_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453356", "gse": "GSE93448"},
+    {"name": "GSM2453335_ENCFF394VCU_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453335", "gse": "GSE93438"},
+    {"name": "GSM2453336_ENCFF681NAQ_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2453336", "gse": "GSE93438"},
+    {"name": "GSM2400160_ENCFF226LQB_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2400160", "gse": "GSE90230"},
+    {"name": "GSM2400161_ENCFF458OHS_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2400161", "gse": "GSE90230"},
+    {"name": "GSM2400174_ENCFF009GDJ_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2400174", "gse": "GSE90237"},
+    {"name": "GSM2400175_ENCFF885LEQ_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2400175", "gse": "GSE90237"},
+    {"name": "GSM2400152_ENCFF653XHG_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2400152", "gse": "GSE90225"},
+    {"name": "GSM2400153_ENCFF915AUQ_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2400153", "gse": "GSE90225"},
+    {"name": "GSM2072420_ENCFF380GBC_gene_quantifications_GRCh38.tsv.gz", "template": "geo_sample_suppl", "gsm": "GSM2072420", "gse": "GSE78586"},
+    {"name": "GSE78586_family.soft.gz", "template": "geo_series_soft", "gse": "GSE78586"},
+    {"name": "GSE86657_family.soft.gz", "template": "geo_series_soft", "gse": "GSE86657"},
+    {"name": "GSE86660_family.soft.gz", "template": "geo_series_soft", "gse": "GSE86660"},
+    {"name": "GSE90225_family.soft.gz", "template": "geo_series_soft", "gse": "GSE90225"},
+    {"name": "GSE90230_family.soft.gz", "template": "geo_series_soft", "gse": "GSE90230"},
+    {"name": "GSE90237_family.soft.gz", "template": "geo_series_soft", "gse": "GSE90237"},
+    {"name": "GSE93435_family.soft.gz", "template": "geo_series_soft", "gse": "GSE93435"},
+    {"name": "GSE93438_family.soft.gz", "template": "geo_series_soft", "gse": "GSE93438"},
+    {"name": "GSE93442_family.soft.gz", "template": "geo_series_soft", "gse": "GSE93442"},
+    {"name": "GSE93448_family.soft.gz", "template": "geo_series_soft", "gse": "GSE93448"},
+    {"name": "GSE93449_family.soft.gz", "template": "geo_series_soft", "gse": "GSE93449"},
+    {"name": "GSE93450_family.soft.gz", "template": "geo_series_soft", "gse": "GSE93450"}]},
+  "ensembl116_gtf": {"root": "raw_external", "source": "Ensembl release 116 GRCh38 GTF; used only for gene exon-union lengths, gene_id/gene_name/gene_biotype (essml.expr_harmonise)", "licence": "Ensembl: no restrictions (open data)",
+   "files": [{"name": "Homo_sapiens.GRCh38.116.gtf.gz", "url": "https://ftp.ensembl.org/pub/release-116/gtf/homo_sapiens/Homo_sapiens.GRCh38.116.gtf.gz"}]}
  },
 
  "orcs": {
@@ -240,7 +279,7 @@
  "expression_sources": [
   {"id": "depmap_26q3_rpe1", "for": ["olivieri2020", "brown2019", "hart2015 RPE1", "haapaniemi2018", "bowden2020", "anchors in DepMap lines"], "source": "local DepMap 26Q3 OmicsExpressionTPMLogp1HumanProteinCodingGenes.csv (RSEM TPM log2(+1), GENCODE)", "level": "log2(TPM+1) protein-coding", "status": "OK (local)"},
   {"id": "mair2019_h1_icas9_gse125509", "for": ["mair2019 H1 MEF/laminin", "ihry2019 (proxy if H1)"], "level": "HTSeq gene counts (Ensembl versioned IDs) -> TPM needs gene lengths", "status": "OK"},
-  {"id": "yilmaz2018_hpes10_gse103846", "for": ["yilmaz2018", "yilmaz2020 (undifferentiated)"], "level": "raw gene counts (Ensembl IDs)", "status": "OK"},
+  {"id": "yilmaz2018_hpes10_gse103846", "for": ["yilmaz2018", "yilmaz2020 (undifferentiated)"], "level": "raw gene counts (Ensembl IDs)", "status": "OK", "note": "GEO sample characteristics: source cell line H9, genotype Rex1-EGFP (diploid H9 reporter line), not haploid h-pES10; hESC proxy only"},
   {"id": "tian2019_wtc11_neuron_quantseq", "for": ["tian2021", "tian2019 neurons"], "level": "Quant-seq 3' counts (Ensembl IDs) - 3' tag counting: TPM needs no length correction but differs from full-length RSEM", "status": "OK"},
   {"id": "drager2022_ipsc_microglia_crispri (Supp Table 1)", "for": ["drager2022 microglia", "tian2019 iPSC (iTF-iPSC proxy)"], "level": "normalised expression per sample (iTF-iPSC D0, iTF-microglia D9/D14) - units per paper [unverified]", "status": "OK (inside screen deposit)"},
   {"id": "carnevale2022_primary_t_gse204862", "for": ["shifrut2018", "ting2018 CD4T", "ORCS Carnevale 2022"], "level": "gene counts (symbols)", "status": "OK"},
@@ -248,7 +287,7 @@
   {"id": "corces2016_haem_gse74246", "for": ["ting2018 CD34 HSPC"], "level": "gene counts (symbols) for HSC/MPP/CMP etc.", "status": "OK"},
   {"id": "sack2018_hmec_gse109326", "for": ["ORCS Sack 2018 HMEC"], "level": "voom-normalised counts (Ensembl IDs); use EV-1/EV-2", "status": "OK"},
   {"id": "tzelepis2016 Kallisto FPKM (inside screen zip)", "for": ["tzelepis2016 anchors"], "level": "FPKM (symbols)", "status": "OK (anchors also have DepMap expression)"},
-  {"id": "encode_h1_h9_wtc11_tcells_cd34", "for": ["ESC/iPSC/primary proxies"], "level": "RSEM gene quantifications (GENCODE) - would be closest to DepMap pipeline", "status": "blocked: encodeproject.org returned HTTP 504 / timeouts for all search and object requests on 2026-10-26 (server outage); retry later"}
+  {"id": "encode_h1_h9_wtc11_tcells_cd34", "for": ["ESC/iPSC/primary proxies"], "level": "RSEM gene quantifications (GENCODE) - would be closest to DepMap pipeline", "status": "portal still down on a 2nd attempt (2026-10-26, timeouts); ENCODE-DCC GEO deposits used instead: deposit encode_geo_polyA_rnaseq (K562, A549, SK-N-SH, T47D, PANC-1, Jurkat; near-matches BE2C, Ishikawa; test lines HepG2, MCF-7; H1-hESC; HMEC)"}
  ],
 
  "failed": [
@@ -259,7 +298,7 @@
   {"what": "europepmc.org/articles/.../bin/ (Europe PMC manuscript files)", "reason": "HTTP 403"},
   {"what": "BioGRID ORCS LATEST alias (downloads.thebiogrid.org)", "reason": "connection drops at ~56 MB and server refuses range requests; used versioned object in the public bucket instead (md5 matches ETag)"},
   {"what": "CRISPRbrain (crisprbrain.org) bulk download", "reason": "JavaScript single-page app with no static download links; /api endpoints require auth (per catalogue). Not pursued."},
-  {"what": "ENCODE gene quantifications", "reason": "server outage (HTTP 504) during this session"},
+  {"what": "ENCODE gene quantifications", "reason": "server outage (HTTP 504 / timeouts) on two attempts on 2026-10-26; resolved via ENCODE-DCC GEO deposits (encode_geo_polyA_rnaseq)"},
   {"what": "Hart 2015 per-guide raw counts for non-RPE1 lines (HCT116, DLD1, HeLa, GBM)", "reason": "not deposited; only guide-level LFC (Brown 2019 supplement) and BF (Cell Table S2) found"},
   {"what": "Hart 2017 G3 TKOv3 HAP1/HEK293T raw counts", "reason": "G3 supplement holds gene-level BF tables only; not in ORCS. HAP1 TKOv3 counts obtained from Mair 2019 GEO instead"},
   {"what": "Aregger 2020 (Nat Metab) HAP1 TKOv3", "reason": "article not OA; no GEO located in this session"},

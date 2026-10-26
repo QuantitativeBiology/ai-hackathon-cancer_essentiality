@@ -6,9 +6,14 @@ All statistics ignore NaN: SDs and prevalences are over observed (non-NaN) lines
 - all              every gene in Y_train
 - variable         SD > 0.25 (ddof=1)
 - selective        5% <= fraction of observed lines with effect < -0.5 <= 95%
-- rare_selective   >= 3 observed lines < -0.5 and fraction < 5%
+- rare_selective   >= 3 observed lines < -0.5 and 1% <= fraction < 5% (1% floor added post-G1: >=3 lines alone
+                   admitted 8,281 mostly-noise genes; decided before any model comparison, RESEARCH_TREE D8)
 - common_essential fraction < -0.5 > 95%
 - nonessential     Hart NEGv1, mapped to Entrez via HGNC (see load_hart_neg)
+
+Evaluation reporting (CV, test, set A/B) uses ONE dev-wide list, configs/gene_classes.csv
+(scripts/make_gene_classes.py, all 1022 dev lines; DESIGN v3 §3). Fold-wise classes are computed
+only where they drive training decisions (e.g. the inner-CV tuning criterion).
 
 Genes with no observed training line belong only to 'all' (and possibly 'nonessential').
 """
@@ -21,14 +26,26 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
 NEG_PATH = ROOT / "data" / "raw_external" / "hart_neg" / "NEGv1.txt"
+CEG_PATH = ROOT / "data" / "raw_external" / "hart_ceg2" / "CEGv2.txt"
+GENE_CLASSES_CSV = ROOT / "configs" / "gene_classes.csv"
 HGNC_PATH = ROOT / "data" / "raw_external" / "hgnc" / "hgnc_complete_set.txt"
 CLASSES = ["all", "variable", "selective", "rare_selective", "common_essential", "nonessential"]
 
 
 def load_hart_neg(neg_path=NEG_PATH, hgnc_path=HGNC_PATH):
-    """Hart NEGv1 -> (set of Entrez ID strings, report dict).
+    """Hart NEGv1 non-essentials -> (set of Entrez ID strings, report dict)."""
+    return load_hart_list(neg_path, hgnc_path)
 
-    Mapping order per NEGv1 row: (1) HGNC_ID -> HGNC entrez_id; (2) approved symbol -> entrez_id;
+
+def load_hart_ceg(ceg_path=CEG_PATH, hgnc_path=HGNC_PATH):
+    """Hart CEGv2 core essentials -> (set of Entrez ID strings, report dict)."""
+    return load_hart_list(ceg_path, hgnc_path)
+
+
+def load_hart_list(neg_path, hgnc_path=HGNC_PATH):
+    """Hart-format gene list (GENE, HGNC_ID, ENTREZ_ID) -> (set of Entrez strings, report).
+
+    Mapping order per row: (1) HGNC_ID -> HGNC entrez_id; (2) approved symbol -> entrez_id;
     (3) previous/alias symbol if it maps to exactly one HGNC entry. The Entrez column shipped in
     NEGv1 is used only as a cross-check (disagreements are counted in the report).
     """
@@ -63,7 +80,7 @@ def load_hart_neg(neg_path=NEG_PATH, hgnc_path=HGNC_PATH):
         if isinstance(r.get("ENTREZ_ID"), str) and r["ENTREZ_ID"] != e:
             mismatch += 1
         out.add(str(e))
-    rep = {"n_neg": len(neg), "n_mapped": len(out), "by": how, "unmapped": unmapped,
+    rep = {"file": Path(neg_path).name, "n_neg": len(neg), "n_mapped": len(out), "by": how, "unmapped": unmapped,
            "entrez_disagreements_with_file": mismatch}
     return out, rep
 
@@ -89,7 +106,13 @@ def gene_classes(Y_train: pd.DataFrame, neg_entrez=None, thr=-0.5, sd_thr=0.25) 
     out["all"] = True
     out["variable"] = sd_ok & (sd > sd_thr)
     out["selective"] = has & (frac >= 0.05) & (frac <= 0.95)
-    out["rare_selective"] = has & (n_below >= 3) & (frac < 0.05)
+    out["rare_selective"] = has & (n_below >= 3) & (frac >= 0.01) & (frac < 0.05)
     out["common_essential"] = has & (frac > 0.95)
     out["nonessential"] = out.index.astype(str).isin(set(map(str, neg_entrez)))
     return out
+
+
+def load_gene_classes(path=GENE_CLASSES_CSV) -> pd.DataFrame:
+    """Committed dev-wide class table -> boolean DataFrame (index = Entrez string, CLASSES)."""
+    t = pd.read_csv(path, dtype={"entrez": str}).set_index("entrez")
+    return t[CLASSES].astype(bool)

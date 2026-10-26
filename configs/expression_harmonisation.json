@@ -1,0 +1,58 @@
+{
+ "_comment": "DESIGN v3 section 7.3 expression harmonisation. DRAFT - the PI freezes it (with configs/harmonisation_frozen.json at tag freeze-transfer). Read by scripts/harmonise_expression.py and essml.expr_harmonise. 'selection_rule' was written BEFORE the candidate comparison was run; 'chosen_method' is filled from that rule's outcome and the script fails if they disagree. No screen data and no prediction model are used anywhere in this step.",
+ "status": "draft",
+ "depmap_convention": {
+  "scale": "log2(TPM+1)",
+  "tpm_over": "all genes (TPM sums to 1e6 over every annotated gene, spike-ins removed), then subset to DepMap protein-coding Entrez columns; per-line protein-coding TPM sums are ~0.94M in DepMap (median of all 26Q3 lines 938k)",
+  "columns": "cache/expression.parquet columns (Entrez IDs as strings)"
+ },
+ "annotation": {
+  "gtf": "data/raw_external/ensembl116_gtf/Homo_sapiens.GRCh38.116.gtf.gz",
+  "gene_length": "exon-union length per gene_id (all transcripts' exons merged), Ensembl 116",
+  "hgnc": "data/raw_external/hgnc/hgnc_complete_set.txt"
+ },
+ "conversion": {
+  "counts_fragment_length": 0,
+  "_counts_fragment_length_comment": "effective length = exon-union length - fragment_length + 1 (genes with effective length <= 0 get TPM 0, as RSEM). 0 means plain exon-union length. Checked against ENCODE RSEM TPM from the same files' expected_count (results/expression_harmonisation/count_path_check.csv); the value is not tuned on the method-comparison metrics.",
+  "restricted_universe_pc_fraction": "depmap_dev_median",
+  "_restricted_comment": "sources whose table does not cover all genes (pre-filtered) cannot give TPM over all genes; their TPM is rescaled so the protein-coding subset sums to the DepMap dev median protein-coding TPM sum (closest compliant option; flagged in profiles.csv)"
+ },
+ "sources": {
+  "encode_geo": {"parser": "encode_rsem", "path": "data/external_expr/encode_geo_polyA_rnaseq", "unit": "TPM (RSEM, GENCODE v24; ERCC spike-ins removed, renormalised)", "id_type": "ensembl", "universe": "full", "tpm_compatible": true, "absent": "nan", "label": "ENCODE polyA RNA-seq (ENCODE-DCC GEO deposit)"},
+  "tzelepis2016": {"parser": "tzelepis_fpkm", "path": "data/external_screens/tzelepis2016_yusa_panel/EuropePMC_PMC5081405_supplementaryFiles.zip", "member": "mmc6.zip/RNA-seq_5AMLs-HT1080-HT29_FPKM_Kallisto.txt", "unit": "FPKM (Kallisto, gene symbols) -> TPM", "id_type": "symbol", "universe": "full", "tpm_compatible": true, "absent": "nan", "label": "Tzelepis 2016 Cell Rep Kallisto FPKM"},
+  "mair2019": {"parser": "htseq_tar", "path": "data/external_expr/mair2019_h1_icas9_gse125509/GSE125509_RAW.tar", "unit": "HTSeq counts (GENCODE v25) -> TPM via Ensembl 116 lengths", "id_type": "ensembl", "universe": "full", "tpm_compatible": true, "absent": "nan", "label": "Mair 2019 GSE125509 H1-iCas9"},
+  "yilmaz2018": {"parser": "csv_counts", "path": "data/external_expr/yilmaz2018_hpes10_gse103846/GSE103846_rawCounts.csv.gz", "unit": "HTSeq counts -> TPM", "id_type": "ensembl", "universe": "full", "tpm_compatible": true, "absent": "nan", "label": "Yilmaz 2018 GSE103846 (H9 Rex1-EGFP hESC per GEO)"},
+  "tian2019_quantseq": {"parser": "htseq_files", "path": "data/external_expr/tian2019_wtc11_neuron_quantseq", "unit": "Quant-seq 3' tag counts -> CPM (no length correction)", "id_type": "ensembl", "universe": "full", "tpm_compatible": false, "absent": "nan", "label": "Tian 2019 GSE124703 Quant-seq"},
+  "drager2022": {"parser": "drager_xlsx", "path": "data/external_screens/drager2022_ipsc_microglia_crispri/41593_2022_1131_MOESM4_ESM.xlsx", "sheet": "Supplementary Table 1", "unit": "per-sample values summing to 1e6 over 60,232 genes (TPM assumed; checked by length dependence)", "id_type": "ensembl", "universe": "full", "tpm_compatible": true, "absent": "nan", "label": "Draeger 2022 Supp. Table 1"},
+  "carnevale2022": {"parser": "tsv_counts", "path": "data/external_expr/carnevale2022_primary_t_gse204862", "files": ["GSE204862_RASA2KO_Stim1_countmatrix_fix.tsv.gz", "GSE204862_RepStim_CARnTCR_countmatrix.tsv.gz"], "unit": "Kallisto gene counts (symbols; genes zero in >80% samples removed) -> TPM", "id_type": "symbol", "universe": "restricted", "tpm_compatible": true, "absent": "zero", "label": "Carnevale 2022 GSE204862"},
+  "calderon2019": {"parser": "calderon", "path": "data/external_expr/calderon2019_immune_gse118165/GSE118165_RNA_gene_abundance.txt.gz", "unit": "normalised gene abundance (20,206 Ensembl genes) treated as counts -> TPM", "id_type": "ensembl", "universe": "restricted", "tpm_compatible": true, "absent": "zero", "label": "Calderon 2019 GSE118165"},
+  "corces2016": {"parser": "tsv_counts", "path": "data/external_expr/corces2016_haem_gse74246", "files": ["GSE74246_RNAseq_All_Counts.txt.gz"], "unit": "gene counts (symbols) -> TPM", "id_type": "symbol", "universe": "full", "tpm_compatible": true, "absent": "nan", "label": "Corces 2016 GSE74246"},
+  "sack2018": {"parser": "sack_tar", "path": "data/external_expr/sack2018_hmec_gse109326/GSE109326_RAW.tar", "unit": "per-sample NormCounts (genes with <20 reads across samples removed) -> TPM", "id_type": "ensembl", "universe": "full", "tpm_compatible": true, "absent": "nan", "label": "Sack 2018 GSE109326 HMEC"}
+ },
+ "evaluation": {
+  "n_hvg": 5000,
+  "hvg_definition": "top-5000 genes by variance of log2(TPM+1) across DepMap dev lines",
+  "nn_pool": "all DepMap dev lines (configs/splits.csv role == dev); a test-line validation profile's pool is dev lines plus that test line",
+  "correlation": "Pearson across HVG (primary, uncentred as DESIGN 7.3 states); gene-centred (minus DepMap dev mean) reported as sensitivity",
+  "ad_k": 10,
+  "ad_definition": "mean (1 - Pearson r) over the 10 nearest DepMap dev lines on HVG in the harmonised space; reference = the same statistic for each dev line against the other dev lines",
+  "fitting_holdout": "candidate (iii) offsets: leave-one-matched-line-out (primary) and leave-one-source-out (sensitivity); quantile reference excludes the matched line's own DepMap profile"
+ },
+ "candidates": {
+  "none": "log2(TPM+1) as converted",
+  "quantile": "per-profile quantile normalisation to the mean sorted DepMap dev log2(TPM+1) profile (ties averaged; profiles with missing genes interpolated)",
+  "quantile_location": "quantile + gene-wise mean offset (DepMap - external) fitted on matched DepMap dev lines",
+  "rank": "within-profile rank / n for both external and DepMap (would require retraining E features on ranks)",
+  "celligner": "DEFERRED per DESIGN v3 (needs tumour data / cPCA+MNN; not implemented)"
+ },
+ "selection_rule": {
+  "_written": "2026-10-26, before running the comparison",
+  "population": "exact-match DepMap dev validation profiles (near-matches and test lines reported separately, never used for selection)",
+  "primary": "mean same-line recall@1 among all DepMap dev lines (HVG Pearson, held-out for fitted candidates)",
+  "tie_margin": 0.05,
+  "secondary": "mean held-out profile Pearson r with the line's DepMap profile across all genes, then mean absolute error",
+  "simplicity_order": ["none", "quantile", "rank", "quantile_location"],
+  "rule": "take the best primary; any candidate within tie_margin of it is a tie; among ties prefer the better secondary if it is better by > 0.01 r, else the simplest in simplicity_order. candidate (iii) must also not lose more than tie_margin recall@1 under leave-one-source-out, else it is excluded. 'rank' requires retraining E on ranks; if chosen it is flagged for the PI."
+ },
+ "chosen_method": null
+}

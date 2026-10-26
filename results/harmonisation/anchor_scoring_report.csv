@@ -1,0 +1,24 @@
+id,role,library,group,depmap_id,m_scaling,m_neg,data_level,score,n_guides,t0_filter,n_genes,n_guides_kept,pseudocount,n_end_reps,replicate_guide_lfc_r,t0,end,n_guides_unmapped
+A_hart2015_DLD1,anchor,TKOv1,moffat_tko,ACH-001061,-1.652388068628561,0.12040100121271506,guide_lfc,median published guide LFC,91320.0,as published (no counts),16401,,,,,,,
+A_hart2015_HCT116,anchor,TKOv1,moffat_tko,ACH-000971,-1.1337632908467765,0.031792542772368405,guide_lfc,median published guide LFC,91320.0,as published (no counts),16401,,,,,,,
+A_mair2019_HAP1_T18,anchor,TKOv3,moffat_tko,ACH-002475,-4.90086756017028,0.10444984184793762,counts,median guide LFC,71090.0,mean T0 reads >= 30,17748,70534.0,0.5 reads,3.0,0.7793094692795322,Moffat_343_814,Moffat_1014 + Moffat_1015 + Moffat_1016,318.0
+A_tzelepis2016_MOLM13,anchor,Yusa v1,yusa_sanger,ACH-000362,-2.696878146622707,-0.14583386342062177,counts,median guide LFC,90710.0,mean T0 reads >= 30,17783,87207.0,0.5 reads,2.0,0.3400430138670508,HumanV1-1,MOLM_rep_1 + MOLM_rep_2,120.0
+A_tzelepis2016_MV411,anchor,Yusa v1,yusa_sanger,ACH-000045,-2.0537039065049196,-0.14623797510179704,counts,median guide LFC,90710.0,mean T0 reads >= 30,17783,87207.0,0.5 reads,2.0,0.27399035314371967,HumanV1-1,MV411_rep_1 + MV411_rep_2,120.0
+A_tzelepis2016_OCIAML2,anchor,Yusa v1,yusa_sanger,ACH-000113,-1.4367445910649832,0.10071001031136029,counts,median guide LFC,90710.0,mean T0 reads >= 30,17778,86882.0,0.5 reads,2.0,0.7975071302268205,HumanV1-2,OCIAML2_rep_1 + OCIAML2_rep_2,120.0
+A_tzelepis2016_OCIAML3,anchor,Yusa v1,yusa_sanger,ACH-000336,-1.2722037338341528,0.07597955349128771,counts,median guide LFC,90710.0,mean T0 reads >= 30,17778,86882.0,0.5 reads,2.0,0.7330077514930298,HumanV1-2,OCIAML3_rep_1 + OCIAML3_rep_2,120.0
+A_tzelepis2016_HT29_d25,anchor,Yusa v1,yusa_sanger,ACH-000552,-4.295434168357528,0.07237844962514621,counts,median guide LFC,90710.0,mean T0 reads >= 30,17778,86882.0,0.5 reads,3.0,0.8101263700345447,HumanV1-1,HT29C3_d25_rep1 + HT29C3_d25_rep2 + HT29C3_d25_rep3,120.0
+A_tzelepis2016_HT1080,anchor,Yusa v1,yusa_sanger,ACH-000054,-6.9133686053725745,-0.1653558632537524,counts,median guide LFC,90710.0,mean T0 reads >= 30,17768,86274.0,0.5 reads,2.0,0.7018281997959621,HumanV1-2,HT1080_rep1 + HT1080_rep2,120.0
+A_sanson2018_A375,anchor,Brunello,brunello,ACH-000219,-2.462731555633412,0.15608142929706198,counts,median guide LFC,77441.0,mean T0 reads >= 30,19017,76909.0,0.5 reads,2.0,0.7594343356856276,pDNA,RepA + RepB,1279.0
+A_doench2016_HT29_Avana,anchor,Avana,avana,ACH-000552,-2.348044552,-0.49147273358333327,guide_lfc,median published guide LFC,76106.0,as published (no counts),18594,,,,,,,
+A_wang2017_EOL1,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000198,-1.8835,-0.028999999999999998,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_HEL,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000004,-2.3594999999999997,0.034,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_MOLM13,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000362,-2.632,-0.1295,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_MonoMac1,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-001129,-1.6145,-0.035500000000000004,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_MV411,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000045,-1.8014999999999999,0.0045000000000000005,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_NB4,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000294,-1.9095,-0.010750000000000001,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_OCIAML2,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000113,-1.956,0.046,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_OCIAML3,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000336,-1.6495,-0.0535,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_TF1,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000387,-2.3680000000000003,-0.055999999999999994,gene_score,published gene score,,,18578,,,,,,,
+A_wang2017_THP1,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000146,-2.8045,-0.0415,gene_score,published gene score,,,18578,,,,,,,
+A_wang2015_K562,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000551,-2.541,-0.025,gene_score,ORCS SCORE.1,,,18142,,,,,,,
+A_wang2015_Raji,anchor,Wang 2015 genome-wide,wang_sabatini,ACH-000654,-1.67,0.039,gene_score,ORCS SCORE.1,,,18142,,,,,,,

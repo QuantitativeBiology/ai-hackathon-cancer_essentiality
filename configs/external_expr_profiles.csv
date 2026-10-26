@@ -1,0 +1,118 @@
+profile_id,source,sample,state,kind,cell_type,screens,depmap_model,match,note
+encode:K562:r1,encode_geo,GSM2308418_ENCFF768TKT,ENCODE_K562,validation,K562 (cancer cell line),,ACH-000551,exact,
+encode:K562:r2,encode_geo,GSM2308419_ENCFF172GIN,ENCODE_K562,validation,K562 (cancer cell line),,ACH-000551,exact,
+encode:A549:r1,encode_geo,GSM2308412_ENCFF369ZNM,ENCODE_A549,validation,A549 (cancer cell line),,ACH-000681,exact,
+encode:A549:r2,encode_geo,GSM2308413_ENCFF627QMV,ENCODE_A549,validation,A549 (cancer cell line),,ACH-000681,exact,
+encode:SK-N-SH:r1,encode_geo,GSM2453357_ENCFF067ZMG,ENCODE_SK-N-SH,validation,SK-N-SH (cancer cell line),,ACH-000149,exact,untreated (ENCSR000BYL)
+encode:SK-N-SH:r2,encode_geo,GSM2453358_ENCFF390KQP,ENCODE_SK-N-SH,validation,SK-N-SH (cancer cell line),,ACH-000149,exact,untreated (ENCSR000BYL)
+encode:T47D:r1,encode_geo,GSM2453343_ENCFF601IKR,ENCODE_T47D,validation,T47D (cancer cell line),,ACH-000147,exact,DMSO 4 h vehicle (ENCSR000BYE)
+encode:T47D:r2,encode_geo,GSM2453344_ENCFF172ATN,ENCODE_T47D,validation,T47D (cancer cell line),,ACH-000147,exact,DMSO 4 h vehicle (ENCSR000BYE)
+encode:PANC-1:r1,encode_geo,GSM2453359_ENCFF248YCR,ENCODE_PANC-1,validation,PANC-1 (cancer cell line),,ACH-000164,exact,
+encode:PANC-1:r2,encode_geo,GSM2453360_ENCFF890DEQ,ENCODE_PANC-1,validation,PANC-1 (cancer cell line),,ACH-000164,exact,
+encode:Jurkat:r1,encode_geo,GSM2453329_ENCFF558JTV,ENCODE_Jurkat,validation,Jurkat (cancer cell line),,ACH-000995,exact,Jurkat clone E6-1
+encode:Jurkat:r2,encode_geo,GSM2453330_ENCFF489SJY,ENCODE_Jurkat,validation,Jurkat (cancer cell line),,ACH-000995,exact,Jurkat clone E6-1
+encode:BE2C:r1,encode_geo,GSM2453355_ENCFF238HUZ,ENCODE_BE2C,validation,BE2C (cancer cell line),,ACH-000312,near,BE(2)-C is a subclone of SK-N-BE(2) (DepMap ACH-000312)
+encode:BE2C:r2,encode_geo,GSM2453356_ENCFF396XRF,ENCODE_BE2C,validation,BE2C (cancer cell line),,ACH-000312,near,BE(2)-C is a subclone of SK-N-BE(2) (DepMap ACH-000312)
+encode:Ishikawa:r1,encode_geo,GSM2453335_ENCFF394VCU,ENCODE_Ishikawa,validation,Ishikawa (cancer cell line),,ACH-000961,near,DMSO 4 h vehicle; DepMap line is the 'Ishikawa (Heraklio) 02 ER-' sub-line
+encode:Ishikawa:r2,encode_geo,GSM2453336_ENCFF681NAQ,ENCODE_Ishikawa,validation,Ishikawa (cancer cell line),,ACH-000961,near,DMSO 4 h vehicle; DepMap line is the 'Ishikawa (Heraklio) 02 ER-' sub-line
+encode:HepG2:r1,encode_geo,GSM2400160_ENCFF226LQB,ENCODE_HepG2,validation,HepG2 (cancer cell line),,ACH-000739,test,"test-role line: expression-only validation (DESIGN 7.2), reported separately"
+encode:HepG2:r2,encode_geo,GSM2400161_ENCFF458OHS,ENCODE_HepG2,validation,HepG2 (cancer cell line),,ACH-000739,test,"test-role line: expression-only validation (DESIGN 7.2), reported separately"
+encode:MCF-7:r1,encode_geo,GSM2400174_ENCFF009GDJ,ENCODE_MCF-7,validation,MCF-7 (cancer cell line),,ACH-000019,test,"test-role line: expression-only validation (DESIGN 7.2), reported separately"
+encode:MCF-7:r2,encode_geo,GSM2400175_ENCFF885LEQ,ENCODE_MCF-7,validation,MCF-7 (cancer cell line),,ACH-000019,test,"test-role line: expression-only validation (DESIGN 7.2), reported separately"
+tzelepis:MOLM-13,tzelepis2016,MOLM-13,TZ_MOLM-13,validation,MOLM-13 (cancer cell line),,ACH-000362,exact,
+tzelepis:MV4-11,tzelepis2016,MV4-11,TZ_MV4-11,validation,MV4-11 (cancer cell line),,ACH-000045,exact,
+tzelepis:OCI-AML2,tzelepis2016,OCI-AML2,TZ_OCI-AML2,validation,OCI-AML2 (cancer cell line),,ACH-000113,exact,
+tzelepis:OCI-AML3,tzelepis2016,OCI-AML3,TZ_OCI-AML3,validation,OCI-AML3 (cancer cell line),,ACH-000336,exact,
+tzelepis:HT1080,tzelepis2016,HT1080_ENCODE,TZ_HT1080,validation,HT1080 (cancer cell line),,ACH-000054,exact,HT-1080 reads from ENCODE re-quantified by Tzelepis
+tzelepis:HT29,tzelepis2016,HT29_GSE41586,TZ_HT29,validation,HT29 (cancer cell line),,ACH-000552,exact,HT-29 reads from GSE41586 re-quantified by Tzelepis
+tzelepis:HL-60,tzelepis2016,HL-60,TZ_HL-60,validation,HL-60 (cancer cell line),,ACH-000002,other,HL-60 has DepMap expression but no split role (not screened): reported separately
+mair2019:AAVS1_Laminin_1,mair2019,GSM3576221,H1_iCas9_laminin,nontransformed,"H1 hESC (iCas9), laminin, feeder-free",mair2019_H1_laminin; ihry2019_hPSC (proxy),,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+mair2019:AAVS1_Laminin_2,mair2019,GSM3576222,H1_iCas9_laminin,nontransformed,"H1 hESC (iCas9), laminin, feeder-free",mair2019_H1_laminin; ihry2019_hPSC (proxy),,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+mair2019:WT_Laminin_1,mair2019,GSM3576223,H1_iCas9_laminin,nontransformed,"H1 hESC (iCas9), laminin, feeder-free",mair2019_H1_laminin; ihry2019_hPSC (proxy),,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+mair2019:WT_Laminin_2,mair2019,GSM3576224,H1_iCas9_laminin,nontransformed,"H1 hESC (iCas9), laminin, feeder-free",mair2019_H1_laminin; ihry2019_hPSC (proxy),,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+mair2019:AAVS1_A_MEF,mair2019,GSM3576231,H1_iCas9_MEF,nontransformed,"H1 hESC (iCas9), on MEF feeders (mouse reads removed by XenofileR)",mair2019_H1_MEF,,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+mair2019:AAVS1_B_MEF,mair2019,GSM3576232,H1_iCas9_MEF,nontransformed,"H1 hESC (iCas9), on MEF feeders (mouse reads removed by XenofileR)",mair2019_H1_MEF,,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+mair2019:WT_A_MEFs,mair2019,GSM3576233,H1_iCas9_MEF,nontransformed,"H1 hESC (iCas9), on MEF feeders (mouse reads removed by XenofileR)",mair2019_H1_MEF,,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+mair2019:WT_B_MEFs,mair2019,GSM3576234,H1_iCas9_MEF,nontransformed,"H1 hESC (iCas9), on MEF feeders (mouse reads removed by XenofileR)",mair2019_H1_MEF,,,control (WT or AAVS1-edited); DRICH1-KO samples excluded
+encode:H1-hESC:r1,encode_geo,GSM2400152_ENCFF653XHG,ENCODE_H1,nontransformed,"H1 hESC (ENCODE, ENCSR000COU)",mair2019_H1_laminin/MEF (proxy); ihry2019_hPSC (proxy),,,
+encode:H1-hESC:r2,encode_geo,GSM2400153_ENCFF915AUQ,ENCODE_H1,nontransformed,"H1 hESC (ENCODE, ENCSR000COU)",mair2019_H1_laminin/MEF (proxy); ihry2019_hPSC (proxy),,,
+yilmaz2018:Luciferase_siRNA_rep1,yilmaz2018,Luciferase_siRNA_rep1,hESC_H9_Rex1GFP_ctrl,nontransformed,"hESC, control siRNA (GEO: H9 Rex1-EGFP, diploid)",yilmaz2018_hpES10 (proxy: the haploid line itself was not profiled); yilmaz2020_germlayers (undifferentiated),,,"GEO says H9, not h-pES10"
+yilmaz2018:Luciferase_siRNA_rep2,yilmaz2018,Luciferase_siRNA_rep2,hESC_H9_Rex1GFP_ctrl,nontransformed,"hESC, control siRNA (GEO: H9 Rex1-EGFP, diploid)",yilmaz2018_hpES10 (proxy: the haploid line itself was not profiled); yilmaz2020_germlayers (undifferentiated),,,"GEO says H9, not h-pES10"
+yilmaz2018:Control_siRNA_rep1,yilmaz2018,Control_siRNA_rep1,hESC_H9_Rex1GFP_ctrl,nontransformed,"hESC, control siRNA (GEO: H9 Rex1-EGFP, diploid)",yilmaz2018_hpES10 (proxy: the haploid line itself was not profiled); yilmaz2020_germlayers (undifferentiated),,,"GEO says H9, not h-pES10"
+yilmaz2018:Control_siRNA_rep2,yilmaz2018,Control_siRNA_rep2,hESC_H9_Rex1GFP_ctrl,nontransformed,"hESC, control siRNA (GEO: H9 Rex1-EGFP, diploid)",yilmaz2018_hpES10 (proxy: the haploid line itself was not profiled); yilmaz2020_germlayers (undifferentiated),,,"GEO says H9, not h-pES10"
+tian2019:neuron_D14_C1,tian2019_quantseq,GSM3543612,WTC11_neuron_D14,nontransformed,WTC11 iPSC-derived i3Neuron day 14,tian2019_iPSC_neuron_CRISPRi (neurons); tian2021_neuron_CRISPRi,,,Quant-seq 3' tags: not TPM-compatible
+tian2019:neuron_D14_C2,tian2019_quantseq,GSM3543613,WTC11_neuron_D14,nontransformed,WTC11 iPSC-derived i3Neuron day 14,tian2019_iPSC_neuron_CRISPRi (neurons); tian2021_neuron_CRISPRi,,,Quant-seq 3' tags: not TPM-compatible
+tian2019:neuron_D21_C1,tian2019_quantseq,GSM3543614,WTC11_neuron_D21,nontransformed,WTC11 iPSC-derived i3Neuron day 21,tian2019_iPSC_neuron_CRISPRi (neurons); tian2021_neuron_CRISPRi,,,Quant-seq 3' tags: not TPM-compatible
+tian2019:neuron_D21_C2,tian2019_quantseq,GSM3543615,WTC11_neuron_D21,nontransformed,WTC11 iPSC-derived i3Neuron day 21,tian2019_iPSC_neuron_CRISPRi (neurons); tian2021_neuron_CRISPRi,,,Quant-seq 3' tags: not TPM-compatible
+tian2019:neuron_D28_C1,tian2019_quantseq,GSM3543616,WTC11_neuron_D28,nontransformed,WTC11 iPSC-derived i3Neuron day 28,tian2019_iPSC_neuron_CRISPRi (neurons); tian2021_neuron_CRISPRi,,,Quant-seq 3' tags: not TPM-compatible
+tian2019:neuron_D28_C2,tian2019_quantseq,GSM3543617,WTC11_neuron_D28,nontransformed,WTC11 iPSC-derived i3Neuron day 28,tian2019_iPSC_neuron_CRISPRi (neurons); tian2021_neuron_CRISPRi,,,Quant-seq 3' tags: not TPM-compatible
+drager2022:iTF-iPSCs-Day0_01,drager2022,iTF-iPSCs-Day0_01,iTF_iPSC_D0,nontransformed,WTC11 iTF-iPSC day 0,"tian2019_iPSC_neuron_CRISPRi (iPSC, proxy); drager2022 (pre-differentiation)",,,
+drager2022:iTF-iPSCs-Day0_02,drager2022,iTF-iPSCs-Day0_02,iTF_iPSC_D0,nontransformed,WTC11 iTF-iPSC day 0,"tian2019_iPSC_neuron_CRISPRi (iPSC, proxy); drager2022 (pre-differentiation)",,,
+drager2022:iTF-iPSCs-Day0_03,drager2022,iTF-iPSCs-Day0_03,iTF_iPSC_D0,nontransformed,WTC11 iTF-iPSC day 0,"tian2019_iPSC_neuron_CRISPRi (iPSC, proxy); drager2022 (pre-differentiation)",,,
+drager2022:iTF-Microglia_Day9_01,drager2022,iTF-Microglia_Day9_01,iTF_microglia_D9,nontransformed,WTC11 iTF-microglia D9,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day9_02,drager2022,iTF-Microglia_Day9_02,iTF_microglia_D9,nontransformed,WTC11 iTF-microglia D9,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day9_03,drager2022,iTF-Microglia_Day9_03,iTF_microglia_D9,nontransformed,WTC11 iTF-microglia D9,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day14_PBS_01,drager2022,iTF-Microglia_Day14_PBS_01,iTF_microglia_D14_PBS,nontransformed,WTC11 iTF-microglia D14_PBS,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day14_PBS_02,drager2022,iTF-Microglia_Day14_PBS_02,iTF_microglia_D14_PBS,nontransformed,WTC11 iTF-microglia D14_PBS,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day14_PBS_03,drager2022,iTF-Microglia_Day14_PBS_03,iTF_microglia_D14_PBS,nontransformed,WTC11 iTF-microglia D14_PBS,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day14_PBS_04,drager2022,iTF-Microglia_Day14_PBS_04,iTF_microglia_D14_PBS,nontransformed,WTC11 iTF-microglia D14_PBS,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day15_01,drager2022,iTF-Microglia_Day15_01,iTF_microglia_D15,nontransformed,WTC11 iTF-microglia D15,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day15_02,drager2022,iTF-Microglia_Day15_02,iTF_microglia_D15,nontransformed,WTC11 iTF-microglia D15,drager2022_microglia_CRISPRi,,,
+drager2022:iTF-Microglia_Day15_03,drager2022,iTF-Microglia_Day15_03,iTF_microglia_D15,nontransformed,WTC11 iTF-microglia D15,drager2022_microglia_CRISPRi,,,
+carnevale2022:Donor1_TCR_Input,carnevale2022,FB1A_S76_L004_R1_001,Tcell_TCR_input,nontransformed,"primary human T cells (TCR-engineered, input before repeated stimulation)",carnevale2022 (ORCS 1905); shifrut2018_CD8T_GW; ting2018_CD4T,,,pre-filtered gene table (restricted universe)
+carnevale2022:Donor2_TCR_Input,carnevale2022,FB1B_S77_L004_R1_001,Tcell_TCR_input,nontransformed,"primary human T cells (TCR-engineered, input before repeated stimulation)",carnevale2022 (ORCS 1905); shifrut2018_CD8T_GW; ting2018_CD4T,,,pre-filtered gene table (restricted universe)
+carnevale2022:Donor4_TCR_Input,carnevale2022,FB1C_S78_L004_R1_001,Tcell_TCR_input,nontransformed,"primary human T cells (TCR-engineered, input before repeated stimulation)",carnevale2022 (ORCS 1905); shifrut2018_CD8T_GW; ting2018_CD4T,,,pre-filtered gene table (restricted universe)
+carnevale2022:Donor1_CTRL_Stim1,carnevale2022,FB_5G_S197_L003_R1_001,Tcell_CTRL_stim1,nontransformed,"primary human T cells, control-edited, after 1st antigen stimulation",carnevale2022 (ORCS 1905); shifrut2018_CD8T_GW; ting2018_CD4T,,,pre-filtered gene table (restricted universe)
+carnevale2022:Donor2_CTRL_Stim1,carnevale2022,FB_6A_S199_L003_R1_001,Tcell_CTRL_stim1,nontransformed,"primary human T cells, control-edited, after 1st antigen stimulation",carnevale2022 (ORCS 1905); shifrut2018_CD8T_GW; ting2018_CD4T,,,pre-filtered gene table (restricted universe)
+carnevale2022:Donor3_CTRL_Stim1,carnevale2022,FB_6C_S201_L003_R1_001,Tcell_CTRL_stim1,nontransformed,"primary human T cells, control-edited, after 1st antigen stimulation",carnevale2022 (ORCS 1905); shifrut2018_CD8T_GW; ting2018_CD4T,,,pre-filtered gene table (restricted universe)
+carnevale2022:Donor4_CTRL_Stim1,carnevale2022,FB_6E_S203_L003_R1_001,Tcell_CTRL_stim1,nontransformed,"primary human T cells, control-edited, after 1st antigen stimulation",carnevale2022 (ORCS 1905); shifrut2018_CD8T_GW; ting2018_CD4T,,,pre-filtered gene table (restricted universe)
+calderon2019:1001-CD8pos_T-U,calderon2019,1001-CD8pos_T-U,Calderon_CD8pos_T_U,nontransformed,"primary human CD8+ T, unstimulated",shifrut2018_CD8T_GW (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1001-CD8pos_T-S,calderon2019,1001-CD8pos_T-S,Calderon_CD8pos_T_S,nontransformed,"primary human CD8+ T, stimulated",shifrut2018_CD8T_GW,,,"20,206-gene table (restricted universe)"
+calderon2019:1001-Effector_CD4pos_T-U,calderon2019,1001-Effector_CD4pos_T-U,Calderon_Effector_CD4pos_T_U,nontransformed,"primary human effector CD4+ T, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1001-Effector_CD4pos_T-S,calderon2019,1001-Effector_CD4pos_T-S,Calderon_Effector_CD4pos_T_S,nontransformed,"primary human effector CD4+ T, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1001-Naive_Teffs-U,calderon2019,1001-Naive_Teffs-U,Calderon_Naive_Teffs_U,nontransformed,"primary human naive CD4+ Teff, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1001-Naive_Teffs-S,calderon2019,1001-Naive_Teffs-S,Calderon_Naive_Teffs_S,nontransformed,"primary human naive CD4+ Teff, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1002-CD8pos_T-U,calderon2019,1002-CD8pos_T-U,Calderon_CD8pos_T_U,nontransformed,"primary human CD8+ T, unstimulated",shifrut2018_CD8T_GW (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1002-CD8pos_T-S,calderon2019,1002-CD8pos_T-S,Calderon_CD8pos_T_S,nontransformed,"primary human CD8+ T, stimulated",shifrut2018_CD8T_GW,,,"20,206-gene table (restricted universe)"
+calderon2019:1002-Effector_CD4pos_T-S,calderon2019,1002-Effector_CD4pos_T-S,Calderon_Effector_CD4pos_T_S,nontransformed,"primary human effector CD4+ T, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1002-Naive_Teffs-U,calderon2019,1002-Naive_Teffs-U,Calderon_Naive_Teffs_U,nontransformed,"primary human naive CD4+ Teff, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1002-Naive_Teffs-S,calderon2019,1002-Naive_Teffs-S,Calderon_Naive_Teffs_S,nontransformed,"primary human naive CD4+ Teff, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1003-CD8pos_T-U,calderon2019,1003-CD8pos_T-U,Calderon_CD8pos_T_U,nontransformed,"primary human CD8+ T, unstimulated",shifrut2018_CD8T_GW (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1003-CD8pos_T-S,calderon2019,1003-CD8pos_T-S,Calderon_CD8pos_T_S,nontransformed,"primary human CD8+ T, stimulated",shifrut2018_CD8T_GW,,,"20,206-gene table (restricted universe)"
+calderon2019:1003-Effector_CD4pos_T-U,calderon2019,1003-Effector_CD4pos_T-U,Calderon_Effector_CD4pos_T_U,nontransformed,"primary human effector CD4+ T, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1003-Effector_CD4pos_T-S,calderon2019,1003-Effector_CD4pos_T-S,Calderon_Effector_CD4pos_T_S,nontransformed,"primary human effector CD4+ T, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1003-Naive_Teffs-U,calderon2019,1003-Naive_Teffs-U,Calderon_Naive_Teffs_U,nontransformed,"primary human naive CD4+ Teff, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1003-Naive_Teffs-S,calderon2019,1003-Naive_Teffs-S,Calderon_Naive_Teffs_S,nontransformed,"primary human naive CD4+ Teff, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1004-CD8pos_T-U,calderon2019,1004-CD8pos_T-U,Calderon_CD8pos_T_U,nontransformed,"primary human CD8+ T, unstimulated",shifrut2018_CD8T_GW (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1004-CD8pos_T-S,calderon2019,1004-CD8pos_T-S,Calderon_CD8pos_T_S,nontransformed,"primary human CD8+ T, stimulated",shifrut2018_CD8T_GW,,,"20,206-gene table (restricted universe)"
+calderon2019:1004-Effector_CD4pos_T-U,calderon2019,1004-Effector_CD4pos_T-U,Calderon_Effector_CD4pos_T_U,nontransformed,"primary human effector CD4+ T, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1004-Effector_CD4pos_T-S,calderon2019,1004-Effector_CD4pos_T-S,Calderon_Effector_CD4pos_T_S,nontransformed,"primary human effector CD4+ T, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1004-Naive_Teffs-U,calderon2019,1004-Naive_Teffs-U,Calderon_Naive_Teffs_U,nontransformed,"primary human naive CD4+ Teff, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1004-Naive_Teffs-S,calderon2019,1004-Naive_Teffs-S,Calderon_Naive_Teffs_S,nontransformed,"primary human naive CD4+ Teff, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1009-Naive_Teffs-S,calderon2019,1009-Naive_Teffs-S,Calderon_Naive_Teffs_S,nontransformed,"primary human naive CD4+ Teff, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+calderon2019:1010-Effector_CD4pos_T-U,calderon2019,1010-Effector_CD4pos_T-U,Calderon_Effector_CD4pos_T_U,nontransformed,"primary human effector CD4+ T, unstimulated",ting2018_CD4T (resting reference),,,"20,206-gene table (restricted universe)"
+calderon2019:1011-Naive_Teffs-S,calderon2019,1011-Naive_Teffs-S,Calderon_Naive_Teffs_S,nontransformed,"primary human naive CD4+ Teff, stimulated",ting2018_CD4T,,,"20,206-gene table (restricted universe)"
+corces2016:5852-HSC,corces2016,5852-HSC,Corces_HSC,nontransformed,primary human bone-marrow HSC (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:5852-MPP,corces2016,5852-MPP,Corces_MPP,nontransformed,primary human bone-marrow MPP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:5852-CMP,corces2016,5852-CMP,Corces_CMP,nontransformed,primary human bone-marrow CMP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:6792-HSC,corces2016,6792-HSC,Corces_HSC,nontransformed,primary human bone-marrow HSC (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:6792-MPP,corces2016,6792-MPP,Corces_MPP,nontransformed,primary human bone-marrow MPP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:6792-CMP,corces2016,6792-CMP,Corces_CMP,nontransformed,primary human bone-marrow CMP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7256-HSC,corces2016,7256-HSC,Corces_HSC,nontransformed,primary human bone-marrow HSC (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7256-MPP,corces2016,7256-MPP,Corces_MPP,nontransformed,primary human bone-marrow MPP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7256-LMPP,corces2016,7256-LMPP,Corces_LMPP,nontransformed,primary human bone-marrow LMPP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7256-CMP,corces2016,7256-CMP,Corces_CMP,nontransformed,primary human bone-marrow CMP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7653-HSC,corces2016,7653-HSC,Corces_HSC,nontransformed,primary human bone-marrow HSC (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7653-MPP,corces2016,7653-MPP,Corces_MPP,nontransformed,primary human bone-marrow MPP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7653-LMPP,corces2016,7653-LMPP,Corces_LMPP,nontransformed,primary human bone-marrow LMPP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:7653-CMP,corces2016,7653-CMP,Corces_CMP,nontransformed,primary human bone-marrow CMP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+corces2016:5483-LMPP,corces2016,5483-LMPP,Corces_LMPP,nontransformed,primary human bone-marrow LMPP (sorted),"ting2018_CD34_HSPC (sort-based, not fitness)",,,
+sack2018:HMEC_EV-1,sack2018,EV-1,HMEC_EV,nontransformed,"HMEC, empty-vector control",ORCS 613/614 (Sack 2018); ORCS 2248-2271 (Tuano 2023),,,
+sack2018:HMEC_EV-2,sack2018,EV-2,HMEC_EV,nontransformed,"HMEC, empty-vector control",ORCS 613/614 (Sack 2018); ORCS 2248-2271 (Tuano 2023),,,
+encode:HMEC:r1,encode_geo,GSM2072420_ENCFF380GBC,ENCODE_HMEC,nontransformed,"primary mammary epithelial cells (ENCODE, ENCSR000COX)",ORCS 613/614 (Sack 2018); ORCS 2248-2271 (Tuano 2023),,,
+depmap:RPE1-ss48,depmap_native,ACH-002462,DepMap_RPE1,nontransformed,hTERT-RPE1 subline RPE1-ss48 (DepMap native expression),olivieri2020; brown2019; hart2015 RPE1; haapaniemi2018; bowden2020,ACH-002462,,DepMap pipeline: no harmonisation needed; AD distance only
+depmap:RPE1-ss77,depmap_native,ACH-002463,DepMap_RPE1,nontransformed,hTERT-RPE1 subline RPE1-ss77 (DepMap native expression),olivieri2020; brown2019; hart2015 RPE1; haapaniemi2018; bowden2020,ACH-002463,,DepMap pipeline: no harmonisation needed; AD distance only
+depmap:RPE1-ss6,depmap_native,ACH-002464,DepMap_RPE1,nontransformed,hTERT-RPE1 subline RPE1-ss6 (DepMap native expression),olivieri2020; brown2019; hart2015 RPE1; haapaniemi2018; bowden2020,ACH-002464,,DepMap pipeline: no harmonisation needed; AD distance only
+depmap:RPE1-ss119,depmap_native,ACH-002465,DepMap_RPE1,nontransformed,hTERT-RPE1 subline RPE1-ss119 (DepMap native expression),olivieri2020; brown2019; hart2015 RPE1; haapaniemi2018; bowden2020,ACH-002465,,DepMap pipeline: no harmonisation needed; AD distance only
+depmap:RPE1-ss111,depmap_native,ACH-002466,DepMap_RPE1,nontransformed,hTERT-RPE1 subline RPE1-ss111 (DepMap native expression),olivieri2020; brown2019; hart2015 RPE1; haapaniemi2018; bowden2020,ACH-002466,,DepMap pipeline: no harmonisation needed; AD distance only
+depmap:RPE1-ss51,depmap_native,ACH-002467,DepMap_RPE1,nontransformed,hTERT-RPE1 subline RPE1-ss51 (DepMap native expression),olivieri2020; brown2019; hart2015 RPE1; haapaniemi2018; bowden2020,ACH-002467,,DepMap pipeline: no harmonisation needed; AD distance only

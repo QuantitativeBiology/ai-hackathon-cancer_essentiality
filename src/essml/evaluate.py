@@ -5,8 +5,10 @@
 B0 a spurious negative per-gene r (tested in tests/test_evaluate.py). With ``fold_of_line=None``
 the whole set is one fold (the test-set case).
 
-Metrics per gene class c (classes from the TRAINING data of each fold, intersected with the
-fixed evaluable gene list ``genes`` when given, and with genes having >= min_obs observed lines):
+Metrics per gene class c. For reporting, classes are ONE dev-wide table (configs/gene_classes.csv,
+identical for every model; DESIGN v3 §3); a dict of per-fold tables is also accepted. Classes are
+intersected with the fixed evaluable gene list ``genes`` (configs/eval_genes.csv) when given, and
+with genes having >= min_obs observed held-out lines in the fold:
 - P1          mean per-gene Pearson r across held-out lines   (+ median, n genes r > 0.3,
               mean Spearman)
 - P2a         per-line AUPRC across the class genes (label true < thr, score -pred), mean over

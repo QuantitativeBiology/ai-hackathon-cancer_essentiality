@@ -161,6 +161,330 @@
   "source": "Nat Neurosci supplement (Springer); also contains iTF-iPSC/iTF-microglia RNA-seq",
   "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-022-01131-4/MediaObjects/41593_2022_1131_MOESM4_ESM.xlsx"
  },
+ "encode_geo_polyA_rnaseq/GSE78586_family.soft.gz": {
+  "bytes": 2344,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE78586_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "54ea5b59f98f743a3760fdab5761cdb752b0f9c8797b76eb1fdec5f4560db487",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE78nnn/GSE78586/soft/GSE78586_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE86657_family.soft.gz": {
+  "bytes": 2725,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE86657_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "c73dfe5d37c5bfb11a41450832ca9c2cfed9cab810d5f9561af1c4ab465373d7",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE86nnn/GSE86657/soft/GSE86657_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE86660_family.soft.gz": {
+  "bytes": 2816,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE86660_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "6fcef7adf55a1973b60d37bb95d2be3536f742badfd81f1ebd3f71f2f821abb7",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE86nnn/GSE86660/soft/GSE86660_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE90225_family.soft.gz": {
+  "bytes": 2677,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE90225_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "08c21708c8ef5ef0a5d4d25c62bf3a231a2869a2b3d219598aea2b8d21ef3eda",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE90nnn/GSE90225/soft/GSE90225_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE90230_family.soft.gz": {
+  "bytes": 2749,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE90230_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "c9811d1b9bddcf78c9a904a715dbdff5b6651373df673cb770fc63a2b222bc40",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE90nnn/GSE90230/soft/GSE90230_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE90237_family.soft.gz": {
+  "bytes": 2755,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE90237_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "1d86195261be7de34fe809e8260bfca2e00a2ca140d799f4bbedc16e02e141b8",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE90nnn/GSE90237/soft/GSE90237_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE93435_family.soft.gz": {
+  "bytes": 2528,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE93435_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "0c216912b1fc751ad168a9420b94bf0c055af2cd8d7b6d1cfff5ec331e652642",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE93nnn/GSE93435/soft/GSE93435_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE93438_family.soft.gz": {
+  "bytes": 2521,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE93438_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "2b94b468144ad6f53bd396a472f0373d101106ac93dbbd02ada7f1022742d0e5",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE93nnn/GSE93438/soft/GSE93438_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE93442_family.soft.gz": {
+  "bytes": 2423,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE93442_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "6e3ff015bd30c336add1d1a15390aefa96b3367caf070c232ddc606d72414a5a",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE93nnn/GSE93442/soft/GSE93442_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE93448_family.soft.gz": {
+  "bytes": 2479,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE93448_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "6866a4176079ae948c4c6c6d5d8611c8a63cafe25d6c9da365a88061c5ec1d9f",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE93nnn/GSE93448/soft/GSE93448_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE93449_family.soft.gz": {
+  "bytes": 2382,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE93449_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "754cc36599c3cac3a45c303da30535861d236536b1bca384956ccc7e9c6c37ad",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE93nnn/GSE93449/soft/GSE93449_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSE93450_family.soft.gz": {
+  "bytes": 2465,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSE93450_family.soft.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "7f9408652353acca41ae60b09b7320f8d124b2d23dd35bb42e9ef1ebfd220de0",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE93nnn/GSE93450/soft/GSE93450_family.soft.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2072420_ENCFF380GBC_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2796720,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2072420_ENCFF380GBC_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "64b8a2ee3b52a621ddf66e2f3d3008bad0f5203ab0bd2fee95e9a181002d4ba0",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2072nnn/GSM2072420/suppl/GSM2072420_ENCFF380GBC_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2308412_ENCFF369ZNM_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2812366,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2308412_ENCFF369ZNM_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "20ecf02bce4307b2272d9eed1a0d8aa2ac5b75f46de9ce125345a38a9088f7c6",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2308nnn/GSM2308412/suppl/GSM2308412_ENCFF369ZNM_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2308413_ENCFF627QMV_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2822480,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2308413_ENCFF627QMV_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "65bcb51b866d91c98f124aa75b28373a07cafa2039cb24ecf3f04331c3cdedf2",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2308nnn/GSM2308413/suppl/GSM2308413_ENCFF627QMV_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2308418_ENCFF768TKT_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2798025,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2308418_ENCFF768TKT_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "e52cfd3e2a6fcfa41c7375d1e4c023b90770df56c98ca58eac1ffd6137a6a119",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2308nnn/GSM2308418/suppl/GSM2308418_ENCFF768TKT_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2308419_ENCFF172GIN_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2794948,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2308419_ENCFF172GIN_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "733082dcd05ffa9ae9c0194c3948ae78880d595c4f17f428fb6e780d1bc3d02f",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2308nnn/GSM2308419/suppl/GSM2308419_ENCFF172GIN_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2400152_ENCFF653XHG_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2832281,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2400152_ENCFF653XHG_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "f02c5ea543188149e8528f8b9cb2f46ab8752a4570926117893db26a2dd6e975",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2400nnn/GSM2400152/suppl/GSM2400152_ENCFF653XHG_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2400153_ENCFF915AUQ_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2817685,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2400153_ENCFF915AUQ_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "bfc6f0730dd5b47edf39b8b9f06b051294c83519b18055277647d3ff74d9c1c0",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2400nnn/GSM2400153/suppl/GSM2400153_ENCFF915AUQ_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2400160_ENCFF226LQB_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2758861,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2400160_ENCFF226LQB_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "c5b9ca510fc77027e30053e3d33f556abb46c81db76fa108b54ff3ecd06238b2",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2400nnn/GSM2400160/suppl/GSM2400160_ENCFF226LQB_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2400161_ENCFF458OHS_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2746749,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2400161_ENCFF458OHS_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "1947ff5003e1d5db2f38a4a456f8522c6bc9c91cead088c59462559b2fca8e2b",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2400nnn/GSM2400161/suppl/GSM2400161_ENCFF458OHS_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2400174_ENCFF009GDJ_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2799537,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2400174_ENCFF009GDJ_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "903c1a10312b5be469a1e95b1acc9d43f68b81de7658ac27fc0e0b53cdf92932",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2400nnn/GSM2400174/suppl/GSM2400174_ENCFF009GDJ_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2400175_ENCFF885LEQ_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 2786066,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2400175_ENCFF885LEQ_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "0a4b757f75a22b020492de03a1527f00fb815212af8aa198c8261fbd396f6cfe",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2400nnn/GSM2400175/suppl/GSM2400175_ENCFF885LEQ_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453329_ENCFF558JTV_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3062263,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453329_ENCFF558JTV_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "352520f7f8b7b35e2342442a015ebead98402acb0f355e2d71e54e64f6cd84fb",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453329/suppl/GSM2453329_ENCFF558JTV_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453330_ENCFF489SJY_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3033421,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453330_ENCFF489SJY_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "bf30cb6ae0a00fce693f4c252d039b035079b91d35664807d5eae6f86efc7ab5",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453330/suppl/GSM2453330_ENCFF489SJY_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453335_ENCFF394VCU_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3079341,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453335_ENCFF394VCU_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "3134366cfd7fe0b03ca2710459ceb10d4cbd24bb3b362ae2336a2924e16d9899",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453335/suppl/GSM2453335_ENCFF394VCU_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453336_ENCFF681NAQ_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3094925,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453336_ENCFF681NAQ_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "72529254312a104b679f40942fe2fd416efe821197a049777a7fa58ec58be29c",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453336/suppl/GSM2453336_ENCFF681NAQ_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453343_ENCFF601IKR_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3129011,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453343_ENCFF601IKR_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "9385709e7b91786cad40e67a1669cf595418433ebc57428d8101566ac5afaf18",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453343/suppl/GSM2453343_ENCFF601IKR_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453344_ENCFF172ATN_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3115939,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453344_ENCFF172ATN_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "1a3ba5ada8ccc5b838b3dfb102ba0f8038d251bf57fe0e0e0fc22447b4b6e170",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453344/suppl/GSM2453344_ENCFF172ATN_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453355_ENCFF238HUZ_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3078482,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453355_ENCFF238HUZ_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "6e9179477cfafe4ac9e4700fef3bd1c2531458e7084ba9a9b01593da84203fa1",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453355/suppl/GSM2453355_ENCFF238HUZ_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453356_ENCFF396XRF_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3078075,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453356_ENCFF396XRF_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "f360d7c3eaf413a9acb9f2c180b00d4fbf4fc90f021615b85b90db8b75ff9b41",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453356/suppl/GSM2453356_ENCFF396XRF_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453357_ENCFF067ZMG_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3087324,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453357_ENCFF067ZMG_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "55ac915043841939f28beb5cde92539fa089b9be440e06302604f1cbd2b02be5",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453357/suppl/GSM2453357_ENCFF067ZMG_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453358_ENCFF390KQP_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3091787,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453358_ENCFF390KQP_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "1d49ea433cbeb675264cad3e5a457479180a93cd578acfe8419b51d83ee3f0bb",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453358/suppl/GSM2453358_ENCFF390KQP_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453359_ENCFF248YCR_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3072953,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453359_ENCFF248YCR_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "8bc3764e76dffee4294793ad657a7684a1d9bc8dfa8436d8a8cf646592a30a51",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453359/suppl/GSM2453359_ENCFF248YCR_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "encode_geo_polyA_rnaseq/GSM2453360_ENCFF890DEQ_gene_quantifications_GRCh38.tsv.gz": {
+  "bytes": 3074229,
+  "file": "data/external_expr/encode_geo_polyA_rnaseq/GSM2453360_ENCFF890DEQ_gene_quantifications_GRCh38.tsv.gz",
+  "licence": "ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "9a1dbeb0612cd3f2fbffabb3b1436ff6e759970029ed0167701d855ff7e496a4",
+  "source": "ENCODE polyA mRNA RNA-seq gene quantifications (ENCODE uniform pipeline: STAR + RSEM on GENCODE v24, GRCh38; columns expected_count/TPM/FPKM/effective_length) as deposited in GEO by the ENCODE DCC (series titled 'polyA mRNA RNA-seq from <biosample> (ENCSR...)'); used because encodeproject.org timed out again on 2026-10-26. K562 GSE86660 (ENCSR000CPH), A549 GSE86657 (ENCSR000CON), SK-N-SH GSE93449 (ENCSR000BYL, untreated), T47D GSE93442 (ENCSR000BYE, DMSO 4 h vehicle), PANC-1 GSE93450 (ENCSR000BYM), Jurkat E6-1 GSE93435 (ENCSR000BXX), BE2C GSE93448 (ENCSR000BYK), Ishikawa GSE93438 (ENCSR000BYA, DMSO 4 h vehicle), HepG2 GSE90230 (ENCSR000CPF), MCF-7 GSE90237 (ENCSR000CPT), H1-hESC GSE90225 (ENCSR000COU), mammary epithelial cell GSE78586 (ENCSR000COX)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2453nnn/GSM2453360/suppl/GSM2453360_ENCFF890DEQ_gene_quantifications_GRCh38.tsv.gz"
+ },
+ "ensembl116_gtf/Homo_sapiens.GRCh38.116.gtf.gz": {
+  "bytes": 141121632,
+  "file": "data/raw_external/ensembl116_gtf/Homo_sapiens.GRCh38.116.gtf.gz",
+  "licence": "Ensembl: no restrictions (open data)",
+  "retrieved": "2026-10-26",
+  "sha256": "ed992f0eac7197d9627bda618f8f831ba355c95bd5d0796af785387d462828b6",
+  "source": "Ensembl release 116 GRCh38 GTF; used only for gene exon-union lengths, gene_id/gene_name/gene_biotype (essml.expr_harmonise)",
+  "url": "https://ftp.ensembl.org/pub/release-116/gtf/homo_sapiens/Homo_sapiens.GRCh38.116.gtf.gz"
+ },
  "hart2015_tkov1/1-s2.0-S0092867415014956-mmc2.xlsx": {
   "bytes": 12672296,
   "file": "data/external_screens/hart2015_tkov1/1-s2.0-S0092867415014956-mmc2.xlsx",

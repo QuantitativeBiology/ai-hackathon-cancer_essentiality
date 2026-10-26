@@ -1,6 +1,6 @@
 """Define the locked cancer test split and the development CV folds.
 
-Population: screened models (CRISPRGeneEffect rows) that have default-entry expression and are not
+Population: screened models (rows of the CRISPR gene-effect matrix) that have default-entry expression and are not
 'Non-Cancerous' (those form the separate non-transformed evaluation set). Splitting is grouped by
 PatientID (models from one patient never straddle train/test) and stratified by OncotreeLineage.
 Output: configs/splits.csv with ModelID, PatientID, OncotreeLineage, role (test/dev/noncancerous), cv_fold.
@@ -15,6 +15,7 @@ from sklearn.model_selection import StratifiedGroupKFold
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from essml.io import load_matrix  # noqa: E402
+from essml.guard import screened_model_ids  # noqa: E402
 
 
 def main():
@@ -28,7 +29,7 @@ def main():
     seed = json.load(open(a.seeds))["split_seed"]
 
     model = pd.read_csv(a.model_csv).set_index("ModelID")
-    screened = load_matrix("crispr", unguarded=True).index  # pre-split: index only
+    screened = screened_model_ids()  # CRISPR row index only (no values)
     expr = load_matrix("expression").index
     ids = screened.intersection(expr)
     m = model.loc[ids, ["PatientID", "OncotreeLineage", "OncotreePrimaryDisease"]].copy()

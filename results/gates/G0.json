@@ -1,0 +1,28 @@
+{
+ "gate": "G0",
+ "pass": true,
+ "checks": [
+  {
+   "check": "pytest -q tests",
+   "result": "48 passed in 37.60s",
+   "pass": true
+  },
+  {
+   "check": "frozen hashes present",
+   "files": {
+    "src/essml/metrics.py": "2b51e36fba824f96effadb23fb7cbf37b0894bfbb86a951d971b1cf64cad1d37",
+    "src/essml/evaluate.py": "83502d610a53c3a788332bc6db415b0b737156e393fd62118fb061c90759948a",
+    "src/essml/genesets.py": "7910223b69bdaabba6047f14983e63b6f14ee718b05a1f0744bb63131bf1bde5",
+    "src/essml/guard.py": "2c1699ee389e3e88eae6040d6f8f8e01924f44d764b214e487e5522e302794a0"
+   },
+   "pass": true
+  },
+  {
+   "check": "configs/eval_genes.csv and configs/gene_classes.csv exist",
+   "pass": true
+  }
+ ],
+ "commit": "1502f686f713df253b99feab3a56f97cb0267df5",
+ "dirty_tree": 1,
+ "timestamp": "2026-10-26T15:00:03"
+}

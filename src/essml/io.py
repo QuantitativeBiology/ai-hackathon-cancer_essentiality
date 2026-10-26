@@ -156,8 +156,8 @@ def load_matrix(name: str, cache_dir=CACHE_DIR, unguarded: bool = False) -> pd.D
     default-entry fusion table. Builds the cache on first use.
 
     CRISPR targets are guarded: use ``essml.guard.load_targets(ids)``. ``unguarded=True`` is
-    reserved for the pre-split data audit and split construction (scripts/audit_data.py,
-    scripts/make_splits.py), which ran before the test split existed.
+    reserved for the legacy pre-split data audit (scripts/audit_data.py), which ran before the
+    test split existed. Split construction uses ``guard.screened_model_ids()`` (index only).
     """
     if name == "crispr" and not unguarded:
         raise PermissionError("CRISPR targets must be loaded via essml.guard.load_targets(ids)")
