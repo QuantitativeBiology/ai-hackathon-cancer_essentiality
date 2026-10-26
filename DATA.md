@@ -44,3 +44,6 @@ retrieval date in `configs/external_manifest.json`. Files under `data/raw_extern
 
 ## Licence notes
 (filled from the data-resources survey)
+
+## External CRISPR screens (non-transformed test set + anchors) and matched expression
+Downloaded by `scripts/fetch_external_screens.py` from `configs/external_screens.json` into `data/external_screens/` and `data/external_expr/` (git-ignored). sha256/bytes/URL per file: `configs/external_screens_manifest.json` (82 files, retrieved 2026-10-26). Sources: GEO, Mendeley (CC BY 4.0), Europe PMC OA bundles (CC BY 4.0), Elsevier/Springer supplementary files (publisher terms; do not redistribute), BioGRID ORCS 2.0.18 (MIT; test-set use only, never model input). Per-screen source, data level, licence and failures: `docs/external_screens_inventory.md`.

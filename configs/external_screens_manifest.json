@@ -1,0 +1,740 @@
+{
+ "biogrid_orcs/BIOGRID-ORCS-ALL-homo_sapiens-2.0.18.screens.tar.gz": {
+  "bytes": 752653348,
+  "file": "data/external_screens/biogrid_orcs/BIOGRID-ORCS-ALL-homo_sapiens-2.0.18.screens.tar.gz",
+  "licence": "MIT (BioGRID)",
+  "retrieved": "2026-10-26",
+  "sha256": "39222a9650eed083edf193debe45eedc4aabc779ca04ea70107b6bd1efd9b8d7",
+  "source": "BioGRID ORCS 2.0.18 (DigitalOcean bucket behind downloads.thebiogrid.org; LATEST alias drops mid-transfer and refuses range requests)",
+  "url": "https://biogrid-downloads.nyc3.digitaloceanspaces.com/BioGRID-ORCS/Release-Archive/BIOGRID-ORCS-2.0.18/BIOGRID-ORCS-ALL-homo_sapiens-2.0.18.screens.tar.gz"
+ },
+ "bowden2020_rpe1_ddr/EuropePMC_PMC7244323_supplementaryFiles.zip": {
+  "bytes": 1984950,
+  "file": "data/external_screens/bowden2020_rpe1_ddr/EuropePMC_PMC7244323_supplementaryFiles.zip",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "a9cbc2714b4eb2b528c1373170ad75e4344e0f0185ee7139b2ac96ea3d12624d",
+  "source": "eLife supplement (Europe PMC OA bundle PMC7244323); same data on Dryad 10.5061/dryad.2fqz612kr",
+  "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7244323/supplementaryFiles"
+ },
+ "brown2019_rpe1_gse128210/EuropePMC_PMC6686785_supplementaryFiles.zip": {
+  "bytes": 8273800,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/EuropePMC_PMC6686785_supplementaryFiles.zip",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "01fad33b3abe5b79d40708766c60af3844163c73c082d958be4975a0884702dc",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6686785/supplementaryFiles"
+ },
+ "brown2019_rpe1_gse128210/GSE128210_Durocher_RPE1_WT_TKOv3_readcounts.txt.gz": {
+  "bytes": 2590405,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/GSE128210_Durocher_RPE1_WT_TKOv3_readcounts.txt.gz",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "84736b85bf6a9bbeec50dff93f017434821c8dfed6b5b98246db091a126181f1",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_Durocher_RPE1_WT_TKOv3_readcounts.txt.gz"
+ },
+ "brown2019_rpe1_gse128210/GSE128210_PACE002_RPE1-hTERT_WT-TKOv3_readcounts.txt.gz": {
+  "bytes": 2135733,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/GSE128210_PACE002_RPE1-hTERT_WT-TKOv3_readcounts.txt.gz",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "9bde1b549588084ac1802c60549de36127a50b1cf198865004fd55f2efc76e07",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_PACE002_RPE1-hTERT_WT-TKOv3_readcounts.txt.gz"
+ },
+ "brown2019_rpe1_gse128210/GSE128210_PACE006_RPE1_WT-TKOv3_readcounts.txt.gz": {
+  "bytes": 1700524,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/GSE128210_PACE006_RPE1_WT-TKOv3_readcounts.txt.gz",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "26f636d19c2061a0b043bc99b040080a4f6e5a768f4f7ff82ab898ebdd706b6c",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_PACE006_RPE1_WT-TKOv3_readcounts.txt.gz"
+ },
+ "brown2019_rpe1_gse128210/GSE128210_RPE1_hTERT_deltaP53_TKOv2_readcounts.txt.gz": {
+  "bytes": 2491938,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/GSE128210_RPE1_hTERT_deltaP53_TKOv2_readcounts.txt.gz",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "4a2025af63e5dd39d66eb35880e0548ea3d8ca78af6d1791386d625f88c032ff",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_RPE1_hTERT_deltaP53_TKOv2_readcounts.txt.gz"
+ },
+ "brown2019_rpe1_gse128210/GSE128210_TKOv2-Human-Library.txt.gz": {
+  "bytes": 1679714,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/GSE128210_TKOv2-Human-Library.txt.gz",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "851d5ce2b1c9325c993200bc60be317825ee00064472765e78bf40e25d2a7363",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_TKOv2-Human-Library.txt.gz"
+ },
+ "brown2019_rpe1_gse128210/GSE128210_TKOv3-Human-Library.txt.gz": {
+  "bytes": 1688782,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/GSE128210_TKOv3-Human-Library.txt.gz",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "82508210178e056350624903f2adeec5add1e375e0e91fbf95e6903415137886",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_TKOv3-Human-Library.txt.gz"
+ },
+ "brown2019_rpe1_gse128210/GSE128210_family.soft.gz": {
+  "bytes": 4291,
+  "file": "data/external_screens/brown2019_rpe1_gse128210/GSE128210_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions; MSB article CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "58e332958589065d5107faf8ddb6b133d14af9afcc8854c4fb268c4123ae241c",
+  "source": "GEO GSE128210 + MSB supplement (Europe PMC OA bundle, PMC6686785)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/soft/GSE128210_family.soft.gz"
+ },
+ "calderon2019_immune_gse118165/GSE118165_RNA_gene_abundance.txt.gz": {
+  "bytes": 16058550,
+  "file": "data/external_expr/calderon2019_immune_gse118165/GSE118165_RNA_gene_abundance.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "c9604e7c67d620ceab4c9c778ae8dee7512aafb51b85e6418701e9b7e607d509",
+  "source": "GEO GSE118165 (Calderon 2019 Nat Genet; 25 sorted immune cell types +/- stimulation; gene abundance)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE118nnn/GSE118165/suppl/GSE118165_RNA_gene_abundance.txt.gz"
+ },
+ "carnevale2022_primary_t_gse204862/GSE204862_RASA2KO_Stim1_countmatrix_fix.tsv.gz": {
+  "bytes": 244330,
+  "file": "data/external_expr/carnevale2022_primary_t_gse204862/GSE204862_RASA2KO_Stim1_countmatrix_fix.tsv.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "0c586621117a8593afdd6d1395dca7bb8a991944572adc58a1ce9f9188aef601",
+  "source": "GEO GSE204862 (primary human T cells, RASA2-KO vs control edited, repeated stimulation; gene counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE204nnn/GSE204862/suppl/GSE204862_RASA2KO_Stim1_countmatrix_fix.tsv.gz"
+ },
+ "carnevale2022_primary_t_gse204862/GSE204862_RASA2KO_Stim5_countmatrix_fix.tsv.gz": {
+  "bytes": 140970,
+  "file": "data/external_expr/carnevale2022_primary_t_gse204862/GSE204862_RASA2KO_Stim5_countmatrix_fix.tsv.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "c5dd4d38e0e672a3fbaaf29601904835e0c6e0ace54990dbefb7e3779f588596",
+  "source": "GEO GSE204862 (primary human T cells, RASA2-KO vs control edited, repeated stimulation; gene counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE204nnn/GSE204862/suppl/GSE204862_RASA2KO_Stim5_countmatrix_fix.tsv.gz"
+ },
+ "carnevale2022_primary_t_gse204862/GSE204862_RepStim_CARnTCR_countmatrix.tsv.gz": {
+  "bytes": 993689,
+  "file": "data/external_expr/carnevale2022_primary_t_gse204862/GSE204862_RepStim_CARnTCR_countmatrix.tsv.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "a35b05266ffdc7edcf091ec7cb932d6404bf0c2c12573fc59d159f2d27f50736",
+  "source": "GEO GSE204862 (primary human T cells, RASA2-KO vs control edited, repeated stimulation; gene counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE204nnn/GSE204862/suppl/GSE204862_RepStim_CARnTCR_countmatrix.tsv.gz"
+ },
+ "carnevale2022_primary_t_gse204862/GSE204862_family.soft.gz": {
+  "bytes": 5733,
+  "file": "data/external_expr/carnevale2022_primary_t_gse204862/GSE204862_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "782ad11fbd82d4f39923d7ccbdbd84f5a71b11eabb529ba379021bc7ba0b69d3",
+  "source": "GEO GSE204862 (primary human T cells, RASA2-KO vs control edited, repeated stimulation; gene counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE204nnn/GSE204862/soft/GSE204862_family.soft.gz"
+ },
+ "corces2016_haem_gse74246/GSE74246_RNAseq_All_Counts.txt.gz": {
+  "bytes": 1943236,
+  "file": "data/external_expr/corces2016_haem_gse74246/GSE74246_RNAseq_All_Counts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "fb6bc33be14ec1a51b011ff72489b703e84c27a7004e3a0c8cf605401df1cbc6",
+  "source": "GEO GSE74246 (Corces 2016 Nat Genet; HSC/MPP/LMPP/CMP/GMP/MEP + mature cells; gene counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE74nnn/GSE74246/suppl/GSE74246_RNAseq_All_Counts.txt.gz"
+ },
+ "doench2016_avana_a375_ht29/41587_2016_BFnbt3437_MOESM8_ESM.zip": {
+  "bytes": 128255968,
+  "file": "data/external_screens/doench2016_avana_a375_ht29/41587_2016_BFnbt3437_MOESM8_ESM.zip",
+  "licence": "Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "50657eb70012fb9b408600621fc03b28c7bac1480060b1f1c4391b86ab4c1488",
+  "source": "Nat Biotechnol supplement (Springer); MOESM9 (code) deliberately not downloaded",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fnbt.3437/MediaObjects/41587_2016_BFnbt3437_MOESM8_ESM.zip"
+ },
+ "drager2022_ipsc_microglia_crispri/41593_2022_1131_MOESM4_ESM.xlsx": {
+  "bytes": 36650289,
+  "file": "data/external_screens/drager2022_ipsc_microglia_crispri/41593_2022_1131_MOESM4_ESM.xlsx",
+  "licence": "Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "fca8854678668f41e915d8bdbca65e4328a16a2e2706a645e5581d4a9d7c6fdc",
+  "source": "Nat Neurosci supplement (Springer); also contains iTF-iPSC/iTF-microglia RNA-seq",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-022-01131-4/MediaObjects/41593_2022_1131_MOESM4_ESM.xlsx"
+ },
+ "hart2015_tkov1/1-s2.0-S0092867415014956-mmc2.xlsx": {
+  "bytes": 12672296,
+  "file": "data/external_screens/hart2015_tkov1/1-s2.0-S0092867415014956-mmc2.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "cb8462441dce991744e95575025b4a200ad8dc5e4367a35e9ba989a7551624c5",
+  "source": "GEO GSE128210 (Hart 2015 RPE1 counts re-deposited by Brown 2019) + Cell supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867415014956-1-s2.0-S0092867415014956-mmc2.xlsx"
+ },
+ "hart2015_tkov1/1-s2.0-S0092867415014956-mmc3.xlsx": {
+  "bytes": 1488873,
+  "file": "data/external_screens/hart2015_tkov1/1-s2.0-S0092867415014956-mmc3.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "860fb20cce0088051dd30c87357e4b339737ea1b1328783eede0d2ad928e03cc",
+  "source": "GEO GSE128210 (Hart 2015 RPE1 counts re-deposited by Brown 2019) + Cell supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867415014956-1-s2.0-S0092867415014956-mmc3.xlsx"
+ },
+ "hart2015_tkov1/GSE128210_Hart_et_al_Cell2015_RPE1-TKOv1-readcounts.txt.gz": {
+  "bytes": 2429341,
+  "file": "data/external_screens/hart2015_tkov1/GSE128210_Hart_et_al_Cell2015_RPE1-TKOv1-readcounts.txt.gz",
+  "licence": "GEO: no NCBI restrictions; Cell supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "7f82cc621896a539a850d98a08106ba80efe7e8da17dfc6b5fd0e7c2bb1dae1c",
+  "source": "GEO GSE128210 (Hart 2015 RPE1 counts re-deposited by Brown 2019) + Cell supplement (Elsevier CDN)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_Hart_et_al_Cell2015_RPE1-TKOv1-readcounts.txt.gz"
+ },
+ "hart2015_tkov1/GSE128210_TKOv1-lib1-Human-Library.txt.gz": {
+  "bytes": 4997557,
+  "file": "data/external_screens/hart2015_tkov1/GSE128210_TKOv1-lib1-Human-Library.txt.gz",
+  "licence": "GEO: no NCBI restrictions; Cell supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "62099b4e9c281967d41e256ed6b6db5bc475175a13ed17175ded4449c37c48af",
+  "source": "GEO GSE128210 (Hart 2015 RPE1 counts re-deposited by Brown 2019) + Cell supplement (Elsevier CDN)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE128nnn/GSE128210/suppl/GSE128210_TKOv1-lib1-Human-Library.txt.gz"
+ },
+ "hart2017_g3_bf_panel/EuropePMC_PMC5555476_supplementaryFiles.zip": {
+  "bytes": 2397638,
+  "file": "data/external_screens/hart2017_g3_bf_panel/EuropePMC_PMC5555476_supplementaryFiles.zip",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "59f0313263fc543503eb3c9640d185c5022c6a9bc8e9257a8968d09191dd3330",
+  "source": "G3 supplement (Europe PMC OA bundle PMC5555476)",
+  "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5555476/supplementaryFiles"
+ },
+ "ihry2019_hpsc/1-s2.0-S2211124719303596-mmc2.xlsx": {
+  "bytes": 55280917,
+  "file": "data/external_screens/ihry2019_hpsc/1-s2.0-S2211124719303596-mmc2.xlsx",
+  "licence": "Elsevier user licence (Cell Rep)",
+  "retrieved": "2026-10-26",
+  "sha256": "41d11c1dce031364ad4579f0dec6cae16cca4662e7d23caab7276705c2e67392",
+  "source": "Cell Rep supplement (Elsevier CDN); no GEO/ORCS deposit found",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719303596-1-s2.0-S2211124719303596-mmc2.xlsx"
+ },
+ "ihry2019_hpsc/1-s2.0-S2211124719303596-mmc3.xlsx": {
+  "bytes": 3903108,
+  "file": "data/external_screens/ihry2019_hpsc/1-s2.0-S2211124719303596-mmc3.xlsx",
+  "licence": "Elsevier user licence (Cell Rep)",
+  "retrieved": "2026-10-26",
+  "sha256": "5ca21257ab21e935bd9f2a096b8732cc3818942b035c38cb689337d28cf53c6c",
+  "source": "Cell Rep supplement (Elsevier CDN); no GEO/ORCS deposit found",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719303596-1-s2.0-S2211124719303596-mmc3.xlsx"
+ },
+ "ihry2019_hpsc/1-s2.0-S2211124719303596-mmc4.xlsx": {
+  "bytes": 559935,
+  "file": "data/external_screens/ihry2019_hpsc/1-s2.0-S2211124719303596-mmc4.xlsx",
+  "licence": "Elsevier user licence (Cell Rep)",
+  "retrieved": "2026-10-26",
+  "sha256": "5219a57c9df26d546fb2c1370f93fdeef3e3d24b571d8cae0eee1632264b6a36",
+  "source": "Cell Rep supplement (Elsevier CDN); no GEO/ORCS deposit found",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719303596-1-s2.0-S2211124719303596-mmc4.xlsx"
+ },
+ "ihry2019_hpsc/1-s2.0-S2211124719303596-mmc5.xlsx": {
+  "bytes": 28100,
+  "file": "data/external_screens/ihry2019_hpsc/1-s2.0-S2211124719303596-mmc5.xlsx",
+  "licence": "Elsevier user licence (Cell Rep)",
+  "retrieved": "2026-10-26",
+  "sha256": "a4375a793d267a30055473e3136cd5d8f39d9365598cb8a874842f234b4ad160",
+  "source": "Cell Rep supplement (Elsevier CDN); no GEO/ORCS deposit found",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719303596-1-s2.0-S2211124719303596-mmc5.xlsx"
+ },
+ "ihry2019_hpsc/1-s2.0-S2211124719303596-mmc6.xlsx": {
+  "bytes": 3925296,
+  "file": "data/external_screens/ihry2019_hpsc/1-s2.0-S2211124719303596-mmc6.xlsx",
+  "licence": "Elsevier user licence (Cell Rep)",
+  "retrieved": "2026-10-26",
+  "sha256": "27acea4430273973836cb09888b41c24d0d9727ed0f8f768527fecf3113811c3",
+  "source": "Cell Rep supplement (Elsevier CDN); no GEO/ORCS deposit found",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719303596-1-s2.0-S2211124719303596-mmc6.xlsx"
+ },
+ "ihry2019_hpsc/1-s2.0-S2211124719303596-mmc7.xlsx": {
+  "bytes": 11726,
+  "file": "data/external_screens/ihry2019_hpsc/1-s2.0-S2211124719303596-mmc7.xlsx",
+  "licence": "Elsevier user licence (Cell Rep)",
+  "retrieved": "2026-10-26",
+  "sha256": "fcc4bba606d32e31c707fad8e299e00506619a54b1a5d27c6c39e7a56eb6ccb4",
+  "source": "Cell Rep supplement (Elsevier CDN); no GEO/ORCS deposit found",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719303596-1-s2.0-S2211124719303596-mmc7.xlsx"
+ },
+ "mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc2.xlsx": {
+  "bytes": 2474306,
+  "file": "data/external_screens/mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc2.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "3bf5e35dbe7f8a20664d6814bc764a89a7501932eaeaf2b3911df28754758b39",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719302128-1-s2.0-S2211124719302128-mmc2.xlsx"
+ },
+ "mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc3.xlsx": {
+  "bytes": 1671755,
+  "file": "data/external_screens/mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc3.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "0761e5389ac1650da98b26a3dd4c16987c17e2e1b6444289ccfd7240d691f708",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719302128-1-s2.0-S2211124719302128-mmc3.xlsx"
+ },
+ "mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc4.xlsx": {
+  "bytes": 2459013,
+  "file": "data/external_screens/mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc4.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "45e31b769af84dd1850fd6994ff511797cd4707241b7c125b17c3a6518bdae52",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719302128-1-s2.0-S2211124719302128-mmc4.xlsx"
+ },
+ "mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc5.xlsx": {
+  "bytes": 29574,
+  "file": "data/external_screens/mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc5.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "f35f8ceb63c91efb07b59200068e8702ce4f5ccdae74a153e01bd4877fd6fd03",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719302128-1-s2.0-S2211124719302128-mmc5.xlsx"
+ },
+ "mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc6.xlsx": {
+  "bytes": 63437670,
+  "file": "data/external_screens/mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc6.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "08a6673d88a17f03c4a9e7f39786e2238f458a852533b11c19d662a98a14ad04",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719302128-1-s2.0-S2211124719302128-mmc6.xlsx"
+ },
+ "mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc7.xlsx": {
+  "bytes": 2493086,
+  "file": "data/external_screens/mair2019_h1_hesc/1-s2.0-S2211124719302128-mmc7.xlsx",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "5b5aec29a6bf09ff6d06be2f0ff16b7a1b72a7d349f1a31108c40ff84661f61c",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2211124719302128-1-s2.0-S2211124719302128-mmc7.xlsx"
+ },
+ "mair2019_h1_hesc/GSE156284_TKOv3-Human-Library.txt.gz": {
+  "bytes": 1688782,
+  "file": "data/external_screens/mair2019_h1_hesc/GSE156284_TKOv3-Human-Library.txt.gz",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "c93610e395f86433a0b2fe2483d29a3017a9ee9de529a47ac072028867794420",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE156nnn/GSE156284/suppl/GSE156284_TKOv3-Human-Library.txt.gz"
+ },
+ "mair2019_h1_hesc/GSE156284_bmair_hESC_readCounts_matrix_12Aug20.txt.gz": {
+  "bytes": 5943640,
+  "file": "data/external_screens/mair2019_h1_hesc/GSE156284_bmair_hESC_readCounts_matrix_12Aug20.txt.gz",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "335ded348c243e48402aae6dcaad56651d1c35bdc58ab611393d6a1f784c52a5",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE156nnn/GSE156284/suppl/GSE156284_bmair_hESC_readCounts_matrix_12Aug20.txt.gz"
+ },
+ "mair2019_h1_hesc/GSE156284_family.soft.gz": {
+  "bytes": 8093,
+  "file": "data/external_screens/mair2019_h1_hesc/GSE156284_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions; Cell Rep supplement: Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "1bc87b7d8f6c71a1fc8556616364c39ed32d2633109855027077f2c03aa1a1bf",
+  "source": "GEO GSE156284 (CRISPRseq subseries of GSE156298) + Cell Rep supplement",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE156nnn/GSE156284/soft/GSE156284_family.soft.gz"
+ },
+ "mair2019_h1_icas9_gse125509/GSE125509_Moffat_11_18-09-26_1_htseqReadCounts.txt.gz": {
+  "bytes": 228270,
+  "file": "data/external_expr/mair2019_h1_icas9_gse125509/GSE125509_Moffat_11_18-09-26_1_htseqReadCounts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "22a1e1cddfede2472e41678c5da89d365d1a288f432c265d70d17ab8c2e4acc8",
+  "source": "GEO GSE125509 (H1-iCas9 on laminin and MEFs; HTSeq gene counts, Ensembl IDs)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE125nnn/GSE125509/suppl/GSE125509_Moffat_11_18-09-26_1_htseqReadCounts.txt.gz"
+ },
+ "mair2019_h1_icas9_gse125509/GSE125509_RAW.tar": {
+  "bytes": 3952640,
+  "file": "data/external_expr/mair2019_h1_icas9_gse125509/GSE125509_RAW.tar",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "878b14bc11e12b528da29c37d9ff3aa93dae3d273fa67e99cc7b900e6b517b56",
+  "source": "GEO GSE125509 (H1-iCas9 on laminin and MEFs; HTSeq gene counts, Ensembl IDs)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE125nnn/GSE125509/suppl/GSE125509_RAW.tar"
+ },
+ "mair2019_h1_icas9_gse125509/GSE125509_family.soft.gz": {
+  "bytes": 7492,
+  "file": "data/external_expr/mair2019_h1_icas9_gse125509/GSE125509_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "8d6a25f10c30b469dda87d099037202eaf0ff94ab98b125786c47ed6888c7214",
+  "source": "GEO GSE125509 (H1-iCas9 on laminin and MEFs; HTSeq gene counts, Ensembl IDs)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE125nnn/GSE125509/soft/GSE125509_family.soft.gz"
+ },
+ "olivieri2020_rpe1_tp53ko/AUC_table_v2.xlsx": {
+  "bytes": 11232,
+  "file": "data/external_screens/olivieri2020_rpe1_tp53ko/AUC_table_v2.xlsx",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "e754f6ecec843648993b7e274333d3e5e3f5068c53b0a448c96bdd438485fecd",
+  "source": "Mendeley Data 10.17632/gfcn2wmrpf.2",
+  "url": "https://data.mendeley.com/public-files/datasets/gfcn2wmrpf/files/b5b28344-7c23-49a6-b549-a02486f691fb/file_downloaded"
+ },
+ "olivieri2020_rpe1_tp53ko/Dataset_S1_readcounts.txt": {
+  "bytes": 12097469,
+  "file": "data/external_screens/olivieri2020_rpe1_tp53ko/Dataset_S1_readcounts.txt",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "4ecbf9a8fd346af877821476fd17dedb7e47d34dc36365c0dea8af68fcd44ee2",
+  "source": "Mendeley Data 10.17632/gfcn2wmrpf.2",
+  "url": "https://data.mendeley.com/public-files/datasets/gfcn2wmrpf/files/87828e74-a5e6-410e-80e7-ef2c03664bc6/file_downloaded"
+ },
+ "olivieri2020_rpe1_tp53ko/Dataset_S2_readcounts.txt": {
+  "bytes": 19733477,
+  "file": "data/external_screens/olivieri2020_rpe1_tp53ko/Dataset_S2_readcounts.txt",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "109be820ee4d8d7ae729e5bd8064899cf06ff85d96a468462f4eb3105cbf4b4b",
+  "source": "Mendeley Data 10.17632/gfcn2wmrpf.2",
+  "url": "https://data.mendeley.com/public-files/datasets/gfcn2wmrpf/files/6e997328-612d-4f9a-833c-c3611ca4cdca/file_downloaded"
+ },
+ "olivieri2020_rpe1_tp53ko/Screen_Library.csv": {
+  "bytes": 551,
+  "file": "data/external_screens/olivieri2020_rpe1_tp53ko/Screen_Library.csv",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "bf039af95258a80ec3db7d75537c57363671988e8de0e7954945d09a39e3d561",
+  "source": "Mendeley Data 10.17632/gfcn2wmrpf.2",
+  "url": "https://data.mendeley.com/public-files/datasets/gfcn2wmrpf/files/a755a25b-5354-43cf-bcf5-3400eba8e1bf/file_downloaded"
+ },
+ "olivieri2020_rpe1_tp53ko/Supplementary_Raw_Data_final.xlsx": {
+  "bytes": 142241,
+  "file": "data/external_screens/olivieri2020_rpe1_tp53ko/Supplementary_Raw_Data_final.xlsx",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "e82edcc1c7eeb08fdffa2047bad2f32d9b6bb3a54e795a55e8d6c84544913499",
+  "source": "Mendeley Data 10.17632/gfcn2wmrpf.2",
+  "url": "https://data.mendeley.com/public-files/datasets/gfcn2wmrpf/files/5115c1e0-293a-4959-b07e-e8c7f369a85d/file_downloaded"
+ },
+ "olivieri2020_rpe1_tp53ko/Zscores_31screens.csv": {
+  "bytes": 3001218,
+  "file": "data/external_screens/olivieri2020_rpe1_tp53ko/Zscores_31screens.csv",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "7f36e57221240ab3b65d54baabc648e684110c8e35ee0ac1b458317c39e48d33",
+  "source": "Mendeley Data 10.17632/gfcn2wmrpf.2",
+  "url": "https://data.mendeley.com/public-files/datasets/gfcn2wmrpf/files/f27bf615-7747-46d4-8f78-39cb422895a0/file_downloaded"
+ },
+ "sack2018_hmec_gse109326/GSE109326_RAW.tar": {
+  "bytes": 3031040,
+  "file": "data/external_expr/sack2018_hmec_gse109326/GSE109326_RAW.tar",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "b48f98bfc5a2dbbd078d43cc58cacbead4fe13acbaeaa07c2c36a709ba268010",
+  "source": "GEO GSE109326 (Sack 2018; HMEC empty-vector controls EV-1/EV-2 + overexpression; voom-normalised counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE109nnn/GSE109326/suppl/GSE109326_RAW.tar"
+ },
+ "sack2018_hmec_gse109326/GSE109326_family.soft.gz": {
+  "bytes": 3547,
+  "file": "data/external_expr/sack2018_hmec_gse109326/GSE109326_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "79122563b7e1b69858c8574a318a50ceb8f31ee8f6c74e14fd0853b9d7971ae2",
+  "source": "GEO GSE109326 (Sack 2018; HMEC empty-vector controls EV-1/EV-2 + overexpression; voom-normalised counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE109nnn/GSE109326/soft/GSE109326_family.soft.gz"
+ },
+ "sanson2018_brunello_a375/EuropePMC_PMC6303322_supplementaryFiles.zip": {
+  "bytes": 66459877,
+  "file": "data/external_screens/sanson2018_brunello_a375/EuropePMC_PMC6303322_supplementaryFiles.zip",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "ccac41c207a023f9f31dd728dd297230abb9fbea8f60c2d1471b53c6cf7e17b2",
+  "source": "Nat Commun supplement (Europe PMC OA bundle PMC6303322)",
+  "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6303322/supplementaryFiles"
+ },
+ "shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc2.xlsx": {
+  "bytes": 1167060,
+  "file": "data/external_screens/shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc2.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "2a254660e4e37351be1a4987ea7488de7f3ad09970551096ac3d4e0226f0ea07",
+  "source": "Cell supplement (Elsevier CDN); PMC copy behind proof-of-work bot check (not used)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867418313333-1-s2.0-S0092867418313333-mmc2.xlsx"
+ },
+ "shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc3.xlsx": {
+  "bytes": 12827795,
+  "file": "data/external_screens/shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc3.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "9f9f293be32b71f18827c68c798b6a3c7bd8d30d37aebd001427ca99b44af16d",
+  "source": "Cell supplement (Elsevier CDN); PMC copy behind proof-of-work bot check (not used)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867418313333-1-s2.0-S0092867418313333-mmc3.xlsx"
+ },
+ "shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc4.xlsx": {
+  "bytes": 13730303,
+  "file": "data/external_screens/shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc4.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "ba238488244cf93a12bda3473cb9b5d1764eb588b54a9ed22103f2e9f4314d8c",
+  "source": "Cell supplement (Elsevier CDN); PMC copy behind proof-of-work bot check (not used)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867418313333-1-s2.0-S0092867418313333-mmc4.xlsx"
+ },
+ "shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc6.xlsx": {
+  "bytes": 25236456,
+  "file": "data/external_screens/shifrut2018_primary_cd8t/1-s2.0-S0092867418313333-mmc6.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "34559f99bfce38c26a171cb5b8c2c166e37920355b11dcc49a596b3985043b2e",
+  "source": "Cell supplement (Elsevier CDN); PMC copy behind proof-of-work bot check (not used)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867418313333-1-s2.0-S0092867418313333-mmc6.xlsx"
+ },
+ "tian2019_ipsc_neurons_crispri/1-s2.0-S0896627319306403-mmc2.xlsx": {
+  "bytes": 591296,
+  "file": "data/external_screens/tian2019_ipsc_neurons_crispri/1-s2.0-S0896627319306403-mmc2.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "f800284213daf1a6c0279364a9b2d5f15a61e26001ac784df7c51ef33de95e73",
+  "source": "Neuron supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0896627319306403-1-s2.0-S0896627319306403-mmc2.xlsx"
+ },
+ "tian2019_ipsc_neurons_crispri/1-s2.0-S0896627319306403-mmc3.xlsx": {
+  "bytes": 76399,
+  "file": "data/external_screens/tian2019_ipsc_neurons_crispri/1-s2.0-S0896627319306403-mmc3.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "149ec75dda0adaae6238c00d3ac5ecd7a308a4d910e4f23359247eb0372e1247",
+  "source": "Neuron supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0896627319306403-1-s2.0-S0896627319306403-mmc3.xlsx"
+ },
+ "tian2019_wtc11_neuron_quantseq/GSE124703_family.soft.gz": {
+  "bytes": 3733,
+  "file": "data/external_expr/tian2019_wtc11_neuron_quantseq/GSE124703_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "0dc2624449a3c3b8a906a99c411837e22c3cbed11ce773cfe189aaf527bd6d16",
+  "source": "GEO GSE124703 Quant-seq (3' counts) of WTC11 iPSC-derived neurons D14/D21/D28",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE124nnn/GSE124703/soft/GSE124703_family.soft.gz"
+ },
+ "tian2019_wtc11_neuron_quantseq/GSM3543612_D14_C1_read_counts.txt.gz": {
+  "bytes": 188768,
+  "file": "data/external_expr/tian2019_wtc11_neuron_quantseq/GSM3543612_D14_C1_read_counts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "a5fb22eb5b6e51c68efddd4671610e2baaf7341edb2d36c2f06874cbc5953acc",
+  "source": "GEO GSE124703 Quant-seq (3' counts) of WTC11 iPSC-derived neurons D14/D21/D28",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3543nnn/GSM3543612/suppl/GSM3543612_D14_C1_read_counts.txt.gz"
+ },
+ "tian2019_wtc11_neuron_quantseq/GSM3543613_D14_C2_read_counts.txt.gz": {
+  "bytes": 190553,
+  "file": "data/external_expr/tian2019_wtc11_neuron_quantseq/GSM3543613_D14_C2_read_counts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "c146f9c45bbdc56664db575036c08312ef8ba9aa1debe345d5c3e10a35322a2b",
+  "source": "GEO GSE124703 Quant-seq (3' counts) of WTC11 iPSC-derived neurons D14/D21/D28",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3543nnn/GSM3543613/suppl/GSM3543613_D14_C2_read_counts.txt.gz"
+ },
+ "tian2019_wtc11_neuron_quantseq/GSM3543614_D21_C1_read_counts.txt.gz": {
+  "bytes": 188176,
+  "file": "data/external_expr/tian2019_wtc11_neuron_quantseq/GSM3543614_D21_C1_read_counts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "30340a1c463ff3fc76bb0556b6d68b3a0689962ff22705b08ab2c4fdde462d89",
+  "source": "GEO GSE124703 Quant-seq (3' counts) of WTC11 iPSC-derived neurons D14/D21/D28",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3543nnn/GSM3543614/suppl/GSM3543614_D21_C1_read_counts.txt.gz"
+ },
+ "tian2019_wtc11_neuron_quantseq/GSM3543615_D21_C2_read_counts.txt.gz": {
+  "bytes": 188386,
+  "file": "data/external_expr/tian2019_wtc11_neuron_quantseq/GSM3543615_D21_C2_read_counts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "8dcde0df768fd79be02defefd9ee8aab3adee1e162b64aa3cf1d63aff6c1b86c",
+  "source": "GEO GSE124703 Quant-seq (3' counts) of WTC11 iPSC-derived neurons D14/D21/D28",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3543nnn/GSM3543615/suppl/GSM3543615_D21_C2_read_counts.txt.gz"
+ },
+ "tian2019_wtc11_neuron_quantseq/GSM3543616_D28_C1_read_counts.txt.gz": {
+  "bytes": 187739,
+  "file": "data/external_expr/tian2019_wtc11_neuron_quantseq/GSM3543616_D28_C1_read_counts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "687a722d151df438bc5fd6057f12742e33d1e357a81b1e85a845323910f9062a",
+  "source": "GEO GSE124703 Quant-seq (3' counts) of WTC11 iPSC-derived neurons D14/D21/D28",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3543nnn/GSM3543616/suppl/GSM3543616_D28_C1_read_counts.txt.gz"
+ },
+ "tian2019_wtc11_neuron_quantseq/GSM3543617_D28_C2_read_counts.txt.gz": {
+  "bytes": 190400,
+  "file": "data/external_expr/tian2019_wtc11_neuron_quantseq/GSM3543617_D28_C2_read_counts.txt.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "df4e001dec58a822b8f64ec8b6dce5a400e05978d4ac989be4422583c2d444ae",
+  "source": "GEO GSE124703 Quant-seq (3' counts) of WTC11 iPSC-derived neurons D14/D21/D28",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3543nnn/GSM3543617/suppl/GSM3543617_D28_C2_read_counts.txt.gz"
+ },
+ "tian2021_ipsc_neurons_crispri/41593_2021_862_MOESM3_ESM.xlsx": {
+  "bytes": 8119565,
+  "file": "data/external_screens/tian2021_ipsc_neurons_crispri/41593_2021_862_MOESM3_ESM.xlsx",
+  "licence": "Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "82785da6b6fd4f9732a1e6bd701ab7fc2aa4d12f0d33fddc676054e37841a464",
+  "source": "Nat Neurosci supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-021-00862-0/MediaObjects/41593_2021_862_MOESM3_ESM.xlsx"
+ },
+ "tian2021_ipsc_neurons_crispri/41593_2021_862_MOESM6_ESM.xlsx": {
+  "bytes": 358587,
+  "file": "data/external_screens/tian2021_ipsc_neurons_crispri/41593_2021_862_MOESM6_ESM.xlsx",
+  "licence": "Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "606afc93c630f7afc2e03f6367df54df36865c8b4869bbe65be66db9090d0b60",
+  "source": "Nat Neurosci supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-021-00862-0/MediaObjects/41593_2021_862_MOESM6_ESM.xlsx"
+ },
+ "ting2018_primary_cd4t_cd34/41592_2018_149_MOESM3_ESM.xlsx": {
+  "bytes": 1934349,
+  "file": "data/external_screens/ting2018_primary_cd4t_cd34/41592_2018_149_MOESM3_ESM.xlsx",
+  "licence": "Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "86861ed56eae4d951a200fc8e2a7f08b648a7bb92e75e22ca62eaa707e828cba",
+  "source": "Nat Methods supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41592-018-0149-1/MediaObjects/41592_2018_149_MOESM3_ESM.xlsx"
+ },
+ "ting2018_primary_cd4t_cd34/41592_2018_149_MOESM4_ESM.xlsx": {
+  "bytes": 10415410,
+  "file": "data/external_screens/ting2018_primary_cd4t_cd34/41592_2018_149_MOESM4_ESM.xlsx",
+  "licence": "Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "a645cf23886375a3ab1e3ee2bb823f72a12bf1bc78733f74f17dd5f74f3ce583",
+  "source": "Nat Methods supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41592-018-0149-1/MediaObjects/41592_2018_149_MOESM4_ESM.xlsx"
+ },
+ "tzelepis2016_yusa_panel/EuropePMC_PMC5081405_supplementaryFiles.zip": {
+  "bytes": 70629294,
+  "file": "data/external_screens/tzelepis2016_yusa_panel/EuropePMC_PMC5081405_supplementaryFiles.zip",
+  "licence": "CC BY 4.0",
+  "retrieved": "2026-10-26",
+  "sha256": "ff55d06a8c4de29feabc2c2b470bface1523ce2e0a1b83b1df253ee7fe3bd4bd",
+  "source": "Cell Rep supplement (Europe PMC OA bundle PMC5081405)",
+  "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5081405/supplementaryFiles"
+ },
+ "wang2017_aml_panel/1-s2.0-S0092867417300612-mmc2.xlsx": {
+  "bytes": 10998621,
+  "file": "data/external_screens/wang2017_aml_panel/1-s2.0-S0092867417300612-mmc2.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "40fd916dbcc8d46688627b3a98bf702a09749a9974026418b71fdcbf1f557ac4",
+  "source": "Cell supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867417300612-1-s2.0-S0092867417300612-mmc2.xlsx"
+ },
+ "wang2017_aml_panel/1-s2.0-S0092867417300612-mmc3.xlsx": {
+  "bytes": 2624891,
+  "file": "data/external_screens/wang2017_aml_panel/1-s2.0-S0092867417300612-mmc3.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "82398904c26add5235c85faf4c59b2ebdb027deeae7d324078210d040333bbd9",
+  "source": "Cell supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867417300612-1-s2.0-S0092867417300612-mmc3.xlsx"
+ },
+ "wang2017_aml_panel/1-s2.0-S0092867417300612-mmc6.xlsx": {
+  "bytes": 346896,
+  "file": "data/external_screens/wang2017_aml_panel/1-s2.0-S0092867417300612-mmc6.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "bb2e912f7cd351c080aaf293217b7ce976bf8606b1b64062cd2ec17b91bb71ed",
+  "source": "Cell supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867417300612-1-s2.0-S0092867417300612-mmc6.xlsx"
+ },
+ "wang2017_aml_panel/1-s2.0-S0092867417300612-mmc7.xlsx": {
+  "bytes": 50459,
+  "file": "data/external_screens/wang2017_aml_panel/1-s2.0-S0092867417300612-mmc7.xlsx",
+  "licence": "Elsevier user licence",
+  "retrieved": "2026-10-26",
+  "sha256": "cfe23b9ef8fd0f67d80a96efe84b2d858e54a2885f51f118019bdb7910c4471d",
+  "source": "Cell supplement (Elsevier CDN)",
+  "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0092867417300612-1-s2.0-S0092867417300612-mmc7.xlsx"
+ },
+ "yilmaz2018_haploid_hesc/41556_2018_88_MOESM3_ESM.xlsx": {
+  "bytes": 1319771,
+  "file": "data/external_screens/yilmaz2018_haploid_hesc/41556_2018_88_MOESM3_ESM.xlsx",
+  "licence": "GEO: no NCBI restrictions; supplement: Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "ec5474c1d7f75d46ea7c20fa4d708c8802a4bf53a0c40a61d22de38b6af9020a",
+  "source": "GEO GSE111309 + Nat Cell Biol supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41556-018-0088-1/MediaObjects/41556_2018_88_MOESM3_ESM.xlsx"
+ },
+ "yilmaz2018_haploid_hesc/41556_2018_88_MOESM4_ESM.xlsx": {
+  "bytes": 65594,
+  "file": "data/external_screens/yilmaz2018_haploid_hesc/41556_2018_88_MOESM4_ESM.xlsx",
+  "licence": "GEO: no NCBI restrictions; supplement: Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "2744fb4d5d9dee2486baf43b6c8157c3c413a94c5126dded71ac51f12403c699",
+  "source": "GEO GSE111309 + Nat Cell Biol supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41556-018-0088-1/MediaObjects/41556_2018_88_MOESM4_ESM.xlsx"
+ },
+ "yilmaz2018_haploid_hesc/41556_2018_88_MOESM5_ESM.xlsx": {
+  "bytes": 15708,
+  "file": "data/external_screens/yilmaz2018_haploid_hesc/41556_2018_88_MOESM5_ESM.xlsx",
+  "licence": "GEO: no NCBI restrictions; supplement: Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "2a2ee414059dd4c8269125a54e94afe1f99e674c84abe4a92f3b57220870901f",
+  "source": "GEO GSE111309 + Nat Cell Biol supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41556-018-0088-1/MediaObjects/41556_2018_88_MOESM5_ESM.xlsx"
+ },
+ "yilmaz2018_haploid_hesc/41556_2018_88_MOESM6_ESM.xlsx": {
+  "bytes": 42584,
+  "file": "data/external_screens/yilmaz2018_haploid_hesc/41556_2018_88_MOESM6_ESM.xlsx",
+  "licence": "GEO: no NCBI restrictions; supplement: Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "4dd187829ad3f75db67e1f9c1d9173aa5b1d0e9b9217771fc8effeb5428ca8df",
+  "source": "GEO GSE111309 + Nat Cell Biol supplement (Springer)",
+  "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41556-018-0088-1/MediaObjects/41556_2018_88_MOESM6_ESM.xlsx"
+ },
+ "yilmaz2018_haploid_hesc/GSE111309_family.soft.gz": {
+  "bytes": 4045,
+  "file": "data/external_screens/yilmaz2018_haploid_hesc/GSE111309_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions; supplement: Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "cb6f742a7ee57b7a126b5f80d1139e2b9a8aa9bc4254a7ca80801d2303cbea0e",
+  "source": "GEO GSE111309 + Nat Cell Biol supplement (Springer)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE111nnn/GSE111309/soft/GSE111309_family.soft.gz"
+ },
+ "yilmaz2018_haploid_hesc/GSE111309_rawCounts.xlsx.gz": {
+  "bytes": 11895238,
+  "file": "data/external_screens/yilmaz2018_haploid_hesc/GSE111309_rawCounts.xlsx.gz",
+  "licence": "GEO: no NCBI restrictions; supplement: Springer Nature terms",
+  "retrieved": "2026-10-26",
+  "sha256": "73e658d695be970c537f05d8596851c3995030925d7ed8c5f06e881bbd5e5a49",
+  "source": "GEO GSE111309 + Nat Cell Biol supplement (Springer)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE111nnn/GSE111309/suppl/GSE111309_rawCounts.xlsx.gz"
+ },
+ "yilmaz2018_hpes10_gse103846/GSE103846_family.soft.gz": {
+  "bytes": 3550,
+  "file": "data/external_expr/yilmaz2018_hpes10_gse103846/GSE103846_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "2216e23b5a87cedc1a89d0f82ca330b7d28b3d26fb290f89b3b6ee8361ec8f4b",
+  "source": "GEO GSE103846 (h-pES10 haploid hESC, siRNA controls; raw counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE103nnn/GSE103846/soft/GSE103846_family.soft.gz"
+ },
+ "yilmaz2018_hpes10_gse103846/GSE103846_rawCounts.csv.gz": {
+  "bytes": 708184,
+  "file": "data/external_expr/yilmaz2018_hpes10_gse103846/GSE103846_rawCounts.csv.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "1a2680c39795d0e43c9305568b4e3098724e642ba64998aa3c7bccda9cb3d2c8",
+  "source": "GEO GSE103846 (h-pES10 haploid hESC, siRNA controls; raw counts)",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE103nnn/GSE103846/suppl/GSE103846_rawCounts.csv.gz"
+ },
+ "yilmaz2020_haploid_hesc_germlayers/GSE143369_COUNT_DNAseq_for_library.csv.gz": {
+  "bytes": 5058000,
+  "file": "data/external_screens/yilmaz2020_haploid_hesc_germlayers/GSE143369_COUNT_DNAseq_for_library.csv.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "caa828c78a0befb6c05caaed5c2207633ccde1f04027c0099e0c9b8ca8e45c7c",
+  "source": "GEO GSE143369",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE143nnn/GSE143369/suppl/GSE143369_COUNT_DNAseq_for_library.csv.gz"
+ },
+ "yilmaz2020_haploid_hesc_germlayers/GSE143369_family.soft.gz": {
+  "bytes": 4317,
+  "file": "data/external_screens/yilmaz2020_haploid_hesc_germlayers/GSE143369_family.soft.gz",
+  "licence": "GEO: no NCBI restrictions",
+  "retrieved": "2026-10-26",
+  "sha256": "bee95d69ec2d4d74e339b1fa546a1d92f461aa34c1ac7341a4874d0a67a1c08e",
+  "source": "GEO GSE143369",
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE143nnn/GSE143369/soft/GSE143369_family.soft.gz"
+ }
+}
