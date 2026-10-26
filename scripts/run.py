@@ -285,7 +285,8 @@ def git_commit():
     try:
         h = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
                            text=True).stdout.strip()
-        dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=ROOT,
+        dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no", "--", "."]
+                               + [f":(exclude){p}" for p in OUTPUT_PATHS], cwd=ROOT,
                                capture_output=True, text=True).stdout.strip()
         return h, int(bool(dirty))
     except OSError:
