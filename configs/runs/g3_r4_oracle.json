@@ -1,0 +1,57 @@
+{
+ "features": [],
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G1",
+ "cache_reference": true,
+ "name": "g3_r4_oracle",
+ "model": "R4",
+ "params": {
+  "ks": [
+   5,
+   10,
+   20,
+   50,
+   100,
+   200
+  ],
+  "ridge_alphas": [
+   0.1,
+   1.0,
+   10.0,
+   100.0,
+   1000.0
+  ],
+  "inner_folds": 3,
+  "split_seed": 20261026,
+  "n_jobs": 6,
+  "nested": false
+ },
+ "prereg": "R4 NON-NESTED diagnostic (deliberately leaky): the 12 candidates per gene fitted on each outer training fold; per gene the candidate with the best mean outer-fold r is reported (TrPLet best-of-N inside the reported CV). Optimism = P1(this) - P1(nested R4). Never a selection candidate.",
+ "leaky": 1,
+ "oracle_select": true
+}

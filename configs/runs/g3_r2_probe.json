@@ -1,0 +1,45 @@
+{
+ "features": [],
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G1",
+ "cache_reference": true,
+ "name": "g3_r2_probe",
+ "model": "R2",
+ "params": {
+  "n_alphas": 40,
+  "eps": 0.01,
+  "max_iter": 2000,
+  "tol": 0.001,
+  "inner_folds": 5,
+  "split_seed": 20261026,
+  "n_jobs": 6,
+  "gene_subset": "configs/g3_variable_subset500.csv",
+  "subset_first_n": 30
+ },
+ "prereg": "R2 Shi-style elastic net (l1_ratio 0.5), variable genes, E only. Coverage rule (docs/g3_nonlinear_results.md): the *_probe run (fold 0, first 30 genes of configs/g3_variable_subset500.csv) is timed first; the full config runs if the projected 5-fold wall time is <= 2 h, otherwise the *_sub500 config. (timing probe; --folds 0)"
+}

@@ -1,0 +1,55 @@
+{
+ "features": [],
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G1",
+ "cache_reference": true,
+ "name": "g3_r4",
+ "model": "R4",
+ "params": {
+  "ks": [
+   5,
+   10,
+   20,
+   50,
+   100,
+   200
+  ],
+  "ridge_alphas": [
+   0.1,
+   1.0,
+   10.0,
+   100.0,
+   1000.0
+  ],
+  "inner_folds": 3,
+  "split_seed": 20261026,
+  "n_jobs": 6,
+  "nested": true
+ },
+ "prereg": "R4 TrPLet-like top-k (12 candidates), nested per-gene selection by inner 3-fold grouped CV. Coverage rule (docs/g3_nonlinear_results.md): the *_probe run (fold 0, first 30 genes of configs/g3_variable_subset500.csv) is timed first; the full config runs if the projected 5-fold wall time is <= 2 h, otherwise the *_sub500 config. The leaky oracle run uses the same coverage."
+}
