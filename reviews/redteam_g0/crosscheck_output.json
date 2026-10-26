@@ -1,0 +1,118 @@
+{
+ "variable_class_mismatches": 0,
+ "eval_genes_failing_dev_rule": 0,
+ "genes_passing_dev_rule_not_in_eval": 0,
+ "own_chosen_kappa": {
+  "0": 10,
+  "1": 10,
+  "2": 20,
+  "3": 10,
+  "4": 10
+ },
+ "max_abs_pred_diff_saved_vs_own": 2.3756189193591126e-07,
+ "registry": {
+  "P1_variable": 0.18374,
+  "P1_variable_sd": 0.01309,
+  "P2a": 0.90627,
+  "P2a_sd": 0.00367,
+  "P2b_nap_prev05": 0.08675
+ },
+ "saved_pred": {
+  "per_fold": [
+   {
+    "fold": 0,
+    "n_var_genes": 2118,
+    "P1_variable": 0.181592,
+    "P2a": 0.909814,
+    "P2b_nap_prev05": 0.087169,
+    "n_P2b_prev05": 1754
+   },
+   {
+    "fold": 1,
+    "n_var_genes": 2118,
+    "P1_variable": 0.197083,
+    "P2a": 0.903209,
+    "P2b_nap_prev05": 0.09159,
+    "n_P2b_prev05": 1759
+   },
+   {
+    "fold": 2,
+    "n_var_genes": 2118,
+    "P1_variable": 0.183532,
+    "P2a": 0.91024,
+    "P2b_nap_prev05": 0.085481,
+    "n_P2b_prev05": 1760
+   },
+   {
+    "fold": 3,
+    "n_var_genes": 2118,
+    "P1_variable": 0.193108,
+    "P2a": 0.902272,
+    "P2b_nap_prev05": 0.089954,
+    "n_P2b_prev05": 1766
+   },
+   {
+    "fold": 4,
+    "n_var_genes": 2118,
+    "P1_variable": 0.163368,
+    "P2a": 0.905834,
+    "P2b_nap_prev05": 0.079545,
+    "n_P2b_prev05": 1754
+   }
+  ],
+  "P1_variable": 0.18373671557520063,
+  "P1_variable_sd": 0.01309078913152311,
+  "P2a": 0.9062737790266026,
+  "P2a_sd": 0.003669632771445715,
+  "P2b_nap_prev05": 0.0867478176490029
+ },
+ "own_B1": {
+  "per_fold": [
+   {
+    "fold": 0,
+    "n_var_genes": 2118,
+    "P1_variable": 0.181592,
+    "P2a": 0.909814,
+    "P2b_nap_prev05": 0.087169,
+    "n_P2b_prev05": 1754
+   },
+   {
+    "fold": 1,
+    "n_var_genes": 2118,
+    "P1_variable": 0.197083,
+    "P2a": 0.903209,
+    "P2b_nap_prev05": 0.09159,
+    "n_P2b_prev05": 1759
+   },
+   {
+    "fold": 2,
+    "n_var_genes": 2118,
+    "P1_variable": 0.183532,
+    "P2a": 0.91024,
+    "P2b_nap_prev05": 0.085481,
+    "n_P2b_prev05": 1760
+   },
+   {
+    "fold": 3,
+    "n_var_genes": 2118,
+    "P1_variable": 0.193108,
+    "P2a": 0.902272,
+    "P2b_nap_prev05": 0.089954,
+    "n_P2b_prev05": 1766
+   },
+   {
+    "fold": 4,
+    "n_var_genes": 2118,
+    "P1_variable": 0.163368,
+    "P2a": 0.905834,
+    "P2b_nap_prev05": 0.079545,
+    "n_P2b_prev05": 1754
+   }
+  ],
+  "P1_variable": 0.1837367152639508,
+  "P1_variable_sd": 0.013090789574863707,
+  "P2a": 0.9062737908691727,
+  "P2a_sd": 0.0036696379342407823,
+  "P2b_nap_prev05": 0.08674783674257
+ }
+}

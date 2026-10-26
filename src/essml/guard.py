@@ -154,6 +154,17 @@ def _log(access_type, roles: pd.Series, granted: bool, log_path=ACCESS_LOG, call
         w.writerow(row)
 
 
+def _check_paths(splits_path, crispr_path):
+    """Refuse a substitute splits file combined with the real CRISPR cache (red-team G0 #1).
+
+    Toy paths are allowed for tests only when *both* are substitutes.
+    """
+    real_crispr = Path(crispr_path).resolve() == CRISPR_PARQUET.resolve()
+    real_splits = Path(splits_path).resolve() == Path(SPLITS).resolve()
+    if real_crispr and not real_splits:
+        raise BlindingError("the real CRISPR cache may only be read with the committed configs/splits.csv")
+
+
 def _read_rows(model_ids, crispr_path, columns=None):
     ids = [str(i) for i in model_ids]
     df = pd.read_parquet(crispr_path, filters=[("ModelID", "in", ids)],
@@ -185,6 +196,7 @@ def load_targets(model_ids, config_hash=None, screen=None, splits_path=SPLITS,
 
     Raises BlindingError for any non-dev ID unless unblinding is allowed (see module doc).
     """
+    _check_paths(splits_path, crispr_path)
     roles = roles_of(model_ids, splits_path)
     if len(roles) and roles.index.duplicated().any():
         raise ValueError("duplicated ModelIDs requested")
@@ -209,6 +221,7 @@ def observed_counts(model_ids, splits_path=SPLITS, crispr_path=CRISPR_PARQUET,
     Mask-only: values are never returned. Allowed without unblinding; non-dev access is logged
     as access_type='mask_only'.
     """
+    _check_paths(splits_path, crispr_path)
     roles = roles_of(model_ids, splits_path)
     if (roles != "dev").any():
         _log("mask_only", roles, True, log_path, caller=_caller(2), reason="counts only")
@@ -240,19 +253,23 @@ def _check_controls(genes, controls):
 
 def load_control_targets(model_ids, genes=None, controls=None, splits_path=SPLITS,
                          crispr_path=CRISPR_PARQUET, log_path=ACCESS_LOG) -> pd.DataFrame:
-    """CRISPR values of CONTROL genes only (default: all control genes present), any role.
+    """CRISPR values of CONTROL genes only (default: all control genes present), DepMap dev lines only.
 
-    Logged exception for harmonisation/QC (access_type 'control_only').
+    DepMap test/set-A lines are refused (red-team G0 #2): the control-gene exception of DESIGN §9 covers
+    external screens (load_external_screen), not held-out DepMap lines, whose control genes carry most
+    P2a positives.
     """
     import pyarrow.parquet as pq
     controls = control_genes() if controls is None else set(map(str, controls))
     if genes is None:  # gene names from the parquet schema only (no values read)
         genes = [g for g in pq.ParquetFile(crispr_path).schema_arrow.names if g in controls]
     genes = _check_controls(genes, controls)
+    _check_paths(splits_path, crispr_path)
     roles = roles_of(model_ids, splits_path)
     if (roles != "dev").any():
-        _log("control_only", roles, True, log_path, caller=_caller(2), reason="control genes",
+        _log("control_only", roles, False, log_path, caller=_caller(2), reason="refused: non-dev DepMap IDs",
              n_genes=len(genes))
+        raise BlindingError("control-gene reads are allowed for DepMap dev lines only")
     return _read_rows(roles.index, crispr_path, columns=genes)
 
 

@@ -11,7 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {"src/essml/io.py", "src/essml/guard.py"}
 LEGACY = {"scripts/audit_data.py"}
 LEGACY_DIRS = ("scripts/probe/",)
-PATTERN = re.compile(r"CRISPRGeneEffect|crispr\.parquet|load_matrix\(\s*['\"]crispr['\"]", re.I)
+PATTERN = re.compile(r"CRISPRGeneEffect|crispr\.parquet|CRISPR_PARQUET|_read_rows|load_matrix\(\s*['\"]crispr['\"]",
+                     re.I)
 
 
 def test_no_direct_crispr_reads():

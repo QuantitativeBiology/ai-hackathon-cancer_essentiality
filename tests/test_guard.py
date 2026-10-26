@@ -121,12 +121,21 @@ def test_external_screen(toy, tmp_path, monkeypatch):
 def test_control_targets_only_control_genes(toy, monkeypatch):
     kw, repo = toy
     monkeypatch.delenv("ESSML_UNBLIND", raising=False)
-    Y = guard.load_control_targets(["T1", "D1"], controls={"20"}, **kw)
-    assert list(Y.columns) == ["20"] and list(Y.index) == ["T1", "D1"]
-    with pytest.raises(guard.BlindingError):
-        guard.load_control_targets(["T1"], genes=["10"], controls={"20"}, **kw)
+    Y = guard.load_control_targets(["D1"], controls={"20"}, **kw)
+    assert list(Y.columns) == ["20"] and list(Y.index) == ["D1"]
+    with pytest.raises(guard.BlindingError):  # non-control gene
+        guard.load_control_targets(["D1"], genes=["10"], controls={"20"}, **kw)
+    with pytest.raises(guard.BlindingError):  # held-out DepMap line: refused and logged
+        guard.load_control_targets(["T1", "D1"], controls={"20"}, **kw)
     log = pd.read_csv(kw["log_path"], dtype=str)
-    assert log.loc[0, "access_type"] == "control_only" and log.loc[0, "n_genes"] == "1"
+    assert log.loc[0, "access_type"] == "control_only" and log.loc[0, "granted"] == "False"
+
+
+def test_fake_splits_with_real_crispr_refused(tmp_path):
+    fake = tmp_path / "splits.csv"
+    pd.DataFrame({"ModelID": ["ACH-000001"], "role": ["dev"]}).to_csv(fake, index=False)
+    with pytest.raises(guard.BlindingError):
+        guard.load_targets(["ACH-000001"], splits_path=fake)
 
 
 def test_observed_counts_mask_only(toy, monkeypatch):
