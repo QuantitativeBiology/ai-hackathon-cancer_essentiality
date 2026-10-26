@@ -24,9 +24,14 @@ synthesis. References carry the tags `[opened]`, `[search]` or `[unverified]` in
   selected variable genes are 0.3–0.4. Pooled correlation over all (line, gene) pairs is ≈0.9, but that comes from
   differences between gene means and says nothing about predicting across lines. TrPLet's numbers are optimistic
   (best of 60 models per gene, chosen inside the cross-validation it reports).
-- **Open gaps** that no reviewed paper addresses: a per-gene lineage-mean baseline, CV grouped by PatientID, and
-  AUPRC for *selective* dependencies in held-out lines. Similarity transfer (kNN, matrix completion) is barely
-  benchmarked on DepMap.
+- **Gaps, corrected after review round 1:**
+  - Shi et al. 2024 already used a confounder null that includes lineage.
+  - The EFFECT benchmark (Szalai et al. 2023) already scores with partial correlations controlling for line and
+    gene means.
+  - What remains uncommon is an explicit shrunk lineage-mean *baseline* reported beside the model, CV grouped by
+    PatientID, and AUPRC for *selective* dependencies in held-out lines.
+  - Similarity transfer (kNN, matrix completion) is barely benchmarked on DepMap.
+  - Our contribution is the combination, not any one of these.
 - **Known biological structure:** oncogene addiction (own expression), paralog buffering (De Kegel & Ryan 2019;
   Dede 2020; Ito 2021), CN-driven cutting toxicity (largely removed by Chronos, residual remains), complex
   co-dependency, lineage transcription factors, TP53 status (TP53-WT cells respond to DNA cuts).
