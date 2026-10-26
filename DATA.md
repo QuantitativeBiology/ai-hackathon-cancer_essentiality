@@ -47,3 +47,31 @@ retrieval date in `configs/external_manifest.json`. Files under `data/raw_extern
 
 ## External CRISPR screens (non-transformed test set + anchors) and matched expression
 Downloaded by `scripts/fetch_external_screens.py` from `configs/external_screens.json` into `data/external_screens/` and `data/external_expr/` (git-ignored). sha256/bytes/URL per file: `configs/external_screens_manifest.json` (82 files, retrieved 2026-10-26). Sources: GEO, Mendeley (CC BY 4.0), Europe PMC OA bundles (CC BY 4.0), Elsevier/Springer supplementary files (publisher terms; do not redistribute), BioGRID ORCS 2.0.18 (MIT; test-set use only, never model input). Per-screen source, data level, licence and failures: `docs/external_screens_inventory.md`.
+
+## External expression for harmonisation (DESIGN v3 §7.3)
+Downloaded by `scripts/fetch_external_screens.py --only encode_geo_polyA_rnaseq ensembl116_gtf` (deposits in `configs/external_screens.json`); full sha256, bytes and URL per file in `configs/external_screens_manifest.json`. Retrieved 2026-10-26. Used by `src/essml/expr_harmonise.py` / `scripts/harmonise_expression.py`. Expression sources that were already on disk (GEO deposits, supplementary tables) are listed in the section above and in `docs/external_screens_inventory.md` §4.
+
+| Resource | Version | Source | sha256 (first 16) | Licence | Used by |
+|---|---|---|---|---|---|
+| ensembl116_gtf | Ensembl 116, GRCh38 primary-assembly GTF | https://ftp.ensembl.org/pub/release-116/gtf/homo_sapiens/Homo_sapiens.GRCh38.116.gtf.gz | ed992f0eac7197d9 | Ensembl: no restrictions (open) | gene exon-union lengths (counts -> TPM), gene_name/biotype for symbol mapping |
+| encode_geo_polyA_rnaseq | ENCODE uniform RNA-seq pipeline (STAR + RSEM, GENCODE v24, GRCh38) gene quantifications, ENCODE-DCC deposits in GEO (2016-2017) | GEO sample supplements, e.g. https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2308nnn/GSM2308418/suppl/GSM2308418_ENCFF768TKT_gene_quantifications_GRCh38.tsv.gz (encodeproject.org timed out on 2026-10-26) | per file below | ENCODE: open, no restrictions (cite the ENCODE Consortium); GEO: no NCBI restrictions | matched validation of DepMap lines; H1-hESC and HMEC proxies |
+
+ENCODE gene-quantification files (GSM_ENCFF; line; GEO series; sha256 first 16):
+
+| file | biosample (series, ENCODE experiment) | sha256 (first 16) |
+|---|---|---|
+| GSM2308418_ENCFF768TKT, GSM2308419_ENCFF172GIN | K562 (GSE86660, ENCSR000CPH) | e52cfd3e2a6fcfa4, 733082dcd05ffa9a |
+| GSM2308412_ENCFF369ZNM, GSM2308413_ENCFF627QMV | A549 (GSE86657, ENCSR000CON) | 20ecf02bce4307b2, 65bcb51b866d91c9 |
+| GSM2453357_ENCFF067ZMG, GSM2453358_ENCFF390KQP | SK-N-SH untreated (GSE93449, ENCSR000BYL) | 55ac915043841939, 1d49ea433cbeb675 |
+| GSM2453343_ENCFF601IKR, GSM2453344_ENCFF172ATN | T47D, DMSO 4 h (GSE93442, ENCSR000BYE) | 9385709e7b91786c, 1a3ba5ada8ccc5b8 |
+| GSM2453359_ENCFF248YCR, GSM2453360_ENCFF890DEQ | PANC-1 (GSE93450, ENCSR000BYM) | 8bc3764e76dffee4, 9a1dbeb0612cd3f2 |
+| GSM2453329_ENCFF558JTV, GSM2453330_ENCFF489SJY | Jurkat E6-1 (GSE93435, ENCSR000BXX) | 352520f7f8b7b35e, bf30cb6ae0a00fce |
+| GSM2453355_ENCFF238HUZ, GSM2453356_ENCFF396XRF | BE2C (GSE93448, ENCSR000BYK) | 6e9179477cfafe4a, f360d7c3eaf413a9 |
+| GSM2453335_ENCFF394VCU, GSM2453336_ENCFF681NAQ | Ishikawa, DMSO 4 h (GSE93438, ENCSR000BYA) | 3134366cfd7fe0b0, 72529254312a104b |
+| GSM2400160_ENCFF226LQB, GSM2400161_ENCFF458OHS | HepG2 (GSE90230, ENCSR000CPF) — test-role line, expression only | c5b9ca510fc77027, 1947ff5003e1d5db |
+| GSM2400174_ENCFF009GDJ, GSM2400175_ENCFF885LEQ | MCF-7 (GSE90237, ENCSR000CPT) — test-role line, expression only | 903c1a10312b5be4, 0a4b757f75a22b02 |
+| GSM2400152_ENCFF653XHG, GSM2400153_ENCFF915AUQ | H1-hESC (GSE90225, ENCSR000COU) | f02c5ea543188149, bfc6f0730dd5b47e |
+| GSM2072420_ENCFF380GBC | mammary epithelial cell / HMEC (GSE78586, ENCSR000COX) | 64b8a2ee3b52a621 |
+| GSE*_family.soft.gz (12 series) | sample metadata | see manifest |
+
+Also read, from files already on disk: Tzelepis 2016 `mmc6.zip/RNA-seq_5AMLs-HT1080-HT29_FPKM_Kallisto.txt`, read inside `EuropePMC_PMC5081405_supplementaryFiles.zip` (sha256 ff55d06a…, CC BY 4.0) without extracting it; only the expression table, never the guide-count files. Dräger 2022 MOESM4: only the sheet `Supplementary Table 1` (expression).

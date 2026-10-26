@@ -452,17 +452,20 @@ def apply_location(ext: pd.DataFrame, offsets: pd.Series) -> pd.DataFrame:
     return ext + offsets.reindex(ext.columns).fillna(0.0).to_numpy()[None, :]
 
 
-def heldout_location(ext: pd.DataFrame, dep: pd.DataFrame, groups, audit: list | None = None) -> pd.DataFrame:
+def heldout_location(ext: pd.DataFrame, dep: pd.DataFrame, groups, fit_rows=None,
+                     audit: list | None = None) -> pd.DataFrame:
     """Each row corrected with offsets fitted only on rows of OTHER groups (leave-one-group-out).
 
-    groups: group label per row (matched DepMap line for LOO-line, source for LOSO). ``audit`` (optional
-    list) receives (left-out group, training row labels) for leakage tests.
+    ext, dep: aligned (row i of ext <-> row i of dep). groups: label per row (matched DepMap line for
+    LOO-line, source for LOSO). fit_rows: boolean mask of rows eligible for fitting (e.g. exact dev
+    matches; default all). ``audit`` (optional list) receives (left-out group, training row labels).
     """
-    groups = np.asarray(list(groups))
+    groups = np.asarray(list(groups), dtype=object)
+    fit_rows = np.ones(len(ext), bool) if fit_rows is None else np.asarray(fit_rows, bool)
     out = ext.copy()
     for g in pd.unique(groups):
         test = groups == g
-        train = ~test
+        train = fit_rows & ~test
         if audit is not None:
             audit.append((g, list(ext.index[train])))
         off = fit_location(ext.loc[train], dep.loc[train]) if train.any() else pd.Series(0.0, index=ext.columns)

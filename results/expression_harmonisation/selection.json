@@ -1,0 +1,72 @@
+{
+ "best_recall1": 0.8333333333333334,
+ "ties": [
+  "none",
+  "quantile",
+  "rank",
+  "quantile_location"
+ ],
+ "excluded": {},
+ "chosen": "quantile",
+ "table": [
+  {
+   "method": "none",
+   "n": 12,
+   "recall1": 0.8333,
+   "recall1_centred": 0.8333,
+   "median_true_rank": 1.0,
+   "r_profile_all": 0.951,
+   "r_profile_centred": 0.7495,
+   "mae": 0.5367
+  },
+  {
+   "method": "quantile",
+   "n": 12,
+   "recall1": 0.8333,
+   "recall1_centred": 0.8333,
+   "median_true_rank": 1.0,
+   "r_profile_all": 0.9511,
+   "r_profile_centred": 0.7603,
+   "mae": 0.5057
+  },
+  {
+   "method": "quantile_location",
+   "n": 12,
+   "recall1": 0.8333,
+   "recall1_centred": 0.8333,
+   "median_true_rank": 1.0,
+   "r_profile_all": 0.9556,
+   "r_profile_centred": 0.7693,
+   "mae": 0.513
+  },
+  {
+   "method": "quantile_location_loso",
+   "n": 12,
+   "recall1": 0.8333,
+   "recall1_centred": 0.8333,
+   "median_true_rank": 1.0,
+   "r_profile_all": 0.9436,
+   "r_profile_centred": 0.7254,
+   "mae": 0.6032
+  },
+  {
+   "method": "rank",
+   "n": 12,
+   "recall1": 0.8333,
+   "recall1_centred": 0.8333,
+   "median_true_rank": 1.0,
+   "r_profile_all": 0.9437,
+   "r_profile_centred": 0.7238,
+   "mae": 0.0665
+  }
+ ],
+ "note": "rule from configs/expression_harmonisation.json selection_rule; population = exact dev matches, 'reported' path",
+ "rule_outcome": "none",
+ "pi_override": {
+  "chosen_method": "quantile",
+  "rule_outcome": "none",
+  "reason": "the pre-registered criteria (recall@1/@10, profile r) tie across candidates and DESIGN v3 specifies no tie-break; quantile is chosen on MAE (a third, pre-existing metric in the comparison table) and because it corrects library-composition shifts (HT-1080 0.41M, Yilmaz 0.71M protein-coding TPM sums), decided before any prediction model touched external data",
+  "decision": "RESEARCH_TREE D9",
+  "date": "2026-10-26"
+ }
+}

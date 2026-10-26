@@ -65,6 +65,10 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   the anchors' single out-of-fold model; the 5-model ensemble is reported as secondary.
 - D8 (G1): rare_selective gains a ≥1% floor (≥3 lines and 1% ≤ fraction < 5%). Why: ≥3 lines alone admitted 8,281
   mostly-noise genes. Decided after baselines only, before any model comparison. Frozen hashes regenerated.
+- D9 (G5b): Expression harmonisation = quantile normalisation to DepMap dev, adopted as a recorded override of the
+  rule outcome ("none"). Why: the pre-registered criteria tied (recall@1 0.833 and r ≈0.95 for all candidates);
+  MAE favours quantile (0.506 vs 0.537), and quantile corrects library-composition shifts. Decided before any model
+  was applied to external data.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -97,7 +101,14 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     Dräger microglia CRISPRi (0.64).
   - Gaps: iPSC-derived screens are CRISPRi gene-level only; primary blood screens are sort-based (Shifrut, Ting CD34+).
 - [~] G5a Screen harmonisation (anchors + controls only) → configs/harmonisation_frozen.json, screen_plan.csv
-- [~] G5b Expression harmonisation (matched DepMap dev lines) → configs/expression_harmonisation.json
+- [x] G5b Expression harmonisation (matched DepMap dev lines) → configs/expression_harmonisation.json
+  - 12 exact dev matches (ENCODE via GEO, Tzelepis). Recall@1 0.83 and recall@10 1.0 for every candidate → quantile
+    adopted (D9).
+  - [!] Applicability domain:
+    - inside the cancer distribution: RPE1 (0.18) and HMEC (0.21–0.24), against a dev median of 0.21;
+    - at or beyond the edge (94th–100th dev percentile): hESC/iPSC 0.34–0.45 (nearest embryonal carcinoma),
+      neurons 0.39–0.40 (neuroblastoma), microglia 0.40–0.44, T cells 0.31–0.48, HSPC 0.35–0.41.
+    - Expectation: transfer is most plausible for RPE1/HMEC.
 - [ ] 3. Data pipeline and verification (toy data, controls)
 - [ ] 4. Baselines (per-gene mean, per-gene lineage mean)
 - [ ] 5. Models and feature ablation

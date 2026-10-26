@@ -25,6 +25,7 @@ Usage: python scripts/harmonise_expression.py [--record]   (--record writes chos
 """
 import argparse
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -144,15 +145,11 @@ def evaluate(V, vmeta, dep, dev, hvg, method, path_label, loso=False):
             else:
                 groups = vmeta["depmap_model"]
             # offsets are fitted on exact-match dev states only, always excluding the held-out group
-            E_fit = E.loc[exact]
-            out = E.copy()
-            for st in E.index:
-                g = groups[st]
-                tr = [s for s in exact if groups[s] != g]
-                off = H.fit_location(E_fit.loc[tr], D.loc[tr])
-                assert vmeta.at[st, "depmap_model"] not in set(vmeta.loc[tr, "depmap_model"])
-                out.loc[[st]] = H.apply_location(E.loc[[st]], off).to_numpy()
-            E = out
+            audit = []
+            E = H.heldout_location(E, D, groups.loc[E.index], fit_rows=E.index.isin(exact), audit=audit)
+            for g, tr in audit:     # the held-out line's own DepMap profile never enters its fit
+                held = set(vmeta.loc[groups == g, "depmap_model"])
+                assert not held & set(vmeta.loc[tr, "depmap_model"]), g
     elif method == "rank":
         E = H.rank_transform(V)
         D = H.rank_transform(D)
@@ -217,7 +214,7 @@ def select(summary, rule):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--record", action="store_true", help="write the rule's choice into the config")
-    a = ap.parse_args()
+    args = ap.parse_args()
     t0 = time.time()
     cfg = json.load(open(CFG, encoding="utf-8"))
     ev = cfg["evaluation"]
@@ -258,14 +255,28 @@ def main():
         xc.index = enc["profile_id"].to_numpy()
         paths[fl] = xc
         for pid in xc.index:
-            a, b = xc.loc[pid], X.loc[pid]
-            ok = a.notna() & b.notna()
-            rows.append(dict(profile_id=pid, fragment_length=fl, r_vs_rsem_tpm=float(np.corrcoef(a[ok], b[ok])[0, 1]),
-                             mean_diff_log2=float((a[ok] - b[ok]).mean()), mae_log2=float((a[ok] - b[ok]).abs().mean()),
+            xa, xb = xc.loc[pid], X.loc[pid]
+            ok = xa.notna() & xb.notna()
+            rows.append(dict(profile_id=pid, fragment_length=fl, r_vs_rsem_tpm=float(np.corrcoef(xa[ok], xb[ok])[0, 1]),
+                             mean_diff_log2=float((xa[ok] - xb[ok]).mean()), mae_log2=float((xa[ok] - xb[ok]).abs().mean()),
                              frac_counts_with_length=float(used[enc.set_index('profile_id').at[pid, 'sample']])))
     cpc = pd.DataFrame(rows)
     cpc.to_csv(OUT / "count_path_check.csv", index=False)
     log("count path check:\n" + cpc.groupby("fragment_length")[["r_vs_rsem_tpm", "mae_log2", "mean_diff_log2"]].mean().round(4).to_string())
+
+    # ---------------------------------------------------------------- unit check by gene-length dependence
+    # slope of log2(profile / ENCODE H1 RSEM TPM) on log2(gene length), genes > 1 log2 unit in both:
+    # ~0 for TPM-like units, ~+1 for CPM-like (length-proportional) units.
+    ens2len = genes["length"]
+    ent_len = pd.Series({ent: ens2len.get(ens) for ens, ent in proj.items()}).reindex(dep.columns)
+    ref_h1 = Xs.loc["state:ENCODE_H1"]
+    lrows = []
+    for pid in [i for i in Xs.index if i.startswith("state:") and i != "state:ENCODE_H1"]:
+        x_ = Xs.loc[pid]
+        ok = (x_ > 2) & (ref_h1 > 2) & ent_len.notna()
+        sl = np.polyfit(np.log2(ent_len[ok].astype(float)), (x_ - ref_h1)[ok], 1)[0]
+        lrows.append(dict(profile_id=pid, slope_log2ratio_vs_log2length=round(float(sl), 3), n_genes=int(ok.sum())))
+    pd.DataFrame(lrows).to_csv(OUT / "length_bias_check.csv", index=False)
 
     # ---------------------------------------------------------------- method comparison
     V, vmeta = validation_states(X, prof)
@@ -284,13 +295,35 @@ def main():
     log("summary (exact dev matches):\n" + summary[summary["match"] == "exact"].round(3).to_string())
     sel = select(summary, cfg["selection_rule"])
     sel["note"] = "rule from configs/expression_harmonisation.json selection_rule; population = exact dev matches, 'reported' path"
+    rule_outcome = sel["chosen"]
+    sel["rule_outcome"] = rule_outcome
+    log(f"selection rule -> {rule_outcome} (ties {sel['ties']}, excluded {sel['excluded']})")
+    ov = cfg.get("pi_override")
+    if ov:
+        # explicit, recorded PI override: the rule and its outcome stay untouched and are re-checked here
+        if ov["rule_outcome"] != rule_outcome:
+            raise SystemExit(f"pi_override was made against rule outcome {ov['rule_outcome']!r}, "
+                             f"but the rule now selects {rule_outcome!r}: the PI must revisit")
+        if cfg.get("chosen_method") != ov["chosen_method"]:
+            raise SystemExit("config chosen_method must equal pi_override.chosen_method")
+        if args.record:
+            raise SystemExit("--record is not allowed while a pi_override is present")
+        chosen = ov["chosen_method"]
+        sel["pi_override"] = ov
+        log(f"PI override ({ov['decision']}): using {chosen} instead of rule outcome {rule_outcome}")
+    else:
+        chosen = rule_outcome
+    sel["chosen"] = chosen
     json.dump(sel, open(OUT / "selection.json", "w"), indent=1)
-    chosen = sel["chosen"]
-    log(f"selection rule -> {chosen} (ties {sel['ties']}, excluded {sel['excluded']})")
-    if a.record:
+    if ov:
+        pass
+    elif args.record:
+        txt = open(CFG, encoding="utf-8", newline="").read()   # textual edit keeps formatting/line endings
+        txt, n = re.subn(r'"chosen_method": [^\n]*', f'"chosen_method": "{chosen}"', txt)
+        assert n == 1
+        json.loads(txt)
+        open(CFG, "w", encoding="utf-8", newline="").write(txt)
         cfg["chosen_method"] = chosen
-        txt = json.dumps(cfg, indent=1, ensure_ascii=False)
-        CFG.write_text(txt + "\n", encoding="utf-8")
     elif cfg.get("chosen_method") not in (None, chosen):
         raise SystemExit(f"config chosen_method={cfg['chosen_method']} but the rule selects {chosen}")
 
@@ -324,9 +357,10 @@ def main():
     r = H.corr_to_pool(final[hvg], poolm[hvg])
     ad = H.applicability(r, lineage, ev["ad_k"])
     ad["ad_percentile_vs_dev"] = [float((self_ad < d).mean() * 100) for d in ad["ad_distance"]]
-    # same statistic in the unharmonised space, for reference
-    r0 = H.corr_to_pool(Xs.loc[final.index, hvg], pool[hvg])
-    ad["ad_distance_unharmonised"] = H.applicability(r0, lineage, ev["ad_k"])["ad_distance"]
+    # sensitivity: the same statistic after quantile normalisation (pool = DepMap dev, unchanged)
+    qspace = pd.read_parquet(CACHE / "harmonised_quantile.parquet").loc[final.index]
+    rq = H.corr_to_pool(qspace[hvg], pool[hvg])
+    ad["ad_distance_quantile"] = H.applicability(rq, lineage, ev["ad_k"])["ad_distance"]
     json.dump({"method": chosen, "k": ev["ad_k"], "n_dev": len(dev),
                "dev_self_ad_quantiles": {str(q): float(self_ad.quantile(q)) for q in (0.05, 0.25, 0.5, 0.75, 0.95, 0.99)},
                "dev_self_ad_max": float(self_ad.max())}, open(OUT / "ad_reference.json", "w"), indent=1)
@@ -360,7 +394,7 @@ def main():
                         method=("native" if pid in native else chosen),
                         ad_distance=round(ad.at[pid, "ad_distance"], 4),
                         ad_percentile_vs_dev=round(ad.at[pid, "ad_percentile_vs_dev"], 1),
-                        ad_distance_unharmonised=round(ad.at[pid, "ad_distance_unharmonised"], 4),
+                        ad_distance_quantile=round(ad.at[pid, "ad_distance_quantile"], 4),
                         nearest_lineage=ad.at[pid, "nearest_lineage"],
                         nearest_lineage_n_of_10=int(ad.at[pid, "nearest_lineage_n"]),
                         nearest_line=ad.at[pid, "nearest_line"],
