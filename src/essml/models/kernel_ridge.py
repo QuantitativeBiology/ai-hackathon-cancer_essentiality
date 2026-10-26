@@ -373,6 +373,91 @@ def permutation_map(allids, seed, within=None) -> dict:
     return remap
 
 
+# ============================================================================ M1b block-weight tuning
+WEIGHT_GRID = (0.0, 1.0 / 64, 1.0 / 16, 1.0 / 4, 1.0)
+MAX_TUNE_EVAL = 25  # DESIGN §5: <= 25 eigh per outer fold
+
+
+def tune_block_weights(Kb: dict, R, Y, gene_group, groups=None, lam_grid=LAM_GRID, merge_frac=0.01,
+                       min_rows=50, anchor="E", grid=WEIGHT_GRID, max_eval=MAX_TUNE_EVAL,
+                       refine=(0.5, 2.0)):
+    """Coarse coordinate descent on block multipliers theta_b (K = sum_b theta_b Kb[b]), DESIGN §5.
+
+    Kb: modality -> (n, n) kernel of the default-weighted (1/sqrt(p_b)) block on TRAINING rows.
+    R, Y, gene_group, groups: as ``fit_pattern_ridge`` (training rows only).
+    Criterion (training data only): closed-form leave-one(-patient)-out of the pattern ridge on the
+    LARGEST NaN-pattern cluster (most genes; one eigh per evaluation), mean per-gene LOO r of y over
+    the cluster's genes with gene_group == 1 (training-fold variable genes; all its genes if none),
+    maximised over lam_grid. theta_anchor = 1 is fixed (the overall scale is absorbed by lambda).
+    Start: anchor only (theta_b = 0 for the others) = M1 on the anchor modality. Sweeps over the
+    other modalities in order try every grid value; a move needs a gain > 1e-6. Sweeps repeat until
+    no move; then, budget allowing, each non-zero theta is refined by the factors in ``refine``.
+    At most ``max_eval`` criterion evaluations (= eigh). Returns (theta dict, report dict).
+    """
+    R = np.asarray(R, np.float64)
+    Y = np.asarray(Y, np.float64)
+    n = R.shape[0]
+    obs = ~np.isnan(R)
+    clusters, _, _ = cluster_patterns(obs, int(np.floor(merge_frac * n)), min_rows)
+    if not clusters:
+        raise ValueError("no NaN-pattern cluster with enough rows to tune block weights")
+    c = max(clusters, key=lambda c: len(c["genes"]))
+    rows = c["rows"]
+    gg = np.asarray(gene_group)[c["genes"]]
+    genes = c["genes"][gg == 1] if (gg == 1).any() else c["genes"]
+    Rs = R[np.ix_(rows, genes)]
+    Ys = Y[np.ix_(rows, genes)]
+    grp = None if groups is None else np.asarray(groups)[rows]
+    mods = list(Kb)
+    free = [m for m in mods if m != anchor]
+    Ksub = {m: Kb[m][np.ix_(rows, rows)] for m in mods}
+    memo, path = {}, []
+
+    def crit(theta):
+        key = tuple(round(float(theta[m]), 12) for m in mods)
+        if key in memo:
+            return memo[key]
+        if len(memo) >= max_eval:
+            return None
+        Ks = sum(theta[m] * Ksub[m] for m in mods if theta[m] > 0)
+        kbar = Ks.mean(0)
+        Kc = Ks - kbar[None, :] - kbar[:, None] + kbar.mean()
+        _, _, _, rg = loo_cluster(Kc, Rs - Rs.mean(0), Ys, grp, lam_grid)
+        sc = rg.mean(1)
+        li = int(np.argmax(sc))
+        memo[key] = float(sc[li])
+        path.append({"theta": {m: float(theta[m]) for m in mods}, "score": float(sc[li]),
+                     "lam": float(lam_grid[li])})
+        return memo[key]
+
+    theta = {m: (1.0 if m == anchor else 0.0) for m in mods}
+    best = crit(theta)
+    moved = True
+    while moved and free:
+        moved = False
+        for m in free:
+            for v in grid:
+                if v == theta[m]:
+                    continue
+                t = dict(theta, **{m: float(v)})
+                sc = crit(t)
+                if sc is not None and sc > best + 1e-6:
+                    theta, best, moved = t, sc, True
+    for m in free:
+        if theta[m] > 0:
+            base = theta[m]
+            for f in refine:
+                t = dict(theta, **{m: base * f})
+                sc = crit(t)
+                if sc is not None and sc > best + 1e-6:
+                    theta, best = t, sc
+    out = {"weights": {m: float(theta[m]) for m in mods}, "tune_score": float(best),
+           "tune_n_eval": len(memo), "tune_cluster_rows": int(len(rows)),
+           "tune_cluster_genes": int(len(c["genes"])), "tune_n_genes_criterion": int(len(genes)),
+           "tune_path": path}
+    return theta, out
+
+
 # ============================================================================ model classes
 class KernelRidgeM1:
     """M1 (modalities=['E']) / M1b (several modalities, 1/sqrt(p_b) block weights)."""
@@ -383,7 +468,8 @@ class KernelRidgeM1:
 
     def __init__(self, modalities=("E",), clip=8.0, lam_grid=None, merge_frac=0.01, min_rows=50,
                  kappa=None, seed=20261026, scale=None, permute_seed=None, residual=None,
-                 permute_within=None):
+                 permute_within=None, tune_weights=False, weight_grid=WEIGHT_GRID,
+                 max_tune_eval=MAX_TUNE_EVAL):
         self.modalities = list(modalities)
         self.clip = float(clip)
         self.lam_grid = np.asarray(LAM_GRID if lam_grid is None else lam_grid, np.float64)
@@ -395,6 +481,9 @@ class KernelRidgeM1:
         if permute_within not in PERMUTE_STRATA:
             raise ValueError(f"permute_within must be one of {PERMUTE_STRATA}")
         self.permute_within = permute_within  # None = global shuffle (G2 control); else strata
+        self.tune_weights = bool(tune_weights)  # M1b: block weights by training LOO (DESIGN §5)
+        self.weight_grid = tuple(float(v) for v in weight_grid)
+        self.max_tune_eval = int(max_tune_eval)
         if residual is not None:  # diagnostic override of the class default ("B1" / "B0")
             if residual not in ("B0", "B1"):
                 raise ValueError("residual must be 'B0' or 'B1'")
@@ -480,11 +569,14 @@ class KernelRidgeM1:
         self.genes_ = Y.columns
         Z = self._fit_features(X, ids)
         t_feat = time.perf_counter() - t0
-        K = Z @ Z.T
         lin = None if lineage is None else pd.Series(lineage).reindex(Y.index)
         R = self._offset_fit(Y, lin, groups)
         Yv = Y.to_numpy(np.float64)
         gg = self._gene_groups(Y)
+        tune_rep = {}
+        if self.tune_weights and len(self.mod_blocks_) > 1:
+            Z, tune_rep = self._tune_weights(Z, R, Yv, gg, groups)
+        K = Z @ Z.T
         sol = fit_pattern_ridge(K, R, Yv, gg, groups=groups, lam_grid=self.lam_grid,
                                 merge_frac=self.merge_frac, min_rows=self.min_rows)
         self.clusters_ = sol["clusters"]
@@ -493,9 +585,29 @@ class KernelRidgeM1:
         self.score_by_group_ = sol["score_by_group"]
         self.report_ = dict(sol["report"], kappa=self.kappa_, n_features=len(self.columns_),
                             p_modality=self.p_mod_, feature_s=round(t_feat, 2),
-                            fit_s=round(time.perf_counter() - t0, 2))
+                            fit_s=round(time.perf_counter() - t0, 2), **tune_rep)
         self.Ztr_ = Z
         return self
+
+    def _tune_weights(self, Z, R, Yv, gg, groups):
+        """M1b: choose block multipliers on the training LOO (``tune_block_weights``) and fold them
+        into the column weights (kernel = sum_b theta_b K_b). Training rows only."""
+        t0 = time.perf_counter()
+        blk = np.array([c.split(":", 1)[0] for c in self.columns_])
+        masks = {m: np.isin(blk, bs) for m, bs in self.mod_blocks_.items() if self.p_mod_[m]}
+        Kb = {m: Z[:, mk] @ Z[:, mk].T for m, mk in masks.items()}
+        anchor = "E" if "E" in Kb else next(iter(Kb))
+        theta, rep = tune_block_weights(Kb, R, Yv, gg, groups=groups, lam_grid=self.lam_grid,
+                                        merge_frac=self.merge_frac, min_rows=self.min_rows,
+                                        anchor=anchor, grid=self.weight_grid,
+                                        max_eval=self.max_tune_eval)
+        mult = np.ones(len(blk))
+        for m, mk in masks.items():
+            mult[mk] = np.sqrt(theta[m])
+        self.col_w_ = self.col_w_ * mult
+        self.theta_ = theta
+        rep["tune_s"] = round(time.perf_counter() - t0, 2)
+        return Z * mult[None, :], rep
 
     def _train_design(self):
         if getattr(self, "Ztr_", None) is None:
