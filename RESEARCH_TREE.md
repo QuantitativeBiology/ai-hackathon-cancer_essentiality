@@ -4,6 +4,23 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-26 — M2: design frozen (DESIGN v3)
+Three review rounds ran: round 1 with 7 specialist reviewers, round 2 with the same 7 re-checking, and round 3 with
+one fresh reviewer focused on consistency and cuts. Each round moved the design toward something decisive and
+enforceable. The main changes:
+- P1 is computed per fold, with skill over the lineage mean as the headline;
+- NaN-aware fits that respect DepMap's library-structured missingness;
+- a transfer model T that uses only features available externally;
+- non-transformed DepMap lines tiered by immortalisation mechanism;
+- anchor-based screen harmonisation that excludes non-transformed lines and p53/DDR genes;
+- pre-registered transfers/fails/inconclusive rules per biological background;
+- code-level safeguards: test guard bound to committed finalists, frozen evaluation hashes, a run registry and gate
+  evidence files.
+
+In progress: G0 infrastructure and baselines (G1), feature/prior-knowledge matrices with an open proteomics arm,
+and external screen acquisition (non-transformed + anchor screens). Next: verify G0, freeze the evaluation code
+(tag `freeze-eval`), then the model ladder M1 → M2 → M3/M4 → M5 with ablations on dev CV.
+
 ### 2026-10-26 — M1: literature done, design v0 in review round 1
 LITERATURE.md synthesises four agent surveys: prior methods, non-transformed screens, harmonisation/labels and data
 resources. The decision-relevant points:
@@ -34,17 +51,29 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   lines share patients, and the test set must never inform design choices.
 - D2: Primary essentiality label = gene effect < −0.5 (−1 as sensitivity), not probability of dependency.
   Why: that file is not local, and it is partly circular with expression.
+- D3 (M2): P1 is computed per fold, then averaged, not from pooled out-of-fold predictions. Why: pooling makes the
+  gene-mean baseline's r spuriously negative (statistics review); prior-work's pooled variant is kept only as a
+  published-comparable number.
+- D4 (M2): Screen-specific dependency = dependency fraction ≤ 0.5 in cancer dev (headline), ≤ 5% (secondary).
+  Why: compromise between the statistics and biology reviews; it removes core-essential inflation.
+- D5 (M2): Kept M4 (neural, shared across genes) despite the round-3 suggestion to cut it. Why: the goal is the best
+  method; it is gated by a cheap pre-check and time-boxed.
+- D6 (M2): Set-A tiers come from metadata, never from those lines' CRISPR outcomes. Why: tiering on outcomes
+  conditions the evaluation on the target.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
 - [x] 1. Literature and dataset survey → LITERATURE.md (+ docs/lit/*)
   - [x] 1.1 Data audit (docs/data_audit.md) and parquet cache (src/essml/io.py)
   - [x] 1.2 Locked split (configs/splits.csv)
-  - [-] 1.3 Dev-fold probe (scripts/probe/): ridge 0.15/0.31 vs lineage 0.09/0.18 mean per-gene r. FLAWED (R1 agent-failure
-    review): λ chosen on the validation fold, NaNs mean-filled using validation lines, gene set ≠ P1. Order-of-magnitude
-    calibration only; never cite as a result.
-- [~] 2. DESIGN.md draft → review rounds (≤3) → frozen design
-  - [~] 2.1 Round 1: external PI, statistics, prior work, data, algorithms/compute, agent failure modes, biology
+  - [-] 1.3 Dev-fold probe (scripts/probe/): FLAWED (λ tuned on validation; imputation used validation lines).
+    Numbers deliberately not recorded; superseded by G1/G2 runs.
+- [x] 2. DESIGN.md draft → review rounds (≤3) → frozen design (v3)
+  - [x] 2.1 Round 1: external PI, statistics, prior work, data, algorithms/compute, agent failure modes, biology
+  - [x] 2.2 Round 2: same reviewers re-check v1 (all minor/accept)
+  - [x] 2.3 Round 3: fresh consistency/over-engineering review → v3 frozen
+- [~] G0 evaluation infrastructure (metrics, guard, registry, tests) + G1 baselines
+- [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [~] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
 - [ ] 3. Data pipeline and verification (toy data, controls)
 - [ ] 4. Baselines (per-gene mean, per-gene lineage mean)
