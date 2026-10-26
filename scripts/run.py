@@ -101,7 +101,9 @@ REG_COLS = ["run_id", "timestamp", "name", "model", "config", "config_hash", "gi
             "dP1_vs_B1_variable", "dP1_vs_B1_variable_sd", "frac_beat_B1_variable",
             "P2a", "P2a_sd", "dP2a_vs_B0", "dP2a_vs_B0_sd",
             "P2b_nap_prev05", "P2b_nap_prev05_sd", "P2b_auroc_prev05", "P2b_auroc_prev05_sd",
-            "fit_s", "predict_s", "total_s", "threads", "peak_rss_mb", "rss_method"]
+            "fit_s", "predict_s", "total_s", "threads", "peak_rss_mb", "rss_method",
+            # provenance columns added after G2 (older rows: empty)
+            "eval_genes_sha256", "gene_classes_sha256", "tree_clean"]
 
 # ----------------------------------------------------------------------------------------------
 # Leakage instrumentation
@@ -290,6 +292,22 @@ def git_commit():
         return "unknown", 1
 
 
+# paths written by the run itself; they must not make the tree "unclean" for the next launch
+OUTPUT_PATHS = ("results/registry.csv", "results/runs")
+
+
+def tree_clean():
+    """1 if the work tree is clean, else 0: no modified or untracked (non-ignored) files, ignoring only
+    the run's own outputs (OUTPUT_PATHS). Stricter than ``dirty_tree``, which ignores untracked files."""
+    try:
+        r = subprocess.run(["git", "status", "--porcelain", "--", "."]
+                           + [f":(exclude){p}" for p in OUTPUT_PATHS],
+                           cwd=ROOT, capture_output=True, text=True)
+        return int(r.returncode == 0 and not r.stdout.strip())
+    except OSError:
+        return 0
+
+
 def file_sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -397,7 +415,9 @@ def main(argv=None):
     row = {"run_id": run_id, "timestamp": stamp.isoformat(timespec="seconds"), "name": cfg["name"],
            "model": cfg["model"], "config": str(Path(a.config).as_posix()), "config_hash": ch,
            "git_commit": commit, "dirty_tree": dirty, "splits_sha256": file_sha256(splits_path),
-           "leaky": int(bool(cfg.get("leaky", 0))), "threads": threads, "status": "running"}
+           "eval_genes_sha256": file_sha256(ROOT / "configs" / "eval_genes.csv"),
+           "gene_classes_sha256": file_sha256(ROOT / "configs" / "gene_classes.csv"),
+           "tree_clean": tree_clean(), "leaky": int(bool(cfg.get("leaky", 0))), "threads": threads, "status": "running"}
     t_start = time.perf_counter()
     write_registry(row)  # row at start; replaced at the end (also on failure)
     try:
@@ -461,6 +481,8 @@ def main(argv=None):
         rss, rss_m = peak_rss_mb()
         summary = {"run_id": run_id, "config": cfg, "config_hash": ch, "git_commit": commit,
                    "dirty_tree": dirty, "splits_sha256": row["splits_sha256"],
+                   "eval_genes_sha256": row["eval_genes_sha256"],
+                   "gene_classes_sha256": row["gene_classes_sha256"], "tree_clean": row["tree_clean"],
                    "roles_used": row["roles_used"], "n_train_ids": row["n_train_ids"],
                    "threads": threads, "seed": seed, "n_lines": len(ho_ids),
                    "n_eval_genes": len(eval_genes), "neg_mapping": neg_rep,

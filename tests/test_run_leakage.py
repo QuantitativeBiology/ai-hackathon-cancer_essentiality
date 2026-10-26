@@ -116,3 +116,25 @@ def test_registry_row_replaced(tmp_path):
     reg = pd.read_csv(p)
     assert list(reg["run_id"]) == ["r2", "r1"] and list(reg["status"]) == ["running", "ok"]
     assert list(reg.columns) == run.REG_COLS
+
+
+def test_registry_provenance_columns_backward_compatible(tmp_path):
+    """New provenance columns are appended; rows written before them keep their values and get ''."""
+    new_cols = ["eval_genes_sha256", "gene_classes_sha256", "tree_clean"]
+    assert all(c in run.REG_COLS for c in new_cols)
+    old_cols = [c for c in run.REG_COLS if c not in new_cols]
+    p = tmp_path / "reg.csv"
+    old = {c: "" for c in old_cols}
+    old.update(run_id="old", status="ok", git_commit="abc", dirty_tree="1", P1_variable="0.18374")
+    pd.DataFrame([old], columns=old_cols).to_csv(p, index=False)
+    row = {"run_id": "new", "status": "ok", "git_commit": "def", "dirty_tree": 0, "tree_clean": 1,
+           "eval_genes_sha256": run.file_sha256(run.ROOT / "configs" / "eval_genes.csv"),
+           "gene_classes_sha256": run.file_sha256(run.ROOT / "configs" / "gene_classes.csv")}
+    run.write_registry(row, p)
+    reg = pd.read_csv(p, dtype=str, keep_default_na=False)
+    assert list(reg.columns) == run.REG_COLS and list(reg["run_id"]) == ["old", "new"]
+    o, n = reg.iloc[0], reg.iloc[1]
+    assert o["P1_variable"] == "0.18374" and o["git_commit"] == "abc" and o["dirty_tree"] == "1"
+    assert all(o[c] == "" for c in new_cols)
+    assert n["tree_clean"] == "1" and len(n["eval_genes_sha256"]) == 64 and len(n["gene_classes_sha256"]) == 64
+    assert run.tree_clean() in (0, 1)
