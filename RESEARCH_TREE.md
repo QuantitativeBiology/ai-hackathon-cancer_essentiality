@@ -15,8 +15,11 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 - **Controls:** the permuted-feature control reproduces B1 exactly. Provenance metadata behaves as a batch proxy and
   stays excluded.
 - **Reproduction:** 19 configs were re-run independently and are bit-identical.
-- **Caveat:** non-essential genes get non-zero P1. This suggests part of the skill is predicted line-level
-  offsets, so a decomposition diagnostic is added (D16).
+- **Independent review** (reviews/g2_review): no leakage. The solver is exact, and all P1/Δ values reproduce with
+  independent code.
+- **Non-essential genes** get P1 0.11. This is not predicted line offsets: it is broad library- and lineage-linked
+  structure.
+- **Within-library P1** of the best model is 0.279 (Δ vs B1 +0.108). It will be reported next to the headline (D16).
 
 Next (G3):
 - independent code/result review of G2;
@@ -131,11 +134,23 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - "Genomics adds nothing" may not be claimed until the pre-registered block-weight tuning (DESIGN §5: training
     LOO, coordinate descent) has been run.
   - The provenance arm (+0.014) is a batch proxy and is excluded, as pre-registered. It is never a candidate.
-- D16 (post-G2): new diagnostic, added because Hart non-essentials reach P1 0.110 under M1 (B1 0.068).
-  - Part of P1 skill may be predicted line-level offsets (screen quality or library), not gene-specific biology.
-  - Diagnostic: a "line offset" model, B0 plus a per-line scalar predicted from expression.
-  - Also report P1 after per-line centring of observed and predicted values, as a secondary column.
-  - Metrics and headline definitions are unchanged; this only adds a disclosed decomposition.
+- D16 (post-G2, revised after the independent review reviews/g2_review/): the line-offset hypothesis is refuted.
+  - Per-line centring keeps 99–100% of P1, and an offset-only model scores ≤ 0.024.
+  - Non-essential-gene skill is broad. It is partly library group and partly lineage, and it scales with every
+    model's general skill: the NEG/variable P1 ratio is about 0.35 for B1, B2 and M1.
+  - Diagnostic adopted instead: report within-library and within-lineage P1 next to the headline. DESIGN §4 already
+    promises a by-library column.
+  - Dev numbers:
+    - within-library: M1-E-resB0 0.279, ΔP1 vs B1 +0.108;
+    - within-lineage: M1-E 0.237 vs B2 0.177, so skill beyond lineage is real.
+- D17 (post-review): the current best model is M1-E with the B0 residual (`m1_e_resb0`). It is reported with its
+  run ID from the clean re-run on the `freeze-eval` tree.
+  - R1 and T are equivalent within noise. R1 is the published comparator, and T is the transfer model.
+  - The review's added controls are adopted:
+    - expression permuted within lineage, and within lineage × library;
+    - a permuted B0-path run.
+  - A Nadeau–Bengio corrected SE is shown alongside the fold SE. This is disclosure only; the selection rule is
+    unchanged.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -171,12 +186,17 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     fix in G3.
   - [-] P arm (253 lines): −0.006, underpowered.
   - [x] Negative control (permuted E) = B1 exactly. Provenance arm +0.014 = batch proxy, excluded.
-  - [!] Non-essential genes P1 0.110 (B1 0.068): line-offset skill suspected (D16).
+  - [x] Independent review (reviews/g2_review, 8cf9d42): no leakage; solver exact; numbers reproduce. Provenance:
+    every G2 run had a dirty tree, so finalists need a re-run on the clean tagged tree.
+  - [!] Non-essential genes P1 0.110 (B1 0.068). Not line offsets (centring keeps 99%). It is library- and
+    lineage-linked; within-library P1 0.279 (D16).
 - [ ] G3 model ladder continued
-  - [ ] Independent review of G2 code and results
+  - [ ] Re-run m1_E_resB0, r1_E, t_E_status and m1_E on the clean `freeze-eval` tree; cite those run IDs
+  - [ ] Report columns: within-library and within-lineage P1; Nadeau–Bengio SE (D16, D17)
+  - [ ] Stronger negative controls: E permuted within lineage (and within lineage × library); permuted B0 path
+  - [ ] Move check_solver tests (p>n, LOO with offset, held-out feature perturbation) into tests/
   - [ ] M1b block-weight tuning (B0 residual); C and E+C first
-  - [ ] Line-offset diagnostic and per-line-centred P1 (D16)
-  - [ ] M2 with pass-through for non-variable genes
+  - [ ] M2 on the D14 base, with pass-through for non-variable genes and nested local-λ CV
   - [ ] M3 LightGBM go/no-go; M4 factorised neural go/no-go (pre-check, 1-day time box each)
   - [ ] M5 stacking of finalists
   - [ ] Leave-one-lineage-out; no-EC variant for H3
