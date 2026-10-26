@@ -60,6 +60,11 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   method; it is gated by a cheap pre-check and time-boxed.
 - D6 (M2): Set-A tiers come from metadata, never from those lines' CRISPR outcomes. Why: tiering on outcomes
   conditions the evaluation on the target.
+- D7 (G1): Anchor/external comparability. With 5-fold CV, each dev line is out-of-fold for exactly one model, so
+  "4 non-training models" (DESIGN v3) is impossible. Set A/B skill is computed per fold model and averaged, matching
+  the anchors' single out-of-fold model; the 5-model ensemble is reported as secondary.
+- D8 (G1): rare_selective gains a ≥1% floor (≥3 lines and 1% ≤ fraction < 5%). Why: ≥3 lines alone admitted 8,281
+  mostly-noise genes. Decided after baselines only, before any model comparison. Frozen hashes regenerated.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -72,7 +77,19 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] 2.1 Round 1: external PI, statistics, prior work, data, algorithms/compute, agent failure modes, biology
   - [x] 2.2 Round 2: same reviewers re-check v1 (all minor/accept)
   - [x] 2.3 Round 3: fresh consistency/over-engineering review → v3 frozen
-- [~] G0 evaluation infrastructure (metrics, guard, registry, tests) + G1 baselines
+- [x] G0 evaluation infrastructure (metrics, guard, registry, tests; 78 pass) + G1 baselines
+  - [x] B0: P1 = 0 exactly (sanity). B1 (κ≈10): P1var 0.184±0.013, P2a 0.906. B2 kNN (k≈20): P1var 0.253±0.009,
+    ΔP1 vs B1 +0.069, beats B1 on 81% of variable genes. Runs 20261026-151647_b1, -152737_b2.
+  - [x] Red-team review of evaluation code (reviews/redteam_g0/). The independent metric code reproduces the B1
+    registry numbers exactly (P1var 0.183737, P2a 0.906274, P2b 0.086748). Fixed: guard bypass via a substitute
+    splits file; control-gene reads for test lines; committed audit tables with test-line CRISPR stats (now dev-only;
+    the older commit b868f4d still holds them in history; no model used them).
+  - [ ] Pending after G2/G5a finish:
+    - registry hashes of eval_genes/gene_classes;
+    - `freeze-eval` tag;
+    - B0/B1/B2 re-run on a clean tagged tree;
+    - guarded reader for cache/harmonised.
+- [~] G2 M1/M1b kernel ridge, R1, transfer model T, modality ablation, M2 local stage
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
   - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.

@@ -11,3 +11,4 @@ Each rule is one line, with its evidence in brackets. Pruned at each milestone (
 7. Check accepted review items against code or text at the next gate, not at the end. [Round 2 found three "accepted but not done" items.]
 8. Lock the test split and commit it before any modelling. [A 104-line patient-sharing structure made the split non-trivial; locking it early kept every later choice blind to test lines.]
 9. Stop adding process machinery once the design is frozen; the next unit of value is a result. [DESIGN.md grew from 199 lines to ~440 before any model ran.]
+10. Cross-check headline metrics with an independent agent writing its own metric code before freezing evaluation. [The red-team G0 cross-check matched B1 to 6 decimals and separately found 3 guard gaps that tests had missed.]
