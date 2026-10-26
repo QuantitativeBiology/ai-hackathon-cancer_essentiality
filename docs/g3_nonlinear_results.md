@@ -114,3 +114,12 @@ Fold 0 only (`--folds 0`, registry status `partial_folds`), 6 threads, torch 2.6
   the selection metric and on P2b. Not a selection criterion; noted only.
 - Ridge on 256 training-fold PCs is itself 0.006 below the full-kernel m1_E_resB0 on fold 0, so the
   PC bottleneck costs accuracy before any nonlinearity is added.
+
+### R2. M3 coverage decision (pre-registered rule)
+- Timing probe `g3_m3_probe` (run 20261026-234919, fold 0, first 100 genes of the subset; 99
+  were training-fold variable): base (5 inner M1 fits + full M1) 254 s, screening 4 s, trees 97 s
+  for 99 genes at 6 processes. Projection for all ~2,120 training-fold variable genes × 5 folds:
+  ≈ 5 × (254 + 2,070 + 90) s ≈ 3.3 h ≤ 4 h → **full coverage** (`g3_m3`).
+- Probe numbers (fold 0, 100-gene subset; not a selection result): P1 0.3417 vs m1_E_resB0 0.3344
+  on the same genes (+0.0073); 69% of genes got no correction (early stopping found no
+  improvement over a zero correction).
