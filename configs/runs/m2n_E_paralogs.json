@@ -1,0 +1,46 @@
+{
+ "name": "m2n_E_paralogs",
+ "model": "M2",
+ "features": [],
+ "params": {
+  "m1_params": {
+   "modalities": [
+    "E"
+   ],
+   "residual": "B0"
+  },
+  "base": "M1",
+  "priors": "paralogs",
+  "local_genes": "variable",
+  "nested_lambda": true
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "declared": "M2 (D14 base m1_E_resB0, pass-through for non-variable genes, nested local-lambda CV) priors=paralogs vs m1_E_resB0: DESIGN \u00a74 rule; prior contrasts paralogs-none and partners-paralogs Holm."
+}

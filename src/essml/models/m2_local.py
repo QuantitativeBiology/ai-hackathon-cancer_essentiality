@@ -13,7 +13,14 @@ Per outer training fold:
 4. lambda (shared within gene groups variable/other, classes from the training fold) is chosen on
    the same inner folds: fit the per-gene ridge on the other inner folds' rows, score mean per-gene
    r on the inner held-out rows.
+   ``nested_lambda=True`` (G3; review finding 15): in step 4 the training rows a_s of inner split s
+   get M1 features from a NESTED out-of-fold pass inside a_s only (inner-inner grouped folds), so
+   no feature used to fit the local ridge was produced by an M1 model that saw the validation rows
+   b_s. The validation rows b_s keep m_oof (M1 fitted on a_s), as in the final fit.
 Genes with < ``min_rows`` observed training rows pass the M1 prediction through.
+``local_genes='variable'`` (G3): the local stage is fitted only for training-fold variable genes;
+every other gene passes the M1 prediction through (G2 showed the per-gene stage overfits
+low-variance genes).
 
 Prior-knowledge ablation (``priors``): 'none' (own gene), 'paralogs' (+ paralog features),
 'partners' (+ partner mean expression).
@@ -108,7 +115,8 @@ class LocalStageM2:
     uses_groups = True
 
     def __init__(self, m1_params=None, base="M1", priors="partners", inner_folds=5,
-                 lam_grid=None, min_rows=50, chunk=1500, seed=20261026, cache_inner=True):
+                 lam_grid=None, min_rows=50, chunk=1500, seed=20261026, cache_inner=True,
+                 local_genes="all", nested_lambda=False):
         self.m1_params = dict(m1_params or {"modalities": ["E"]})
         self.base = base
         if priors not in PRIOR_SETS:
@@ -118,6 +126,10 @@ class LocalStageM2:
         self.lam_grid = np.asarray(LOCAL_LAM if lam_grid is None else lam_grid, np.float64)
         self.min_rows, self.chunk, self.seed = int(min_rows), int(chunk), int(seed)
         self.cache_inner = bool(cache_inner)
+        if local_genes not in ("all", "variable"):
+            raise ValueError("local_genes must be 'all' or 'variable'")
+        self.local_genes = local_genes
+        self.nested_lambda = bool(nested_lambda)
 
     def _m1(self):
         cls = KernelRidgeT if self.base == "T" else KernelRidgeM1
@@ -159,6 +171,34 @@ class LocalStageM2:
     def _local(self, ids, builder=None, gs=slice(None)):
         return (builder or _builder()).local_features(list(map(str, ids)), list(self.genes_[gs]))
 
+    @staticmethod
+    def _fill(oof, Yv):
+        """Genes unobserved in an inner training part (NaN OOF): use the training gene mean."""
+        oof = np.asarray(oof, np.float64)
+        bad = ~np.isfinite(oof)
+        if bad.any():
+            mu = np.nan_to_num(np.nanmean(Yv, axis=0))
+            oof = np.where(bad, mu[None, :], oof)
+        return oof, int(bad.sum())
+
+    def lambda_cv_train_features(self, Y, lin, groups, Xm1, splits, oof):
+        """M1 features of the lambda-CV training rows a_s of each inner split s.
+
+        Plain (G2): m_oof[a_s], whose models saw the validation rows b_s. Nested (G3): a fresh
+        out-of-fold M1 pass inside a_s only (``inner_oof`` on Y.iloc[a_s]), so neither the targets
+        nor the features of b_s reach them. Returns (list of (|a_s|, G) arrays, n cached)."""
+        ids, Yv = Y.index, Y.to_numpy(np.float64)
+        out, n_cached = [], 0
+        for a, b in splits:
+            if self.nested_lambda:
+                sub = None if Xm1 is None else Xm1.loc[ids[a]]
+                o, _, c = self.inner_oof(Y.iloc[a], lin, np.asarray(groups)[a], sub)
+                out.append(self._fill(o, Yv[a])[0])
+                n_cached += int(c)
+            else:
+                out.append(oof[a])
+        return out, n_cached
+
     def fit(self, Y: pd.DataFrame, lineage=None, X=None, groups=None):
         t0 = time.perf_counter()
         ids = Y.index
@@ -166,40 +206,42 @@ class LocalStageM2:
         if groups is None:
             sp = pd.read_csv(ROOT / "configs" / "splits.csv", index_col=0)
             groups = sp["PatientID"].reindex(ids.astype(str)).fillna(pd.Series(ids, index=ids)).to_numpy()
+        groups = np.asarray(groups)
         self.genes_ = Y.columns
+        Yv = Y.to_numpy(np.float64)
         Xm1, builder = split_X(X)
         oof, splits, cached = self.inner_oof(Y, lin, groups, Xm1)
-        oof = np.asarray(oof, np.float64)
-        bad = ~np.isfinite(oof)
-        if bad.any():  # genes unobserved in an inner training part: use the training gene mean
-            mu = np.nan_to_num(np.nanmean(Y.to_numpy(np.float64), axis=0))
-            oof = np.where(bad, mu[None, :], oof)
-        self.n_oof_filled_ = int(bad.sum())
+        oof, self.n_oof_filled_ = self._fill(oof, Yv)
+        train_feat, n_cached = self.lambda_cv_train_features(Y, lin, groups, Xm1, splits, oof)
         t_inner = time.perf_counter() - t0
         self.m1_ = self._m1().fit(Y, lineage=lin, X=Xm1, groups=groups)
         names = PRIOR_SETS[self.priors]
-        Yv = Y.to_numpy(np.float64)
         var = genesets.gene_classes(Y, set())["variable"].to_numpy()
         G = Yv.shape[1]
-        chunks = [slice(s, min(s + self.chunk, G)) for s in range(0, G, self.chunk)]
+        local = var if self.local_genes == "variable" else np.ones(G, bool)
+        gidx = np.flatnonzero(local)
+        chunks = [gidx[s:s + self.chunk] for s in range(0, len(gidx), self.chunk)]
         # lambda per gene group on the inner folds (local features built per gene chunk: memory)
         r_l = np.full((len(splits), len(self.lam_grid), G), np.nan)
         for gs in chunks:
-            Xs = _stack(self._local(ids, builder, gs), names, oof[:, gs])
+            feat = self._local(ids, builder, gs)
             for si, (a, b) in enumerate(splits):
-                ne = normal_equations(Xs[:, a], Yv[a, gs], self.min_rows // 2)
-                Xb = Xs[:, b]
+                Xa = _stack({k: v[a] for k, v in feat.items()}, names, train_feat[si][:, gs])
+                Xb = _stack({k: v[b] for k, v in feat.items()}, names, oof[np.ix_(b, gs)])
+                ne = normal_equations(Xa, Yv[np.ix_(a, gs)], self.min_rows // 2)
                 for li, lam in enumerate(self.lam_grid):
                     beta, icpt, ok = solve_ridge(ne, lam)
-                    P = np.where(ok[None, :], apply_ridge(Xb, beta, icpt), oof[b, gs])
-                    r_l[si, li, gs] = _masked_r(P, Yv[b, gs])
-        score = np.zeros((len(self.lam_grid), 2))
+                    P = np.where(ok[None, :], apply_ridge(Xb, beta, icpt), oof[np.ix_(b, gs)])
+                    r_l[si, li, gs] = _masked_r(P, Yv[np.ix_(b, gs)])
+        score = np.full((len(self.lam_grid), 2), np.nan)
+        self.lam_by_group_ = {}
         for j, m in enumerate([~var, var]):
-            score[:, j] = np.nanmean(np.nanmean(r_l[:, :, m], axis=2), axis=0)
-        self.lam_by_group_ = {0: float(self.lam_grid[int(np.argmax(score[:, 0]))]),
-                              1: float(self.lam_grid[int(np.argmax(score[:, 1]))])}
+            m = m & local
+            if m.any():
+                score[:, j] = np.nanmean(np.nanmean(r_l[:, :, m], axis=2), axis=0)
+                self.lam_by_group_[j] = float(self.lam_grid[int(np.nanargmax(score[:, j]))])
         self.lam_score_ = score
-        lam_gene = np.where(var, self.lam_by_group_[1], self.lam_by_group_[0])
+        lam_gene = np.array([self.lam_by_group_.get(int(v), np.nan) for v in var])
         self.beta_ = np.zeros((G, len(names) + 1))
         self.icpt_ = np.zeros(G)
         self.ok_ = np.zeros(G, bool)
@@ -209,9 +251,11 @@ class LocalStageM2:
             self.beta_[gs], self.icpt_[gs], self.ok_[gs] = beta, icpt, ok
         self.feature_names_ = ["m1_oof"] + names
         self.report_ = {"inner_cached": cached, "inner_s": round(t_inner, 1),
+                        "nested_lambda": self.nested_lambda, "nested_cached": n_cached,
+                        "local_genes": self.local_genes, "n_local_genes": int(local.sum()),
                         "lam_by_group": self.lam_by_group_, "n_passthrough": int((~self.ok_).sum()),
                         "m1": getattr(self.m1_, "report_", {}),
-                        "mean_beta_m1": float(np.mean(self.beta_[self.ok_, 0])),
+                        "mean_beta_m1": float(np.mean(self.beta_[self.ok_, 0])) if self.ok_.any() else None,
                         "fit_s": round(time.perf_counter() - t0, 1)}
         return self
 
@@ -222,11 +266,12 @@ class LocalStageM2:
         names = self.feature_names_[1:]
         G = len(self.genes_)
         out = np.empty((len(index), G))
-        for s in range(0, G, self.chunk):
-            gs = slice(s, min(s + self.chunk, G))
+        out[:] = m1  # pass-through for genes without a local fit
+        gidx = np.flatnonzero(self.ok_)
+        for s in range(0, len(gidx), self.chunk):
+            gs = gidx[s:s + self.chunk]
             Xs = _stack(self._local(index, builder, gs), names, m1[:, gs])
-            P = apply_ridge(Xs, self.beta_[gs], self.icpt_[gs])
-            out[:, gs] = np.where(self.ok_[gs][None, :], P, m1[:, gs])
+            out[:, gs] = apply_ridge(Xs, self.beta_[gs], self.icpt_[gs])
         return pd.DataFrame(out, index=index, columns=self.genes_)
 
     def compact(self):
