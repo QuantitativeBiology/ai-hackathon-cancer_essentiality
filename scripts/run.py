@@ -17,6 +17,10 @@ Config keys:
     cache_reference      true: reuse B0/B1 reference predictions from cache/ref_preds (exact
                          cache keyed by a hash of the training targets, lineages, held-out IDs
                          and the baseline config; reference baselines use no features)
+    save_models          true (or CLI --save-models): persist the fitted fold models to
+                         cache/models/<run_id>/ (essml.modelstore). Default false: ~100-300 MB per
+                         fold, regenerable in ~100 s/fold; nothing in the default path reads them.
+                         Needed only for finalists that will predict new lines (set A / set B).
     line_subset          optional raw feature block (cache/features/<block>.parquet, e.g. "P"):
                          restrict the run (training AND evaluation) to dev lines present in it
 
@@ -31,7 +35,8 @@ Protocol per outer fold k (dev lines only; targets come from essml.guard.load_ta
     the fixed evaluable genes configs/eval_genes.csv.
 Outputs: results/runs/<run_id>/{summary.json, per_fold.csv, per_gene.csv.gz};
     cache/runs/<run_id>/{pred.parquet, per_gene_fold.parquet, per_line.parquet};
-    cache/models/<run_id>/fold<k>.pkl (essml.modelstore.predict_new averages them for new lines);
+    cache/models/<run_id>/fold<k>.pkl ONLY with save_models / --save-models
+    (essml.modelstore.predict_new averages them for new lines);
     results/registry.csv: a row written at start (status=running) and replaced at the end
     (ok / partial_folds / failed: ...), with config hash, commit, dirty-tree flag, splits.csv
     sha256, roles of the target rows loaded, number of distinct IDs that reached any fit.
@@ -372,6 +377,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--config", required=True)
     ap.add_argument("--threads", type=int, default=None)
+    ap.add_argument("--save-models", action="store_true",
+                    help="persist fitted fold models to cache/models (default off; or cfg save_models)")
     ap.add_argument("--folds", default=None, help="comma-separated outer folds (debug; not headline)")
     a = ap.parse_args(argv)
     cfg = json.loads(Path(a.config).read_text())
@@ -444,11 +451,12 @@ def main(argv=None):
         ev["per_line"].to_parquet(cache_dir / "per_line.parquet")
         ev["per_fold"].round(6).to_csv(out_dir / "per_fold.csv", index=False)
         per_gene_aggregate(ev["per_gene"]).to_csv(out_dir / "per_gene.csv.gz", index=False)
-        for f, m in res["models"].items():
-            if hasattr(m, "compact"):
-                m.compact()  # drop re-buildable arrays before pickling
-            modelstore.save_fold_model(run_id, f, m, folds.index[folds != f],
-                                       [] if X is None else X.columns)
+        if a.save_models or cfg.get("save_models"):
+            for f, m in res["models"].items():
+                if hasattr(m, "compact"):
+                    m.compact()  # drop re-buildable arrays before pickling
+                modelstore.save_fold_model(run_id, f, m, folds.index[folds != f],
+                                           [] if X is None else X.columns)
         fit_s, pred_s = sum(res["fit_s"].values()), sum(res["predict_s"].values())
         rss, rss_m = peak_rss_mb()
         summary = {"run_id": run_id, "config": cfg, "config_hash": ch, "git_commit": commit,
