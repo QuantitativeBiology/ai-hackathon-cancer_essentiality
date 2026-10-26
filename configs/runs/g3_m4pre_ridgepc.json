@@ -1,0 +1,42 @@
+{
+ "features": [],
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G1",
+ "cache_reference": true,
+ "name": "g3_m4pre_ridgepc",
+ "model": "M4pre_RidgePC",
+ "params": {
+  "n_pc": 256,
+  "whiten_grid": [
+   false,
+   true
+  ],
+  "split_seed": 20261026
+ },
+ "prereg": "G3 M4 pre-check (pre-registered, docs/g3_nonlinear_results.md section 1): run with --folds 0 only. GO for M4 iff the mean over model seeds 0-4 of the MLP's fold-0 P1 (variable genes) is greater than M4pre_RidgePC's fold-0 P1 (same PCs, targets and inner split). Otherwise M4 is dropped."
+}
