@@ -28,7 +28,7 @@ def main():
     seed = json.load(open(a.seeds))["split_seed"]
 
     model = pd.read_csv(a.model_csv).set_index("ModelID")
-    screened = load_matrix("crispr").index
+    screened = load_matrix("crispr", unguarded=True).index  # pre-split: index only
     expr = load_matrix("expression").index
     ids = screened.intersection(expr)
     m = model.loc[ids, ["PatientID", "OncotreeLineage", "OncotreePrimaryDisease"]].copy()

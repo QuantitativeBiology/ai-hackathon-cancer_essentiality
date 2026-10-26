@@ -1,0 +1,60 @@
+"""Persist the fitted fold models of a run so they can predict new feature rows (set A / set B).
+
+Layout: cache/models/<run_id>/fold<k>.pkl (gitignored), one pickled dict per outer dev fold:
+    {"model": fitted model, "fold": k, "train_ids": [...], "features": [...], "run_id": ...}
+Large training-target arrays (e.g. B2's neighbour profiles, attribute ``Y_``) are not pickled; they
+are re-read from dev targets through ``guard.load_targets`` (dev IDs only) on load.
+
+``predict_new(run_id, index, lineage, X)`` averages the fold models' predictions (DESIGN: set A/B
+predictions use the mean of the 5 dev fold-models).
+"""
+from __future__ import annotations
+
+import pickle
+from pathlib import Path
+
+import pandas as pd
+
+from . import guard
+
+ROOT = Path(__file__).resolve().parents[2]
+MODEL_DIR = ROOT / "cache" / "models"
+
+
+def save_fold_model(run_id, fold, model, train_ids, features, model_dir=MODEL_DIR):
+    d = Path(model_dir) / run_id
+    d.mkdir(parents=True, exist_ok=True)
+    state = dict(model.__dict__)
+    dropped = []
+    if "Y_" in state:  # re-loadable from dev targets; avoid ~100 MB per fold on disk
+        state["Y_"] = None
+        dropped.append("Y_")
+    obj = {"cls": type(model), "state": state, "dropped": dropped, "fold": fold,
+           "train_ids": list(map(str, train_ids)), "features": list(features), "run_id": run_id}
+    with open(d / f"fold{fold}.pkl", "wb") as fh:
+        pickle.dump(obj, fh, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+def load_fold_models(run_id, model_dir=MODEL_DIR, target_loader=None):
+    """Return list of (fold, model, meta) for a run, with dropped arrays restored."""
+    target_loader = target_loader or guard.load_targets
+    out = []
+    for p in sorted((Path(model_dir) / run_id).glob("fold*.pkl")):
+        with open(p, "rb") as fh:
+            obj = pickle.load(fh)
+        m = obj["cls"].__new__(obj["cls"])
+        m.__dict__.update(obj["state"])
+        if "Y_" in obj["dropped"]:
+            Y = target_loader(obj["train_ids"])
+            m.Y_ = Y.loc[:, m.genes_].to_numpy("float64")
+        out.append((obj["fold"], m, obj))
+    if not out:
+        raise FileNotFoundError(f"no fold models for run {run_id}")
+    return out
+
+
+def predict_new(run_id, index, lineage=None, X=None, model_dir=MODEL_DIR, target_loader=None):
+    """Mean prediction of the run's fold models for new lines (index) given lineage / features."""
+    preds = [m.predict(index, lineage=lineage, X=X)
+             for _, m, _ in load_fold_models(run_id, model_dir, target_loader)]
+    return sum(preds) / len(preds)

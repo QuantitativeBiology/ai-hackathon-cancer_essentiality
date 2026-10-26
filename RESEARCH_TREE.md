@@ -13,9 +13,7 @@ resources. The decision-relevant points:
 - anchors (DepMap lines screened externally) make screen harmonisation testable.
 
 The data audit found 1214 screened lines with full E+C+M omics and 48 shared-patient groups. The locked split
-(1022 dev / 255 test / 15 non-cancerous) is committed. A dev-only probe calibrated expectations: ridge on expression
-gives mean per-gene r 0.15 (all genes) and 0.31 (top-10% variable genes), against 0.09/0.18 for the lineage mean,
-at ~1 s per fit. External screen acquisition (including anchor screens) runs in parallel with design review round 1
+(1022 dev / 255 test / 15 non-cancerous) is committed. A dev-only probe was run, but review found it FLAWED (λ tuned on validation; imputation used validation lines), so its numbers are not cited; see tree item 1.3. External screen acquisition (including anchor screens) runs in parallel with design review round 1
 (7 reviewers).
 
 ### 2026-10-26 — M0: project start

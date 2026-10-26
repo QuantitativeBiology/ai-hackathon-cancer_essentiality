@@ -149,12 +149,18 @@ def write_gene_map(cache_dir=CACHE_DIR):
     return gm
 
 
-def load_matrix(name: str, cache_dir=CACHE_DIR) -> pd.DataFrame:
+def load_matrix(name: str, cache_dir=CACHE_DIR, unguarded: bool = False) -> pd.DataFrame:
     """Load cached matrix: float32, index=ModelID (default entries), columns=Entrez ID strings.
 
     name in {'crispr','expression','cn','damaging','hotspot'}; 'fusion' returns the long
     default-entry fusion table. Builds the cache on first use.
+
+    CRISPR targets are guarded: use ``essml.guard.load_targets(ids)``. ``unguarded=True`` is
+    reserved for the pre-split data audit and split construction (scripts/audit_data.py,
+    scripts/make_splits.py), which ran before the test split existed.
     """
+    if name == "crispr" and not unguarded:
+        raise PermissionError("CRISPR targets must be loaded via essml.guard.load_targets(ids)")
     p = Path(cache_dir) / f"{name}.parquet"
     if not p.exists():
         build_cache(cache_dir=cache_dir, names=[name])

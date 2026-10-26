@@ -72,7 +72,7 @@ def main():
                            models_exactly_one_default=int((per == 1).sum()),
                            models_zero_default=int((per == 0).sum()), models_gt1_default=int((per > 1).sum()),
                            IsDefaultEntryForModel_values=";".join(map(str, m["IsDefaultEntryForModel"].unique()))))
-    crispr = io.load_matrix("crispr", C)
+    crispr = io.load_matrix("crispr", C, unguarded=True)  # pre-split audit
     shapes.insert(0, dict(file=io.FILES["crispr"], rows=crispr.shape[0], cols=crispr.shape[1] + 1,
                           unique_models=crispr.index.nunique(), rows_per_model_max=1))
     mdl = pd.read_csv(D / "Model.csv")

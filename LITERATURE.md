@@ -1,7 +1,7 @@
 # LITERATURE — prior work, datasets and implications for the design
 
 Survey date: 2026-10-26. Four independent agent reviews hold the detail and full reference lists; this file is the
-synthesis. References carry the tags `[opened]`, `[search]` or `[unverified]` in the source notes. Treat
+synthesis. References in prior_methods.md and nontransformed_screens.md carry `[opened]`, `[search]` or `[unverified]` tags. harmonisation_labels.md and data_resources.md are largely untagged, so treat their claims as unverified until checked. Treat
 `[unverified]` items as leads, not facts.
 
 | Note | Scope |
@@ -63,7 +63,7 @@ synthesis. References carry the tags `[opened]`, `[search]` or `[unverified]` in
 - When counts are available, re-score with Chronos fitted fresh per library: DepMap's pretrained guide efficacies
   cover only Avana/KY. Then scale so common essentials have median −1 and non-essentials median 0. Then apply
   gene-wise location/scale correction (ComBat-like) fitted on anchor lines screened both in DepMap and by the
-  external lab. Pacini et al. 2021 found ~8 anchors already help and 30–40 nearly match full correction.
+  external lab. Pacini et al. 2021 report that correction improved with anchor number; 8 was the smallest set they tested (not a recommended minimum), and 30–40 nearly matched full correction.
 - Affine scaling and gene-wise ComBat preserve variation within a gene across lines. Quantile or rank transforms
   preserve only ranks, so screens available only as BF/MAGeCK scores support rank metrics and AUPRC only.
 - **Anchors present in 26Q3 CRISPR data:** HAP1, HCT116, DLD-1 (Hart TKO), HT-29 and AML lines (Tzelepis KY),

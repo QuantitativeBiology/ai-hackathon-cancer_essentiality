@@ -1,6 +1,6 @@
 # DESIGN — predicting CRISPR gene essentiality for unscreened human cells
 
-Version: **v1** (after review round 1; responses in `reviews/round1_response.md`), 2026-10-26.
+Version: **v2** (after review rounds 1–2; responses in `reviews/round{1,2}_response.md`), 2026-10-26.
 Goal and parts are fixed by PROMPT.md. Evidence base: LITERATURE.md.
 
 ## 1. Questions
@@ -26,9 +26,11 @@ DepMap 26Q3 `CRISPRGeneEffect` (Chronos), 1361 × 18434.
 
 ### Inputs (all transforms fitted on training folds only)
 - **E** — expression, log2(TPM+1) on DepMap's protein-coding genes. Standardised; genes with training SD < 0.1 dropped.
-- **C** — gene-level relative CN as log2(CN + 0.1), clipped to [−3, 3]. No per-gene missing indicator: CN NaN is
-  constant per gene, so all-NaN genes are dropped and other NaNs filled with 0 (= diploid).
-  Derived: genome-instability score on **autosomes only** (fraction of genes with |log2CN| > 0.3).
+- **C** — gene-level relative CN as log2((CN + 0.1)/1.1), clipped to [−3, 3], so that 0 = diploid (relative CN 1).
+  No per-gene missing indicator: CN NaN is constant per gene, so all-NaN genes are dropped and other NaNs filled
+  with 0 (= diploid).
+  Derived: genome-instability score on **autosomes only**, computed on raw relative CN (fraction of genes with
+  |CN − 1| > 0.3).
 - **M** — damaging mutations as 0/1/2 dosage. Kept for genes mutated in ≥5 training lines.
   Derived: log mutation burden.
 - **H** — hotspot mutations (binary).
@@ -44,8 +46,9 @@ DepMap 26Q3 `CRISPRGeneEffect` (Chronos), 1361 × 18434.
   download. The exact file list goes to the user (`docs/USER_DOWNLOAD_REQUEST.md`); they enter the ablation only if
   supplied.
 - **Genotype/state composites (derived):**
-  - p53 pathway integrity: TP53 damaging or hotspot status, plus a p53-target expression score.
-  - Rb integrity: RB1 status, plus CDKN2A expression.
+  - p53 pathway integrity: TP53 damaging/hotspot status, TP53 CN loss, MDM2/MDM4 amplification,
+    PPM1D/ATM/CHEK2 damaging status, plus a p53-target expression score.
+  - Rb integrity: RB1 status, plus CDKN2A deep deletion (from CN, not expression).
   - Viral-oncoprotein flag where known (SV40/HPV/EBV; metadata only, for set A tiers).
   - Hallmark expression scores.
 - **Convention:** zero-filled genomic features mean "diploid, wild-type". For external cells, engineered genotypes
@@ -73,10 +76,12 @@ Entrez is the master ID, mapped via HGNC. Coverage is reported for every externa
     hyper-parameters.
 - **Set A** — DepMap Non-Cancerous models with RNA-seq. Tiered by transformation mechanism (R1 biology/data):
   - **A1** — hTERT-immortalised, p53/Rb intact. The RPE1-SS sublines form *one genetic background* (5 aneuploid
-    sublines). Primary claim set.
+    sublines), so A1 is reported as a **single-background case study**.
   - **A2** — immortalised with viral or SV40 oncoproteins (HA1E SV40-LT; prostate SV40/HPV lines). Secondary.
   - **A3** — virally transformed lymphoid/myeloid lines (C8166, HG-3, ARH-77, IM-9) and the fibroblast Hs 729
     (origin to be verified). Descriptive.
+  - Tiers are assigned from metadata (immortalisation mechanism), never from the lines' own CRISPR outcomes.
+    A functional p53 check (TP53 KO > +0.5, MDM2 < −1) is reported only as a descriptive diagnostic.
   - Unit of analysis = line. Each line is ranked within the cancer-test distribution of per-line metrics. No
     per-gene correlation across RPE1 sublines (near-isogenic).
 - **Set B** — external published screens (§7).
@@ -87,8 +92,13 @@ Entrez is the master ID, mapped via HGNC. Coverage is reported for every externa
   `configs/gene_classes.csv` before the test is opened. In CV they are recomputed on each training fold.
 
 ## 4. Evaluation (pre-registered)
+### Evaluable genes
+One fixed evaluable gene set, `configs/eval_genes.csv`: genes with ≥40 observed lines in every dev fold and ≥50 in
+test. Test counts come from a logged, mask-only guard call that never returns values. All metrics use this set, so
+fold differences never reflect which genes were scored.
+
 ### Gene classes
-Computed on training data:
+Computed on training data, with prevalences over observed (non-NaN) lines only:
 - **all**
 - **variable** — SD > 0.25.
 - **selective** — 5–95% of lines < −0.5.
@@ -150,7 +160,7 @@ Wall-clock fit and predict, thread count and peak RSS, logged by the common laun
 ### Published-method re-runs (rung R)
 Run on the same folds, for fair prior-work comparison:
 - **R1** — Chang & Zhang-style default multi-output ridge, predicting raw y.
-- **R2** — Shi-style elastic net (α = 0.5) on variable genes.
+- **R2** — Shi-style elastic net (α = 0.5) on variable genes. Time-boxed to 2 h, else a 500-gene subsample.
 - **R3** — DepMap-style random forest: top-1000 features chosen inside the fold, on a pre-declared random 500
   variable genes (compute bound).
 - **R4** — TrPLet-like top-k correlated-feature selection, nested. Also one non-nested run, to quantify its optimism.
@@ -160,8 +170,14 @@ Run on the same folds, for fair prior-work comparison:
   - Linear kernel on standardised features; one `eigh` per fold and NaN pattern; closed-form LOO over λ ∈ [1e2, 1e7].
   - λ is shared within gene groups (variable / other), not free per gene. Per-gene LOO λ gave no gain in the R1
     timing check.
-  - Target = residual from B1, computed **leave-line-out** in training. Lineage is unpenalised.
-  - **M1b** — a sum of per-modality kernels with block weights (tuned), to integrate C/M/F/Meta.
+  - NaN patterns whose row sets differ by ≤1% of training lines are merged. Patterns with <50 observed training lines
+    get B1 only. Pattern sub-kernels are submatrices of one fold-level K, centred on observed rows. Inner fits are
+    cached by (fold, pattern).
+  - Target = residual from B1, computed **leave-line-out** in training.
+  - **M1b** — a sum of per-modality kernels with block weights.
+    - Weights are tuned once per outer fold by coarse coordinate descent on the training LOO criterion (≤25 eigh).
+    - Default 1/√p_b weights are also reported.
+    - Ablations re-tune λ only.
 - **M2** — M1 plus a per-gene local stage: a ridge on out-of-fold M1 predictions plus gene-level features
   (own gene, paralogs, partners). Batched normal equations.
 - **M3** (go/no-go) — LightGBM on M2 residuals for variable genes. Inner-fold feature screening; 12 processes ×
@@ -177,11 +193,18 @@ Run on the same folds, for fair prior-work comparison:
 - **Not prioritised:** foundation-model embeddings (beaten by raw expression in 2025 benchmarks), STRING graph networks.
 
 ### Transfer model T (pre-registered)
-- Uses only features available for external cells: E, engineered genotype (TP53/RB1 status flags) and a fixed
-  lineage mapping (or no lineage).
+- Uses only features available for external cells: E and engineered genotype (TP53/RB1 status flags).
+- **No lineage** is primary. A pre-committed lineage mapping is a secondary variant; mapping hPSC to Germ Cell would
+  route B1 through the EC lines and confound H3.
 - CN and mutation are set to the "diploid WT" convention.
 - **T is trained and tuned on dev like any other model, and reported on the cancer test set beside the full-feature
   model.**
+
+### Frozen models for evaluation
+- Cancer test set: the model refit on all 1022 dev lines.
+- Set A and set B: the average of the 5 dev fold-models. Each fold model is trained on ~4/5 of dev, the same size as
+  the models behind anchor out-of-fold predictions, which keeps anchors and external screens comparable.
+- `configs/finalists.json` freezes the headline model, model T and the H3 no-EC variant at gate G4.
 
 ## 6. Ablation (dev CV; λ re-tuned per configuration)
 - **Modality add-one** to E: +C, +M, +H, +F, +Meta, +derived, +P (on the P subset).
@@ -200,11 +223,15 @@ Run on the same folds, for fair prior-work comparison:
 - **Strata:**
   - KO screens are the primary stratum.
   - CRISPRi screens (iPSC neurons and microglia) are descriptive only. They need their own KO↔CRISPRi anchor
-    (K562 Horlbeck 2016; RPE1 Replogle 2022 if obtainable) and serve as a no-DSB control.
-  - Post-mitotic neurons: divergence is expected and declared in advance (no proliferation component).
+    (K562 CRISPRi growth screens only; RPE1 is excluded as an anchor, per §7.2) and serve as a no-DSB control.
+  - Post-mitotic neurons: divergence is expected and declared in advance (no proliferation component). Results are
+    split into proliferation/cell-cycle genes vs maintenance (housekeeping, mitochondrial, proteostasis) genes.
 - **QC gate:** NNMD (or the CEG/NEG control gap) must pass; short screens (e.g. 6-day primary T cells) are gated
   individually.
 - **BF/MAGeCK-only screens** get rank metrics and AUPRC only.
+- **Screen plan:** before any model is applied, a per-screen table is committed as `configs/screen_plan.csv`.
+  Columns: anchors available, readout, matched expression source, data level, and which verdicts are reachable.
+  Expected "inconclusive" outcomes are therefore declared in advance.
 
 ### 7.2 Screen harmonisation (choices fixed on controls and anchors only, committed before any model predictions on set B)
 1. **Uniform re-scoring.** When counts exist, compute guide LFC vs plasmid/T0, then gene score by Chronos (fit fresh
@@ -221,6 +248,12 @@ Run on the same folds, for fair prior-work comparison:
    - HepG2/MCF-7 are test lines, so they are used for expression validation only.
    - Applied only if leave-one-anchor-out validation improves anchor agreement measured on **deviations from the
      gene mean**.
+   - With fewer than 8 anchors per library, the correction is location-only.
+   - Anchor skill (§7.6) is always computed from profiles corrected **without that anchor**.
+   - The p53/DNA-damage-response gene set (TP53, CDKN1A, TP53BP1, USP28, CHEK2, ATM, MDM2, MDM4, PPM1D and the
+     p53-target score genes) is excluded from fitting and application. All anchors are cancer lines without
+     competent p53, so a correction could otherwise absorb p53-competent cutting toxicity as "batch". H1/H1′ are
+     reported before and after correction.
 4. **Duration** is not treated as a global scale. Residual time-dependent bias is checked on anchors. Short screens
    are gated by QC.
 5. **Validation outputs:**
@@ -239,7 +272,11 @@ Run on the same folds, for fair prior-work comparison:
   - (i) none;
   - (ii) quantile normalisation to DepMap;
   - (iii) quantile + gene-wise location correction fitted on matched lines;
-  - (iv) rank-expression features.
+  - (iv) rank-expression features;
+  - (v) Celligner-style alignment (contrastive PCA + mutual nearest neighbours), if it can be implemented without
+    tumour data.
+  - Candidate (iii) is the ComBat-type recipe of Shi et al.'s GTEXDEPMAP (quantile + ComBat), the nearest prior
+    art for transfer to normal tissue.
 - Criterion: same-line nearest-neighbour recall and profile correlation.
 - Profiles must be state-matched to the screened cells (same cell type and state). QuantSeq/3′ data are flagged as
   non-TPM-compatible.
@@ -249,49 +286,68 @@ Run on the same folds, for fair prior-work comparison:
 ### 7.4 Core-essential transfer
 Per screen, using observed harmonised labels (effect < −0.5), with the evaluation halves of CEGv2/NEGv1 also
 reported:
-- AUPRC and AUROC of model T and the full model **vs B0 and B1**, plus the observed replicate ceiling.
+- **Primary statistic (Q3a):** ΔAUPRC of model T vs B0, per screen.
+- Also reported: AUPRC/AUROC of T and the full model vs B0, B1 and B2 (kNN in harmonised expression space), plus the
+  observed replicate ceiling.
 - **Lost/gained essentials:** cancer common essentials that are not essential in the screen, and vice versa. Did
   the model predict each shift (direction and rank)?
 - RPE1 results are reported with and without CEGv2 genes, because CEGv2 partly derives from RPE1/HCT116 screens.
 
 ### 7.5 Context-specific dependencies
-- **Headline statistic:** recall of screen-specific dependencies at a fixed NEGv1 false-positive rate (5%).
-  - Screen-specific = observed < −0.5 and not common-essential in the cancer dev set.
-  - Measured against the replicate ceiling and against B0/B1.
+- **Primary statistic (Q3b):** Δrecall vs B1 (and vs B0) of screen-specific dependencies, at a fixed 5% FPR on the
+  **evaluation half** of NEGv1.
+  - Screen-specific = observed < −0.5 **and** dependency fraction ≤ 0.5 in cancer dev lines (headline).
+  - Secondary definition: dependency fraction ≤ 5% (rare).
+  - Clopper–Pearson CIs for recall. The ceiling is a same-cell-type replicate screen. B2 is also a comparator.
 - **Deviation correlation:** across *selective + rare-selective* genes, corr(pred − gene mean, obs − gene mean).
   Note B0 has deviation ≡ 0.
 - **Nulls:**
   - **profile-swap** — predict each screen from other screens' expression profiles. Matched must beat mismatched.
   - **nearest-lineage comparator** — the B1 prediction for the closest cancer lineage.
 - **Pre-specified hypotheses** (thresholds in §7.6):
-  - **H1, TP53 pathway, learnable part:** MDM2/PPM1D/USP7 dependency is predicted stronger in TP53-WT backgrounds.
-    Scored by rank/slope; the effect size is 4–8× beyond the cancer range.
+  - **H1, TP53 pathway, learnable part:** MDM2/PPM1D dependency is predicted stronger in TP53-WT backgrounds.
+    Scored by rank/slope. USP7 is excluded: it is broadly essential (<−0.5 in 72% of lines).
   - **H1′, suppressor tail as a diagnostic:** positive effects for TP53/CDKN1A/TP53BP1/USP28/CHEK2/ATM. This is a
-    screen diagnostic, not a model test.
+    screen diagnostic, not a model test. The observed effects are 4–8× beyond the cancer range.
   - **H2, isogenic TP53 counterfactual:** the RPE1 TP53-WT vs TP53-null delta (Brown 2019; Bowden 2020 if obtained)
     against the model's delta with the TP53 feature flipped. Batch-cancelling.
   - **H3, pluripotency:** POU5F1/LIN28A-type dependencies in hPSC.
     - Tested with the model trained with and without the 7 germ-cell/EC lines.
     - If they are predicted only when the EC lines are present, the claim is "narrow EC transfer".
-  - **H4, haematopoietic positives with DepMap support:** e.g. MYB, LMO2/GATA2-type and SPI1-type dependencies in
-    CD34+/blood screens. The unexpressed-gene false-positive rate is the control.
+  - **H4, haematopoietic positives:** GATA3/MYB/RUNX1/IKZF1 dependency in the primary CD8+ T-cell screen
+    (Shifrut 2018).
+    - Each gene must be expressed in the matched profile.
+    - TCR-stimulation coupling is declared.
+    - The unexpressed-gene false-positive rate is the control.
+    - CD34+ (Ting 2018) is used only if its deposit resolves; otherwise H4 for CD34+ is inconclusive by declaration.
+    - SPI1 belongs to the descriptive microglia CRISPRi stratum.
 - **Negative controls / declared expected failures:**
   - oncogene addictions (KRAS/BRAF/CTNNB1) predicted ≈0 (a negative control, near-tautological);
   - TCR-signalling genes in T-cell screens;
   - the suppressor tail;
   - neuron-specific biology.
-- **CN-collateral test:** where aneuploid RPE1-SS lines differ in CN, check whether predicted dosage effects match.
+- **CN null expectation:** RPE1-SS sublines differ by chromosome *gains*, while collateral lethality needs *loss*,
+  and Chronos already corrects CN. Collateral/paralog genes (SMARCA2, ARID1B, STAG1, ME2/ME3, ENO1) are therefore
+  expected near 0 in both prediction and observation. This is a null check.
 
 ### 7.6 Decision rule (thresholds committed in `configs/transfer_criteria.json` before set-B predictions)
-- For each question, the verdict is one of **transfers / fails / inconclusive**.
+- Only Q3a and Q3b get primary verdicts. Each is one of **transfers / fails / inconclusive**, per screen, with a
+  committed count rule for the overall verdict (e.g. "transfers" if ≥2/3 of evaluable KO screens transfer).
+- **Transfers:** the lower CI bound of skill over B0 (Q3a) or B1 (Q3b) is > 0, **and** skill is ≥ 50% of the
+  same-pipeline anchor skill.
 - Comparison: skill over B0/B1 in non-transformed screens vs the same skill in transformed anchors processed through
   the same lab/library pipeline.
 - The minimum detectable effect comes from the replicate ceiling and the anchor noise.
-- "Fails" requires all three:
+- Uncertainty: patient bootstrap where several lines exist; otherwise a gene block bootstrap (blocks = gene
+  families/complexes).
+- "Fails" requires all four:
   - skill ≤ B0/B1 bound;
+  - the upper CI bound lies below the MDE;
   - the anchors in the same pipeline show positive skill;
   - harmonisation validation passed.
-- **Expression-swap negative control:** must show no skill.
+- **Expression-swap negative control:** must show no skill. If swapped profiles still show skill, the verdict is
+  capped at "inconclusive".
+- Otherwise: inconclusive.
 
 ## 8. Verification and controls
 - **Unit tests (toy data, known answers):**
@@ -313,16 +369,29 @@ reported:
 - **Harmonisation controls:** §7.2 step 5.
 - **Probe bugs become tests:** validation-fold λ selection, and imputation that uses validation lines.
 
-## 9. Process safeguards (R1 agent-failure review)
-- **Frozen evaluation code:** `src/essml/metrics.py` and `src/essml/evaluate.py` are hashed into
-  `configs/frozen_hashes.json` at freeze. Tests fail if a hash changes. Any post-freeze change is logged in
-  RESEARCH_TREE with reason, and baselines are re-run.
+## 9. Process safeguards (agent-failure reviews, rounds 1–2)
+- **Frozen evaluation code:**
+  - `src/essml/{metrics,evaluate,genesets,guard}.py` are hashed into `configs/frozen_hashes.json` at freeze, and
+    git tag `freeze-eval` marks the commit.
+  - Transfer and harmonisation code are frozen the same way under tag `freeze-transfer`, together with
+    `configs/harmonisation_frozen.json`.
+  - Tests fail if a hash changes. Any post-freeze change is logged in RESEARCH_TREE with reason, and baselines are
+    re-run.
 - **Test guard:**
-  - the loader refuses test/set-B targets unless `ESSML_UNBLIND=1` *and* `configs/finalists.json` exists in git;
-  - every access is appended to `results/test_access_log.csv`;
-  - set A and set B predictions use frozen models only.
-- **Run registry:** a single launcher (`scripts/run.py`) writes `results/registry.csv`. Columns: run id, config
-  hash, git commit, metrics, runtime, status. Failed runs are included. Every number in REPORT.md cites a run id,
+  - Targets for test, set A or set B are released only to a run whose config hash is listed in a
+    `configs/finalists.json` committed earlier, on a clean tree, with `ESSML_UNBLIND=1`.
+  - Exactly one logged test access per finalist; every access goes to `results/test_access_log.csv`.
+  - Mask-only counts (`observed_counts`) are the single exception, and they are logged.
+  - A static test fails if any module other than `io.py`/`guard.py` reads the CRISPR file directly.
+  - Set-A and set-B prediction code refuses to run until `configs/harmonisation_frozen.json` and
+    `configs/transfer_criteria.json` are committed.
+- **Gate evidence:** each gate G0–G7 writes `results/gates/G<k>.json` (checks run, pass/fail, commit). The next gate's
+  scripts refuse to start without it.
+- **Run registry:** a single launcher (`scripts/run.py`) writes `results/registry.csv`.
+  - A row is written at run start and updated at the end.
+  - Columns: run id, config hash, git commit, dirty-tree flag, splits.csv hash, roles used, n training IDs,
+    metrics, runtime, status.
+  - Failed runs are included. Leaky diagnostic runs (e.g. non-nested R4) are flagged `leaky=1`. Every number in REPORT.md cites a run id,
   and `scripts/check_report_numbers.py` verifies them.
 - **Independent reproduction:** headline numbers are re-computed by a separate agent writing its own metric code.
   Review prompts never state the expected answer. A red-team agent is assigned to each key finding.
@@ -330,6 +399,10 @@ reported:
 - **External-data intake:** each new dataset gets a DATA.md row, sha256 and licence before use.
 - **Post-freeze bug protocol:** fix, re-run all affected runs including baselines, and record the change.
 - **Exclusion log:** every dropped line, gene or screen and the reason goes to `results/exclusions.csv`.
+- **Scope ledger:** every planned arm (models, ablations, hypotheses, screens) with status run / skipped (reason)
+  is kept in `results/scope_ledger.csv` and reproduced in REPORT.md.
+- **Implementation check:** at G0 and G4, an agent verifies that each accepted review item in
+  `reviews/round*_response.md` is implemented, and writes `reviews/implementation_check.md`.
 - **Stopping:** stop a rung when two consecutive ideas fail to beat the current best by δ in dev CV, or when its time
   box expires. Stop the project when the idea list is exhausted or the time budget nears its end.
 
