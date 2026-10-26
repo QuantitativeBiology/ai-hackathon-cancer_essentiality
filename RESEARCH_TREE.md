@@ -151,6 +151,13 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - a permuted B0-path run.
   - A Nadeau–Bengio corrected SE is shown alongside the fold SE. This is disclosure only; the selection rule is
     unchanged.
+- D18 (pre-G3): M2 did not clear δ, so M3 (LightGBM) is fitted on the residuals of the current best rung.
+  - The current best is M1-E-resB0, or M2 if the fixed M2 (D14 base, pass-through) clears δ first.
+  - This follows the ladder's intent (each rung corrects the previous one) without inheriting a failed rung.
+  - G3 runs in two parallel tracks with separate files:
+    - kernel track: M1b weight tuning, M2 fix, report columns and controls, secondary splits, no-EC variant;
+    - nonlinear track: M4 pre-check and M4, M3, R2/R4 and the published-comparable block.
+  - Runtimes during G3 are indicative only. Finalists are re-timed alone at G4 (lesson 14).
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -205,6 +212,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [ ] M1b block-weight tuning (B0 residual); C and E+C first
   - [ ] M2 on the D14 base, with pass-through for non-variable genes and nested local-λ CV
   - [ ] M3 LightGBM go/no-go; M4 factorised neural go/no-go (pre-check, 1-day time box each)
+  - [ ] R2 elastic net, R4 TrPLet-like (nested + non-nested); published-comparable block
   - [ ] M5 stacking of finalists
   - [ ] Leave-one-lineage-out; no-EC variant for H3
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
