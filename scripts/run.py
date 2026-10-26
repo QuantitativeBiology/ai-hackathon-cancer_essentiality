@@ -249,6 +249,7 @@ def run_cv(Y, folds, groups, lineage, X, cfg, eval_genes, neg, seed, folds_to_ru
             cfg.get("inner_min_obs", 30))
         preds.append(pred)
         out["models"][f], out["chosen"][f], out["inner"][f] = model, best, table
+        out.setdefault("train_ids", {})[f] = tr  # actual training lines (exclusions applied)
         out["fit_s"][f], out["predict_s"][f] = tf, tp
         log(f"  fold {f}: {best} fit {tf:.1f}s predict {tp:.2f}s")
         if hasattr(model, "report_"):
@@ -500,7 +501,7 @@ def main(argv=None):
             for f, m in res["models"].items():
                 if hasattr(m, "compact"):
                     m.compact()  # drop re-buildable arrays before pickling
-                modelstore.save_fold_model(run_id, f, m, folds.index[folds != f],
+                modelstore.save_fold_model(run_id, f, m, res["train_ids"][f],
                                            [] if X is None else X.columns)
         fit_s, pred_s = sum(res["fit_s"].values()), sum(res["predict_s"].values())
         rss, rss_m = peak_rss_mb()

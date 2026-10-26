@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import time
 import warnings
 from pathlib import Path
@@ -47,6 +48,7 @@ PARALOG = ["par1_expr", "par2_expr", "par3_expr", "par_min_expr", "par_deep_del"
 PARTNER = ["partner_mean_expr"]
 PRIOR_SETS = {"none": OWN, "paralogs": OWN + PARALOG, "partners": OWN + PARALOG + PARTNER}
 LOCAL_LAM = np.logspace(0, 4, 9)
+CACHE_VERSION = 2  # bump when M1/M2 code changes what an inner-OOF file holds
 _BUILDER = None
 
 
@@ -142,10 +144,17 @@ class LocalStageM2:
             warnings.simplefilter("ignore", UserWarning)
             return list(sgk.split(np.zeros(len(ids)), lineage.loc[ids].to_numpy(), np.asarray(groups)))
 
-    def _cache_key(self, ids):
-        h = hashlib.sha256(json.dumps({"ids": sorted(map(str, ids)), "base": self.base,
+    def _cache_key(self, Y, lineage, groups):
+        """Exact key (G3 review): config + row order + columns + target values (NaN pattern
+        included) + lineage and patient labels in row order + CACHE_VERSION."""
+        h = hashlib.sha256(json.dumps({"ids": list(map(str, Y.index)), "base": self.base,
                                        "m1": self.m1_params, "k": self.inner_folds,
-                                       "seed": self.seed}, sort_keys=True, default=str).encode())
+                                       "seed": self.seed, "v": CACHE_VERSION},
+                                      sort_keys=True, default=str).encode())
+        h.update(Y.columns.astype(str).str.cat(sep=",").encode())
+        h.update(np.ascontiguousarray(Y.to_numpy(np.float64)).tobytes())
+        h.update(pd.Series(lineage).reindex(Y.index).astype(str).str.cat(sep=",").encode())
+        h.update(",".join(map(str, np.asarray(groups))).encode())
         return h.hexdigest()[:24]
 
     def inner_oof(self, Y, lineage, groups, X=None):
@@ -153,7 +162,7 @@ class LocalStageM2:
         ids = Y.index
         splits = self._inner_splits(ids, lineage, groups)
         cacheable = self.cache_inner and X is None
-        path = INNER_CACHE / f"{self._cache_key(ids)}.npy"
+        path = INNER_CACHE / f"{self._cache_key(Y, lineage, groups)}.npy"
         if cacheable and path.exists():
             return np.load(path), splits, True
         oof = np.full(Y.shape, np.nan)
@@ -164,7 +173,9 @@ class LocalStageM2:
             oof[b] = m.predict(ids[b], lineage=lineage, X=sub(b)).to_numpy()
         if cacheable:
             INNER_CACHE.mkdir(parents=True, exist_ok=True)
-            np.save(path, oof.astype(np.float32))
+            tmp = path.with_name(f"{path.stem}.{os.getpid()}.tmp.npy")
+            np.save(tmp, oof.astype(np.float32))
+            os.replace(tmp, path)  # atomic: parallel runs never read a partial file
             oof = np.load(path)  # identical values whether cached or fresh
         return oof, splits, False
 

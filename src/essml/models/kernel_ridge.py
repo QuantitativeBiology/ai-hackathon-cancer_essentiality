@@ -394,6 +394,8 @@ def tune_block_weights(Kb: dict, R, Y, gene_group, groups=None, lam_grid=LAM_GRI
     no move; then, budget allowing, each non-zero theta is refined by the factors in ``refine``.
     At most ``max_eval`` criterion evaluations (= eigh). Returns (theta dict, report dict).
     """
+    if max_eval < 1:
+        raise ValueError("max_eval must be >= 1")
     R = np.asarray(R, np.float64)
     Y = np.asarray(Y, np.float64)
     n = R.shape[0]
