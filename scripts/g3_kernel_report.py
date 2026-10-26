@@ -150,7 +150,8 @@ def main(argv=None):
     from essml import genesets
     gc = genesets.load_gene_classes().reindex(genes).fillna(False).astype(bool)
     var_mask = gc["variable"].to_numpy()
-    groupings = {"within_library": lib, "within_lineage": lineage}
+    groupings = {"within_library": lib, "within_lineage": lineage,
+                 "within_lin_lib": lineage + "|" + lib.astype(int).astype(str)}
 
     cv_runs = [n for n in runs if runs[n][0].get("fold_scheme", "cv") == "cv"
                and not runs[n][0]["config"].get("line_subset")]
@@ -307,6 +308,7 @@ def control_checks(tab, within):
         elif n == "m1_E_permuted":  # G2 control on the B1 path (reference)
             checks["abs(P1 - B1) < 0.01"] = abs(p1 - b1) < 0.01
         out.append({"run": n, "P1_var": p1, "within_lineage": wl, "within_library": wb,
+                    "within_lin_lib": r.get("within_lin_lib"),
                     "dP1_B1": r.get("dP1_B1"), "checks": checks, "pass": all(checks.values()),
                     "lam": r.get("lam")})
     return out
@@ -410,27 +412,30 @@ def write_md(out, tab):
          "fold SE). Within-library / within-lineage P1: truth and prediction centred per gene within",
          "library group (configs/library_groups.csv) or lineage inside each held-out fold (definitions:",
          "reviews/g2_review/recompute_p1.py `group_centre`; lineage partialling of neg_genes.py).",
+         "Within lineage×library: the same centring within lineage × library-group cells (added in G3",
+         "after the lineage×library control; diagnostic only).",
          "P2b = normalised AP on selective genes with held-out prevalence ≤ 0.5. Fit s = sum over folds",
          "(incl. inner tuning), measured with 6 threads on a machine shared with the nonlinear track:",
          "indicative only (LESSONS 14).", "", "## Results table (5-fold dev CV)", "",
          "| run | P1 var ± SD | ΔP1 vs m1_E_resB0 (SE / NB SE; folds +) | ΔP1 vs B1 | within-library P1 | "
-         "within-lineage P1 | P2b nAP | fit s | λ (other/var) |",
-         "|---|---|---|---|---|---|---|---|---|"]
+         "within-lineage P1 | within lineage×library P1 | P2b nAP | fit s | λ (other/var) |",
+         "|---|---|---|---|---|---|---|---|---|---|"]
     for r in out["runs"]:
         dh = (f"{r['dP1_head']:+.4f} ({r['dP1_head_se']:.4f} / {r['dP1_head_se_nb']:.4f}; "
               f"{r['dP1_head_pos']}/5)") if "dP1_head" in r else "—"
         L.append(f"| {r['name']} | {r['P1_var']:.4f} ± {r['P1_var_sd']:.4f} | {dh} | "
                  f"{f4(r.get('dP1_B1'), True)} | {f4(r.get('within_library'))} | "
-                 f"{f4(r.get('within_lineage'))} | {f4(r['P2b_nap'])} | {r['fit_s']:.0f} | "
+                 f"{f4(r.get('within_lineage'))} | {f4(r.get('within_lin_lib'))} | {f4(r['P2b_nap'])} | "
+                 f"{r['fit_s']:.0f} | "
                  f"{r.get('lam', '—')} |")
     L += ["", "Run IDs: " + "; ".join(f"{r['name']} `{r['run_id']}`" for r in out["runs"]), ""]
     L += ["## Negative controls vs expected outcomes (stated in the configs before running)", "",
-          "| control | P1 var | ΔP1 vs B1 | within-lineage | within-library | λ | checks | pass |",
-          "|---|---|---|---|---|---|---|---|"]
+          "| control | P1 var | ΔP1 vs B1 | within-lineage | within-library | within lin×lib | λ | checks | pass |",
+          "|---|---|---|---|---|---|---|---|---|"]
     for c in out["controls"]:
         ch = "; ".join(f"{k}: {'ok' if v else 'FAIL'}" for k, v in c["checks"].items())
         L.append(f"| {c['run']} | {c['P1_var']:.4f} | {f4(c['dP1_B1'], True)} | {f4(c['within_lineage'])} | "
-                 f"{f4(c['within_library'])} | {c.get('lam') or '—'} | {ch} | {'yes' if c['pass'] else 'NO'} |")
+                 f"{f4(c['within_library'])} | {f4(c.get('within_lin_lib'))} | {c.get('lam') or '—'} | {ch} | {'yes' if c['pass'] else 'NO'} |")
     if out["m1b_contrasts"]:
         L += ["", "## M1b block-weight tuning (B0 residual; training LOO coordinate descent)", "",
               "| contrast | ΔP1 | SE | NB SE | folds + | p | p Holm | helps |", "|---|---|---|---|---|---|---|---|"]
