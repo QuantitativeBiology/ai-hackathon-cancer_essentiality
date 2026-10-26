@@ -156,10 +156,12 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     splits file; control-gene reads for test lines; committed audit tables with test-line CRISPR stats (now dev-only;
     the older commit b868f4d still holds them in history; no model used them).
   - [ ] Pending after G2/G5a finish:
-    - registry hashes of eval_genes/gene_classes;
-    - `freeze-eval` tag;
-    - B0/B1/B2 re-run on a clean tagged tree;
-    - guarded reader for cache/harmonised.
+    - [x] registry columns eval_genes_sha256, gene_classes_sha256, tree_clean (old rows empty);
+    - [x] guarded reader `guard.load_harmonised` for cache/harmonised (direct readers routed; static test);
+    - [x] disk: models persist only with `--save-models` / `save_models` (default off); cache/models and
+      regenerable cache/runs cleared (about 19 GB);
+    - [ ] `freeze-eval` tag;
+    - [ ] B0/B1/B2 re-run on a clean tagged tree.
 - [x] G2 M1/M1b kernel ridge, R1, transfer model T, modality ablation, M2 local stage (docs/g2_results.md)
   - [x] M1-E (B1 residual) 0.2997; R1 0.3073; M1-E B0 residual 0.3081; T 0.3082. All 5/5 folds above B2 (+0.047
     to +0.055). Runtime about 400–490 s for 5 folds.
