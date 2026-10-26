@@ -40,6 +40,8 @@ retrieval date in `configs/external_manifest.json`. Files under `data/raw_extern
 | msigdb_hallmark | MSigDB 2024.1.Hs | https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2024.1.Hs/h.all.v2024.1.Hs.symbols.gmt | ee2463540042078b | CC BY 4.0 (Hallmarks) | features.py (Hallmark scores) |
 | hart_ceg2 | CEGv2 (Hart 2017) | https://raw.githubusercontent.com/hart-lab/bagel/master/CEGv2.txt | 1b1df46f829e2c47 | MIT (bagel repo) | genesets / harmonisation |
 | hart_neg | NEGv1 (Hart 2017) | https://raw.githubusercontent.com/hart-lab/bagel/master/NEGv1.txt | 18a6b37a8f182a1b | MIT (bagel repo) | genesets (non-essential class) |
+| deepdep_genes_1298 | Prep4DeepDEP @ f713c84 (2021-08-24), inst/extdata/default_dep_genes_1298.RData (gene list only) | https://raw.githubusercontent.com/chenlabgccri/Prep4DeepDEP/master/inst/extdata/default_dep_genes_1298.RData | 38e185e3bc166b68 | GPL-3.0 (repo); gene names only | G3 published-comparable block (scripts/g3_published_genesets.py) |
+| leap_genes_1539 | owkin/leap @ 7c709df (2026-07-09), data/list_of_perturbations_task_1.csv | https://raw.githubusercontent.com/owkin/leap/main/data/list_of_perturbations_task_1.csv | c349c8a89caac3fa | repo licence file (not SPDX-detected); gene names only | G3 published-comparable block |
 | nusinow2020 | Nusinow et al. 2020 Cell (CCLE TMT proteomics, normalised protein quant; file dated 2020-02-06) | https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz | b72a9ff39b123c80 | no licence stated on download site; published data of Nusinow et al. Cell 2020 (doi:10.1016/j.cell.2019.12.023); research use, not redistributed | features.build_proteomics (P arm) |
 
 ## Licence notes
