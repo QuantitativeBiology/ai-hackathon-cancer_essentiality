@@ -1,0 +1,45 @@
+{
+ "features": [],
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G1",
+ "cache_reference": true,
+ "name": "g3_r2_sub150",
+ "model": "R2",
+ "params": {
+  "n_alphas": 20,
+  "eps": 0.05,
+  "max_iter": 2000,
+  "tol": 0.001,
+  "inner_folds": 3,
+  "split_seed": 20261026,
+  "n_jobs": 6,
+  "gene_subset": "configs/g3_variable_subset500.csv",
+  "subset_first_n": 150
+ },
+ "prereg": "R2 Shi-style elastic net (l1_ratio 0.5), E only, exact coordinate descent on all E features. DEVIATION (docs/g3_nonlinear_results.md D-G3-3): the timing probe showed >40 s per gene even with a shortened path, so the 2 h box allows ~150 genes, not 500: first 150 genes of the pre-declared random subset (configs/g3_variable_subset500.csv); 20 penalties down to 0.05 x the largest; 3 grouped inner folds."
+}

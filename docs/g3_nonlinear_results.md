@@ -100,6 +100,16 @@ the same genes from its stored per-gene results.
   feature cache (including test/set-A/unscreened lines' *features*; no targets). Fixed before any
   control was run: rows are permuted only among the outer-training lines present in each block;
   held-out lines keep their own features (DESIGN §8 "features permuted across training lines").
+- **D-G3-3 (R2 coverage).** The R2 timing probe (`g3_r2_probe`, 30 genes, fold 0, 40 penalties,
+  5 inner folds) had not finished after 21 min at 6 processes (≈ 220 s per gene per process) and
+  was killed (registry row marked failed). Projected: full ≈ 108 h, 500-gene subset ≈ 25 h, both far
+  beyond the 2 h box. A fold-0 micro-benchmark on 6 subset genes (scratch script, training lines
+  only; not a result) gave ≈ 45 s per gene with 20 penalties down to 0.05 × the largest and 3
+  inner folds (chosen penalties were 0.03–0.07, never at the path edge); restricting to the 5,000
+  most variable genes saved only ~1.4×. To stay near the box with the exact method, R2 runs on the
+  **first 150 genes of the pre-declared random subset** (≈ 1.6 h): config `g3_r2_sub150`. This
+  replaces the pre-declared 500-gene fallback; the genes are still a random sample fixed before
+  any run. The R4 timing probe was also interrupted (queue re-planning; no result) and is re-run.
 
 ## Results
 
