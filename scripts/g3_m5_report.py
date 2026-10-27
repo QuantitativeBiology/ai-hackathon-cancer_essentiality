@@ -39,7 +39,7 @@ from g3_kernel_report import (dev_frame, load_targets_eval, paired_nb, test_trai
 DELTA = 0.005
 HEADLINE = "m1_E_resB0"
 INPUTS = [HEADLINE, "m2n_E_paralogs", "g3_m3n"]
-M5 = ["m5_avg", "m5_stack", "m5_stack_f1", "m5_ctl_perm"]
+M5 = ["m5_avg", "m5_stack", "m5_stack_f1", "m5_ctl_perm", "m5_ctl_perm_s1", "m5_ctl_perm_s2"]
 LAM = ["m1_E_resB0_loomse", "m1_E_resB0_icvr"]
 NAMES = ["b1"] + INPUTS + M5 + LAM
 MD = ROOT / "docs" / "g3_m5_results.md"
@@ -159,7 +159,8 @@ def main(argv=None):
 
     # ---- weights per class and fold
     weights = {}
-    for n in [x for x in ["m5_stack", "m5_stack_f1", "m5_ctl_perm"] if x in runs]:
+    for n in [x for x in ["m5_stack", "m5_stack_f1", "m5_ctl_perm", "m5_ctl_perm_s1", "m5_ctl_perm_s2"]
+              if x in runs]:
         mr = runs[n][0]["model_report"]
         weights[n] = {f: {"inputs": [i["name"] for i in runs[n][0]["config"]["params"]["inputs"]],
                           "classes": v["weights"], "inner_oof_P1_variable": v.get("inner_oof_P1_variable"),
@@ -173,7 +174,14 @@ def main(argv=None):
         ok_w = wmax <= 0.01
         ok_p = ("m5_stack" in tab) and tab["m5_ctl_perm"]["P1_var"] >= tab["m5_stack"]["P1_var"] - 0.002
         ctl = {"max_weight_permuted": wmax, "weight_ok": bool(ok_w), "p1_ok": bool(ok_p),
-               "pass": bool(ok_w and ok_p)}
+               "pass": bool(ok_w and ok_p), "posthoc_seeds": {}}
+        for n in ["m5_ctl_perm_s1", "m5_ctl_perm_s2"]:  # POST-HOC seeds (diagnostic only)
+            if n in weights:
+                ws = [c["weights"][k] for v in weights[n].values() for c in v["classes"].values()]
+                ctl["posthoc_seeds"][n] = {"max_weight": max(ws), "mean_weight": float(np.mean(ws)),
+                                           "P1_var": tab[n]["P1_var"]}
+        ws = [c["weights"][k] for v in weights["m5_ctl_perm"].values() for c in v["classes"].values()]
+        ctl["mean_weight_permuted"] = float(np.mean(ws))
 
     # ---- average reproduces the registered input predictions (outer refits are exact)
     repro = {}
@@ -276,7 +284,12 @@ def write_md(out, tab):
               f"- max weight on the permuted input over classes and folds: {c['max_weight_permuted']:.4f} "
               f"(expected ≤ 0.01): {'ok' if c['weight_ok'] else 'FAIL'}",
               f"- P1 variable ≥ m5_stack − 0.002: {'ok' if c['p1_ok'] else 'FAIL'}",
-              f"- **{'pass' if c['pass'] else 'FAIL'}**", ""]
+              f"- mean weight on the permuted input over the 20 class×fold cells: {c['mean_weight_permuted']:.4f}",
+              f"- **{'pass' if c['pass'] else 'FAIL'}**"]
+        for n, v in c.get("posthoc_seeds", {}).items():
+            L.append(f"- POST-HOC {n}: max weight {v['max_weight']:.4f}, mean {v['mean_weight']:.4f}, "
+                     f"P1 variable {v['P1_var']:.4f}")
+        L.append("")
     if out["reproduction"]:
         L += ["## Reproduction check", "",
               f"- m5_avg predictions vs the mean of the registered input runs' predictions (float32 caches): "

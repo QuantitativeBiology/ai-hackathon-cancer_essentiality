@@ -1,0 +1,3024 @@
+{
+ "runs": [
+  {
+   "name": "b1",
+   "run_id": "20261026-220921_b1_0e2a7a27",
+   "P1_var": 0.1837367152639508,
+   "P1_var_sd": 0.013090789574863707,
+   "P1_all": 0.09277307842347023,
+   "P2b_nap": 0.08674783674257,
+   "fit_s": 104.859321200056,
+   "predict_s": 0.06331609992776066,
+   "total_s": 331.4,
+   "threads": 6,
+   "peak_rss_mb": 2184.31640625,
+   "tree_clean": 1,
+   "within_library": 0.17090329429603884,
+   "within_lineage": 0.0,
+   "within_lin_lib": 0.0,
+   "dP1_head": -0.12436259999999999,
+   "dP1_head_se": 0.004789070698997875,
+   "dP1_head_se_nb": 0.007183777078858344,
+   "dP1_head_pos": 0,
+   "dP1_head_p": 1.306518860771628e-05,
+   "dP1_head_folds": [
+    -0.13136,
+    -0.11182,
+    -0.1209,
+    -0.11887,
+    -0.13887
+   ],
+   "d_within_library": -0.10805174906102069,
+   "d_within_library_se": 0.0040556349799148236,
+   "d_within_lineage": -0.24490731928056864,
+   "d_within_lineage_se": 0.003309003981219701,
+   "d_within_lin_lib": -0.19880891143007245,
+   "d_within_lin_lib_se": 0.004301995862317857
+  },
+  {
+   "name": "m1_E_resB0",
+   "run_id": "20261026-222117_m1_E_resB0_91e52f9d",
+   "P1_var": 0.30809932517582705,
+   "P1_var_sd": 0.004663868190197331,
+   "P1_all": 0.15469601966507182,
+   "P2b_nap": 0.19081180412189933,
+   "fit_s": 327.22395890019834,
+   "predict_s": 3.6833136999048293,
+   "total_s": 554.6,
+   "threads": 6,
+   "peak_rss_mb": 3516.51171875,
+   "tree_clean": 1,
+   "within_library": 0.2789550433570595,
+   "within_lineage": 0.24490731928056864,
+   "within_lin_lib": 0.19880891143007245
+  },
+  {
+   "name": "m2n_E_paralogs",
+   "run_id": "20261027-044450_m2n_E_paralogs_62ce1575",
+   "P1_var": 0.31148010310652874,
+   "P1_var_sd": 0.004847740994227274,
+   "P1_all": 0.15510277960223784,
+   "P2b_nap": 0.1945524683032187,
+   "fit_s": 876.1142446001759,
+   "predict_s": 15.621895699761808,
+   "total_s": 1235.6,
+   "threads": 6,
+   "peak_rss_mb": 4359.875,
+   "tree_clean": 0,
+   "within_library": 0.2835458751862601,
+   "within_lineage": 0.2519523111449805,
+   "within_lin_lib": 0.20920266050973205,
+   "dP1_head": 0.0033810000000000116,
+   "dP1_head_se": 0.00041715272982446335,
+   "dP1_head_se_nb": 0.0006257439923622847,
+   "dP1_head_pos": 5,
+   "dP1_head_p": 0.0012598326259758272,
+   "dP1_head_folds": [
+    0.00318,
+    0.00386,
+    0.0046,
+    0.00318,
+    0.00209
+   ],
+   "d_within_library": 0.004590831829200592,
+   "d_within_library_se": 0.00052163392994904,
+   "d_within_lineage": 0.00704499186441192,
+   "d_within_lineage_se": 0.0005798085019509768,
+   "d_within_lin_lib": 0.010393749079659637,
+   "d_within_lin_lib_se": 0.0007489391349393397
+  },
+  {
+   "name": "g3_m3n",
+   "run_id": "20261027-014824_g3_m3n_601e3f5e",
+   "P1_var": 0.3099061838063878,
+   "P1_var_sd": 0.004555867361293235,
+   "P1_all": 0.15491569264135827,
+   "P2b_nap": 0.19306705222596085,
+   "fit_s": 2056.9873574000085,
+   "predict_s": 30.04876489995513,
+   "total_s": 2320.0,
+   "threads": 6,
+   "peak_rss_mb": 4198.09375,
+   "tree_clean": 0,
+   "within_library": 0.2812421916152519,
+   "within_lineage": 0.24838009005129674,
+   "within_lin_lib": 0.2026151485763808,
+   "dP1_head": 0.001807000000000014,
+   "dP1_head_se": 0.0001928063795624988,
+   "dP1_head_se_nb": 0.00028921645496872113,
+   "dP1_head_pos": 5,
+   "dP1_head_p": 0.0007220052055256431,
+   "dP1_head_folds": [
+    0.00221,
+    0.00185,
+    0.00183,
+    0.00109,
+    0.00206
+   ],
+   "d_within_library": 0.0022871482581923396,
+   "d_within_library_se": 0.00017989241848705313,
+   "d_within_lineage": 0.0034727707707281176,
+   "d_within_lineage_se": 0.00029186002281013737,
+   "d_within_lin_lib": 0.0038062371463083444,
+   "d_within_lin_lib_se": 0.00022325334778362763
+  },
+  {
+   "name": "m5_avg",
+   "run_id": "20261027-161041_m5_avg_6dbebcf4",
+   "P1_var": 0.3175279064598159,
+   "P1_var_sd": 0.00468643995795205,
+   "P1_all": 0.1558264735793733,
+   "P2b_nap": 0.19558679959309097,
+   "fit_s": 1.8699564001290128,
+   "predict_s": 9.779304299969226,
+   "total_s": 162.2,
+   "threads": 6,
+   "peak_rss_mb": 2931.8359375,
+   "tree_clean": 0,
+   "within_library": 0.28884768030026425,
+   "within_lineage": 0.2566206376171642,
+   "within_lin_lib": 0.2111722465009233,
+   "dP1_head": 0.00942860000000001,
+   "dP1_head_se": 0.00022331045653975986,
+   "dP1_head_se_nb": 0.0003349736598157561,
+   "dP1_head_pos": 5,
+   "dP1_head_p": 1.8809457531467357e-06,
+   "dP1_head_folds": [
+    0.00996,
+    0.0096,
+    0.00968,
+    0.00866,
+    0.00924
+   ],
+   "d_within_library": 0.009892636943204724,
+   "d_within_library_se": 0.0002084797257949429,
+   "d_within_lineage": 0.011713318336595595,
+   "d_within_lineage_se": 0.0003090643908950856,
+   "d_within_lin_lib": 0.012363335070850856,
+   "d_within_lin_lib_se": 0.0001568697734271297
+  },
+  {
+   "name": "m5_stack",
+   "run_id": "20261027-122954_m5_stack_bf84c59d",
+   "P1_var": 0.3180286252789941,
+   "P1_var_sd": 0.003911927234761862,
+   "P1_all": 0.15588552121168991,
+   "P2b_nap": 0.1958047095018338,
+   "fit_s": 10813.987104900065,
+   "predict_s": 2192.69460230018,
+   "total_s": 13219.2,
+   "threads": 6,
+   "peak_rss_mb": 3498.328125,
+   "tree_clean": 0,
+   "within_library": 0.2895224105004777,
+   "within_lineage": 0.25753023002447756,
+   "within_lin_lib": 0.21261496092721827,
+   "dP1_head": 0.00992940000000001,
+   "dP1_head_se": 0.000695598059226735,
+   "dP1_head_se_nb": 0.0010434219304837173,
+   "dP1_head_pos": 5,
+   "dP1_head_p": 0.0001398993270747927,
+   "dP1_head_folds": [
+    0.0073,
+    0.011,
+    0.01118,
+    0.00998,
+    0.01018
+   ],
+   "d_within_library": 0.01056736714341815,
+   "d_within_library_se": 0.0007949658621704154,
+   "d_within_lineage": 0.012622910743908883,
+   "d_within_lineage_se": 0.0007768807209819645,
+   "d_within_lin_lib": 0.01380604949714585,
+   "d_within_lin_lib_se": 0.0011094368360464247
+  },
+  {
+   "name": "m5_ctl_perm",
+   "run_id": "20261027-161328_m5_ctl_perm_1a6551c2",
+   "P1_var": 0.3128938548465948,
+   "P1_var_sd": 0.004490188345326886,
+   "P1_all": 0.15523043465530292,
+   "P2b_nap": 0.19365148281595385,
+   "fit_s": 30.70813410007395,
+   "predict_s": 8.356660299934447,
+   "total_s": 178.3,
+   "threads": 6,
+   "peak_rss_mb": 2934.3046875,
+   "tree_clean": 0,
+   "within_library": 0.2840290085857712,
+   "within_lineage": 0.25107433730475937,
+   "within_lin_lib": 0.20502624753271395,
+   "dP1_head": 0.004794400000000009,
+   "dP1_head_se": 0.0001435118810412543,
+   "dP1_head_se_nb": 0.00021527294675013643,
+   "dP1_head_pos": 5,
+   "dP1_head_p": 4.788239698351907e-06,
+   "dP1_head_folds": [
+    0.00495,
+    0.00477,
+    0.00499,
+    0.00425,
+    0.00502
+   ],
+   "d_within_library": 0.00507396522871163,
+   "d_within_library_se": 0.0001346214781690947,
+   "d_within_lineage": 0.006167018024190762,
+   "d_within_lineage_se": 0.00015785669165942917,
+   "d_within_lin_lib": 0.006217336102641513,
+   "d_within_lin_lib_se": 0.0001435969742363769
+  },
+  {
+   "name": "m5_ctl_perm_s1",
+   "run_id": "20261027-162031_m5_ctl_perm_s1_d199b4d2",
+   "P1_var": 0.31285348141113634,
+   "P1_var_sd": 0.004472017963967123,
+   "P1_all": 0.15529912365829568,
+   "P2b_nap": 0.19362688298444403,
+   "fit_s": 30.6162579000229,
+   "predict_s": 8.904628899879754,
+   "total_s": 180.6,
+   "threads": 6,
+   "peak_rss_mb": 2933.94140625,
+   "tree_clean": 0,
+   "within_library": 0.28396740677014914,
+   "within_lineage": 0.25103315032191764,
+   "within_lin_lib": 0.20497973199792704,
+   "dP1_head": 0.004754200000000019,
+   "dP1_head_se": 0.00019550176469791125,
+   "dP1_head_se_nb": 0.0002932596289311609,
+   "dP1_head_pos": 5,
+   "dP1_head_p": 1.6965396225735918e-05,
+   "dP1_head_folds": [
+    0.00506,
+    0.00464,
+    0.005,
+    0.00403,
+    0.00503
+   ],
+   "d_within_library": 0.005012363413089649,
+   "d_within_library_se": 0.00018093054009185168,
+   "d_within_lineage": 0.0061258310413490336,
+   "d_within_lineage_se": 0.00021989561137676777,
+   "d_within_lin_lib": 0.006170820567854613,
+   "d_within_lin_lib_se": 0.00019349484471264608
+  },
+  {
+   "name": "m5_ctl_perm_s2",
+   "run_id": "20261027-162337_m5_ctl_perm_s2_e36fa531",
+   "P1_var": 0.31293038623123887,
+   "P1_var_sd": 0.004557516204422808,
+   "P1_all": 0.15526486253883084,
+   "P2b_nap": 0.193659877126915,
+   "fit_s": 31.062652199994773,
+   "predict_s": 8.651063600089401,
+   "total_s": 187.9,
+   "threads": 6,
+   "peak_rss_mb": 2935.265625,
+   "tree_clean": 0,
+   "within_library": 0.28405992683049663,
+   "within_lineage": 0.2511092154245483,
+   "within_lin_lib": 0.20506272492083388,
+   "dP1_head": 0.004831200000000024,
+   "dP1_head_se": 0.0001510855386858679,
+   "dP1_head_se_nb": 0.00022663370369237166,
+   "dP1_head_pos": 5,
+   "dP1_head_p": 5.701596613175864e-06,
+   "dP1_head_folds": [
+    0.00514,
+    0.00477,
+    0.00495,
+    0.00428,
+    0.00502
+   ],
+   "d_within_library": 0.005104883473437105,
+   "d_within_library_se": 0.0001318187017834595,
+   "d_within_lineage": 0.006201896143979635,
+   "d_within_lineage_se": 0.0001948134447532453,
+   "d_within_lin_lib": 0.00625381349076144,
+   "d_within_lin_lib_se": 0.00014936573673200707
+  },
+  {
+   "name": "m1_E_resB0_loomse",
+   "run_id": "20261027-115358_m1_E_resB0_loomse_c2f872a2",
+   "P1_var": 0.30703241336007436,
+   "P1_var_sd": 0.004945129145905428,
+   "P1_all": 0.1513361498653143,
+   "P2b_nap": 0.1834498398565577,
+   "fit_s": 409.22615479992237,
+   "predict_s": 4.776088999933563,
+   "total_s": 716.3,
+   "threads": 6,
+   "peak_rss_mb": 3568.01953125,
+   "tree_clean": 0,
+   "within_library": 0.27669236929667995,
+   "within_lineage": 0.2427485297991506,
+   "within_lin_lib": 0.19496129500630038,
+   "dP1_head": -0.0010667999999999789,
+   "dP1_head_se": 0.0007270388160201662,
+   "dP1_head_se_nb": 0.0010905841885063172,
+   "dP1_head_pos": 1,
+   "dP1_head_p": 0.2161901654080085,
+   "dP1_head_folds": [
+    -0.00249,
+    0.00126,
+    -0.00275,
+    -0.0007,
+    -0.00065
+   ],
+   "d_within_library": -0.0022626740603795326,
+   "d_within_library_se": 0.0006311165872302575,
+   "d_within_lineage": -0.0021587894814179996,
+   "d_within_lineage_se": 0.0006349785425936048,
+   "d_within_lin_lib": -0.003847616423772027,
+   "d_within_lin_lib_se": 0.0004862923180458418
+  },
+  {
+   "name": "m1_E_resB0_icvr",
+   "run_id": "20261027-120600_m1_E_resB0_icvr_7fae08fc",
+   "P1_var": 0.30805105473262706,
+   "P1_var_sd": 0.004647674054390393,
+   "P1_all": 0.15423022121024435,
+   "P2b_nap": 0.1893917726737853,
+   "fit_s": 744.8814767999575,
+   "predict_s": 5.09974970004987,
+   "total_s": 1032.2,
+   "threads": 6,
+   "peak_rss_mb": 3313.41015625,
+   "tree_clean": 0,
+   "within_library": 0.27890115885526323,
+   "within_lineage": 0.24484904200177926,
+   "within_lin_lib": 0.1987381638398256,
+   "dP1_head": -4.799999999999249e-05,
+   "dP1_head_se": 1.9932385707683693e-05,
+   "dP1_head_se_nb": 2.989929039965616e-05,
+   "dP1_head_pos": 0,
+   "dP1_head_p": 0.07370303730280765,
+   "dP1_head_folds": [
+    -7e-05,
+    0.0,
+    -9e-05,
+    -8e-05,
+    0.0
+   ],
+   "d_within_library": -5.388450179629745e-05,
+   "d_within_library_se": 2.2706451542859377e-05,
+   "d_within_lineage": -5.827727878930933e-05,
+   "d_within_lineage_se": 2.430617402580227e-05,
+   "d_within_lin_lib": -7.074759024686684e-05,
+   "d_within_lin_lib_se": 2.9563515139613168e-05
+  }
+ ],
+ "missing_runs": [
+  "m5_stack_f1"
+ ],
+ "contrasts": [
+  {
+   "contrast": "m5_stack vs m5_avg",
+   "A": "m5_stack",
+   "B": "m5_avg",
+   "mean": 0.0005008000000000012,
+   "sd": 0.0017778047418093843,
+   "se": 0.0007950584506814492,
+   "t": 0.629890795539325,
+   "p": 0.5629551721061586,
+   "ci95": [
+    -0.0017066361437406536,
+    0.0027082361437406562
+   ],
+   "n_folds_pos": 4,
+   "folds": [
+    -0.00266,
+    0.0014,
+    0.0015,
+    0.00132,
+    0.00094
+   ],
+   "se_nb": 0.0011926160696590202,
+   "p_nb": 0.6961201489945523
+  },
+  {
+   "contrast": "m5_stack vs m2n_E_paralogs",
+   "A": "m5_stack",
+   "B": "m2n_E_paralogs",
+   "mean": 0.0065483999999999985,
+   "sd": 0.001476972342327372,
+   "se": 0.0006605221116662187,
+   "t": 9.913975451149012,
+   "p": 0.0005811147420575309,
+   "ci95": [
+    0.004714496616189412,
+    0.008382303383810585
+   ],
+   "n_folds_pos": 5,
+   "folds": [
+    0.00412,
+    0.00714,
+    0.00658,
+    0.00681,
+    0.0081
+   ],
+   "se_nb": 0.0009908067564882276,
+   "p_nb": 0.002716619176960295
+  },
+  {
+   "contrast": "m5_stack vs g3_m3n",
+   "A": "m5_stack",
+   "B": "g3_m3n",
+   "mean": 0.008122399999999997,
+   "sd": 0.001754961908418528,
+   "se": 0.0007848428250293178,
+   "t": 10.349078491858016,
+   "p": 0.000492021492487936,
+   "ci95": [
+    0.005943326980097734,
+    0.010301473019902259
+   ],
+   "n_folds_pos": 5,
+   "folds": [
+    0.0051,
+    0.00915,
+    0.00935,
+    0.00889,
+    0.00812
+   ],
+   "se_nb": 0.0011772922663538538,
+   "p_nb": 0.002314445389606603
+  },
+  {
+   "contrast": "m5_avg vs m2n_E_paralogs",
+   "A": "m5_avg",
+   "B": "m2n_E_paralogs",
+   "mean": 0.006047599999999998,
+   "sd": 0.0008800777238403465,
+   "se": 0.0003935827231980604,
+   "t": 15.365511856974214,
+   "p": 0.00010466428743151611,
+   "ci95": [
+    0.004954839174686323,
+    0.0071403608253136725
+   ],
+   "n_folds_pos": 5,
+   "folds": [
+    0.00677,
+    0.00574,
+    0.00508,
+    0.00549,
+    0.00716
+   ],
+   "se_nb": 0.0005903881406755005,
+   "p_nb": 0.0005119978277667191
+  },
+  {
+   "contrast": "m5_avg vs g3_m3n",
+   "A": "m5_avg",
+   "B": "g3_m3n",
+   "mean": 0.007621599999999995,
+   "sd": 0.0002667391984692033,
+   "se": 0.00011928939600818928,
+   "t": 63.89168069454193,
+   "p": 3.594720055269021e-07,
+   "ci95": [
+    0.007290399540351056,
+    0.007952800459648933
+   ],
+   "n_folds_pos": 5,
+   "folds": [
+    0.00775,
+    0.00774,
+    0.00786,
+    0.00757,
+    0.00718
+   ],
+   "se_nb": 0.00017893835415163216,
+   "p_nb": 1.8162940983244982e-06
+  },
+  {
+   "contrast": "m5_ctl_perm vs m5_stack",
+   "A": "m5_ctl_perm",
+   "B": "m5_stack",
+   "mean": -0.005135000000000001,
+   "sd": 0.0016140109974842104,
+   "se": 0.0007218076613613873,
+   "t": -7.114083536208216,
+   "p": 0.0020631382278685708,
+   "ci95": [
+    -0.007139059348281095,
+    -0.0031309406517189067
+   ],
+   "n_folds_pos": 0,
+   "folds": [
+    -0.00235,
+    -0.00623,
+    -0.00619,
+    -0.00573,
+    -0.00517
+   ],
+   "se_nb": 0.0010827372696998016,
+   "p_nb": 0.009019841178093591
+  }
+ ],
+ "m5_representative": "m5_avg",
+ "selection_log": [
+  {
+   "candidate": "m5_avg",
+   "dP1": 0.00942860000000001,
+   "se": 0.00022331045653975986,
+   "se_nb": 0.0003349736598157561,
+   "replaces": true
+  },
+  {
+   "candidate": "m1_E_resB0_loomse",
+   "dP1": -0.0010667999999999789,
+   "se": 0.0007270388160201662,
+   "se_nb": 0.0010905841885063172,
+   "replaces": false
+  },
+  {
+   "candidate": "m1_E_resB0_icvr",
+   "dP1": -4.799999999999249e-05,
+   "se": 1.9932385707683693e-05,
+   "se_nb": 2.989929039965616e-05,
+   "replaces": false
+  }
+ ],
+ "selected_model": "m5_avg",
+ "weights": {
+  "m5_stack": {
+   "0": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16255,
+      "weights": [
+       0.319899,
+       0.283722,
+       0.396379
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 824,
+      "weights": [
+       0.28708,
+       0.507344,
+       0.205576
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1321,
+      "weights": [
+       0.302937,
+       0.013007,
+       0.684056
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 34,
+      "weights": [
+       0.036009,
+       0.537503,
+       0.426488
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29081463140158215,
+     "m2n_E_paralogs": 0.2906562539650186,
+     "g3_m3n": 0.2913033149437638
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": false,
+     "g3_m3n": false
+    },
+    "inner_s": {
+     "m2n_E_paralogs": [
+      169.1,
+      132.1,
+      127.4,
+      118.7,
+      138.5
+     ],
+     "g3_m3n": [
+      269.5,
+      251.0,
+      315.8,
+      306.1,
+      361.8
+     ],
+     "outer_m1_E_resB0": [
+      87.8
+     ],
+     "outer_m2n_E_paralogs": [
+      182.3
+     ],
+     "outer_g3_m3n": [
+      200.4
+     ]
+    },
+    "inner_reports": {
+     "m2n_E_paralogs": [
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 166.1
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 129.5
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 124.7
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 115.9
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 135.9
+      }
+     ],
+     "g3_m3n": [
+      {
+       "frac_genes_no_correction": 0.3079,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 264.9
+      },
+      {
+       "frac_genes_no_correction": 0.2835,
+       "median_best_iter": 4.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 243.0
+      },
+      {
+       "frac_genes_no_correction": 0.3447,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 308.7
+      },
+      {
+       "frac_genes_no_correction": 0.2938,
+       "median_best_iter": 4.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 297.7
+      },
+      {
+       "frac_genes_no_correction": 0.3006,
+       "median_best_iter": 4.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 354.6
+      }
+     ]
+    }
+   },
+   "1": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16287,
+      "weights": [
+       0.067649,
+       0.095767,
+       0.836584
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 828,
+      "weights": [
+       0.253262,
+       0.494387,
+       0.25235
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1277,
+      "weights": [
+       0.0,
+       0.550768,
+       0.449232
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 42,
+      "weights": [
+       0.087963,
+       0.604805,
+       0.307232
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29404697061125207,
+     "m2n_E_paralogs": 0.2941581415209141,
+     "g3_m3n": 0.2955229136684162
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": false,
+     "g3_m3n": false
+    },
+    "inner_s": {
+     "m2n_E_paralogs": [
+      133.5,
+      141.3,
+      129.9,
+      151.9,
+      149.6
+     ],
+     "g3_m3n": [
+      347.5,
+      353.9,
+      340.1,
+      337.1,
+      323.0
+     ],
+     "outer_m1_E_resB0": [
+      68.0
+     ],
+     "outer_m2n_E_paralogs": [
+      138.7
+     ],
+     "outer_g3_m3n": [
+      215.0
+     ]
+    },
+    "inner_reports": {
+     "m2n_E_paralogs": [
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 130.7
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 138.1
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 126.9
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 148.5
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 146.3
+      }
+     ],
+     "g3_m3n": [
+      {
+       "frac_genes_no_correction": 0.3153,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 338.3
+      },
+      {
+       "frac_genes_no_correction": 0.2804,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 344.7
+      },
+      {
+       "frac_genes_no_correction": 0.3093,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 330.4
+      },
+      {
+       "frac_genes_no_correction": 0.2989,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 329.3
+      },
+      {
+       "frac_genes_no_correction": 0.3159,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 317.9
+      }
+     ]
+    }
+   },
+   "2": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.362149,
+       0.248697,
+       0.389154
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 834,
+      "weights": [
+       0.3023,
+       0.498892,
+       0.198808
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1301,
+      "weights": [
+       0.01447,
+       0.564774,
+       0.420756
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 38,
+      "weights": [
+       0.0,
+       0.493722,
+       0.506278
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29545122488107345,
+     "m2n_E_paralogs": 0.2948851429780609,
+     "g3_m3n": 0.2956255840195515
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": false,
+     "g3_m3n": false
+    },
+    "inner_s": {
+     "m2n_E_paralogs": [
+      153.8,
+      156.8,
+      104.4,
+      91.6,
+      82.7
+     ],
+     "g3_m3n": [
+      280.6,
+      358.5,
+      320.0,
+      351.3,
+      347.1
+     ],
+     "outer_m1_E_resB0": [
+      98.4
+     ],
+     "outer_m2n_E_paralogs": [
+      205.3
+     ],
+     "outer_g3_m3n": [
+      233.5
+     ]
+    },
+    "inner_reports": {
+     "m2n_E_paralogs": [
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 151.0
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 152.3
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 101.6
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 90.1
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 81.1
+      }
+     ],
+     "g3_m3n": [
+      {
+       "frac_genes_no_correction": 0.3096,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 272.8
+      },
+      {
+       "frac_genes_no_correction": 0.3252,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 351.1
+      },
+      {
+       "frac_genes_no_correction": 0.3173,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 311.6
+      },
+      {
+       "frac_genes_no_correction": 0.3147,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 343.3
+      },
+      {
+       "frac_genes_no_correction": 0.3136,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 338.0
+      }
+     ]
+    }
+   },
+   "3": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16291,
+      "weights": [
+       0.494826,
+       0.061357,
+       0.443817
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 831,
+      "weights": [
+       0.282303,
+       0.516191,
+       0.201506
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1272,
+      "weights": [
+       0.0,
+       0.565787,
+       0.434213
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 40,
+      "weights": [
+       0.0,
+       0.573441,
+       0.426559
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2947258507190053,
+     "m2n_E_paralogs": 0.29451803855815367,
+     "g3_m3n": 0.2956044067072729
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": false,
+     "g3_m3n": false
+    },
+    "inner_s": {
+     "m2n_E_paralogs": [
+      132.1,
+      144.3,
+      137.0,
+      131.1,
+      126.4
+     ],
+     "g3_m3n": [
+      193.5,
+      205.6,
+      201.2,
+      269.2,
+      294.9
+     ],
+     "outer_m1_E_resB0": [
+      82.5
+     ],
+     "outer_m2n_E_paralogs": [
+      184.5
+     ],
+     "outer_g3_m3n": [
+      195.6
+     ]
+    },
+    "inner_reports": {
+     "m2n_E_paralogs": [
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 129.4
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 141.7
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 134.3
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 128.5
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 123.8
+      }
+     ],
+     "g3_m3n": [
+      {
+       "frac_genes_no_correction": 0.3066,
+       "median_best_iter": 4.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 189.2
+      },
+      {
+       "frac_genes_no_correction": 0.309,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 201.8
+      },
+      {
+       "frac_genes_no_correction": 0.3077,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 193.6
+      },
+      {
+       "frac_genes_no_correction": 0.3111,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 262.2
+      },
+      {
+       "frac_genes_no_correction": 0.2961,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 286.1
+      }
+     ]
+    }
+   },
+   "4": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.804591,
+       0.003195,
+       0.192214
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 835,
+      "weights": [
+       0.299929,
+       0.504874,
+       0.195197
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1291,
+      "weights": [
+       0.015793,
+       0.555516,
+       0.428692
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 47,
+      "weights": [
+       0.0,
+       0.616053,
+       0.383947
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2980333994253607,
+     "m2n_E_paralogs": 0.298132390794359,
+     "g3_m3n": 0.2984798637114298
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": false,
+     "g3_m3n": false
+    },
+    "inner_s": {
+     "m2n_E_paralogs": [
+      121.0,
+      128.6,
+      128.3,
+      115.4,
+      130.7
+     ],
+     "g3_m3n": [
+      320.4,
+      353.3,
+      284.3,
+      269.8,
+      200.2
+     ],
+     "outer_m1_E_resB0": [
+      51.1
+     ],
+     "outer_m2n_E_paralogs": [
+      95.4
+     ],
+     "outer_g3_m3n": [
+      135.7
+     ]
+    },
+    "inner_reports": {
+     "m2n_E_paralogs": [
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 118.5
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 126.1
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 125.8
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 112.9
+      },
+      {
+       "lam_by_group": {
+        "1": 100.0
+       },
+       "nested_lambda": false,
+       "inner_cached": true,
+       "fit_s": 126.9
+      }
+     ],
+     "g3_m3n": [
+      {
+       "frac_genes_no_correction": 0.3201,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 309.3
+      },
+      {
+       "frac_genes_no_correction": 0.3161,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 344.7
+      },
+      {
+       "frac_genes_no_correction": 0.3189,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 279.6
+      },
+      {
+       "frac_genes_no_correction": 0.2937,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 262.3
+      },
+      {
+       "frac_genes_no_correction": 0.3109,
+       "median_best_iter": 3.0,
+       "nested_es": true,
+       "inner_cached": true,
+       "fit_s": 196.1
+      }
+     ]
+    }
+   }
+  },
+  "m5_ctl_perm": {
+   "0": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16255,
+      "weights": [
+       0.513107,
+       0.036878,
+       0.450015
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 824,
+      "weights": [
+       0.628279,
+       0.040849,
+       0.330872
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1321,
+      "weights": [
+       0.309853,
+       0.000498,
+       0.689648
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 34,
+      "weights": [
+       0.301845,
+       0.0,
+       0.698155
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29081463140158215,
+     "m2n_E_paralogs": 0.010108008327830728,
+     "g3_m3n": 0.2913033149437638
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "1": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16287,
+      "weights": [
+       0.134029,
+       0.0,
+       0.865971
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 828,
+      "weights": [
+       0.591868,
+       0.0,
+       0.408132
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1277,
+      "weights": [
+       0.289641,
+       0.0,
+       0.710359
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 42,
+      "weights": [
+       0.441804,
+       0.013497,
+       0.544699
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29404697061125207,
+     "m2n_E_paralogs": -0.0007660467327515227,
+     "g3_m3n": 0.2955229136684162
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "2": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.532212,
+       0.0,
+       0.467788
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 834,
+      "weights": [
+       0.65938,
+       0.0,
+       0.34062
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1301,
+      "weights": [
+       0.327373,
+       0.006183,
+       0.666444
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 38,
+      "weights": [
+       0.245187,
+       0.0,
+       0.754813
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29545122488107345,
+     "m2n_E_paralogs": 0.0038071697899915045,
+     "g3_m3n": 0.2956255840195515
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "3": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16291,
+      "weights": [
+       0.534738,
+       0.012838,
+       0.452425
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 831,
+      "weights": [
+       0.64027,
+       0.022007,
+       0.337723
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1272,
+      "weights": [
+       0.294981,
+       0.015779,
+       0.68924
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 40,
+      "weights": [
+       0.339848,
+       0.0,
+       0.660152
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2947258507190053,
+     "m2n_E_paralogs": 0.010246388992183532,
+     "g3_m3n": 0.2956044067072729
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "4": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.78328,
+       0.027388,
+       0.189332
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 835,
+      "weights": [
+       0.658451,
+       0.0,
+       0.341549
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1291,
+      "weights": [
+       0.321485,
+       0.0,
+       0.678515
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 47,
+      "weights": [
+       0.289773,
+       0.01885,
+       0.691377
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2980333994253607,
+     "m2n_E_paralogs": 0.0007985526643550016,
+     "g3_m3n": 0.2984798637114298
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   }
+  },
+  "m5_ctl_perm_s1": {
+   "0": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16255,
+      "weights": [
+       0.526606,
+       0.012719,
+       0.460675
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 824,
+      "weights": [
+       0.65469,
+       0.0,
+       0.34531
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1321,
+      "weights": [
+       0.308748,
+       0.004165,
+       0.687086
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 34,
+      "weights": [
+       0.301845,
+       0.0,
+       0.698155
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29081463140158215,
+     "m2n_E_paralogs": -0.0007798351260854387,
+     "g3_m3n": 0.2913033149437638
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "1": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16287,
+      "weights": [
+       0.129384,
+       0.03532,
+       0.835296
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 828,
+      "weights": [
+       0.572711,
+       0.032583,
+       0.394706
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1277,
+      "weights": [
+       0.285555,
+       0.014061,
+       0.700384
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 42,
+      "weights": [
+       0.440456,
+       0.016057,
+       0.543486
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29404697061125207,
+     "m2n_E_paralogs": 0.00452989242985155,
+     "g3_m3n": 0.2955229136684162
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "2": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.524407,
+       0.015136,
+       0.460457
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 834,
+      "weights": [
+       0.656669,
+       0.004066,
+       0.339266
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1301,
+      "weights": [
+       0.327274,
+       0.006529,
+       0.666197
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 38,
+      "weights": [
+       0.245187,
+       0.0,
+       0.754813
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29545122488107345,
+     "m2n_E_paralogs": 0.0025365714504709948,
+     "g3_m3n": 0.2956255840195515
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "3": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16291,
+      "weights": [
+       0.53815,
+       0.007081,
+       0.454769
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 831,
+      "weights": [
+       0.642203,
+       0.018892,
+       0.338905
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1272,
+      "weights": [
+       0.295231,
+       0.015159,
+       0.68961
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 40,
+      "weights": [
+       0.336012,
+       0.011075,
+       0.652913
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2947258507190053,
+     "m2n_E_paralogs": 0.007018612541533211,
+     "g3_m3n": 0.2956044067072729
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "4": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.788186,
+       0.021982,
+       0.189832
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 835,
+      "weights": [
+       0.654,
+       0.006701,
+       0.339299
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1291,
+      "weights": [
+       0.319903,
+       0.004791,
+       0.675305
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 47,
+      "weights": [
+       0.294691,
+       0.0,
+       0.705309
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2980333994253607,
+     "m2n_E_paralogs": 0.0023962390885143344,
+     "g3_m3n": 0.2984798637114298
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   }
+  },
+  "m5_ctl_perm_s2": {
+   "0": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16255,
+      "weights": [
+       0.513883,
+       0.03672,
+       0.449397
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 824,
+      "weights": [
+       0.634743,
+       0.030408,
+       0.334849
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1321,
+      "weights": [
+       0.309506,
+       0.00162,
+       0.688874
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 34,
+      "weights": [
+       0.301845,
+       0.0,
+       0.698155
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29081463140158215,
+     "m2n_E_paralogs": 0.003004702911634152,
+     "g3_m3n": 0.2913033149437638
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "1": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16287,
+      "weights": [
+       0.134029,
+       0.0,
+       0.865971
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 828,
+      "weights": [
+       0.591868,
+       0.0,
+       0.408132
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1277,
+      "weights": [
+       0.289641,
+       0.0,
+       0.710359
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 42,
+      "weights": [
+       0.447563,
+       0.0,
+       0.552437
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29404697061125207,
+     "m2n_E_paralogs": -0.005600853593797667,
+     "g3_m3n": 0.2955229136684162
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "2": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.513955,
+       0.032241,
+       0.453804
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 834,
+      "weights": [
+       0.642013,
+       0.026174,
+       0.331814
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1301,
+      "weights": [
+       0.327586,
+       0.005676,
+       0.666738
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 38,
+      "weights": [
+       0.241234,
+       0.016386,
+       0.74238
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.29545122488107345,
+     "m2n_E_paralogs": 0.005841642700847194,
+     "g3_m3n": 0.2956255840195515
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "3": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16291,
+      "weights": [
+       0.528135,
+       0.023967,
+       0.447898
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 831,
+      "weights": [
+       0.644955,
+       0.014654,
+       0.340391
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1272,
+      "weights": [
+       0.297141,
+       0.008746,
+       0.694113
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 40,
+      "weights": [
+       0.335796,
+       0.010771,
+       0.653433
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2947258507190053,
+     "m2n_E_paralogs": 0.003177759768303966,
+     "g3_m3n": 0.2956044067072729
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   },
+   "4": {
+    "inputs": [
+     "m1_E_resB0",
+     "m2n_E_paralogs",
+     "g3_m3n"
+    ],
+    "classes": {
+     "nonvariable": {
+      "n_genes": 16261,
+      "weights": [
+       0.806757,
+       0.0,
+       0.193243
+      ],
+      "how": "nnls"
+     },
+     "var_common_essential": {
+      "n_genes": 835,
+      "weights": [
+       0.658451,
+       0.0,
+       0.341549
+      ],
+      "how": "nnls"
+     },
+     "var_selective": {
+      "n_genes": 1291,
+      "weights": [
+       0.321485,
+       0.0,
+       0.678515
+      ],
+      "how": "nnls"
+     },
+     "var_other": {
+      "n_genes": 47,
+      "weights": [
+       0.294691,
+       0.0,
+       0.705309
+      ],
+      "how": "nnls"
+     }
+    },
+    "inner_oof_P1_variable": {
+     "m1_E_resB0": 0.2980333994253607,
+     "m2n_E_paralogs": -0.005939215217285157,
+     "g3_m3n": 0.2984798637114298
+    },
+    "inner_cached": {
+     "m1_E_resB0": true,
+     "m2n_E_paralogs": true,
+     "g3_m3n": true
+    },
+    "inner_s": {},
+    "inner_reports": {}
+   }
+  }
+ },
+ "control": {
+  "max_weight_permuted": 0.040849,
+  "weight_ok": false,
+  "p1_ok": false,
+  "pass": false,
+  "posthoc_seeds": {
+   "m5_ctl_perm_s1": {
+    "max_weight": 0.03532,
+    "mean_weight": 0.011315849999999999,
+    "P1_var": 0.31285348141113634
+   },
+   "m5_ctl_perm_s2": {
+    "max_weight": 0.03672,
+    "mean_weight": 0.01036815,
+    "P1_var": 0.31293038623123887
+   }
+  },
+  "mean_weight_permuted": 0.009738350000000002
+ },
+ "reproduction": {
+  "max_abs_diff_avg_vs_mean_of_registered_inputs": 3.1789143850602386e-07
+ },
+ "lambda": {
+  "m1_E_resB0": {
+   "0": {
+    "lam_by_group": {
+     "0": 46415.888336127726,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": null
+   },
+   "1": {
+    "lam_by_group": {
+     "0": 46415.888336127726,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": null
+   },
+   "2": {
+    "lam_by_group": {
+     "0": 46415.888336127726,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": null
+   },
+   "3": {
+    "lam_by_group": {
+     "0": 46415.888336127726,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": null
+   },
+   "4": {
+    "lam_by_group": {
+     "0": 46415.888336127726,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": null
+   }
+  },
+  "m1_E_resB0_loomse": {
+   "0": {
+    "lam_by_group": {
+     "0": 215443.46900318822,
+     "1": 46415.888336127726
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      -1.240571,
+      -1.229416,
+      -1.208845,
+      -1.175436,
+      -1.130241,
+      -1.081189,
+      -1.038574,
+      -1.008396,
+      -0.991102,
+      -0.983975,
+      -0.983376,
+      -0.986172,
+      -0.990327,
+      -0.99455,
+      -0.997972,
+      -1.000256
+     ],
+     "1": [
+      -1.075553,
+      -1.066723,
+      -1.050444,
+      -1.024078,
+      -0.988779,
+      -0.951578,
+      -0.921674,
+      -0.904714,
+      -0.901344,
+      -0.908842,
+      -0.923062,
+      -0.940284,
+      -0.957968,
+      -0.973888,
+      -0.986084,
+      -0.993975
+     ]
+    }
+   },
+   "1": {
+    "lam_by_group": {
+     "0": 215443.46900318822,
+     "1": 46415.888336127726
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      -1.240918,
+      -1.229785,
+      -1.209327,
+      -1.176198,
+      -1.131391,
+      -1.082589,
+      -1.039944,
+      -1.009576,
+      -0.992117,
+      -0.984933,
+      -0.984339,
+      -0.987096,
+      -0.991104,
+      -0.995103,
+      -0.998306,
+      -1.000433
+     ],
+     "1": [
+      -1.071641,
+      -1.062803,
+      -1.046563,
+      -1.020351,
+      -0.985341,
+      -0.948504,
+      -0.919026,
+      -0.902631,
+      -0.899998,
+      -0.908308,
+      -0.923245,
+      -0.94093,
+      -0.958757,
+      -0.974554,
+      -0.98652,
+      -0.99422
+     ]
+    }
+   },
+   "2": {
+    "lam_by_group": {
+     "0": 215443.46900318822,
+     "1": 46415.888336127726
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      -1.239975,
+      -1.2286,
+      -1.207759,
+      -1.174169,
+      -1.129032,
+      -1.080273,
+      -1.038058,
+      -1.00826,
+      -0.991204,
+      -0.984144,
+      -0.983542,
+      -0.986363,
+      -0.99055,
+      -0.994757,
+      -0.998115,
+      -1.000332
+     ],
+     "1": [
+      -1.073015,
+      -1.0641,
+      -1.047733,
+      -1.021337,
+      -0.986098,
+      -0.949022,
+      -0.919319,
+      -0.902644,
+      -0.899547,
+      -0.907206,
+      -0.921558,
+      -0.939051,
+      -0.957136,
+      -0.973419,
+      -0.985844,
+      -0.993859
+     ]
+    }
+   },
+   "3": {
+    "lam_by_group": {
+     "0": 215443.46900318822,
+     "1": 46415.888336127726
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      -1.237884,
+      -1.226754,
+      -1.206293,
+      -1.173146,
+      -1.128337,
+      -1.079637,
+      -1.037253,
+      -1.007263,
+      -0.990211,
+      -0.98338,
+      -0.983046,
+      -0.986011,
+      -0.990245,
+      -0.994504,
+      -0.997944,
+      -1.000239
+     ],
+     "1": [
+      -1.072205,
+      -1.063425,
+      -1.047278,
+      -1.021171,
+      -0.986207,
+      -0.949284,
+      -0.919624,
+      -0.903064,
+      -0.900333,
+      -0.908528,
+      -0.923227,
+      -0.940586,
+      -0.958161,
+      -0.973929,
+      -0.986045,
+      -0.993923
+     ]
+    }
+   },
+   "4": {
+    "lam_by_group": {
+     "0": 215443.46900318822,
+     "1": 46415.888336127726
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      -1.235245,
+      -1.224236,
+      -1.203982,
+      -1.171156,
+      -1.126785,
+      -1.078565,
+      -1.03659,
+      -1.006904,
+      -0.990086,
+      -0.983448,
+      -0.983296,
+      -0.986422,
+      -0.990738,
+      -0.994959,
+      -0.99828,
+      -1.00045
+     ],
+     "1": [
+      -1.069681,
+      -1.060998,
+      -1.044997,
+      -1.019074,
+      -0.984294,
+      -0.947515,
+      -0.917926,
+      -0.901353,
+      -0.898554,
+      -0.906761,
+      -0.921723,
+      -0.939617,
+      -0.957838,
+      -0.974076,
+      -0.986346,
+      -0.994183
+     ]
+    }
+   }
+  },
+  "m1_E_resB0_icvr": {
+   "0": {
+    "lam_by_group": {
+     "0": 100000.0,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      0.089499,
+      0.090402,
+      0.092157,
+      0.09529,
+      0.100212,
+      0.106755,
+      0.113892,
+      0.120054,
+      0.123704,
+      0.123827,
+      0.120467,
+      0.114935,
+      0.109084,
+      0.104296,
+      0.10108,
+      0.099227
+     ],
+     "1": [
+      0.244352,
+      0.246085,
+      0.249416,
+      0.255233,
+      0.263982,
+      0.274707,
+      0.284783,
+      0.290961,
+      0.290743,
+      0.283354,
+      0.270306,
+      0.254913,
+      0.240561,
+      0.229397,
+      0.222043,
+      0.217834
+     ]
+    }
+   },
+   "1": {
+    "lam_by_group": {
+     "0": 46415.888336127726,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      0.088897,
+      0.089788,
+      0.091509,
+      0.094554,
+      0.099296,
+      0.105551,
+      0.112321,
+      0.118084,
+      0.121326,
+      0.12102,
+      0.117186,
+      0.111153,
+      0.104843,
+      0.099696,
+      0.096241,
+      0.094249
+     ],
+     "1": [
+      0.249131,
+      0.250892,
+      0.254256,
+      0.260078,
+      0.268737,
+      0.279197,
+      0.288755,
+      0.294112,
+      0.292794,
+      0.284086,
+      0.269591,
+      0.25278,
+      0.237186,
+      0.22504,
+      0.217008,
+      0.212397
+     ]
+    }
+   },
+   "2": {
+    "lam_by_group": {
+     "0": 100000.0,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      0.090761,
+      0.09168,
+      0.093457,
+      0.096612,
+      0.101538,
+      0.108036,
+      0.115068,
+      0.121109,
+      0.124687,
+      0.124789,
+      0.12136,
+      0.115597,
+      0.10935,
+      0.104122,
+      0.100554,
+      0.098476
+     ],
+     "1": [
+      0.249512,
+      0.251276,
+      0.254654,
+      0.260515,
+      0.269279,
+      0.27994,
+      0.289807,
+      0.29558,
+      0.294815,
+      0.286881,
+      0.273353,
+      0.257453,
+      0.242497,
+      0.230705,
+      0.222837,
+      0.218292
+     ]
+    }
+   },
+   "3": {
+    "lam_by_group": {
+     "0": 100000.0,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      0.091295,
+      0.092217,
+      0.094007,
+      0.097199,
+      0.102213,
+      0.108876,
+      0.116133,
+      0.122386,
+      0.126111,
+      0.126276,
+      0.12284,
+      0.117077,
+      0.110911,
+      0.105816,
+      0.102365,
+      0.100363
+     ],
+     "1": [
+      0.249566,
+      0.251292,
+      0.254602,
+      0.260365,
+      0.269013,
+      0.279565,
+      0.289308,
+      0.294846,
+      0.293635,
+      0.284992,
+      0.270593,
+      0.253973,
+      0.238691,
+      0.226903,
+      0.21916,
+      0.214728
+     ]
+    }
+   },
+   "4": {
+    "lam_by_group": {
+     "0": 46415.888336127726,
+     "1": 21544.346900318822
+    },
+    "lam_at_grid_edge": {
+     "0": false,
+     "1": false
+    },
+    "score_by_group": {
+     "0": [
+      0.096666,
+      0.097551,
+      0.099265,
+      0.102309,
+      0.10706,
+      0.113316,
+      0.120019,
+      0.12556,
+      0.1284,
+      0.127589,
+      0.123235,
+      0.116742,
+      0.110097,
+      0.104755,
+      0.101201,
+      0.099162
+     ],
+     "1": [
+      0.252745,
+      0.254463,
+      0.257763,
+      0.263512,
+      0.27214,
+      0.282677,
+      0.292448,
+      0.298115,
+      0.297128,
+      0.288739,
+      0.27461,
+      0.258315,
+      0.243396,
+      0.231925,
+      0.224399,
+      0.220094
+     ]
+    }
+   }
+  }
+ },
+ "sd_deciles": {
+  "0": {
+   "m1_E_resB0": 0.10069017972802315,
+   "m1_E_resB0_loomse": 0.10061676998881515,
+   "m1_E_resB0_loomse_d": -7.340973920798577e-05,
+   "m1_E_resB0_loomse_d_se": 0.001392278697001716,
+   "m1_E_resB0_loomse_d_pos": 2,
+   "m1_E_resB0_icvr": 0.10096770987505228,
+   "m1_E_resB0_icvr_d": 0.0002775301470291369,
+   "m1_E_resB0_icvr_d_se": 0.0001162590050693046,
+   "m1_E_resB0_icvr_d_pos": 3
+  },
+  "1": {
+   "m1_E_resB0": 0.10656037305975699,
+   "m1_E_resB0_loomse": 0.10539952706734487,
+   "m1_E_resB0_loomse_d": -0.0011608459924121128,
+   "m1_E_resB0_loomse_d_se": 0.0012904745860790802,
+   "m1_E_resB0_loomse_d_pos": 2,
+   "m1_E_resB0_icvr": 0.10661541828175132,
+   "m1_E_resB0_icvr_d": 5.504522199434036e-05,
+   "m1_E_resB0_icvr_d_se": 0.0001749912948244859,
+   "m1_E_resB0_icvr_d_pos": 2
+  },
+  "2": {
+   "m1_E_resB0": 0.11098657623871569,
+   "m1_E_resB0_loomse": 0.10990560393803976,
+   "m1_E_resB0_loomse_d": -0.0010809723006759142,
+   "m1_E_resB0_loomse_d_se": 0.001372758085969094,
+   "m1_E_resB0_loomse_d_pos": 2,
+   "m1_E_resB0_icvr": 0.11112317438763127,
+   "m1_E_resB0_icvr_d": 0.00013659814891556487,
+   "m1_E_resB0_icvr_d_se": 0.00021428382515983077,
+   "m1_E_resB0_icvr_d_pos": 1
+  },
+  "3": {
+   "m1_E_resB0": 0.11649349031708203,
+   "m1_E_resB0_loomse": 0.11493493772141268,
+   "m1_E_resB0_loomse_d": -0.0015585525956693601,
+   "m1_E_resB0_loomse_d_se": 0.0012765897237617364,
+   "m1_E_resB0_loomse_d_pos": 2,
+   "m1_E_resB0_icvr": 0.11651133168435512,
+   "m1_E_resB0_icvr_d": 1.784136727309982e-05,
+   "m1_E_resB0_icvr_d_se": 9.46511529516562e-05,
+   "m1_E_resB0_icvr_d_pos": 1
+  },
+  "4": {
+   "m1_E_resB0": 0.11910476749989866,
+   "m1_E_resB0_loomse": 0.11732448446744248,
+   "m1_E_resB0_loomse_d": -0.001780283032456198,
+   "m1_E_resB0_loomse_d_se": 0.00144554931324285,
+   "m1_E_resB0_loomse_d_pos": 2,
+   "m1_E_resB0_icvr": 0.11902789864724732,
+   "m1_E_resB0_icvr_d": -7.686885265135723e-05,
+   "m1_E_resB0_icvr_d_se": 7.19524906774837e-05,
+   "m1_E_resB0_icvr_d_pos": 1
+  },
+  "5": {
+   "m1_E_resB0": 0.12652581819131387,
+   "m1_E_resB0_loomse": 0.12329034880431695,
+   "m1_E_resB0_loomse_d": -0.003235469386996903,
+   "m1_E_resB0_loomse_d_se": 0.0010424174736754462,
+   "m1_E_resB0_loomse_d_pos": 0,
+   "m1_E_resB0_icvr": 0.1262119751603917,
+   "m1_E_resB0_icvr_d": -0.0003138430309221424,
+   "m1_E_resB0_icvr_d_se": 0.00017772329279149587,
+   "m1_E_resB0_icvr_d_pos": 0
+  },
+  "6": {
+   "m1_E_resB0": 0.1421925193258098,
+   "m1_E_resB0_loomse": 0.13817648433023705,
+   "m1_E_resB0_loomse_d": -0.004016034995572737,
+   "m1_E_resB0_loomse_d_se": 0.0013654359818260503,
+   "m1_E_resB0_loomse_d_pos": 0,
+   "m1_E_resB0_icvr": 0.14160618255409907,
+   "m1_E_resB0_icvr_d": -0.0005863367717107548,
+   "m1_E_resB0_icvr_d_se": 0.0002512196938869997,
+   "m1_E_resB0_icvr_d_pos": 0
+  },
+  "7": {
+   "m1_E_resB0": 0.1678582526436252,
+   "m1_E_resB0_loomse": 0.16055192743197982,
+   "m1_E_resB0_loomse_d": -0.00730632521164537,
+   "m1_E_resB0_loomse_d_se": 0.001327568459245601,
+   "m1_E_resB0_loomse_d_pos": 0,
+   "m1_E_resB0_icvr": 0.16647547046552633,
+   "m1_E_resB0_icvr_d": -0.001382782178098857,
+   "m1_E_resB0_icvr_d_se": 0.0005736750275119143,
+   "m1_E_resB0_icvr_d_pos": 0
+  },
+  "8": {
+   "m1_E_resB0": 0.24506570727048338,
+   "m1_E_resB0_loomse": 0.2325566783396716,
+   "m1_E_resB0_loomse_d": -0.012509028930811805,
+   "m1_E_resB0_loomse_d_se": 0.0010638839863513945,
+   "m1_E_resB0_loomse_d_pos": 0,
+   "m1_E_resB0_icvr": 0.24227995436252864,
+   "m1_E_resB0_icvr_d": -0.0027857529079547694,
+   "m1_E_resB0_icvr_d_se": 0.0011531132260949454,
+   "m1_E_resB0_icvr_d_pos": 0
+  },
+  "9": {
+   "m1_E_resB0": 0.31145792351392676,
+   "m1_E_resB0_loomse": 0.3105777897796188,
+   "m1_E_resB0_loomse_d": -0.0008801337343079752,
+   "m1_E_resB0_loomse_d_se": 0.0007954318845315091,
+   "m1_E_resB0_loomse_d_pos": 1,
+   "m1_E_resB0_icvr": 0.31145792351392676,
+   "m1_E_resB0_icvr_d": 0.0,
+   "m1_E_resB0_icvr_d_se": 0.0,
+   "m1_E_resB0_icvr_d_pos": 0
+  }
+ },
+ "sd_decile_edges": [
+  [
+   0.0865,
+   0.1156,
+   0.1229,
+   0.1288,
+   0.1348,
+   0.1412,
+   0.1494,
+   0.1623,
+   0.1899,
+   0.2742,
+   0.8881
+  ],
+  [
+   0.0865,
+   0.1153,
+   0.1224,
+   0.1284,
+   0.1341,
+   0.1405,
+   0.1487,
+   0.1613,
+   0.1887,
+   0.2715,
+   0.8756
+  ],
+  [
+   0.0825,
+   0.1163,
+   0.1236,
+   0.1294,
+   0.1355,
+   0.1419,
+   0.1501,
+   0.1629,
+   0.1902,
+   0.2739,
+   0.8789
+  ],
+  [
+   0.0841,
+   0.1145,
+   0.1219,
+   0.1279,
+   0.1336,
+   0.1401,
+   0.1484,
+   0.1609,
+   0.1888,
+   0.2715,
+   0.8744
+  ],
+  [
+   0.0832,
+   0.1154,
+   0.1228,
+   0.1287,
+   0.1344,
+   0.1409,
+   0.149,
+   0.1617,
+   0.1895,
+   0.2721,
+   0.9029
+  ]
+ ],
+ "P1_nonvariable_folds": {
+  "m1_E_resB0": [
+   0.13375436511638694,
+   0.1388288919678156,
+   0.13718080824163936,
+   0.1318023628335281,
+   0.12907509288176444
+  ],
+  "m1_E_resB0_loomse": [
+   0.12725952142933572,
+   0.13811278999200063,
+   0.13179597261386994,
+   0.12649437049685724,
+   0.12864236330058443
+  ],
+  "m1_E_resB0_icvr": [
+   0.1326120777916174,
+   0.1388288919678156,
+   0.13640331224629207,
+   0.13111325126235646,
+   0.12907509288176444
+  ]
+ },
+ "P1_nonvariable_vs_head": {
+  "m1_E_resB0_loomse": {
+   "mean": -0.003667300641697291,
+   "sd": 0.002863949146314749,
+   "se": 0.001280796995052454,
+   "t": -2.8632957883751904,
+   "p": 0.04577699221663775,
+   "ci95": [
+    -0.007223363189362725,
+    -0.00011123809403185613
+   ],
+   "n_folds_pos": 0,
+   "folds": [
+    -0.00649,
+    -0.00072,
+    -0.00538,
+    -0.00531,
+    -0.00043
+   ]
+  },
+  "m1_E_resB0_icvr": {
+   "mean": -0.0005217789782576921,
+   "sd": 0.0005056996642955803,
+   "se": 0.00022615576511274816,
+   "t": -2.307166381531611,
+   "p": 0.08228808771394895,
+   "ci95": [
+    -0.0011496880453172448,
+    0.00010613008880186068
+   ],
+   "n_folds_pos": 0,
+   "folds": [
+    -0.00114,
+    0.0,
+    -0.00078,
+    -0.00069,
+    0.0
+   ]
+  }
+ },
+ "delta": 0.005,
+ "nb_ratio": 0.2500214278395451
+}
