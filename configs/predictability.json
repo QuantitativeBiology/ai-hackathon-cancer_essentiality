@@ -20,7 +20,7 @@
   "mean_r": "mean over folds",
   "min_r": "minimum over folds",
   "sd_r": "fold SD, ddof = 1 (as evaluate's fold SDs)",
-  "check": "the recomputed per-fold r must equal the run's cached cache/runs/<run_id>/per_gene_fold.parquet r on the eval genes (|diff| <= 1e-9) when that file exists"
+  "check": "the recomputed per-fold r must equal the run's cached cache/runs/<run_id>/per_gene_fold.parquet r on the eval genes (same NaN pattern, |diff| <= 1e-6) when that file exists. Amended 2026-10-27 before any tier was written: the first check used 1e-9 and stopped at max |diff| 1.3e-7, because pred.parquet stores the predictions as float32 while the run evaluated float64 (scripts/g3_kernel_report.py uses the same 1e-6 tolerance). Tiers use the stored (float32) predictions."
  },
  "tiers": {
   "evaluable": "evaluable (finite r) in every fold of per_fold_r.folds; otherwise tier 'not_evaluable' (no confidence score)",

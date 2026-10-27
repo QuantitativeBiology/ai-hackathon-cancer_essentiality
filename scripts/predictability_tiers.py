@@ -91,7 +91,7 @@ def per_fold_r(run_id, P, Y, folds, gc, min_obs, log=print):
         same_nan = bool((np.isnan(a) == np.isnan(b)).all())
         d = float(np.nanmax(np.abs(a - b))) if len(m) else np.nan
         check = {"n_compared": int(len(m)), "max_abs_diff": d, "same_nan_pattern": same_nan,
-                 "ok": bool(same_nan and len(m) == len(c) and d <= 1e-9)}
+                 "ok": bool(same_nan and len(m) == len(c) and d <= 1e-6)}  # pred.parquet is float32
         if not check["ok"]:
             raise AssertionError(f"{run_id}: recomputed per-fold r differs from the run's cached evaluation: {check}")
         log(f"  {run_id}: per-fold r reproduces the run's cached evaluation ({len(m)} gene-folds, max diff {d:.1e})")
