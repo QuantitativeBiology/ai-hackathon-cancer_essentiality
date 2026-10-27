@@ -40,6 +40,8 @@ set_a_descriptive, h1-h4). This script only assembles inputs:
 
 Outputs: results/transfer/{setA,setB}/summary.json (+ setB/<background>.json, <background>_secondary.json),
 results/transfer/{summary,preflight,access_ledger,registry_record}_<stage>_<timestamp>.* (per-run names,
+results/transfer/predictions_with_confidence_<stage>_<timestamp>.parquet: every model prediction made, with each
+gene's dev-CV predictability confidence and tier (configs/predictable_genes.csv; DESIGN 4, D22; sha256 in the summary)
 so committed outputs of an earlier stage or run are never modified before a later access). Dry run:
 results/dryrun/transfer/.
 """
@@ -221,6 +223,35 @@ class Expression:
             self._ext = pd.read_parquet(self.paths.external_expr)
             self._ext.columns = self._ext.columns.astype(str)
         return self._ext.loc[pid]
+
+
+def write_prediction_table(bank: ModelBank, fin, paths, out_path) -> dict:
+    """Tidy table of every profile prediction the model bank made (fold-model mean), with each gene's dev-CV
+    predictability ``confidence`` and ``tier`` (configs/predictable_genes.csv; DESIGN §4, D22). Predictions only
+    (no observed values). Written as parquet (gitignored); its sha256 goes into the run summary."""
+    from essml import predictability as PR
+    tab = PR.load_table(paths.predictable_genes)
+    parts = []
+    for (role, pid, tp53, mk), folds in bank._cache.items():
+        mean = ens(folds)
+        parts.append(pd.DataFrame({
+            "role": role, "finalist": bank.fin[role].name, "profile_id": str(pid), "tp53_input": str(tp53),
+            "fold_models": "all" if mk is None else ";".join(map(str, mk)), "n_fold_models": len(folds),
+            "entrez": mean.index.astype(str), "predicted_effect": mean.to_numpy(np.float64)}))
+    if not parts:
+        return {"n_predictions": 0}
+    long = pd.concat(parts, ignore_index=True)
+    ann = PR.gene_annotation(long["entrez"].unique(), tab).set_index("entrez")
+    long = long.join(ann[["symbol", "confidence", "tier"]], on="entrez")
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    long.to_parquet(out_path)
+    return {"file": paths.rel(out_path), "sha256": HC.sha256_file(out_path), "n_rows": int(len(long)),
+            "n_predictions": len(parts), "predictable_genes": paths.rel(paths.predictable_genes),
+            "predictable_genes_sha256": HC.sha256_file(paths.predictable_genes),
+            "note": "confidence / tier = the G4 headline model's dev-CV per-gene tiers (DESIGN §4); for model T and "
+                    "the other roles they are a proxy for how well the gene's variation is predictable from "
+                    "expression in cancer lines, not a property of the external screen"}
 
 
 def mean_folds(preds: list) -> dict:
@@ -1179,6 +1210,11 @@ def run_g6(finalists_path, paths: HC.Paths, dry=False, stage="all", threads=4, s
         HC.ensure_log_committed(paths, f"G6 access log (end of stage {stage})")
     if stage in ("B", "all"):
         HC.write_json(out_dir / "setB" / "summary.json", HC.clean_floats(sb))
+    try:  # D22: every prediction this run made, with the per-gene confidence and tier (never fatal after accesses)
+        summary["predictions_with_confidence"] = write_prediction_table(
+            bank, fin, paths, out_dir / f"predictions_with_confidence_{tag}.parquet")
+    except Exception as e:  # noqa: BLE001
+        summary["predictions_with_confidence"] = {"error": f"{type(e).__name__}: {e}"}
     summary["accesses"] = ledger.rows
     summary["n_accesses_granted"] = ledger.n_granted()
     HC.write_json(out_dir / f"summary_{tag}.json", HC.clean_floats(strip_private(summary)))

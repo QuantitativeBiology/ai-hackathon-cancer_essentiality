@@ -79,6 +79,7 @@ class Paths:
     paralog_pairs: Path = ROOT / "cache" / "priors" / "paralog_pairs.parquet"
     external_expr: Path = ROOT / "cache" / "external_expr" / "harmonised.parquet"
     published_sets: Path = ROOT / "configs" / "published_genesets.csv"
+    predictable_genes: Path = ROOT / "configs" / "predictable_genes.csv"  # D22 tiers + confidence (DESIGN §4)
     cv_cache: Path = ROOT / "cache" / "runs"
     out_dir: Path = ROOT / "results" / "test"
     pred_dir: Path = ROOT / "cache" / "test" / "preds"

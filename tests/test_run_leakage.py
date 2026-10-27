@@ -98,9 +98,22 @@ def test_modelstore_predict_new_roundtrip(tmp_path):
         modelstore.save_fold_model("toy", f, m, folds.index[folds != f], X.columns, model_dir=tmp_path)
     new = pd.Index(["L0", "L1", "L2"])
     exp = sum(m.predict(new, X=X) for m in res["models"].values()) / 5
-    got = modelstore.predict_new("toy", new, X=X, model_dir=tmp_path,
+    got = modelstore.predict_new("toy", new, X=X, model_dir=tmp_path, output="wide",
                                  target_loader=lambda ids: Y.loc[ids])
     pd.testing.assert_frame_equal(got, exp)
+    # default (user-facing) output: tidy rows carrying the per-gene confidence and tier (D22)
+    genes = [str(g) for g in Y.columns]
+    pg = pd.DataFrame({"entrez": genes, "symbol": [f"S{g}" for g in genes], "mean_r": 0.5,
+                       "confidence": np.linspace(-0.2, 0.6, len(genes)), "source_run_id": "toy",
+                       "threshold_high_mean_r": 0.3,
+                       "tier": (["high", "medium", "low", "not_evaluable"] * len(genes))[:len(genes)]})
+    pg.to_csv(tmp_path / "pg.csv", index=False)
+    tidy = modelstore.predict_new("toy", new, X=X, model_dir=tmp_path, predictable_genes=tmp_path / "pg.csv",
+                                  target_loader=lambda ids: Y.loc[ids])
+    assert {"confidence", "tier", "predicted_effect"} <= set(tidy.columns) and len(tidy) == 3 * len(genes)
+    t = tidy.set_index(["ModelID", "entrez"])
+    assert np.isclose(t.loc[("L1", genes[0]), "predicted_effect"], exp.loc["L1", Y.columns[0]])
+    assert t.loc[("L1", genes[1]), "tier"] == "medium"
     # anchor = dev line: only the fold model that did not train on it (its OOF model)
     pa, used = modelstore.predict_anchor("toy", "L0", X=X, model_dir=tmp_path,
                                          target_loader=lambda ids: Y.loc[ids])

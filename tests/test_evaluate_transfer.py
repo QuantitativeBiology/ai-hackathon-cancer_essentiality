@@ -194,3 +194,18 @@ def test_resume_after_crash_inside_a_part_marks_it_spent(g6):
     assert s["setB"]["verdicts"]["RPE1"]["Q3a"]["verdict"] == "transfers"   # reloaded, not recomputed
     assert sorted(map(tuple, s["preflight"]["spent_incomplete_parts"]["parts"])) == [
         ("B", "hPSC"), ("Bsec", "bgI"), ("Bsec", "hPSC")]
+
+
+def test_prediction_table_carries_confidence_and_tier(g6):
+    """D22: every G6 prediction is written with the per-gene confidence and tier; no observed values."""
+    w, _, sa, sb, _ = g6
+    for s in (sa, sb):
+        e = s["predictions_with_confidence"]
+        assert e["n_predictions"] > 0 and "error" not in e
+        assert e["predictable_genes_sha256"] == HC.sha256_file(w["paths"].predictable_genes)
+        t = pd.read_parquet(w["repo"] / e["file"])
+        assert HC.sha256_file(w["repo"] / e["file"]) == e["sha256"]
+        assert {"role", "profile_id", "entrez", "predicted_effect", "confidence", "tier"} <= set(t.columns)
+        ref = pd.read_csv(w["paths"].predictable_genes, dtype={"entrez": str}).set_index("entrez")["tier"]
+        assert (t["tier"].to_numpy() == ref.reindex(t["entrez"]).fillna("not_evaluable").to_numpy()).all()
+        assert not ({"observed", "final", "raw"} & set(t.columns))

@@ -55,14 +55,26 @@ def load_fold_models(run_id, model_dir=MODEL_DIR, target_loader=None):
 
 
 def predict_new(run_id, index, lineage=None, X=None, model_dir=MODEL_DIR, target_loader=None,
-                per_model=False):
+                per_model=False, output="tidy", predictable_genes=None):
     """Mean prediction of the run's fold models for new lines (index) given lineage / features.
 
-    per_model=True returns {fold: prediction} instead (for ensemble-size-matched comparisons).
+    output="tidy" (default, user-facing): one row per (line, gene) with the per-gene ``confidence`` and
+    ``tier`` of configs/predictable_genes.csv (DESIGN §4 "Per-gene predictability"; another table via
+    ``predictable_genes``); columns ModelID, entrez, symbol, predicted_effect, confidence, tier.
+    output="wide": the [line x gene] matrix (internal use, e.g. ensembles).
+    per_model=True returns {fold: wide prediction} instead (for ensemble-size-matched comparisons).
     """
+    if output not in ("tidy", "wide"):
+        raise ValueError("output must be 'tidy' or 'wide'")
     preds = {f: m.predict(index, lineage=lineage, X=X)
              for f, m, _ in load_fold_models(run_id, model_dir, target_loader)}
-    return preds if per_model else sum(preds.values()) / len(preds)
+    if per_model:
+        return preds
+    mean = sum(preds.values()) / len(preds)
+    if output == "wide":
+        return mean
+    from . import predictability as PR
+    return PR.annotate_long(mean, PR.load_table(predictable_genes or PR.TABLE))
 
 
 def predict_anchor(run_id, model_id, lineage=None, X=None, model_dir=MODEL_DIR,

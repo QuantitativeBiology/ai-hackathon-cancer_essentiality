@@ -209,6 +209,64 @@ def test_toy_numbers_sensible(g4):
     assert s["library_groups_reproduced"] is True
 
 
+def test_per_tier_reporting_and_tier_table_hash(g4):
+    """D22: P1 / P2b per tier, Spearman(dev mean_r, held-out r) with a CI, sha256 of the tier table everywhere."""
+    w, s = g4
+    sha = HC.sha256_file(w["paths"].predictable_genes)
+    assert s["predictable_genes"]["sha256"] == sha and s["preflight"]["predictable_genes_committed"]["pass"]
+    head = json.loads((w["paths"].out_dir / "toy_m1" / "summary.json").read_text())
+    assert head["predictable_genes"]["sha256"] == sha
+    pt = head["per_tier"]
+    assert pt["predictable_genes"]["sha256"] == sha
+    assert set(pt["tiers"]) == {"high", "medium", "low"}
+    hi, lo = pt["tiers"]["high"], pt["tiers"]["low"]
+    assert hi["n_genes"] > 0 and lo["n_genes"] > 0
+    assert hi["P1"] > lo["P1"]                       # planted-signal genes are the toy 'high' tier
+    assert hi["P1_ci"]["ci_lo"] <= hi["P1"] <= hi["P1_ci"]["ci_hi"]
+    # per-tier point estimates equal the frozen per-gene output restricted to the tier
+    pg = pd.read_csv(w["paths"].out_dir / "toy_m1" / "per_gene.csv.gz", dtype={"gene": str})
+    m = (pg["tier"] == "high") & (pg["n_obs"] >= 40)
+    assert np.isclose(pg.loc[m, "r"].mean(), hi["P1"], atol=1e-4)
+    rho = pt["spearman_dev_mean_r_vs_heldout_r"]["evaluable"]
+    assert rho["point"] > 0.3 and rho["ci_lo"] <= rho["point"] <= rho["ci_hi"]
+    row = {r["role"]: r for r in s["table"]}["headline"]
+    assert row["P1_high"] == hi["P1"] and row["spearman_dev_mean_r_vs_r"] == rho["point"]
+
+
+def test_outputs_carry_confidence_and_tier(g4):
+    w, _ = g4
+    pg = pd.read_csv(w["paths"].out_dir / "toy_m1" / "per_gene.csv.gz", dtype={"gene": str})
+    assert {"confidence", "tier", "mean_r_dev_cv"} <= set(pg.columns)
+    ref = pd.read_csv(w["paths"].predictable_genes, dtype={"entrez": str}).set_index("entrez")
+    assert (pg["tier"].to_numpy() == ref["tier"].reindex(pg["gene"]).fillna("not_evaluable").to_numpy()).all()
+    man = json.loads((w["paths"].out_dir / "predictions_manifest.json").read_text())
+    for e in man.values():
+        tidy = pd.read_parquet(w["repo"] / e["predictions_with_confidence"]["file"])
+        assert {"ModelID", "entrez", "predicted_effect", "confidence", "tier"} <= set(tidy.columns)
+        assert e["predictions_with_confidence"]["predictable_genes_sha256"] == HC.sha256_file(w["paths"].predictable_genes)
+
+
+def test_refuses_without_committed_tier_table(tmp_path, monkeypatch):
+    monkeypatch.setenv("ESSML_UNBLIND", "1")
+    w = TH.make_world(tmp_path, n_genes=200, n_dev=60, n_test=20)
+    (w["repo"] / ".gitignore").write_text("cache/\n*.parquet\n*.pkl\nconfigs/predictable_genes.csv\n")
+    TH.git(w["repo"], "rm", "-q", "--cached", "configs/predictable_genes.csv")
+    TH.git(w["repo"], "commit", "-q", "-am", "untrack the tier table")          # tree clean, table untracked
+    with pytest.raises(SystemExit, match="predictable_genes_committed"):
+        _run(w)
+    assert len(_log(w)) == 0 and not (w["paths"].out_dir / "predictions_manifest.json").exists()
+
+
+def test_refuses_modified_tier_table(tmp_path, monkeypatch):
+    monkeypatch.setenv("ESSML_UNBLIND", "1")
+    w = TH.make_world(tmp_path, n_genes=200, n_dev=60, n_test=20)
+    p = w["paths"].predictable_genes
+    p.write_text(p.read_text().replace(",high,", ",low,"))
+    with pytest.raises(SystemExit, match="predictable_genes_committed"):
+        _run(w)
+    assert len(_log(w)) == 0
+
+
 def test_second_run_refused_without_new_access(g4):
     w, _ = g4
     n0 = len(_log(w))

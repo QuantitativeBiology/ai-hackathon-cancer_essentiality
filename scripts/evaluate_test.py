@@ -42,6 +42,17 @@ lineages with >= 20 test lines and per-library-group P1 (min_obs 20 inside those
 published-comparable block (loosely comparable). Test-line library groups = the dev NaN-pattern
 groups (configs/library_groups.csv definition) matched on the test line's own NaN pattern.
 
+Per-gene predictability (DESIGN §4, D22): G4 refuses to start unless configs/predictable_genes.csv is
+committed (tracked, unmodified); its sha256 is recorded in the preflight, the predictions manifest, every
+finalist summary and the combined summary. Each finalist's per_gene.csv.gz carries the gene's dev-CV
+``confidence``, ``tier`` and ``mean_r_dev_cv``; phase A also writes the tidy prediction table
+cache/test/preds/<finalist>_with_confidence.parquet. Step ``per_tier`` reports P1 (all / variable genes of
+each tier) and P2b (selective, prevalence <= 0.5) separately for high / medium / low, with patient-bootstrap
+CIs, and the across-gene Spearman correlation between dev mean_r and held-out r_g (with a bootstrap CI).
+The headline P1 is still the variable-gene mean. Dry run: tiers computed from dev-CV folds 1-4 only
+(results/dryrun/predictability/predictable_genes_excl_fold0.csv), so the stand-in lines' own CV results
+are not used.
+
 Crash after an access: predictions are on disk, so ``--resume`` refits nothing, skips finalists
 whose results are complete and evaluates the remaining ones; a finalist whose access was granted but
 whose core results are missing cannot be re-accessed (guard): it is marked
@@ -75,12 +86,16 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import heldout_common as HC  # noqa: E402
 from essml import genesets, guard, heldout  # noqa: E402
 from essml import metrics as M  # noqa: E402
+from essml import predictability as PR  # noqa: E402
 from essml import transfer as TR  # noqa: E402
 from essml.baselines import GeneMean, LineageMean  # noqa: E402
 from essml.evaluate import evaluate  # noqa: E402
 
 MIN_OBS_TEST = 50       # DESIGN §2/§4: >= 50 observed held-out lines
 MIN_OBS_CV = 40
+DRY_TIER = ROOT / "results" / "dryrun" / "predictability" / "predictable_genes_excl_fold0.csv"
+DRY_TIER_NOTE = ("dry run: tiers computed from dev-CV folds 1-4 only (scripts/predictability_tiers.py --exclude-folds 0), so "
+                 "the stand-in lines' own (fold-0) CV results are not used; the fold 1-4 models did train on fold-0 lines")
 MIN_STRATUM_LINES = 20  # DESIGN §4: within-lineage r for lineages with >= 20 held-out lines
 B1_KAPPA = 10           # transfer_criteria.json models.B1_nearest (set-A reference comparator)
 
@@ -129,6 +144,7 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
     checks["gate_G3"] = {"pass": HC.gate_passed(paths, "G3")}
     bad = HC.frozen_ok(paths)
     checks["frozen_hashes"] = {"pass": not bad, "changed": bad}
+    checks["predictable_genes_committed"] = predictable_check(paths)
     HC.check_noec_matches_T(fin["H3_noEC"], fin["T"])
     checks["noEC_excludes_4_EC_dev_lines"] = {"pass": True, "lines": HC.EC_DEV}
     done = completed(paths, fin)
@@ -151,6 +167,24 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
                     "alone and re-run with --resume.") if "tree_clean" in failed else ""
             raise SystemExit(f"G4 refused to start: {failed}\n{json.dumps(checks, indent=1)}{hint}")
     return checks
+
+
+def predictable_check(paths) -> dict:
+    """D22 / DESIGN §4: the per-gene tier table must be committed (tracked, unmodified) before G4."""
+    p = Path(paths.predictable_genes)
+    rel = paths.rel(p)
+    tracked = HC.is_tracked(paths.root, rel)
+    modified = bool(HC._git(["status", "--porcelain", "--", rel], paths.root).stdout.strip()) if tracked else None
+    out = {"pass": bool(tracked and not modified), "file": rel, "tracked": tracked, "modified": modified,
+           "sha256": HC.sha256_file(p) if p.exists() else None}
+    if p.exists():
+        try:
+            prov = PR.table_provenance(p)
+            out.update(source_run_id=prov["source_run_id"], threshold_high_mean_r=prov["threshold_high_mean_r"],
+                       tier_counts=prov["tier_counts"])
+        except Exception as e:  # noqa: BLE001 - an unreadable table fails the check
+            out.update({"pass": False, "error": f"{type(e).__name__}: {e}"})
+    return out
 
 
 def completed(paths, fin):
@@ -179,6 +213,12 @@ def phase_a_one(f: HC.Finalist, paths: HC.Paths, dry: bool, threads: int, featur
              "train_ids_sha256": HC.hashlib.sha256(",".join(sorted(r["train_ids"])).encode()).hexdigest(),
              "excluded_from_training": list(map(str, f.cfg.get("exclude_from_training", []))),
              "config_hash": f.config_hash, "timestamp": _now(), "git_commit": HC.git_head(paths.root)}
+    # D22: the user-facing / held-out prediction table carries each gene's confidence and tier
+    tidy_path = Path(paths.pred_dir) / f"{f.name}_with_confidence.parquet"
+    PR.annotate_long(pred, PR.load_table(paths.predictable_genes)).to_parquet(tidy_path)
+    entry["predictions_with_confidence"] = {"file": paths.rel(tidy_path), "sha256": HC.sha256_file(tidy_path),
+                                            "predictable_genes": paths.rel(paths.predictable_genes),
+                                            "predictable_genes_sha256": HC.sha256_file(paths.predictable_genes)}
     if f.role == "T":  # D7 fold models + their held-out predictions (set-A reference distribution)
         models, info = HC.load_or_fit_fold_models(f, pop, paths, dry, feature_loader, log=log)
         X = (feature_loader or HC.default_feature_loader)(f.cfg.get("features", []), pop.heldout_ids)
@@ -248,6 +288,9 @@ def step_core(ctx, f, pred, truth, refs):
     od = ctx["fdir"]
     od.mkdir(parents=True, exist_ok=True)
     pg = ev["per_gene"].drop(columns=["fold"]).round(5)
+    ann = PR.gene_annotation(pg["gene"].astype(str), ctx["pg_table"])  # D22: per-gene confidence + tier
+    pg = pg.assign(confidence=ann["confidence"].round(6).to_numpy(), tier=ann["tier"].to_numpy(),
+                   mean_r_dev_cv=ann["mean_r_dev_cv"].round(6).to_numpy())
     pg.to_csv(od / "per_gene.csv.gz", index=False)
     ev["per_line"].drop(columns=["fold"]).round(5).to_csv(od / "per_line.csv", index=False)
     return {"headline": ev["headline"], "summary": {c: {k: v for k, v in d.items() if not k.endswith(("_sd", "_folds"))}
@@ -338,6 +381,97 @@ def step_published(ctx, f, pred, truth, refs):
     return out
 
 
+def _spearman_rows(R, x):
+    """Spearman correlation of each row of R (B, G) with x (G,) over genes finite in both."""
+    from scipy.stats import rankdata
+    out = np.full(R.shape[0], np.nan)
+    for i in range(R.shape[0]):
+        ok = np.isfinite(R[i]) & np.isfinite(x)
+        if ok.sum() > 2:
+            a, b = rankdata(R[i, ok]), rankdata(x[ok])
+            if a.min() < a.max() and b.min() < b.max():  # undefined for a constant vector (e.g. B0: r = 0)
+                out[i] = np.corrcoef(a, b)[0, 1]
+    return out
+
+
+def step_per_tier(ctx, f, pred, truth, refs):
+    """DESIGN §4 / D22: P1 and P2b separately for the frozen predictability tiers (high / medium / low), and the
+    across-gene Spearman correlation between dev-CV mean_r and held-out r_g (does the confidence score transfer?).
+    Point estimates from the frozen evaluate's per-gene output; CIs from the same patient-bootstrap draws (W)."""
+    tab = ctx["pg_table"]
+    genes = truth.columns
+    pg = ctx["ev"]["per_gene"].assign(gene=lambda d: d["gene"].astype(str)).set_index("gene").reindex(genes)
+    tier = tab["tier"].reindex(genes).fillna("not_evaluable")
+    cls = ctx["gene_cls"].reindex(genes).fillna(False).astype(bool)
+    evalg = (pg["n_obs"] >= ctx["min_obs"]).to_numpy()
+    r = pg["r"].to_numpy(np.float64)
+    nap, auc, prev = (pg[c].to_numpy(np.float64) for c in ("nap", "auroc", "prev"))
+    out = {"predictable_genes": {"file": ctx["paths"].rel(ctx["paths"].predictable_genes), "sha256": ctx["pg_sha"]},
+           "tier_source_run_id": sorted(set(tab["source_run_id"].dropna()))[:3],
+           "threshold_high_mean_r": sorted(set(tab["threshold_high_mean_r"].dropna().astype(float))),
+           "definition": step_per_tier.__doc__.split("\n", 1)[1].strip(),
+           "n_eval_genes_by_tier": tier.value_counts().to_dict(), "tiers": {}}
+    masks, e05s = {}, {}
+    for t in PR.EVALUABLE_TIERS:
+        mt = (tier == t).to_numpy() & evalg
+        mv = mt & cls["variable"].to_numpy()
+        e05 = cls["selective"].to_numpy() & (tier == t).to_numpy() & evalg & np.isfinite(nap) & (prev <= 0.5)
+        masks[t], masks[f"{t}_variable"], e05s[t] = mt, mv, e05
+        row = {"n_genes": int(mt.sum()), "P1": float(np.nanmean(r[mt])) if mt.any() else None,
+               "P1_median": float(np.nanmedian(r[mt])) if mt.any() else None,
+               "n_genes_variable": int(mv.sum()), "P1_variable": float(np.nanmean(r[mv])) if mv.any() else None,
+               "P2b_n_prev05": int(e05.sum()),
+               "P2b_nap_prev05": float(np.mean(nap[e05])) if e05.any() else None,
+               "P2b_auroc_prev05": float(np.mean(auc[e05])) if e05.any() else None}
+        for b in refs:
+            rb = pg[f"r_{b}"].to_numpy(np.float64)
+            row[f"dP1_vs_{b}"] = float(np.nanmean((r - rb)[mt])) if mt.any() else None
+        out["tiers"][t] = row
+    # patient bootstrap (same draws as the headline bootstrap)
+    W = ctx["W"]
+    T = truth.to_numpy(np.float64)
+    P = pred.loc[truth.index, genes].to_numpy(np.float64)
+    R = heldout.weighted_pearson_class_means(P, T, W, masks, ctx["min_obs"])
+    RB = {}
+    for b, d in refs.items():
+        key = ("p1_tier", b)
+        if key not in ctx["boot_cache"]:
+            ctx["boot_cache"][key] = heldout.weighted_pearson_class_means(
+                d.loc[truth.index, genes].to_numpy(np.float64), T, W, masks, ctx["min_obs"])
+        RB[b] = ctx["boot_cache"][key]
+    union = np.zeros(len(genes), bool)
+    for e in e05s.values():
+        union |= e
+    apb, pv = heldout.weighted_ap_cols(P, T, W, union)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        napb = (apb - pv) / (1.0 - pv)
+    sel = np.flatnonzero(union)
+    for t, row in out["tiers"].items():
+        row["P1_ci"] = heldout.summarise(row["P1"], R[t])
+        row["P1_variable_ci"] = heldout.summarise(row["P1_variable"], R[f"{t}_variable"])
+        for b in refs:
+            row[f"dP1_vs_{b}_ci"] = heldout.summarise(row[f"dP1_vs_{b}"], R[t] - RB[b][t])
+        cols = np.isin(sel, np.flatnonzero(e05s[t]))
+        if cols.any():
+            row["P2b_nap_prev05_ci"] = heldout.summarise(
+                row["P2b_nap_prev05"], heldout._nanmean_rows(napb[:, cols], np.ones(int(cols.sum()), bool)),
+                method="normal")
+    # does the confidence score transfer? Spearman(dev mean_r, held-out r_g) across tiered evaluable genes
+    mean_r = tab["mean_r"].reindex(genes).to_numpy(np.float64)
+    tiered = tier.isin(PR.EVALUABLE_TIERS).to_numpy() & evalg
+    rho = {}
+    for name, m in (("evaluable", tiered), ("variable", tiered & cls["variable"].to_numpy())):
+        x = np.where(m, mean_r, np.nan)
+        point = float(_spearman_rows(r[None, :], x)[0])
+        boot = []
+        for s in range(0, W.shape[0], 64):
+            Rb = heldout.weighted_pearson_cols(P[:, m], T[:, m], W[s:s + 64], ctx["min_obs"])
+            boot.append(_spearman_rows(Rb, mean_r[m]))
+        rho[name] = {"n_genes": int(m.sum()), **heldout.summarise(point, np.concatenate(boot))}
+    out["spearman_dev_mean_r_vs_heldout_r"] = rho
+    return out
+
+
 def step_setA_reference(ctx, f, pred, truth, refs):
     """transfer_criteria.json set_A.tier_A1.ranking: per cancer-test line, the Q3a/Q3b primary statistics of
     model T (Q3a vs B0; Q3b vs B1 of the line's own lineage, kappa 10, all training lines); U = eval genes
@@ -369,7 +503,8 @@ def step_setA_reference(ctx, f, pred, truth, refs):
             "definition": step_setA_reference.__doc__.split("\n", 1)[1].strip()}
 
 
-STEPS = [("core", step_core), ("bootstrap", step_bootstrap), ("p2_sensitivity_thr_-1", step_p2_sensitivity),
+STEPS = [("core", step_core), ("bootstrap", step_bootstrap), ("per_tier", step_per_tier),
+         ("p2_sensitivity_thr_-1", step_p2_sensitivity),
          ("within_group", step_within),
          ("strata", step_strata), ("published_comparable", step_published), ("setA_reference", step_setA_reference)]
 
@@ -381,7 +516,8 @@ def evaluate_finalist(ctx, f, pred, truth_all, refs, steps=STEPS, log=print):
     fdir.mkdir(parents=True, exist_ok=True)
     summ = {"finalist": f.name, "role": f.role, "config": f.config_path, "config_hash": f.config_hash,
             "population": ctx["population_label"], "n_lines": int(truth.shape[0]), "min_obs": ctx["min_obs"],
-            "baselines_for_deltas": sorted(refs), "status": "running", "errors": {}, "timestamp": _now()}
+            "baselines_for_deltas": sorted(refs), "status": "running", "errors": {}, "timestamp": _now(),
+            "predictable_genes": {"file": ctx["paths"].rel(ctx["paths"].predictable_genes), "sha256": ctx["pg_sha"]}}
     for name, fn in steps:
         try:
             res = fn(ctx, f, pred, truth, refs)
@@ -431,7 +567,9 @@ def build_context(fin, paths, pop, man, n_boot, min_obs, dry):
     t = fin["T"]
     for k, e in man.get(t.name, {}).get("fold_preds", {}).items():
         fold_preds[int(k)] = load_pred(Path(paths.root, e["file"]), e["sha256"])
-    return {"eval_genes": eval_genes, "gene_cls": gene_cls, "seed": seed, "W": W, "boot_cache": {},
+    pg_path = Path(paths.predictable_genes)
+    return {"pg_table": PR.load_table(pg_path), "pg_sha": HC.sha256_file(pg_path),
+            "eval_genes": eval_genes, "gene_cls": gene_cls, "seed": seed, "W": W, "boot_cache": {},
             "lineage": pop.lineage, "lib_top": top, "lib_cols": cols, "library_groups_reproduced": lib_check,
             "setA": setA, "fold_preds": fold_preds, "min_obs": min_obs, "paths": paths,
             "population_label": pop.label, "out_dir": paths.out_dir, "dry": dry}
@@ -557,6 +695,12 @@ def headline_table(results, fin, man):
             b = bm.get(k)
             if b:
                 row[k + "_ci"] = [b["ci_lo"], b["ci_hi"]]
+        for t, d in ((r.get("per_tier") or {}).get("tiers") or {}).items():
+            row[f"P1_{t}"] = d.get("P1")
+            row[f"P2b_nap_prev05_{t}"] = d.get("P2b_nap_prev05")
+        sp = ((r.get("per_tier") or {}).get("spearman_dev_mean_r_vs_heldout_r") or {}).get("evaluable") or {}
+        row["spearman_dev_mean_r_vs_r"] = sp.get("point")
+        row["spearman_dev_mean_r_vs_r_ci"] = [sp.get("ci_lo"), sp.get("ci_hi")] if sp else None
         w = r.get("within_group", {}).get("model", {})
         row.update({f"P1_{k}": w.get(k) for k in ("within_library", "within_lineage", "within_lin_lib")})
         rows.append(row)
@@ -608,6 +752,8 @@ def run_g4(finalists_path, paths: HC.Paths, dry=False, threads=4, n_boot=2000, i
     summary = {"gate": "G4", "dry_run": dry, "population": pop.label, "timestamp": stamp.isoformat(timespec="seconds"),
                "git_commit": HC.git_head(paths.root), "finalists_file": rel, "preflight": checks,
                "n_boot": n_boot, "min_obs": min_obs, "library_groups_reproduced": ctx["library_groups_reproduced"],
+               "predictable_genes": {"file": paths.rel(paths.predictable_genes), "sha256": ctx["pg_sha"],
+                                     "note": (DRY_TIER_NOTE if dry else "frozen D22 tiers (configs/predictable_genes.csv)")},
                "accesses": ledger.rows, "n_accesses_granted": ledger.n_granted(),
                "table": headline_table(results, fin, man),
                "per_finalist": {n: paths.rel(Path(paths.out_dir) / n / "summary.json") for n in results}}
@@ -641,7 +787,8 @@ def main(argv=None):
     dry = a.dry_run_dev
     paths = HC.Paths()
     if dry:
-        paths = paths.with_(out_dir=ROOT / "results" / "dryrun" / "test", pred_dir=ROOT / "cache" / "dryrun" / "test" / "preds")
+        paths = paths.with_(out_dir=ROOT / "results" / "dryrun" / "test", pred_dir=ROOT / "cache" / "dryrun" / "test" / "preds",
+                            predictable_genes=DRY_TIER)
     fpath = Path(a.finalists) if a.finalists else ROOT / "configs" / ("finalists.example.json" if dry else "finalists.json")
     if not fpath.is_absolute():
         fpath = ROOT / fpath

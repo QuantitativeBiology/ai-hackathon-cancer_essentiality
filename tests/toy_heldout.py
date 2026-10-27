@@ -103,6 +103,16 @@ def make_world(tmp_path, seed=0, n_dev=160, n_test=60, n_genes=N_GENES, signal=1
                                                                      "config_hash", "n_ids", "n_genes", "roles",
                                                                      "granted", "reason"]) + "\n")
     (repo / ".gitignore").write_text("cache/\n*.parquet\n*.pkl\n")
+    # D22 per-gene predictability table (toy: genes with planted expression signal tend to be 'high')
+    mr = np.where(act, rng.uniform(0.1, 0.7, n_genes), rng.uniform(-0.05, 0.25, n_genes))
+    sd = rng.uniform(0.02, 0.08, n_genes)
+    tier = np.where(mr >= 0.3, "high", np.where(mr >= 0.15, "medium", "low")).astype(object)
+    tier[-10:] = "not_evaluable"
+    pgt = pd.DataFrame({"entrez": genes, "symbol": [f"SYM{g}" for g in genes], "mean_r": mr, "min_r": mr - 2 * sd,
+                        "sd_r": sd, "confidence": np.clip(mr - sd, -1, 1), "tier": tier, "source_run_id": "toy_cv",
+                        "threshold_high_mean_r": 0.3})
+    pgt.loc[pgt["tier"] == "not_evaluable", ["mean_r", "min_r", "sd_r", "confidence"]] = np.nan
+    pgt.to_csv(repo / "configs" / "predictable_genes.csv", index=False)
 
     kappa = {"grid": {"kappa": [0, 10, 100]}}
     base = {"reference_baselines": {"B0": {}, "B1": kappa}, "inner_folds": 3, "min_obs": 20, "inner_min_obs": 10,
@@ -151,6 +161,7 @@ def make_world(tmp_path, seed=0, n_dev=160, n_test=60, n_genes=N_GENES, signal=1
                      paralog_pairs=repo / "cache" / "paralog_pairs.parquet",
                      external_expr=repo / "cache" / "external_expr.parquet",
                      published_sets=repo / "configs" / "published_genesets.csv", cv_cache=repo / "cache" / "runs",
+                     predictable_genes=repo / "configs" / "predictable_genes.csv",
                      out_dir=repo / "results" / "test", pred_dir=repo / "cache" / "test" / "preds")
 
     def loader(names, rows):
