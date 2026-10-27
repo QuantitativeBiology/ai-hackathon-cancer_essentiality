@@ -185,7 +185,8 @@ def main(names=None, pooled=True):
     print("\n† subset run: P1 all and P2b cover every gene, most of them passed through (M3: M1; "
           "R2/R4: training mean); ΔP1 and 'replaces' refer to the subset genes only.\n")
     pb = published_block({**REF, **{n: found[n] for n in names
-                                    if n in found and per_fold(found[n])['fold'].nunique() == 5}},
+                                    if n in found and per_fold(found[n])['fold'].nunique() == 5
+                                    and _subset_genes(cfg_of(found[n])) is None}},  # full coverage only
                          pooled=pooled)
     cols = [c for c in pb.columns if c not in ("run_id",)]
     print("| " + " | ".join(cols) + " |")
