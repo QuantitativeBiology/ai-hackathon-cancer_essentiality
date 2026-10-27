@@ -195,6 +195,49 @@ which it is ≤ 5%. This is the only allowed adjustment, and it is recorded.
   confidence score itself transfers.
 - The headline P1 is still the variable-gene mean.
 
+### Mutation-driven dependencies (diagnostic; added pre-G4, RESEARCH_TREE D24)
+This section does not change P1, the selection rule or δ. It uses dev CV only.
+
+**Pair set (fixed here):**
+- Oncogene addiction, "mutant" = hotspot unless stated otherwise:
+  - BRAF (BRAF hotspot), KRAS (KRAS hotspot), NRAS (NRAS hotspot), PIK3CA (PIK3CA hotspot);
+  - EGFR (EGFR hotspot or amplification), ERBB2 (ERBB2 amplification), CTNNB1 (CTNNB1 hotspot);
+  - CCND1 (CCND1 amplification), MDM2 (TP53 wild-type), MYC (MYC amplification).
+- Paralog / collateral loss, "mutant" = damaging mutation or deep deletion of the first gene, dependency on the
+  second:
+  - ARID1A→ARID1B, SMARCA4→SMARCA2, STAG2→STAG1, ENO1→ENO2, VPS4B→VPS4A;
+  - MTAP→PRMT5, MTAP→MAT2A, EP300→CREBBP, CREBBP→EP300.
+- The amplification and deep-deletion thresholds are taken from the existing feature definitions
+  (src/essml/features.py). Their values are written to the pair file before any metric is computed. A pair
+  with < 5 mutant dev lines is reported as "too few" and excluded from pooled statistics.
+
+**Models compared** (existing out-of-fold predictions):
+- m1_E_resB0, expression only;
+- m1bt_full, expression plus tuned genomics;
+- g3_m3n, LightGBM, which sees genomics;
+- m5_avg, the headline;
+- B1;
+- a "biomarker-only" reference: the training-fold mean effect by mutant status, per gene.
+
+**Metrics per pair:**
+- per-gene r over all lines;
+- r within mutant and within WT lines;
+- AUPRC and normalised AP for effect < −0.5, over all lines and within each stratum;
+- "biomarker discrimination": AUROC of the prediction for separating mutant from WT among dependent lines.
+
+All metrics are fold-wise and paired.
+
+**"Genomics clearly helps"** holds if both conditions are met:
+1. over eligible pairs, the mean paired ΔAUPRC (m1bt_full or g3_m3n minus m1_E_resB0) has a fold-paired 95% CI
+   excluding 0;
+2. at least 3 pairs individually gain ΔAUPRC ≥ 0.10 in ≥ 4 of 5 folds.
+
+If it holds, one targeted model is specified and pre-registered before it runs:
+- M1 plus per-gene own-genomic features (the gene's own hotspot/damaging/CN status and, for paralog pairs, the
+  partner's loss status) in the M2 local stage;
+- it is evaluated under the unchanged selection rule against the current headline;
+- its pair-set gains are reported regardless of the outcome.
+
 ### Runtime
 Wall-clock fit and predict, thread count and peak RSS, logged by the common launcher.
 

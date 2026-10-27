@@ -315,6 +315,14 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - The transfer criteria name "full = headline model" as a secondary, so G6 must be able to apply m5_avg to
       external profiles: M3/M2 inputs use the "diploid WT" convention for absent modalities, as for T. This
       integration is queued after the predictability work, to avoid file collisions.
+- D24 (pre-G4, user request): mutation-driven dependency diagnostic (DESIGN §4 "Mutation-driven dependencies").
+  - Question: does relying on expression miss oncogene-addiction and paralog-loss dependencies?
+  - The pair set, metrics and the "clearly helps" rule (pooled ΔAUPRC CI > 0 and ≥ 3 pairs ≥ +0.10 in ≥ 4/5
+    folds) are fixed before any pair-level number is computed.
+  - Prior exposure, disclosed: G3 noted that M3's gains include the NRAS-hotspot gene, so one pair's direction was
+    already hinted.
+  - If the rule is met, one targeted own-genomic M2 variant is pre-registered and judged by the unchanged
+    selection rule.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -362,6 +370,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [!] Non-essential genes P1 0.110 (B1 0.068). Not line offsets (centring keeps 99%). It is library- and
     lineage-linked; within-library P1 0.279 (D16).
 - [x] G3 model ladder (closed; headline m5_avg, D23)
+  - [ ] Mutation-driven dependency diagnostic, expression vs expression+genomics on addiction/paralog pairs (D24)
   - [x] Re-run m1_E_resB0, r1_E, t_E_status and m1_E on frozen evaluation code (run IDs above, under G0)
   - [x] Report columns (scripts/g3_kernel_report.py; docs/g3_kernel_results.md): within-library and
     within-lineage P1 (reviewer definitions; reproduce the review exactly), within lineage × library P1, NB SE
