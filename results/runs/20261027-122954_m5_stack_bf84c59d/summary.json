@@ -1,0 +1,2168 @@
+{
+ "run_id": "20261027-122954_m5_stack_bf84c59d",
+ "config": {
+  "name": "m5_stack",
+  "model": "M5",
+  "features": [],
+  "params": {
+   "inputs": [
+    {
+     "name": "m1_E_resB0",
+     "model": "M1",
+     "params": {
+      "modalities": [
+       "E"
+      ],
+      "residual": "B0"
+     }
+    },
+    {
+     "name": "m2n_E_paralogs",
+     "model": "M2",
+     "params": {
+      "m1_params": {
+       "modalities": [
+        "E"
+       ],
+       "residual": "B0"
+      },
+      "base": "M1",
+      "priors": "paralogs",
+      "local_genes": "variable",
+      "nested_lambda": true
+     },
+     "inner_params": {
+      "nested_lambda": false
+     }
+    },
+    {
+     "name": "g3_m3n",
+     "model": "M3",
+     "params": {
+      "m1_params": {
+       "modalities": [
+        "E"
+       ],
+       "residual": "B0"
+      },
+      "inner_folds": 5,
+      "oof_seed": 20261026,
+      "split_seed": 20261026,
+      "pool_blocks": [
+       "E",
+       "C",
+       "M",
+       "H",
+       "meta"
+      ],
+      "k_screen": 50,
+      "use_m1_feature": true,
+      "lgb_params": {},
+      "num_boost_round": 500,
+      "early_stopping": 30,
+      "n_jobs": 6,
+      "nested_es": true
+     }
+    }
+   ],
+   "mode": "stack",
+   "inner_folds": 5,
+   "seed": 20261026,
+   "min_class_genes": 20
+  },
+  "grid": {},
+  "reference_baselines": {
+   "B0": {},
+   "B1": {
+    "grid": {
+     "kappa": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20,
+      50,
+      100,
+      200,
+      500,
+      1000,
+      10000
+     ]
+    }
+   }
+  },
+  "inner_folds": 5,
+  "min_obs": 40,
+  "inner_min_obs": 30,
+  "threads": 6,
+  "requires_gate": "G2",
+  "cache_reference": true,
+  "declared": "M5 stacking (DESIGN \u00a75) of m1_E_resB0, m2n_E_paralogs and g3_m3n. Per outer fold: 5 patient-grouped, lineage-stratified inner folds of the training lines (seed 20261026, the splits of the cached M1 inner OOF); inner out-of-fold predictions of each input on the training lines; per training-fold gene class (non-variable; variable x common-essential / selective / other) non-negative least squares of the training targets on the inner OOF predictions, per gene centred and scaled by 1/SD(y), weights normalised to sum 1 (classes with < 20 genes use the pooled variable-gene weights); inputs refitted on all training lines and combined. Baseline: plain average m5_avg. Rung representative: m5_stack if its paired dP1 vs m5_avg > 0 and > 1 fold SE, otherwise m5_avg (stacking adds nothing over averaging). The representative replaces m1_E_resB0 only under the DESIGN \u00a74 rule vs m1_E_resB0 (paired fold-wise dP1 on dev-wide variable genes > 0.005 and > 1 fold SE). DEVIATION D-M5-1 (declared before any M5 run): fully nested inner OOF for M2 needs a third level of M1 fits (25 per inner split, ~650 fits, projected > 5 h with M3), so the M2 inner fits choose their local lambda by the non-nested inner-fold CV of G2 (nested_lambda=False) inside the inner-training lines; this is leak-free with respect to the inner-held-out lines, but the weights are learned on predictions of this slightly different M2. M1 inner OOF: exact-key cache cache/m2_inner. M3 inner fits: exact (nested_es=True). Time box 5 h wall from the launch of m5_stack; if its fold 0 takes > 55 min (projected > 5 h incl. the average and control runs), it is stopped and replaced by m5_stack_f1 (fallback F1: M3 inner fits with nested_es=False, i.e. the un-nested early stopping, logged as deviation)."
+ },
+ "config_hash": "bf84c59d15e5f21e147d72e6e98aaacccbd2a9ae22002bc2f825bd4e1cec45c9",
+ "git_commit": "8dda04d0e18eb788945403ff0260ab532e7e127d",
+ "dirty_tree": 0,
+ "splits_sha256": "d543cba139b4ae6651c2453d61ec447867d35a4295d4046833fcaf0b017e41f0",
+ "eval_genes_sha256": "5a5b7c2ae1153973f257b8823ecc254014e607bd6356e1ac77a4efa43c787f64",
+ "gene_classes_sha256": "3f9d61aeee004d0817b222a8a7abb89ae7df4e4dd49ef1cc15da98e1378eb6dc",
+ "tree_clean": 0,
+ "roles_used": "dev:1022",
+ "n_train_ids": 1022,
+ "threads": 6,
+ "seed": 20261026,
+ "n_lines": 1022,
+ "fold_scheme": "cv",
+ "fold_names": null,
+ "excluded_from_training": [],
+ "n_eval_genes": 17915,
+ "neg_mapping": {
+  "file": "NEGv1.txt",
+  "n_neg": 927,
+  "n_mapped": 924,
+  "by": {
+   "hgnc_id": 922,
+   "symbol": 0,
+   "prev_alias": 3,
+   "unmapped": 2
+  },
+  "unmapped": [
+   "PRAMEF3",
+   "SPHAR"
+  ],
+  "entrez_disagreements_with_file": 1
+ },
+ "chosen_params": {
+  "0": {},
+  "ref_B0": {
+   "0": {},
+   "1": {},
+   "2": {},
+   "3": {},
+   "4": {}
+  },
+  "ref_B1": {
+   "0": {
+    "kappa": 10
+   },
+   "1": {
+    "kappa": 10
+   },
+   "2": {
+    "kappa": 20
+   },
+   "3": {
+    "kappa": 10
+   },
+   "4": {
+    "kappa": 10
+   }
+  },
+  "1": {},
+  "2": {},
+  "3": {},
+  "4": {}
+ },
+ "inner_cv": {
+  "0": [],
+  "1": [],
+  "2": [],
+  "3": [],
+  "4": []
+ },
+ "model_report": {
+  "0": {
+   "mode": "stack",
+   "class_n_genes": {
+    "nonvariable": 16255,
+    "var_common_essential": 824,
+    "var_selective": 1321,
+    "var_other": 34
+   },
+   "weights": {
+    "nonvariable": {
+     "n_genes": 16255,
+     "weights": [
+      0.319899,
+      0.283722,
+      0.396379
+     ],
+     "how": "nnls"
+    },
+    "var_common_essential": {
+     "n_genes": 824,
+     "weights": [
+      0.28708,
+      0.507344,
+      0.205576
+     ],
+     "how": "nnls"
+    },
+    "var_selective": {
+     "n_genes": 1321,
+     "weights": [
+      0.302937,
+      0.013007,
+      0.684056
+     ],
+     "how": "nnls"
+    },
+    "var_other": {
+     "n_genes": 34,
+     "weights": [
+      0.036009,
+      0.537503,
+      0.426488
+     ],
+     "how": "nnls"
+    }
+   },
+   "inner_cached": {
+    "m1_E_resB0": true,
+    "m2n_E_paralogs": false,
+    "g3_m3n": false
+   },
+   "inner_s": {
+    "m2n_E_paralogs": [
+     169.1,
+     132.1,
+     127.4,
+     118.7,
+     138.5
+    ],
+    "g3_m3n": [
+     269.5,
+     251.0,
+     315.8,
+     306.1,
+     361.8
+    ],
+    "outer_m1_E_resB0": [
+     87.8
+    ],
+    "outer_m2n_E_paralogs": [
+     182.3
+    ],
+    "outer_g3_m3n": [
+     200.4
+    ]
+   },
+   "inner_reports": {
+    "m2n_E_paralogs": [
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 166.1
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 129.5
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 124.7
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 115.9
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 135.9
+     }
+    ],
+    "g3_m3n": [
+     {
+      "frac_genes_no_correction": 0.3079,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 264.9
+     },
+     {
+      "frac_genes_no_correction": 0.2835,
+      "median_best_iter": 4.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 243.0
+     },
+     {
+      "frac_genes_no_correction": 0.3447,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 308.7
+     },
+     {
+      "frac_genes_no_correction": 0.2938,
+      "median_best_iter": 4.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 297.7
+     },
+     {
+      "frac_genes_no_correction": 0.3006,
+      "median_best_iter": 4.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 354.6
+     }
+    ]
+   },
+   "inner_oof_P1_variable": {
+    "m1_E_resB0": 0.29081463140158215,
+    "m2n_E_paralogs": 0.2906562539650186,
+    "g3_m3n": 0.2913033149437638
+   },
+   "permute_input": null,
+   "fit_s": 2204.3
+  },
+  "1": {
+   "mode": "stack",
+   "class_n_genes": {
+    "nonvariable": 16287,
+    "var_common_essential": 828,
+    "var_selective": 1277,
+    "var_other": 42
+   },
+   "weights": {
+    "nonvariable": {
+     "n_genes": 16287,
+     "weights": [
+      0.067649,
+      0.095767,
+      0.836584
+     ],
+     "how": "nnls"
+    },
+    "var_common_essential": {
+     "n_genes": 828,
+     "weights": [
+      0.253262,
+      0.494387,
+      0.25235
+     ],
+     "how": "nnls"
+    },
+    "var_selective": {
+     "n_genes": 1277,
+     "weights": [
+      0.0,
+      0.550768,
+      0.449232
+     ],
+     "how": "nnls"
+    },
+    "var_other": {
+     "n_genes": 42,
+     "weights": [
+      0.087963,
+      0.604805,
+      0.307232
+     ],
+     "how": "nnls"
+    }
+   },
+   "inner_cached": {
+    "m1_E_resB0": true,
+    "m2n_E_paralogs": false,
+    "g3_m3n": false
+   },
+   "inner_s": {
+    "m2n_E_paralogs": [
+     133.5,
+     141.3,
+     129.9,
+     151.9,
+     149.6
+    ],
+    "g3_m3n": [
+     347.5,
+     353.9,
+     340.1,
+     337.1,
+     323.0
+    ],
+    "outer_m1_E_resB0": [
+     68.0
+    ],
+    "outer_m2n_E_paralogs": [
+     138.7
+    ],
+    "outer_g3_m3n": [
+     215.0
+    ]
+   },
+   "inner_reports": {
+    "m2n_E_paralogs": [
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 130.7
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 138.1
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 126.9
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 148.5
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 146.3
+     }
+    ],
+    "g3_m3n": [
+     {
+      "frac_genes_no_correction": 0.3153,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 338.3
+     },
+     {
+      "frac_genes_no_correction": 0.2804,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 344.7
+     },
+     {
+      "frac_genes_no_correction": 0.3093,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 330.4
+     },
+     {
+      "frac_genes_no_correction": 0.2989,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 329.3
+     },
+     {
+      "frac_genes_no_correction": 0.3159,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 317.9
+     }
+    ]
+   },
+   "inner_oof_P1_variable": {
+    "m1_E_resB0": 0.29404697061125207,
+    "m2n_E_paralogs": 0.2941581415209141,
+    "g3_m3n": 0.2955229136684162
+   },
+   "permute_input": null,
+   "fit_s": 2419.5
+  },
+  "2": {
+   "mode": "stack",
+   "class_n_genes": {
+    "nonvariable": 16261,
+    "var_common_essential": 834,
+    "var_selective": 1301,
+    "var_other": 38
+   },
+   "weights": {
+    "nonvariable": {
+     "n_genes": 16261,
+     "weights": [
+      0.362149,
+      0.248697,
+      0.389154
+     ],
+     "how": "nnls"
+    },
+    "var_common_essential": {
+     "n_genes": 834,
+     "weights": [
+      0.3023,
+      0.498892,
+      0.198808
+     ],
+     "how": "nnls"
+    },
+    "var_selective": {
+     "n_genes": 1301,
+     "weights": [
+      0.01447,
+      0.564774,
+      0.420756
+     ],
+     "how": "nnls"
+    },
+    "var_other": {
+     "n_genes": 38,
+     "weights": [
+      0.0,
+      0.493722,
+      0.506278
+     ],
+     "how": "nnls"
+    }
+   },
+   "inner_cached": {
+    "m1_E_resB0": true,
+    "m2n_E_paralogs": false,
+    "g3_m3n": false
+   },
+   "inner_s": {
+    "m2n_E_paralogs": [
+     153.8,
+     156.8,
+     104.4,
+     91.6,
+     82.7
+    ],
+    "g3_m3n": [
+     280.6,
+     358.5,
+     320.0,
+     351.3,
+     347.1
+    ],
+    "outer_m1_E_resB0": [
+     98.4
+    ],
+    "outer_m2n_E_paralogs": [
+     205.3
+    ],
+    "outer_g3_m3n": [
+     233.5
+    ]
+   },
+   "inner_reports": {
+    "m2n_E_paralogs": [
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 151.0
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 152.3
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 101.6
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 90.1
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 81.1
+     }
+    ],
+    "g3_m3n": [
+     {
+      "frac_genes_no_correction": 0.3096,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 272.8
+     },
+     {
+      "frac_genes_no_correction": 0.3252,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 351.1
+     },
+     {
+      "frac_genes_no_correction": 0.3173,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 311.6
+     },
+     {
+      "frac_genes_no_correction": 0.3147,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 343.3
+     },
+     {
+      "frac_genes_no_correction": 0.3136,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 338.0
+     }
+    ]
+   },
+   "inner_oof_P1_variable": {
+    "m1_E_resB0": 0.29545122488107345,
+    "m2n_E_paralogs": 0.2948851429780609,
+    "g3_m3n": 0.2956255840195515
+   },
+   "permute_input": null,
+   "fit_s": 2277.0
+  },
+  "3": {
+   "mode": "stack",
+   "class_n_genes": {
+    "nonvariable": 16291,
+    "var_common_essential": 831,
+    "var_selective": 1272,
+    "var_other": 40
+   },
+   "weights": {
+    "nonvariable": {
+     "n_genes": 16291,
+     "weights": [
+      0.494826,
+      0.061357,
+      0.443817
+     ],
+     "how": "nnls"
+    },
+    "var_common_essential": {
+     "n_genes": 831,
+     "weights": [
+      0.282303,
+      0.516191,
+      0.201506
+     ],
+     "how": "nnls"
+    },
+    "var_selective": {
+     "n_genes": 1272,
+     "weights": [
+      0.0,
+      0.565787,
+      0.434213
+     ],
+     "how": "nnls"
+    },
+    "var_other": {
+     "n_genes": 40,
+     "weights": [
+      0.0,
+      0.573441,
+      0.426559
+     ],
+     "how": "nnls"
+    }
+   },
+   "inner_cached": {
+    "m1_E_resB0": true,
+    "m2n_E_paralogs": false,
+    "g3_m3n": false
+   },
+   "inner_s": {
+    "m2n_E_paralogs": [
+     132.1,
+     144.3,
+     137.0,
+     131.1,
+     126.4
+    ],
+    "g3_m3n": [
+     193.5,
+     205.6,
+     201.2,
+     269.2,
+     294.9
+    ],
+    "outer_m1_E_resB0": [
+     82.5
+    ],
+    "outer_m2n_E_paralogs": [
+     184.5
+    ],
+    "outer_g3_m3n": [
+     195.6
+    ]
+   },
+   "inner_reports": {
+    "m2n_E_paralogs": [
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 129.4
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 141.7
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 134.3
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 128.5
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 123.8
+     }
+    ],
+    "g3_m3n": [
+     {
+      "frac_genes_no_correction": 0.3066,
+      "median_best_iter": 4.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 189.2
+     },
+     {
+      "frac_genes_no_correction": 0.309,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 201.8
+     },
+     {
+      "frac_genes_no_correction": 0.3077,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 193.6
+     },
+     {
+      "frac_genes_no_correction": 0.3111,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 262.2
+     },
+     {
+      "frac_genes_no_correction": 0.2961,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 286.1
+     }
+    ]
+   },
+   "inner_oof_P1_variable": {
+    "m1_E_resB0": 0.2947258507190053,
+    "m2n_E_paralogs": 0.29451803855815367,
+    "g3_m3n": 0.2956044067072729
+   },
+   "permute_input": null,
+   "fit_s": 1849.1
+  },
+  "4": {
+   "mode": "stack",
+   "class_n_genes": {
+    "nonvariable": 16261,
+    "var_common_essential": 835,
+    "var_selective": 1291,
+    "var_other": 47
+   },
+   "weights": {
+    "nonvariable": {
+     "n_genes": 16261,
+     "weights": [
+      0.804591,
+      0.003195,
+      0.192214
+     ],
+     "how": "nnls"
+    },
+    "var_common_essential": {
+     "n_genes": 835,
+     "weights": [
+      0.299929,
+      0.504874,
+      0.195197
+     ],
+     "how": "nnls"
+    },
+    "var_selective": {
+     "n_genes": 1291,
+     "weights": [
+      0.015793,
+      0.555516,
+      0.428692
+     ],
+     "how": "nnls"
+    },
+    "var_other": {
+     "n_genes": 47,
+     "weights": [
+      0.0,
+      0.616053,
+      0.383947
+     ],
+     "how": "nnls"
+    }
+   },
+   "inner_cached": {
+    "m1_E_resB0": true,
+    "m2n_E_paralogs": false,
+    "g3_m3n": false
+   },
+   "inner_s": {
+    "m2n_E_paralogs": [
+     121.0,
+     128.6,
+     128.3,
+     115.4,
+     130.7
+    ],
+    "g3_m3n": [
+     320.4,
+     353.3,
+     284.3,
+     269.8,
+     200.2
+    ],
+    "outer_m1_E_resB0": [
+     51.1
+    ],
+    "outer_m2n_E_paralogs": [
+     95.4
+    ],
+    "outer_g3_m3n": [
+     135.7
+    ]
+   },
+   "inner_reports": {
+    "m2n_E_paralogs": [
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 118.5
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 126.1
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 125.8
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 112.9
+     },
+     {
+      "lam_by_group": {
+       "1": 100.0
+      },
+      "nested_lambda": false,
+      "inner_cached": true,
+      "fit_s": 126.9
+     }
+    ],
+    "g3_m3n": [
+     {
+      "frac_genes_no_correction": 0.3201,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 309.3
+     },
+     {
+      "frac_genes_no_correction": 0.3161,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 344.7
+     },
+     {
+      "frac_genes_no_correction": 0.3189,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 279.6
+     },
+     {
+      "frac_genes_no_correction": 0.2937,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 262.3
+     },
+     {
+      "frac_genes_no_correction": 0.3109,
+      "median_best_iter": 3.0,
+      "nested_es": true,
+      "inner_cached": true,
+      "fit_s": 196.1
+     }
+    ]
+   },
+   "inner_oof_P1_variable": {
+    "m1_E_resB0": 0.2980333994253607,
+    "m2n_E_paralogs": 0.298132390794359,
+    "g3_m3n": 0.2984798637114298
+   },
+   "permute_input": null,
+   "fit_s": 2063.8
+  }
+ },
+ "fit_s_per_fold": {
+  "0": 2204.374550000066,
+  "1": 2419.536557400017,
+  "2": 2277.080176700023,
+  "3": 1849.174696299946,
+  "4": 2063.821124500013
+ },
+ "predict_s_per_fold": {
+  "0": 474.05418600002304,
+  "1": 424.9025362000102,
+  "2": 541.5505159000168,
+  "3": 466.16793840005994,
+  "4": 286.01942580007017
+ },
+ "fit_s": 10813.987104900065,
+ "predict_s": 2192.69460230018,
+ "peak_rss_mb": 3498.328125,
+ "rss_method": "psutil.peak_wset",
+ "headline": {
+  "P1_all": 0.15588552121168991,
+  "P1_all_sd": 0.003663294352812313,
+  "P1_median_all": 0.14133480900315093,
+  "P1_median_all_sd": 0.003664935181779766,
+  "n_r_gt_0.3_all": 2120.4,
+  "n_r_gt_0.3_all_sd": 53.08295394945537,
+  "n_genes_all": 17915.0,
+  "n_genes_all_sd": 0.0,
+  "dP1_vs_B0_all": 0.15588552121168991,
+  "dP1_vs_B0_all_sd": 0.003663294352812313,
+  "frac_beat_B0_all": 0.9232151828077029,
+  "frac_beat_B0_all_sd": 0.007895361195907268,
+  "dP1_vs_B1_all": 0.06311244278821967,
+  "dP1_vs_B1_all_sd": 0.0039073028863944315,
+  "frac_beat_B1_all": 0.7559475300027909,
+  "frac_beat_B1_all_sd": 0.009706947878751952,
+  "P1_variable": 0.3180286252789941,
+  "P1_variable_sd": 0.003911927234761862,
+  "P1_median_variable": 0.31006603450958814,
+  "P1_median_variable_sd": 0.004681636705820147,
+  "n_r_gt_0.3_variable": 1116.2,
+  "n_r_gt_0.3_variable_sd": 28.90847626562147,
+  "n_genes_variable": 2118.0,
+  "n_genes_variable_sd": 0.0,
+  "dP1_vs_B0_variable": 0.3180286252789941,
+  "dP1_vs_B0_variable_sd": 0.003911927234761862,
+  "frac_beat_B0_variable": 0.9960339943342775,
+  "frac_beat_B0_variable_sd": 0.0009790576654073312,
+  "dP1_vs_B1_variable": 0.13429191001504334,
+  "dP1_vs_B1_variable_sd": 0.010036025157770436,
+  "frac_beat_B1_variable": 0.9316336166194524,
+  "frac_beat_B1_variable_sd": 0.01508422846594603,
+  "P1_selective": 0.2942868018174934,
+  "P1_selective_sd": 0.0031510834636139127,
+  "P1_median_selective": 0.28463132269135305,
+  "P1_median_selective_sd": 0.0014925009383458087,
+  "n_r_gt_0.3_selective": 1167.0,
+  "n_r_gt_0.3_selective_sd": 16.73320053068151,
+  "n_genes_selective": 2572.0,
+  "n_genes_selective_sd": 0.0,
+  "dP1_vs_B0_selective": 0.2942868018174934,
+  "dP1_vs_B0_selective_sd": 0.0031510834636139127,
+  "frac_beat_B0_selective": 0.9921461897356142,
+  "frac_beat_B0_selective_sd": 0.0021890650482518496,
+  "dP1_vs_B1_selective": 0.1234896040924021,
+  "dP1_vs_B1_selective_sd": 0.008811128803471041,
+  "frac_beat_B1_selective": 0.9188180404354588,
+  "frac_beat_B1_selective_sd": 0.013503262111358643,
+  "P1_rare_selective": 0.17262715589091562,
+  "P1_rare_selective_sd": 0.005189598525764486,
+  "P1_median_rare_selective": 0.16379956003404217,
+  "P1_median_rare_selective_sd": 0.005207399975138351,
+  "n_r_gt_0.3_rare_selective": 383.0,
+  "n_r_gt_0.3_rare_selective_sd": 24.73863375370596,
+  "n_genes_rare_selective": 2991.0,
+  "n_genes_rare_selective_sd": 0.0,
+  "dP1_vs_B0_rare_selective": 0.17262715589091562,
+  "dP1_vs_B0_rare_selective_sd": 0.005189598525764486,
+  "frac_beat_B0_rare_selective": 0.9497158141089936,
+  "frac_beat_B0_rare_selective_sd": 0.004538854433044543,
+  "dP1_vs_B1_rare_selective": 0.07024140555979372,
+  "dP1_vs_B1_rare_selective_sd": 0.003152459841348316,
+  "frac_beat_B1_rare_selective": 0.7941825476429287,
+  "frac_beat_B1_rare_selective_sd": 0.004767078200638598,
+  "P1_common_essential": 0.25653214533420265,
+  "P1_common_essential_sd": 0.006528853149353285,
+  "P1_median_common_essential": 0.2500331626095835,
+  "P1_median_common_essential_sd": 0.007466631442827666,
+  "n_r_gt_0.3_common_essential": 283.0,
+  "n_r_gt_0.3_common_essential_sd": 21.644860821913362,
+  "n_genes_common_essential": 839.0,
+  "n_genes_common_essential_sd": 0.0,
+  "dP1_vs_B0_common_essential": 0.25653214533420265,
+  "dP1_vs_B0_common_essential_sd": 0.006528853149353285,
+  "frac_beat_B0_common_essential": 0.9945172824791418,
+  "frac_beat_B0_common_essential_sd": 0.0013589695174006401,
+  "dP1_vs_B1_common_essential": 0.11092923902498705,
+  "dP1_vs_B1_common_essential_sd": 0.01016067067569932,
+  "frac_beat_B1_common_essential": 0.901549463647199,
+  "frac_beat_B1_common_essential_sd": 0.019847827371506373,
+  "P1_nonessential": 0.11421592644668457,
+  "P1_nonessential_sd": 0.006019801930589892,
+  "P1_median_nonessential": 0.10995809852450437,
+  "P1_median_nonessential_sd": 0.004875714642556064,
+  "n_r_gt_0.3_nonessential": 26.8,
+  "n_r_gt_0.3_nonessential_sd": 4.494441010848846,
+  "n_genes_nonessential": 804.0,
+  "n_genes_nonessential_sd": 0.0,
+  "dP1_vs_B0_nonessential": 0.11421592644668457,
+  "dP1_vs_B0_nonessential_sd": 0.006019801930589892,
+  "frac_beat_B0_nonessential": 0.8907960199004975,
+  "frac_beat_B0_nonessential_sd": 0.019634415184747355,
+  "dP1_vs_B1_nonessential": 0.046608392460202,
+  "dP1_vs_B1_nonessential_sd": 0.005284931262771332,
+  "frac_beat_B1_nonessential": 0.7,
+  "frac_beat_B1_nonessential_sd": 0.020708114814196446,
+  "P2a": 0.9131178238885826,
+  "P2a_sd": 0.003664022780970365,
+  "dP2a_vs_B0": 0.01053678679992576,
+  "dP2a_vs_B0_sd": 0.00042424929326854863,
+  "dP2a_vs_B1": 0.006844033019409869,
+  "dP2a_vs_B1_sd": 0.0003015198952135494,
+  "P2b_nap_prev05": 0.1958047095018338,
+  "P2b_nap_prev05_sd": 0.0024641897196888583,
+  "P2b_auroc_prev05": 0.6633601317624176,
+  "P2b_auroc_prev05_sd": 0.00428884299125387,
+  "P2b_n_prev05": 1758.6,
+  "P2b_n_prev05_sd": 4.979959839195493
+ },
+ "summary": {
+  "all": {
+   "P1": 0.15588552121168991,
+   "P1_sd": 0.003663294352812313,
+   "P1_folds": [
+    0.1558120064720534,
+    0.16026538944902283,
+    0.15828074487284913,
+    0.15430921668023492,
+    0.15076024858428927
+   ],
+   "P1_median": 0.14133480900315093,
+   "P1_median_sd": 0.003664935181779766,
+   "P1_median_folds": [
+    0.14066443711161722,
+    0.14605805878830502,
+    0.14377134672297415,
+    0.1394999839891723,
+    0.13668021840368585
+   ],
+   "n_r_gt_0.3": 2120.4,
+   "n_r_gt_0.3_sd": 53.08295394945537,
+   "n_r_gt_0.3_folds": [
+    2098.0,
+    2181.0,
+    2099.0,
+    2169.0,
+    2055.0
+   ],
+   "n_genes": 17915.0,
+   "n_genes_sd": 0.0,
+   "n_genes_folds": [
+    17915.0,
+    17915.0,
+    17915.0,
+    17915.0,
+    17915.0
+   ],
+   "P1_spearman": 0.14692429305464,
+   "P1_spearman_sd": 0.0051755280334529015,
+   "P1_spearman_folds": [
+    0.1483962523915547,
+    0.15370601307685827,
+    0.1481496695110775,
+    0.1446905757855104,
+    0.13967895450819914
+   ],
+   "P2a": 0.9131178238885826,
+   "P2a_sd": 0.003664022780970365,
+   "P2a_folds": [
+    0.9164184129534938,
+    0.9100357382311943,
+    0.9170532461688883,
+    0.9088970310900472,
+    0.9131846909992898
+   ],
+   "P2a_n_lines": 204.4,
+   "P2a_n_lines_sd": 3.7815340802378072,
+   "P2a_n_lines_folds": [
+    208.0,
+    202.0,
+    201.0,
+    202.0,
+    209.0
+   ],
+   "P2b_nap": 0.19071719200535528,
+   "P2b_nap_sd": 0.004366862704616269,
+   "P2b_nap_folds": [
+    0.19353940614375004,
+    0.18577093720865975,
+    0.19662480126625018,
+    0.18977147522342613,
+    0.18787934018469027
+   ],
+   "P2b_auroc": 0.6522018913372717,
+   "P2b_auroc_sd": 0.0056105660762895805,
+   "P2b_auroc_folds": [
+    0.6566482158383574,
+    0.6493384367081086,
+    0.656893730876892,
+    0.643761458023832,
+    0.6543676152391689
+   ],
+   "P2b_n": 5585.2,
+   "P2b_n_sd": 215.23754319356092,
+   "P2b_n_folds": [
+    5437.0,
+    5827.0,
+    5312.0,
+    5759.0,
+    5591.0
+   ],
+   "P2b_nap_prev05": 0.1361722047684631,
+   "P2b_nap_prev05_sd": 0.004353249201916261,
+   "P2b_nap_prev05_folds": [
+    0.14131085436915994,
+    0.12997923231935363,
+    0.13918414885828864,
+    0.13536152998438422,
+    0.13502525831112905
+   ],
+   "P2b_auroc_prev05": 0.6469918613833743,
+   "P2b_auroc_prev05_sd": 0.007812360749174558,
+   "P2b_auroc_prev05_folds": [
+    0.6539465137644156,
+    0.6426222842495539,
+    0.6519536845192213,
+    0.6353579414235644,
+    0.6510788829601162
+   ],
+   "P2b_n_prev05": 4438.0,
+   "P2b_n_prev05_sd": 185.74579403044365,
+   "P2b_n_prev05_folds": [
+    4313.0,
+    4646.0,
+    4204.0,
+    4594.0,
+    4433.0
+   ],
+   "dP1_vs_B0": 0.15588552121168991,
+   "dP1_vs_B0_sd": 0.003663294352812313,
+   "dP1_vs_B0_folds": [
+    0.1558120064720534,
+    0.16026538944902283,
+    0.15828074487284913,
+    0.15430921668023492,
+    0.15076024858428927
+   ],
+   "frac_beat_B0": 0.9232151828077029,
+   "frac_beat_B0_sd": 0.007895361195907268,
+   "frac_beat_B0_folds": [
+    0.9241417806307564,
+    0.9292213229137595,
+    0.9318448227742115,
+    0.9183365894501814,
+    0.9125313982696065
+   ],
+   "dP2a_vs_B0": 0.01053678679992576,
+   "dP2a_vs_B0_sd": 0.00042424929326854863,
+   "dP2a_vs_B0_folds": [
+    0.01017426025919606,
+    0.011117226801185973,
+    0.010529287062966712,
+    0.0107702689916766,
+    0.01009289088460346
+   ],
+   "dP1_vs_B1": 0.06311244278821967,
+   "dP1_vs_B1_sd": 0.0039073028863944315,
+   "dP1_vs_B1_folds": [
+    0.06357386915016226,
+    0.06139866241726676,
+    0.064774755199292,
+    0.05766004562980097,
+    0.06815488154457641
+   ],
+   "frac_beat_B1": 0.7559475300027909,
+   "frac_beat_B1_sd": 0.009706947878751952,
+   "frac_beat_B1_folds": [
+    0.757354172481161,
+    0.7584147362545353,
+    0.7631035445157689,
+    0.7391013117499302,
+    0.7617638850125593
+   ],
+   "dP2a_vs_B1": 0.006844033019409869,
+   "dP2a_vs_B1_sd": 0.0003015198952135494,
+   "dP2a_vs_B1_folds": [
+    0.006604592232240829,
+    0.00682721642748557,
+    0.006812932799611309,
+    0.006624539764574173,
+    0.007350883873137467
+   ]
+  },
+  "variable": {
+   "P1": 0.3180286252789941,
+   "P1_sd": 0.003911927234761862,
+   "P1_folds": [
+    0.3202513087442749,
+    0.3199067993028579,
+    0.31561339795760324,
+    0.32195502615606536,
+    0.31241659423416923
+   ],
+   "P1_median": 0.31006603450958814,
+   "P1_median_sd": 0.004681636705820147,
+   "P1_median_folds": [
+    0.31443931951808324,
+    0.30989691955293514,
+    0.30409020415605714,
+    0.31490387230342654,
+    0.30699985701743854
+   ],
+   "n_r_gt_0.3": 1116.2,
+   "n_r_gt_0.3_sd": 28.90847626562147,
+   "n_r_gt_0.3_folds": [
+    1139.0,
+    1115.0,
+    1080.0,
+    1150.0,
+    1097.0
+   ],
+   "n_genes": 2118.0,
+   "n_genes_sd": 0.0,
+   "n_genes_folds": [
+    2118.0,
+    2118.0,
+    2118.0,
+    2118.0,
+    2118.0
+   ],
+   "P1_spearman": 0.29147131065856996,
+   "P1_spearman_sd": 0.005640552496906808,
+   "P1_spearman_folds": [
+    0.2945330176717206,
+    0.29498962940706996,
+    0.2909917165686464,
+    0.2950041438673827,
+    0.28183804577803
+   ],
+   "P2a": 0.9693517544452087,
+   "P2a_sd": 0.0013585001601635269,
+   "P2a_folds": [
+    0.970729674197987,
+    0.96793257812825,
+    0.970828037710174,
+    0.9682734756706519,
+    0.9689950065189807
+   ],
+   "P2a_n_lines": 204.4,
+   "P2a_n_lines_sd": 3.7815340802378072,
+   "P2a_n_lines_folds": [
+    208.0,
+    202.0,
+    201.0,
+    202.0,
+    209.0
+   ],
+   "P2b_nap": 0.3769977217073043,
+   "P2b_nap_sd": 0.005500846703452235,
+   "P2b_nap_folds": [
+    0.3720500262091865,
+    0.3825072430565005,
+    0.3817693955328365,
+    0.3781526705150664,
+    0.3705092732229314
+   ],
+   "P2b_auroc": 0.6937908385747176,
+   "P2b_auroc_sd": 0.003134156922650088,
+   "P2b_auroc_folds": [
+    0.691464576734041,
+    0.6974845649437807,
+    0.6946105734880409,
+    0.6956274917265044,
+    0.6897669859812207
+   ],
+   "P2b_n": 1611.6,
+   "P2b_n_sd": 33.23853185686757,
+   "P2b_n_folds": [
+    1583.0,
+    1647.0,
+    1572.0,
+    1639.0,
+    1617.0
+   ],
+   "P2b_nap_prev05": 0.30448004757578984,
+   "P2b_nap_prev05_sd": 0.0043764997639275495,
+   "P2b_nap_prev05_folds": [
+    0.30699259806930057,
+    0.3085583673425323,
+    0.29732052820500005,
+    0.30370394766269243,
+    0.30582479659942374
+   ],
+   "P2b_auroc_prev05": 0.7159164028006118,
+   "P2b_auroc_prev05_sd": 0.0036045986340196554,
+   "P2b_auroc_prev05_folds": [
+    0.7194333389553557,
+    0.7193203976677578,
+    0.7108128683479724,
+    0.7146083455151079,
+    0.7154070635168651
+   ],
+   "P2b_n_prev05": 604.8,
+   "P2b_n_prev05_sd": 3.2710854467592254,
+   "P2b_n_prev05_folds": [
+    602.0,
+    605.0,
+    608.0,
+    608.0,
+    601.0
+   ],
+   "dP1_vs_B0": 0.3180286252789941,
+   "dP1_vs_B0_sd": 0.003911927234761862,
+   "dP1_vs_B0_folds": [
+    0.3202513087442749,
+    0.3199067993028579,
+    0.31561339795760324,
+    0.32195502615606536,
+    0.31241659423416923
+   ],
+   "frac_beat_B0": 0.9960339943342775,
+   "frac_beat_B0_sd": 0.0009790576654073312,
+   "frac_beat_B0_folds": [
+    0.9948064211520302,
+    0.9971671388101983,
+    0.9952785646836638,
+    0.9966949952785646,
+    0.996222851746931
+   ],
+   "dP2a_vs_B0": 0.006652858497769776,
+   "dP2a_vs_B0_sd": 0.00044722900716134947,
+   "dP2a_vs_B0_folds": [
+    0.006164434672239282,
+    0.007206379640372244,
+    0.0066212006187091,
+    0.006992193782533521,
+    0.006280083774994734
+   ],
+   "dP1_vs_B1": 0.13429191001504334,
+   "dP1_vs_B1_sd": 0.010036025157770436,
+   "dP1_vs_B1_folds": [
+    0.13865897909270827,
+    0.12282392104029217,
+    0.1320809808512757,
+    0.12884690225725473,
+    0.14904876683368587
+   ],
+   "frac_beat_B1": 0.9316336166194524,
+   "frac_beat_B1_sd": 0.01508422846594603,
+   "frac_beat_B1_folds": [
+    0.949480642115203,
+    0.9206798866855525,
+    0.9263456090651558,
+    0.9159584513692163,
+    0.945703493862134
+   ],
+   "dP2a_vs_B1": 0.004350958373261701,
+   "dP2a_vs_B1_sd": 0.00018708324990699811,
+   "dP2a_vs_B1_folds": [
+    0.004054186326104967,
+    0.004361321943811977,
+    0.004449471335721048,
+    0.004334311482806349,
+    0.004555500777864167
+   ]
+  },
+  "selective": {
+   "P1": 0.2942868018174934,
+   "P1_sd": 0.0031510834636139127,
+   "P1_folds": [
+    0.29733604523368684,
+    0.29760715636915247,
+    0.2938174466379509,
+    0.2922768775977802,
+    0.2903964832488966
+   ],
+   "P1_median": 0.28463132269135305,
+   "P1_median_sd": 0.0014925009383458087,
+   "P1_median_folds": [
+    0.28692328396840483,
+    0.28497431265698714,
+    0.2844232508069147,
+    0.2839429268070616,
+    0.28289283921739683
+   ],
+   "n_r_gt_0.3": 1167.0,
+   "n_r_gt_0.3_sd": 16.73320053068151,
+   "n_r_gt_0.3_folds": [
+    1193.0,
+    1165.0,
+    1169.0,
+    1161.0,
+    1147.0
+   ],
+   "n_genes": 2572.0,
+   "n_genes_sd": 0.0,
+   "n_genes_folds": [
+    2572.0,
+    2572.0,
+    2572.0,
+    2572.0,
+    2572.0
+   ],
+   "P1_spearman": 0.2746459715035283,
+   "P1_spearman_sd": 0.004957474877404414,
+   "P1_spearman_folds": [
+    0.27898254947153445,
+    0.2792548114623971,
+    0.27438518045760263,
+    0.2735036213754242,
+    0.26710369475068324
+   ],
+   "P2a": 0.8125762049395888,
+   "P2a_sd": 0.004214188370278915,
+   "P2a_folds": [
+    0.8158497850871844,
+    0.8106201207169044,
+    0.8173707268858549,
+    0.8067972270278836,
+    0.8122431649801165
+   ],
+   "P2a_n_lines": 204.4,
+   "P2a_n_lines_sd": 3.7815340802378072,
+   "P2a_n_lines_folds": [
+    208.0,
+    202.0,
+    201.0,
+    202.0,
+    209.0
+   ],
+   "P2b_nap": 0.2526717224721041,
+   "P2b_nap_sd": 0.0024698351654619598,
+   "P2b_nap_folds": [
+    0.25410083510642634,
+    0.2534129897745084,
+    0.2552533721438676,
+    0.25168363690152284,
+    0.2489077784341953
+   ],
+   "P2b_auroc": 0.662740590308479,
+   "P2b_auroc_sd": 0.002583722112661657,
+   "P2b_auroc_folds": [
+    0.6660168350288854,
+    0.6647472152330214,
+    0.6621849501498898,
+    0.6598973551571385,
+    0.6608565959734592
+   ],
+   "P2b_n": 2571.0,
+   "P2b_n_sd": 1.224744871391589,
+   "P2b_n_folds": [
+    2569.0,
+    2571.0,
+    2571.0,
+    2572.0,
+    2572.0
+   ],
+   "P2b_nap_prev05": 0.1958047095018338,
+   "P2b_nap_prev05_sd": 0.0024641897196888583,
+   "P2b_nap_prev05_folds": [
+    0.19703814503424114,
+    0.19851494363344707,
+    0.1924011257504367,
+    0.1941759975482249,
+    0.1968933355428192
+   ],
+   "P2b_auroc_prev05": 0.6633601317624176,
+   "P2b_auroc_prev05_sd": 0.00428884299125387,
+   "P2b_auroc_prev05_folds": [
+    0.6681525224165081,
+    0.6663487040711437,
+    0.6605849246607638,
+    0.6575825359920248,
+    0.6641319716716477
+   ],
+   "P2b_n_prev05": 1758.6,
+   "P2b_n_prev05_sd": 4.979959839195493,
+   "P2b_n_prev05_folds": [
+    1754.0,
+    1759.0,
+    1760.0,
+    1766.0,
+    1754.0
+   ],
+   "dP1_vs_B0": 0.2942868018174934,
+   "dP1_vs_B0_sd": 0.0031510834636139127,
+   "dP1_vs_B0_folds": [
+    0.29733604523368684,
+    0.29760715636915247,
+    0.2938174466379509,
+    0.2922768775977802,
+    0.2903964832488966
+   ],
+   "frac_beat_B0": 0.9921461897356142,
+   "frac_beat_B0_sd": 0.0021890650482518496,
+   "frac_beat_B0_folds": [
+    0.994945567651633,
+    0.9937791601866252,
+    0.9902799377916018,
+    0.9918351477449455,
+    0.9898911353032659
+   ],
+   "dP2a_vs_B0": 0.033546505223275486,
+   "dP2a_vs_B0_sd": 0.001699817971642868,
+   "dP2a_vs_B0_folds": [
+    0.03274324512239625,
+    0.03564784967161002,
+    0.033381946353864954,
+    0.03468665924269204,
+    0.031272825725814156
+   ],
+   "dP1_vs_B1": 0.1234896040924021,
+   "dP1_vs_B1_sd": 0.008811128803471041,
+   "dP1_vs_B1_folds": [
+    0.1265509712809189,
+    0.11921284207529191,
+    0.1201114022399471,
+    0.11436452676030792,
+    0.13720827810554473
+   ],
+   "frac_beat_B1": 0.9188180404354588,
+   "frac_beat_B1_sd": 0.013503262111358643,
+   "frac_beat_B1_folds": [
+    0.9311819595645412,
+    0.9226283048211509,
+    0.9148522550544324,
+    0.8973561430793157,
+    0.9280715396578538
+   ],
+   "dP2a_vs_B1": 0.021947100243175147,
+   "dP2a_vs_B1_sd": 0.0005097867465747364,
+   "dP2a_vs_B1_folds": [
+    0.021566902265473274,
+    0.022272160550534072,
+    0.02195492646327863,
+    0.021343008022905504,
+    0.02259850391368425
+   ]
+  },
+  "rare_selective": {
+   "P1": 0.17262715589091562,
+   "P1_sd": 0.005189598525764486,
+   "P1_folds": [
+    0.17509636208915205,
+    0.1776101806626823,
+    0.17591401878978408,
+    0.1692987703943435,
+    0.16521644751861622
+   ],
+   "P1_median": 0.16379956003404217,
+   "P1_median_sd": 0.005207399975138351,
+   "P1_median_folds": [
+    0.16580325532760323,
+    0.16926262854616617,
+    0.16740468857075547,
+    0.1586622326153055,
+    0.15786499511038046
+   ],
+   "n_r_gt_0.3": 383.0,
+   "n_r_gt_0.3_sd": 24.73863375370596,
+   "n_r_gt_0.3_folds": [
+    398.0,
+    410.0,
+    392.0,
+    365.0,
+    350.0
+   ],
+   "n_genes": 2991.0,
+   "n_genes_sd": 0.0,
+   "n_genes_folds": [
+    2991.0,
+    2991.0,
+    2991.0,
+    2991.0,
+    2991.0
+   ],
+   "P1_spearman": 0.15386800767065725,
+   "P1_spearman_sd": 0.006125249943495776,
+   "P1_spearman_folds": [
+    0.156170507424157,
+    0.16136046119471337,
+    0.15611474949018828,
+    0.15020165830080714,
+    0.1454926619434205
+   ],
+   "P2a": 0.0731144360601607,
+   "P2a_sd": 0.004691102823163905,
+   "P2a_folds": [
+    0.07531875780301336,
+    0.0783845175413022,
+    0.07048308997893701,
+    0.074979013307748,
+    0.06640680166980292
+   ],
+   "P2a_n_lines": 204.0,
+   "P2a_n_lines_sd": 3.8078865529319543,
+   "P2a_n_lines_folds": [
+    207.0,
+    202.0,
+    200.0,
+    202.0,
+    209.0
+   ],
+   "P2b_nap": 0.10425973962376485,
+   "P2b_nap_sd": 0.004982012239040574,
+   "P2b_nap_folds": [
+    0.10956421522567711,
+    0.09735784261081766,
+    0.10676756884455078,
+    0.10670320018899734,
+    0.10090587124878135
+   ],
+   "P2b_auroc": 0.6462613892751459,
+   "P2b_auroc_sd": 0.008392160855682741,
+   "P2b_auroc_folds": [
+    0.6520781543550314,
+    0.640129644125012,
+    0.6528799169814435,
+    0.6345478359887265,
+    0.6516713949255158
+   ],
+   "P2b_n": 2186.8,
+   "P2b_n_sd": 88.4573343482608,
+   "P2b_n_folds": [
+    2168.0,
+    2265.0,
+    2050.0,
+    2265.0,
+    2186.0
+   ],
+   "P2b_nap_prev05": 0.10425973962376485,
+   "P2b_nap_prev05_sd": 0.004982012239040574,
+   "P2b_nap_prev05_folds": [
+    0.10956421522567711,
+    0.09735784261081766,
+    0.10676756884455078,
+    0.10670320018899734,
+    0.10090587124878135
+   ],
+   "P2b_auroc_prev05": 0.6462613892751459,
+   "P2b_auroc_prev05_sd": 0.008392160855682741,
+   "P2b_auroc_prev05_folds": [
+    0.6520781543550314,
+    0.640129644125012,
+    0.6528799169814435,
+    0.6345478359887265,
+    0.6516713949255158
+   ],
+   "P2b_n_prev05": 2186.8,
+   "P2b_n_prev05_sd": 88.4573343482608,
+   "P2b_n_prev05_folds": [
+    2168.0,
+    2265.0,
+    2050.0,
+    2265.0,
+    2186.0
+   ],
+   "dP1_vs_B0": 0.17262715589091562,
+   "dP1_vs_B0_sd": 0.005189598525764486,
+   "dP1_vs_B0_folds": [
+    0.17509636208915205,
+    0.1776101806626823,
+    0.17591401878978408,
+    0.1692987703943435,
+    0.16521644751861622
+   ],
+   "frac_beat_B0": 0.9497158141089936,
+   "frac_beat_B0_sd": 0.004538854433044543,
+   "frac_beat_B0_folds": [
+    0.9501838849882982,
+    0.9478435305917753,
+    0.9558676028084253,
+    0.9511868940153795,
+    0.9434971581410899
+   ],
+   "dP2a_vs_B0": 0.03954863065826334,
+   "dP2a_vs_B0_sd": 0.0036775830032007273,
+   "dP2a_vs_B0_folds": [
+    0.041222259648514635,
+    0.04333706299322063,
+    0.03944253419891833,
+    0.0402315095098311,
+    0.033509786940832
+   ],
+   "dP1_vs_B1": 0.07024140555979372,
+   "dP1_vs_B1_sd": 0.003152459841348316,
+   "dP1_vs_B1_folds": [
+    0.07338519803195977,
+    0.06776988669948218,
+    0.07128647869047954,
+    0.06612747813892976,
+    0.07263798623811732
+   ],
+   "frac_beat_B1": 0.7941825476429287,
+   "frac_beat_B1_sd": 0.004767078200638598,
+   "frac_beat_B1_folds": [
+    0.7987295218990305,
+    0.7947174857907054,
+    0.7977265128719492,
+    0.7866934135740555,
+    0.7930458040789033
+   ],
+   "dP2a_vs_B1": 0.023476181156740532,
+   "dP2a_vs_B1_sd": 0.0029029878231145046,
+   "dP2a_vs_B1_folds": [
+    0.02132079327380544,
+    0.025076949386004563,
+    0.02665293636947302,
+    0.024711839336967713,
+    0.019618387417451914
+   ]
+  },
+  "common_essential": {
+   "P1": 0.25653214533420265,
+   "P1_sd": 0.006528853149353285,
+   "P1_folds": [
+    0.25993620575640947,
+    0.2561968352898852,
+    0.25121870765236315,
+    0.26565610454350036,
+    0.24965287342885498
+   ],
+   "P1_median": 0.2500331626095835,
+   "P1_median_sd": 0.007466631442827666,
+   "P1_median_folds": [
+    0.25135406533947025,
+    0.25197447214236857,
+    0.2417448713713343,
+    0.26079733435615277,
+    0.24429506983859173
+   ],
+   "n_r_gt_0.3": 283.0,
+   "n_r_gt_0.3_sd": 21.644860821913362,
+   "n_r_gt_0.3_folds": [
+    290.0,
+    277.0,
+    256.0,
+    315.0,
+    277.0
+   ],
+   "n_genes": 839.0,
+   "n_genes_sd": 0.0,
+   "n_genes_folds": [
+    839.0,
+    839.0,
+    839.0,
+    839.0,
+    839.0
+   ],
+   "P1_spearman": 0.2336428537918532,
+   "P1_spearman_sd": 0.007340313521701491,
+   "P1_spearman_folds": [
+    0.23783688359456753,
+    0.23749996528171483,
+    0.2304269459535968,
+    0.24019802400223889,
+    0.222252450127148
+   ],
+   "P2a": 0.995464941424881,
+   "P2a_sd": 0.0009410742529272649,
+   "P2a_folds": [
+    0.9962242285191758,
+    0.9939471259454863,
+    0.9962719306357098,
+    0.9955106983852641,
+    0.9953707236387686
+   ],
+   "P2a_n_lines": 190.2,
+   "P2a_n_lines_sd": 4.4944410108488455,
+   "P2a_n_lines_folds": [
+    191.0,
+    184.0,
+    188.0,
+    192.0,
+    196.0
+   ],
+   "P2b_nap": 0.4639424968118585,
+   "P2b_nap_sd": 0.015769354559018976,
+   "P2b_nap_folds": [
+    0.4388993440486464,
+    0.47768760677538136,
+    0.47713920560592726,
+    0.4641436061919176,
+    0.4618427214374203
+   ],
+   "P2b_auroc": 0.6989007408660363,
+   "P2b_auroc_sd": 0.01010553826569236,
+   "P2b_auroc_folds": [
+    0.6817712322866464,
+    0.7076266075115571,
+    0.702889458810845,
+    0.703684164226043,
+    0.69853224149509
+   ],
+   "P2b_n": 334.8,
+   "P2b_n_sd": 31.13197712963313,
+   "P2b_n_folds": [
+    309.0,
+    369.0,
+    297.0,
+    359.0,
+    340.0
+   ],
+   "P2b_nap_prev05": NaN,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "P2b_auroc_prev05": NaN,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "P2b_n_prev05": 0.0,
+   "P2b_n_prev05_sd": 0.0,
+   "P2b_n_prev05_folds": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dP1_vs_B0": 0.25653214533420265,
+   "dP1_vs_B0_sd": 0.006528853149353285,
+   "dP1_vs_B0_folds": [
+    0.25993620575640947,
+    0.2561968352898852,
+    0.25121870765236315,
+    0.26565610454350036,
+    0.24965287342885498
+   ],
+   "frac_beat_B0": 0.9945172824791418,
+   "frac_beat_B0_sd": 0.0013589695174006401,
+   "frac_beat_B0_folds": [
+    0.9928486293206198,
+    0.9952324195470799,
+    0.9940405244338498,
+    0.9964243146603099,
+    0.9940405244338498
+   ],
+   "dP2a_vs_B0": 0.0018403196542009213,
+   "dP2a_vs_B0_sd": 0.0002727365735173263,
+   "dP2a_vs_B0_folds": [
+    0.0014364157357265755,
+    0.0021881761721866126,
+    0.0018353783305161196,
+    0.0019466895484238928,
+    0.0017949384841514059
+   ],
+   "dP1_vs_B1": 0.11092923902498705,
+   "dP1_vs_B1_sd": 0.01016067067569932,
+   "dP1_vs_B1_folds": [
+    0.11894398714389624,
+    0.09478115696302748,
+    0.10993273546024451,
+    0.11073547167782426,
+    0.1202528438799428
+   ],
+   "frac_beat_B1": 0.901549463647199,
+   "frac_beat_B1_sd": 0.019847827371506373,
+   "frac_beat_B1_folds": [
+    0.929678188319428,
+    0.8820023837902264,
+    0.899880810488677,
+    0.8843861740166865,
+    0.9117997616209773
+   ],
+   "dP2a_vs_B1": 0.0011359420899022697,
+   "dP2a_vs_B1_sd": 0.00015865881020008728,
+   "dP2a_vs_B1_folds": [
+    0.0008820991387918914,
+    0.0011050774581703358,
+    0.0013006351065958483,
+    0.0011738579141691054,
+    0.0012180408317841677
+   ]
+  },
+  "nonessential": {
+   "P1": 0.11421592644668457,
+   "P1_sd": 0.006019801930589892,
+   "P1_folds": [
+    0.11132793356710097,
+    0.11998054038111983,
+    0.12143856169167996,
+    0.10883702966685958,
+    0.10949556692666249
+   ],
+   "P1_median": 0.10995809852450437,
+   "P1_median_sd": 0.004875714642556064,
+   "P1_median_folds": [
+    0.1101394907901844,
+    0.11232578801198408,
+    0.11664059278475929,
+    0.10429713372526253,
+    0.10638748731033153
+   ],
+   "n_r_gt_0.3": 26.8,
+   "n_r_gt_0.3_sd": 4.494441010848846,
+   "n_r_gt_0.3_folds": [
+    21.0,
+    33.0,
+    25.0,
+    26.0,
+    29.0
+   ],
+   "n_genes": 804.0,
+   "n_genes_sd": 0.0,
+   "n_genes_folds": [
+    804.0,
+    804.0,
+    804.0,
+    804.0,
+    804.0
+   ],
+   "P1_spearman": 0.10968745566511315,
+   "P1_spearman_sd": 0.005691279556726041,
+   "P1_spearman_folds": [
+    0.11165703517035394,
+    0.11650118951546366,
+    0.11214793217488639,
+    0.10630063227904528,
+    0.10183048918581646
+   ],
+   "P2a": 0.582377046415964,
+   "P2a_sd": 0.020145631280575553,
+   "P2a_folds": [
+    0.608832909080158,
+    0.5896812196176343,
+    0.5875434773108977,
+    0.569463443096608,
+    0.5563641829745218
+   ],
+   "P2a_n_lines": 204.2,
+   "P2a_n_lines_sd": 3.492849839314596,
+   "P2a_n_lines_folds": [
+    208.0,
+    202.0,
+    201.0,
+    202.0,
+    208.0
+   ],
+   "P2b_nap": 0.100018959823206,
+   "P2b_nap_sd": 0.004372166230156431,
+   "P2b_nap_folds": [
+    0.10447169479919408,
+    0.09624193694819885,
+    0.10242036435428592,
+    0.09448856405393283,
+    0.1024722389604182
+   ],
+   "P2b_auroc": 0.6224291633099891,
+   "P2b_auroc_sd": 0.013895472616959743,
+   "P2b_auroc_folds": [
+    0.6021937488301379,
+    0.6305258326007998,
+    0.6380237596161286,
+    0.6157948288408744,
+    0.625607646662005
+   ],
+   "P2b_n": 115.2,
+   "P2b_n_sd": 10.449880382090505,
+   "P2b_n_folds": [
+    113.0,
+    123.0,
+    98.0,
+    119.0,
+    123.0
+   ],
+   "P2b_nap_prev05": 0.09319448015703961,
+   "P2b_nap_prev05_sd": 0.0024847530430492735,
+   "P2b_nap_prev05_folds": [
+    0.09362670945237948,
+    0.09244352249390204,
+    0.09414196256305633,
+    0.08950002603568849,
+    0.09626018024017167
+   ],
+   "P2b_auroc_prev05": 0.6220074069465734,
+   "P2b_auroc_prev05_sd": 0.015093258522539016,
+   "P2b_auroc_prev05_folds": [
+    0.5992729964717527,
+    0.6314427390135442,
+    0.6378476984355614,
+    0.6156769988267345,
+    0.625796601985274
+   ],
+   "P2b_n_prev05": 112.2,
+   "P2b_n_prev05_sd": 10.449880382090505,
+   "P2b_n_prev05_folds": [
+    110.0,
+    120.0,
+    95.0,
+    116.0,
+    120.0
+   ],
+   "dP1_vs_B0": 0.11421592644668457,
+   "dP1_vs_B0_sd": 0.006019801930589892,
+   "dP1_vs_B0_folds": [
+    0.11132793356710097,
+    0.11998054038111983,
+    0.12143856169167996,
+    0.10883702966685958,
+    0.10949556692666249
+   ],
+   "frac_beat_B0": 0.8907960199004975,
+   "frac_beat_B0_sd": 0.019634415184747355,
+   "frac_beat_B0_folds": [
+    0.8843283582089553,
+    0.9017412935323383,
+    0.9166666666666666,
+    0.8868159203980099,
+    0.8644278606965174
+   ],
+   "dP2a_vs_B0": 0.009556426428881508,
+   "dP2a_vs_B0_sd": 0.003094838676055998,
+   "dP2a_vs_B0_folds": [
+    0.011204811146131895,
+    0.006716810917448809,
+    0.006480081536871804,
+    0.009573433900619686,
+    0.013806994643335338
+   ],
+   "dP1_vs_B1": 0.046608392460202,
+   "dP1_vs_B1_sd": 0.005284931262771332,
+   "dP1_vs_B1_folds": [
+    0.0453429612868963,
+    0.047738276788101885,
+    0.05309417010790532,
+    0.03860544049163552,
+    0.04826111362647097
+   ],
+   "frac_beat_B1": 0.7,
+   "frac_beat_B1_sd": 0.020708114814196446,
+   "frac_beat_B1_folds": [
+    0.677860696517413,
+    0.7151741293532339,
+    0.7276119402985075,
+    0.6927860696517413,
+    0.6865671641791045
+   ],
+   "dP2a_vs_B1": 0.004259695884628957,
+   "dP2a_vs_B1_sd": 0.003552647964088188,
+   "dP2a_vs_B1_folds": [
+    0.007948161825641368,
+    0.005650853803555439,
+    -0.00044349699588548225,
+    0.0015461828420427694,
+    0.006596777947790688
+   ]
+  }
+ }
+}
