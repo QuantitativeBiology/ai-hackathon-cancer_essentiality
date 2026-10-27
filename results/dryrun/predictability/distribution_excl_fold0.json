@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-27T16:59:32",
- "git_commit": "4897899999099100fb7e6223fffe824e7637ebf9",
+ "generated": "2026-10-27T17:31:10",
+ "git_commit": "15735e8f4626a402d9ef4307e68370061e3e74f4",
  "config": "configs/predictability.json",
  "table_role": "primary",
  "source_run_name": "m5_avg",
@@ -18,7 +18,7 @@
  "min_obs": 40,
  "dry_run_note": "G4 dry run (scripts/evaluate_test.py --dry-run-dev): dev fold 0 stands in for the test set, so the tiers used there are computed from folds 1-4 only (fold 0's own CV results are not used). Disclosure: the fold 1-4 models were trained on lines that include fold 0.",
  "table": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
- "table_sha256": "1669d0f87ed007b3558523fdc8bd12dfe8a6400f6f96b384cf7cff70dc483b83",
+ "table_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd",
  "reproduces_cached_run_evaluation": {
   "headline": {
    "n_compared": 89575,

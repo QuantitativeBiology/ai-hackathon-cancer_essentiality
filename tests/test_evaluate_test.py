@@ -246,14 +246,21 @@ def test_outputs_carry_confidence_and_tier(g4):
         assert e["predictions_with_confidence"]["predictable_genes_sha256"] == HC.sha256_file(w["paths"].predictable_genes)
 
 
+def _failed_checks(exc):
+    """The list of failed preflight checks on the first line of the refusal message."""
+    first = str(exc.value).splitlines()[0]
+    return first
+
+
 def test_refuses_without_committed_tier_table(tmp_path, monkeypatch):
     monkeypatch.setenv("ESSML_UNBLIND", "1")
     w = TH.make_world(tmp_path, n_genes=200, n_dev=60, n_test=20)
-    (w["repo"] / ".gitignore").write_text("cache/\n*.parquet\n*.pkl\nconfigs/predictable_genes.csv\n")
+    (w["repo"] / ".gitignore").write_text("\n".join(["cache/", "*.parquet", "*.pkl", "configs/predictable_genes.csv", ""]))
     TH.git(w["repo"], "rm", "-q", "--cached", "configs/predictable_genes.csv")
     TH.git(w["repo"], "commit", "-q", "-am", "untrack the tier table")          # tree clean, table untracked
-    with pytest.raises(SystemExit, match="predictable_genes_committed"):
+    with pytest.raises(SystemExit) as e:
         _run(w)
+    assert _failed_checks(e) == "G4 refused to start: ['predictable_genes_committed']"   # tree_clean passed
     assert len(_log(w)) == 0 and not (w["paths"].out_dir / "predictions_manifest.json").exists()
 
 
@@ -262,9 +269,45 @@ def test_refuses_modified_tier_table(tmp_path, monkeypatch):
     w = TH.make_world(tmp_path, n_genes=200, n_dev=60, n_test=20)
     p = w["paths"].predictable_genes
     p.write_text(p.read_text().replace(",high,", ",low,"))
-    with pytest.raises(SystemExit, match="predictable_genes_committed"):
+    with pytest.raises(SystemExit) as e:
         _run(w)
+    assert "predictable_genes_committed" in _failed_checks(e)
     assert len(_log(w)) == 0
+
+
+def test_predictable_check_unit(tmp_path):
+    w = TH.make_world(tmp_path, n_genes=200, n_dev=60, n_test=20)
+    paths, p = w["paths"], w["paths"].predictable_genes
+    ok = ET.predictable_check(paths)
+    assert ok["pass"] and ok["sha256"] == HC.sha256_file(p) and ok["problems"] == []
+    assert not ET.predictable_check(paths, headline_cv_run_id="other_run")["pass"]      # wrong source run
+    assert ET.predictable_check(paths, headline_cv_run_id="toy_cv")["pass"]
+    assert not ET.predictable_check(paths, dry=True)["pass"]                             # primary table in a dry run
+    t = pd.read_csv(p)
+    for col, val in (("folds_used", "1;2;3;4"), ("table_role", "secondary (m1)")):     # wrong table, committed
+        t2 = t.copy()
+        t2[col] = val
+        t2.to_csv(p, index=False)
+        TH.git(w["repo"], "commit", "-q", "-am", f"{col}")
+        assert not ET.predictable_check(paths)["pass"]
+    t2 = t.copy()
+    t2["folds_used"], t2["table_role"] = "1;2;3;4", "dry_run"
+    t2.to_csv(p, index=False)
+    TH.git(w["repo"], "commit", "-q", "-am", "dry table")
+    assert ET.predictable_check(paths, dry=True)["pass"] and not ET.predictable_check(paths)["pass"]
+    p.write_text("\n".join(["not,a,table", "1,2,3", ""]))                                               # unreadable + modified
+    r = ET.predictable_check(paths)
+    assert not r["pass"] and any("unreadable" in x for x in r["problems"])
+    TH.git(w["repo"], "commit", "-q", "-am", "garbage")
+    assert not ET.predictable_check(paths)["pass"]                                       # committed but unreadable
+    p.unlink()
+    assert not ET.predictable_check(paths)["pass"]
+
+
+def test_dry_run_reads_the_folds_1_to_4_tier_table():
+    t = pd.read_csv(ET.DRY_TIER, dtype=str)
+    assert set(t["folds_used"]) == {"1;2;3;4"} and set(t["table_role"]) == {"dry_run"}
+    assert "r_fold0" not in t.columns
 
 
 def test_second_run_refused_without_new_access(g4):

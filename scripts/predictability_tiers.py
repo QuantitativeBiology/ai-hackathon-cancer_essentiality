@@ -233,8 +233,9 @@ def main(argv=None):
     dry = a.dry_run_tiers or bool(excl)
     if dry:
         out_dir = ROOT / cfg["dry_run"]["out_dir"]
-        table_path = out_dir / f"predictable_genes_excl_fold{'_'.join(map(str, excl)) or 'none'}.csv"
-        dist_path = out_dir / f"distribution_excl_fold{'_'.join(map(str, excl)) or 'none'}.json"
+        sfx = "" if role == "primary" else f"_{a.secondary}"
+        table_path = out_dir / f"predictable_genes{sfx}_excl_fold{'_'.join(map(str, excl)) or 'none'}.csv"
+        dist_path = out_dir / f"distribution{sfx}_excl_fold{'_'.join(map(str, excl)) or 'none'}.json"
     else:
         out_dir = ROOT / "results" / "predictability"
         table_path = ROOT / "configs" / ("predictable_genes.csv" if role == "primary" else
@@ -267,10 +268,10 @@ def main(argv=None):
     genes_all = list(r.index)
     table = PR.build_table(r, folds_used, t_high, sym, run_id, all_genes=genes_all)
     null_table = PR.build_table(rn, folds_used, t_high, sym, null_id, all_genes=genes_all)
-    keep_cols = ["entrez", "symbol"] + [f"r_fold{f}" for f in sorted(r.columns)] + [
+    keep_cols = ["entrez", "symbol"] + [f"r_fold{f}" for f in sorted(r.columns) if f in folds_used] + [
         "mean_r", "min_r", "sd_r", "n_folds_evaluable", "confidence", "tier", "source_run_id", "folds_used",
         "threshold_high_mean_r", "table_role"]
-    table["table_role"] = (role if role == "primary" else
+    table["table_role"] = ("dry_run" if dry else role if role == "primary" else
                            f"secondary ({src['run_name']}; NOT the frozen G4 tier source)")
     out = table[keep_cols].copy()
     num = [c for c in out.columns if c.startswith("r_fold")] + ["mean_r", "min_r", "sd_r", "confidence"]
@@ -309,7 +310,7 @@ def main(argv=None):
                    "variable": {"quantiles": qdict(t.loc[ev & var, "mean_r"]),
                                 "mean": float(t.loc[ev & var, "mean_r"].mean()),
                                 "histogram": hist(t.loc[ev & var, "mean_r"])},
-                   "null_variable": {"quantiles": qdict(tn.loc[ev & var, "mean_r"])}},
+                   "null_variable": {"quantiles": qdict(tn.loc[(tn["tier"] != "not_evaluable") & var, "mean_r"])}},
         "fraction_mean_r_ge_0.3": {"all_evaluable": float((t.loc[ev, "mean_r"] >= 0.3).mean()),
                                    "variable": float((t.loc[ev & var, "mean_r"] >= 0.3).mean())},
         "fraction_mean_r_ge_0.2": {"all_evaluable": float((t.loc[ev, "mean_r"] >= 0.2).mean()),

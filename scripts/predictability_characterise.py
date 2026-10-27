@@ -85,7 +85,7 @@ def compare_continuous(x: pd.Series, tier: pd.Series, mean_r: pd.Series, rng) ->
     rho = stats.spearmanr(xv, mv).statistic
     idx = np.arange(len(xv))
     bs = []
-    for _ in range(N_BOOT // 4):  # 500 resamples: Spearman on ~18k genes
+    for _ in range(N_BOOT):
         i = rng.choice(idx, len(idx))
         bs.append(stats.spearmanr(xv[i], mv[i]).statistic)
     out["spearman_with_mean_r"] = {"rho": float(rho), "ci95": [float(np.quantile(bs, 0.025)),
@@ -104,7 +104,7 @@ def compare_binary(x: pd.Series, tier: pd.Series) -> dict:
         k0, n0 = int(x[tier == b].sum()), int((tier == b).sum())
         tab = np.array([[k1, n1 - k1], [k0, n0 - k0]])
         _, p = stats.fisher_exact(tab)
-        h = tab + 0.5  # Haldane correction for the Woolf interval
+        h = tab + 0.5 if (tab == 0).any() else tab.astype(float)  # Haldane correction only with a zero cell
         lor = np.log(h[0, 0] * h[1, 1] / (h[0, 1] * h[1, 0]))
         se = np.sqrt((1 / h).sum())
         out[f"{a}_vs_{b}"] = {"odds_ratio": float(np.exp(lor)),

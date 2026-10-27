@@ -144,7 +144,7 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
     checks["gate_G3"] = {"pass": HC.gate_passed(paths, "G3")}
     bad = HC.frozen_ok(paths)
     checks["frozen_hashes"] = {"pass": not bad, "changed": bad}
-    checks["predictable_genes_committed"] = predictable_check(paths)
+    checks["predictable_genes_committed"] = predictable_check(paths, fin["headline"].cv_run_id, dry)
     HC.check_noec_matches_T(fin["H3_noEC"], fin["T"])
     checks["noEC_excludes_4_EC_dev_lines"] = {"pass": True, "lines": HC.EC_DEV}
     done = completed(paths, fin)
@@ -169,21 +169,48 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
     return checks
 
 
-def predictable_check(paths) -> dict:
-    """D22 / DESIGN §4: the per-gene tier table must be committed (tracked, unmodified) before G4."""
+def predictable_check(paths, headline_cv_run_id="", dry=False, dry_fold=0) -> dict:
+    """D22 / DESIGN §4: the per-gene tier table must be committed (tracked, unmodified) before G4, and be the right
+    table: real run = the primary 5-fold table (table_role 'primary', folds 0-4, source = the headline finalist's
+    CV run when the finalists file names it); dry run = a dry-run table that excludes the stand-in fold."""
     p = Path(paths.predictable_genes)
     rel = paths.rel(p)
     tracked = HC.is_tracked(paths.root, rel)
     modified = bool(HC._git(["status", "--porcelain", "--", rel], paths.root).stdout.strip()) if tracked else None
     out = {"pass": bool(tracked and not modified), "file": rel, "tracked": tracked, "modified": modified,
-           "sha256": HC.sha256_file(p) if p.exists() else None}
-    if p.exists():
-        try:
-            prov = PR.table_provenance(p)
-            out.update(source_run_id=prov["source_run_id"], threshold_high_mean_r=prov["threshold_high_mean_r"],
-                       tier_counts=prov["tier_counts"])
-        except Exception as e:  # noqa: BLE001 - an unreadable table fails the check
-            out.update({"pass": False, "error": f"{type(e).__name__}: {e}"})
+           "sha256": HC.sha256_file(p) if p.exists() else None, "problems": []}
+    if not tracked:
+        out["problems"].append("not tracked in git")
+    if modified:
+        out["problems"].append("modified since the last commit")
+    if not p.exists():
+        out["pass"] = False
+        out["problems"].append("missing")
+        return out
+    try:
+        t = PR.load_table(p)
+        prov = PR.table_provenance(p)
+        out.update(source_run_id=prov["source_run_id"], threshold_high_mean_r=prov["threshold_high_mean_r"],
+                   tier_counts=prov["tier_counts"])
+        roles = set(t["table_role"].dropna().astype(str)) if "table_role" in t else set()
+        folds = set(t["folds_used"].dropna().astype(str)) if "folds_used" in t else set()
+        srcs = set(t["source_run_id"].dropna().astype(str))
+        out.update(table_role=sorted(roles), folds_used=sorted(folds))
+        if dry:
+            if roles != {"dry_run"}:
+                out["problems"].append(f"dry run needs a dry_run table, got table_role {sorted(roles)}")
+            if any(str(dry_fold) in f.split(";") for f in folds) or not folds:
+                out["problems"].append(f"dry-run tiers must exclude the stand-in fold {dry_fold}: folds_used {sorted(folds)}")
+        else:
+            if roles != {"primary"}:
+                out["problems"].append(f"table_role must be 'primary', got {sorted(roles)}")
+            if folds != {"0;1;2;3;4"}:
+                out["problems"].append(f"tiers must use all 5 dev-CV folds, got {sorted(folds)}")
+            if headline_cv_run_id and srcs != {headline_cv_run_id}:
+                out["problems"].append(f"tier source {sorted(srcs)} != headline cv_run_id {headline_cv_run_id}")
+    except Exception as e:  # noqa: BLE001 - an unreadable table fails the check
+        out["problems"].append(f"unreadable: {type(e).__name__}: {e}")
+    out["pass"] = bool(out["pass"] and not out["problems"])
     return out
 
 
@@ -568,6 +595,9 @@ def build_context(fin, paths, pop, man, n_boot, min_obs, dry):
     for k, e in man.get(t.name, {}).get("fold_preds", {}).items():
         fold_preds[int(k)] = load_pred(Path(paths.root, e["file"]), e["sha256"])
     pg_path = Path(paths.predictable_genes)
+    want = paths.extra.get("predictable_genes_sha256")
+    if want and HC.sha256_file(pg_path) != want:  # the table must not change between preflight and evaluation
+        raise RuntimeError(f"{paths.rel(pg_path)} changed after the preflight (sha256 differs)")
     return {"pg_table": PR.load_table(pg_path), "pg_sha": HC.sha256_file(pg_path),
             "eval_genes": eval_genes, "gene_cls": gene_cls, "seed": seed, "W": W, "boot_cache": {},
             "lineage": pop.lineage, "lib_top": top, "lib_cols": cols, "library_groups_reproduced": lib_check,
@@ -736,6 +766,7 @@ def run_g4(finalists_path, paths: HC.Paths, dry=False, threads=4, n_boot=2000, i
     rel = paths.rel(finalists_path)
     fin = HC.load_finalists(finalists_path, paths.root)
     checks = preflight(fin, paths, dry, rel, resume)
+    paths = paths.with_(extra={**paths.extra, "predictable_genes_sha256": checks["predictable_genes_committed"]["sha256"]})
     Path(paths.out_dir).mkdir(parents=True, exist_ok=True)
     tag = f"{stamp:%Y%m%d-%H%M%S}"
     HC.write_json(Path(paths.out_dir) / f"preflight_{tag}.json", HC.clean_floats(checks))

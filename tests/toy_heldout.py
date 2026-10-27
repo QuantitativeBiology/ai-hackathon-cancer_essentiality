@@ -110,7 +110,7 @@ def make_world(tmp_path, seed=0, n_dev=160, n_test=60, n_genes=N_GENES, signal=1
     tier[-10:] = "not_evaluable"
     pgt = pd.DataFrame({"entrez": genes, "symbol": [f"SYM{g}" for g in genes], "mean_r": mr, "min_r": mr - 2 * sd,
                         "sd_r": sd, "confidence": np.clip(mr - sd, -1, 1), "tier": tier, "source_run_id": "toy_cv",
-                        "threshold_high_mean_r": 0.3})
+                        "threshold_high_mean_r": 0.3, "folds_used": "0;1;2;3;4", "table_role": "primary"})
     pgt.loc[pgt["tier"] == "not_evaluable", ["mean_r", "min_r", "sd_r", "confidence"]] = np.nan
     pgt.to_csv(repo / "configs" / "predictable_genes.csv", index=False)
 
