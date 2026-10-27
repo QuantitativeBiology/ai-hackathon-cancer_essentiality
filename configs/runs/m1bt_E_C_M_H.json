@@ -1,0 +1,44 @@
+{
+ "name": "m1bt_E_C_M_H",
+ "model": "M1b",
+ "features": [],
+ "params": {
+  "modalities": [
+   "E",
+   "C",
+   "M",
+   "H"
+  ],
+  "residual": "B0",
+  "tune_weights": true
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "declared": "M1b tuned E+C+M+H vs m1_E_resB0: paired dP1 (Holm over the declared M1b contrasts); selection DESIGN \u00a74 (dP1 > 0.005 and > 1 SE). tuned E+C 'helps' (and m1b_more is run) iff its paired fold-wise dP1 vs m1_E_resB0 > 0 with two-sided paired t p < 0.05 (DESIGN \u00a76 'helps' = CI excludes 0; first contrast, so Holm = unadjusted). Selection is separate: DESIGN \u00a74 rule dP1 > 0.005 and > 1 SE."
+}
