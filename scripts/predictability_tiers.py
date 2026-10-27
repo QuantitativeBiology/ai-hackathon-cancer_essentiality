@@ -146,7 +146,8 @@ def p2b_by_tier(long: pd.DataFrame, table: pd.DataFrame, gc: pd.DataFrame, folds
     return out
 
 
-def make_figures(table: pd.DataFrame, null_table: pd.DataFrame, gc: pd.DataFrame, t_high: float, fig_dir: Path):
+def make_figures(table: pd.DataFrame, null_table: pd.DataFrame, gc: pd.DataFrame, t_high: float, fig_dir: Path,
+                 model_label="m5_avg", suffix=""):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -168,7 +169,7 @@ def make_figures(table: pd.DataFrame, null_table: pd.DataFrame, gc: pd.DataFrame
     for ax, (title, sel, nsel) in zip(axes, (("all evaluable genes", slice(None), slice(None)),
                                              ("variable genes (SD > 0.25)", var, nvar))):
         x = ev.loc[sel, "mean_r"].clip(-0.3, 1)
-        ax.hist(x, bins=bins, color="#2a78d6", label=f"m1_E_resB0 (n={len(x)})")
+        ax.hist(x, bins=bins, color="#2a78d6", label=f"{model_label} (n={len(x)})")
         ax.hist(nev.loc[nsel, "mean_r"].clip(-0.3, 1), bins=bins, histtype="step", color=ink, lw=1.0,
                 label="permuted-expression control")
         top = ax.get_ylim()[1]
@@ -181,7 +182,7 @@ def make_figures(table: pd.DataFrame, null_table: pd.DataFrame, gc: pd.DataFrame
         ax.legend(frameon=False, fontsize=7.5, loc="upper right", bbox_to_anchor=(1.0, 0.82))
     axes[0].set_ylabel("genes")
     fig.tight_layout()
-    fig.savefig(fig_dir / "predictability_mean_r_hist.png")
+    fig.savefig(fig_dir / f"predictability_mean_r_hist{suffix}.png")
     plt.close(fig)
 
     # 2. mean_r vs min_r coloured by tier
@@ -202,7 +203,7 @@ def make_figures(table: pd.DataFrame, null_table: pd.DataFrame, gc: pd.DataFrame
     ax.legend(handles=handles, frameon=False, fontsize=8, loc="upper left")
     ax.grid(color=grid, lw=0.5)
     fig.tight_layout()
-    fig.savefig(fig_dir / "predictability_tiers_scatter.png")
+    fig.savefig(fig_dir / f"predictability_tiers_scatter{suffix}.png")
     plt.close(fig)
 
 
@@ -214,11 +215,17 @@ def main(argv=None):
     ap.add_argument("--null-run", default=None)
     ap.add_argument("--exclude-folds", default="", help="comma-separated outer folds left out (dry run: 0)")
     ap.add_argument("--dry-run-tiers", action="store_true", help="write to results/dryrun/predictability (G4 dry run)")
+    ap.add_argument("--secondary", default=None, help="run_name of a configs secondary_sources entry (e.g. m1_E_resB0)")
     ap.add_argument("--no-figures", action="store_true")
     ap.add_argument("--threads", type=int, default=4)
     a = ap.parse_args(argv)
     cfg = PR.load_config(a.config)
-    run_id = a.run or cfg["source"]["run_id"]
+    src = cfg["source"]
+    role = "primary"
+    if a.secondary:
+        src = next(s for s in cfg.get("secondary_sources", []) if s["run_name"] == a.secondary)
+        role = "secondary"
+    run_id = a.run or src["run_id"]
     null_id = a.null_run or cfg["null_control"]["run_id"]
     min_obs = int(cfg["per_fold_r"]["min_obs"])
     excl = [int(x) for x in a.exclude_folds.split(",") if x.strip()]
@@ -230,8 +237,9 @@ def main(argv=None):
         dist_path = out_dir / f"distribution_excl_fold{'_'.join(map(str, excl)) or 'none'}.json"
     else:
         out_dir = ROOT / "results" / "predictability"
-        table_path = ROOT / "configs" / "predictable_genes.csv"
-        dist_path = out_dir / "distribution.json"
+        table_path = ROOT / "configs" / ("predictable_genes.csv" if role == "primary" else
+                                         f"predictable_genes_{'m1' if a.secondary == 'm1_E_resB0' else a.secondary}.csv")
+        dist_path = out_dir / ("distribution.json" if role == "primary" else f"distribution_{table_path.stem.split('_')[-1]}.json")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     dev = dev_frame()
@@ -243,7 +251,7 @@ def main(argv=None):
     gc.index = gc.index.astype(str)
     sym = pd.read_csv(ROOT / "configs" / "gene_classes.csv", dtype={"entrez": str}).set_index("entrez")["symbol"]
 
-    P, run_id = oof_predictions(run_id, a.run_config or cfg["source"]["config"], a.threads)
+    P, run_id = oof_predictions(run_id, a.run_config or src["config"], a.threads)
     long, chk = per_fold_r(run_id, P, Y, folds, gc, min_obs)
     del P
     Pn, null_id = oof_predictions(null_id, cfg["null_control"]["config"], a.threads)
@@ -261,7 +269,9 @@ def main(argv=None):
     null_table = PR.build_table(rn, folds_used, t_high, sym, null_id, all_genes=genes_all)
     keep_cols = ["entrez", "symbol"] + [f"r_fold{f}" for f in sorted(r.columns)] + [
         "mean_r", "min_r", "sd_r", "n_folds_evaluable", "confidence", "tier", "source_run_id", "folds_used",
-        "threshold_high_mean_r"]
+        "threshold_high_mean_r", "table_role"]
+    table["table_role"] = (role if role == "primary" else
+                           f"secondary ({src['run_name']}; NOT the frozen G4 tier source)")
     out = table[keep_cols].copy()
     num = [c for c in out.columns if c.startswith("r_fold")] + ["mean_r", "min_r", "sd_r", "confidence"]
     out[num] = out[num].round(6)
@@ -284,7 +294,8 @@ def main(argv=None):
     nm, om = null_counts["all"]["medium"], tier_counts["all"]["medium"]
     dist = {
         "generated": dt.datetime.now().isoformat(timespec="seconds"), "git_commit": git_head(),
-        "config": "configs/predictability.json", "source_run_id": run_id, "null_run_id": null_id,
+        "config": "configs/predictability.json", "table_role": role, "source_run_name": src["run_name"],
+        "source_run_id": run_id, "null_run_id": null_id,
         "folds_used": folds_used, "excluded_folds": excl, "min_obs": min_obs,
         "dry_run_note": (cfg["dry_run"]["purpose"] if dry else None),
         "table": str(table_path.relative_to(ROOT).as_posix()), "table_sha256": PR.sha256_file(table_path),
@@ -310,7 +321,8 @@ def main(argv=None):
     dist_path.write_text(json.dumps(clean(dist), indent=1))
     print(f"wrote {dist_path.relative_to(ROOT)}; est. FDR(high) = {dist['estimated_fdr_high']}")
     if not dry and not a.no_figures:
-        make_figures(table, null_table, gc, t_high, ROOT / "docs" / "figures")
+        make_figures(table, null_table, gc, t_high, ROOT / "docs" / "figures", model_label=src["run_name"],
+                     suffix="" if role == "primary" else "_" + table_path.stem.split("_")[-1])
         print("wrote docs/figures/predictability_*.png")
     return dist
 

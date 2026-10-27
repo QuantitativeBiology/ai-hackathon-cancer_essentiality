@@ -2,12 +2,23 @@
  "_comment": "Per-gene predictability diagnostic (DESIGN v3 section 4 'Per-gene predictability', RESEARCH_TREE D22). Every method and threshold below is declared and committed BEFORE the per-gene tier distribution, the characterisation statistics or the biomarker comparison are computed. Diagnostic only: headline P1, the selection rule, delta, gene classes, labels and metrics are unchanged. Read by src/essml/predictability.py, scripts/predictability_tiers.py, scripts/predictability_characterise.py, scripts/evaluate_test.py and scripts/predict.py.",
  "written": "2026-10-27, before computing any tier",
  "source": {
-  "role": "G4 headline model (m1_E_resB0 unless G3 selects another; recompute with --run if M5 becomes the headline)",
-  "run_name": "m1_E_resB0",
-  "run_id": "20261026-222117_m1_E_resB0_91e52f9d",
-  "config": "configs/runs/m1_E_resB0.json",
+  "role": "G4 headline model. Amended 2026-10-27 (PI, RESEARCH_TREE D23f): G3 closed with m5_avg as the headline, so the frozen tier source is m5_avg's dev-CV out-of-fold predictions. Disclosure: the m1_E_resB0 tiers had already been computed (commit 2410d36) when this changed; no threshold, rule or method was changed, only the source run, as DESIGN 4 prescribes ('the G4 headline model').",
+  "run_name": "m5_avg",
+  "run_id": "20261027-161041_m5_avg_6dbebcf4",
+  "config": "configs/runs/m5_avg.json",
+  "table": "configs/predictable_genes.csv (table_role 'primary')",
   "predictions": "cache/runs/<run_id>/pred.parquet (dev-CV out-of-fold predictions); if absent, re-run the config with scripts/run.py"
  },
+ "secondary_sources": [
+  {
+   "role": "SECONDARY (not the frozen G4 tier source): m1_E_resB0, an additional G4 finalist and the expression-only model behind scripts/predict.py; same rules, thresholds and null calibration",
+   "run_name": "m1_E_resB0",
+   "run_id": "20261026-222117_m1_E_resB0_91e52f9d",
+   "config": "configs/runs/m1_E_resB0.json",
+   "table": "configs/predictable_genes_m1.csv (table_role 'secondary')",
+   "distribution": "results/predictability/distribution_m1.json"
+  }
+ ],
  "null_control": {
   "run_name": "ctl_resB0_permuted",
   "run_id": "20261026-231349_ctl_resB0_permuted_28e789f7",
