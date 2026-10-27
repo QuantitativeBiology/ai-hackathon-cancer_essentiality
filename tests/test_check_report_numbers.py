@@ -5,7 +5,8 @@ import pytest
 
 import check_report_numbers as C
 
-REG = "run_id,status,P1_variable\n20261026-222117_m1_E_resB0_91e52f9d,ok,0.30812\n"
+REG = ("run_id,status,leaky,P1_variable\n20261026-222117_m1_E_resB0_91e52f9d,ok,0,0.30812\n"
+       "20261026-000000_r4o_aaaaaaaa,ok,1,0.1\n20261026-000001_bad_bbbbbbbb,failed: X,0,0.1\n")
 
 
 @pytest.fixture
@@ -45,6 +46,9 @@ def test_all_tags_match(world):
     ("<!--n:testtable/0/P1_variable-->0.3", "SOURCE#PATH"),
     ("<!--n:test#table/0/dP1_vs_B1_variable-->-0.108", "mismatch"),    # sign checked
     ("see run 20261027-000000_ghost_deadbeef", "not in results/registry.csv"),
+    ("see run 20261026-000001_bad_bbbbbbbb", "status failed"),
+    ("see run 20261026-000000_r4o_aaaaaaaa", "leaky"),
+    ("P1 <!--n:test#table/0/P1_variable-->\n0.308", "not followed"),       # number must be on the tag's line
 ])
 def test_failures_detected(world, body, msg):
     rows = _run(world, body)
@@ -59,11 +63,14 @@ def test_rounding_boundary(world):
 
 
 def test_strict_flags_untagged_numbers_outside_code(world):
-    body = "tagged <!--n:test#table/0/P1_variable-->0.308, untagged 0.276, code `0.123` and\n```\n0.555\n```\n"
+    body = ("tagged <!--n:test#table/0/P1_variable-->0.308, untagged 0.276 and 12.5% and 0.3, year 2026, "
+            "code `0.123` and\n```\n0.555\n```\n")
     rows = _run(world, body, strict=True)
     bad = [r for r in rows if not r["ok"]]
-    assert [r["printed"] for r in bad] == ["0.276"]
-    assert all(r["ok"] for r in _run(world, body.replace(", untagged 0.276", ""), strict=True))
+    assert [r["printed"] for r in bad] == ["0.276", "12.5%", "0.3"]
+    clean = body.replace(", untagged 0.276 and 12.5% and 0.3", "")
+    assert all(r["ok"] for r in _run(world, clean, strict=True))
+    assert all(r["ok"] for r in _run(world, "run 20261026-000000_r4o_aaaaaaaa (leaky diagnostic)"))
 
 
 def test_main_exit_codes(world, capsys):

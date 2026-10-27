@@ -17,9 +17,13 @@ Tag convention (an HTML comment immediately before the number; invisible when re
 * The number may carry a sign (+, -, U+2212), thousands commas, an exponent and a trailing %.
   It must equal the source value rounded to the printed number of decimals:
   |printed - value| <= 0.5 x 10^-decimals (plus 1e-12 for float noise).
+* The number must be on the same line as its tag. Rounding is judged at the printed precision
+  ("0.3" for 0.3081 passes: it is correctly rounded); print the precision the claim needs.
 * Every run id cited anywhere in the file (YYYYMMDD-HHMMSS_<name>_<hash8>) must exist in
-  results/registry.csv.
-* ``--strict``: also fail on untagged numbers with >= 2 decimals in prose (outside code blocks).
+  results/registry.csv with status ok (or complete); a run flagged leaky=1 may be cited only on a
+  line that also says "leaky".
+* ``--strict`` (use at G7): also fail on every untagged decimal number or percentage in prose
+  (outside code blocks; bare integers such as years and counts are not checked).
 
 Exit status 1 on any mismatch, unresolved key, malformed tag or unknown run id.
 """
@@ -35,10 +39,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 NUM = r"[+\-−]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:[eE][+\-]?\d+)?%?"
-TAG = re.compile(r"<!--\s*n:(?P<key>[^>]*?)\s*-->\s*(?P<num>" + NUM + r")?")
+TAG = re.compile(r"<!--\s*n:(?P<key>[^>]*?)\s*-->[ \t]*(?P<num>" + NUM + r")?")  # number on the same line
 SRC = re.compile(r"<!--\s*n-src:(?P<alias>[\w.\-]+)\s*=\s*(?P<path>[^>]*?)\s*-->")
 RUN_ID = re.compile(r"\b\d{8}-\d{6}_[A-Za-z0-9_\-]+?_[0-9a-f]{8}\b")
-UNTAGGED = re.compile(r"(?<![\w.\-])" + r"[+\-−]?\d+\.\d{2,}" + r"(?![\w.])")
+UNTAGGED = re.compile(r"(?<![\w.\-])[+\-−]?\d+(?:\.\d+%?|%)(?![\w.])")  # decimals or percentages
 
 
 def parse_number(s: str):
@@ -153,11 +157,19 @@ def check(report: Path, root: Path = ROOT, registry: Path | None = None, strict=
         else:
             row["msg"] = f"mismatch: source {v:.{dec + 3}f}"
     reg = src.reg()
+    lines = text.splitlines()
     for m in RUN_ID.finditer(text):
-        rid = m.group(0)
-        if rid not in reg:
-            rows.append({"line": line_of(m.start()), "key": f"run id {rid}", "printed": rid, "ok": False,
-                         "msg": "run id not in results/registry.csv"})
+        rid, ln = m.group(0), line_of(m.start())
+        row = reg.get(rid)
+        msg = None
+        if row is None:
+            msg = "run id not in results/registry.csv"
+        elif str(row.get("status") or "ok") not in ("ok", "complete"):
+            msg = f"cited run has status {row.get('status')}"
+        elif str(row.get("leaky") or "0") == "1" and "leaky" not in lines[ln - 1].lower():
+            msg = "cited run is leaky=1 but the line does not say so"
+        if msg:
+            rows.append({"line": ln, "key": f"run id {rid}", "printed": rid, "ok": False, "msg": msg})
     if strict:
         clean = TAG.sub(lambda m: " " * len(m.group(0)), strip_code(text))
         clean = SRC.sub(lambda m: " " * len(m.group(0)), clean)
