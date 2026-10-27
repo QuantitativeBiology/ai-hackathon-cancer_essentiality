@@ -80,6 +80,10 @@ def test_one_access_per_finalist_and_screen(g6):
     assert {(fin[r].config_hash, s) for r, s in planned} == set(zip(g["config_hash"], g["scope"]))
     assert not g["scope"].str.endswith(":po").any()             # predictor-only screen never accessed
     assert set(g.loc[g["scope"] == "setA:A1", "config_hash"]) == {fin["T"].config_hash, fin["headline"].config_hash}
+    # set B order: every primary T / no-EC access precedes every secondary (headline, B2) access
+    b = g[g["scope"].str.startswith("setB:")].reset_index(drop=True)
+    sec = b["config_hash"].isin([fin["headline"].config_hash, fin["B2"].config_hash])
+    assert sec.any() and b.index[~sec].max() < b.index[sec].min()
     msgs = TH.git(w["repo"], "log", "--format=%s").stdout.splitlines()
     assert sum(m.startswith(("G6 access log", "G4/G6 access log")) for m in msgs) == len(g)
 
@@ -90,7 +94,9 @@ def test_set_a_results_and_descriptive_labels(g6):
     assert a["status"] == "complete" and sorted(a["lines"]) == sorted(w["nonc"])
     for key in ("Q3a_primary", "Q3b_primary"):
         assert set(a["statistics"][key]["per_line"]) == set(w["nonc"])
-        assert a["statistics"][key]["descriptive"]["descriptive_verdict"] == "n/a"  # no G4 reference in this toy
+        d = a["statistics"][key]["descriptive"]
+        assert a["statistics"][key]["test_reference_n"] == len(w["test"])
+        assert d["descriptive_verdict"] != "n/a" and np.isfinite(d["median_test_percentile"])
     assert "secondary_headline" in a
 
 
@@ -141,3 +147,31 @@ def test_clopper_pearson():
     lo, hi = ETR.clopper_pearson(5, 10)
     assert 0.18 < lo < 0.19 and 0.81 < hi < 0.82
     assert ETR.clopper_pearson(0, 10)[0] == 0.0 and ETR.clopper_pearson(10, 10)[1] == 1.0
+
+
+def test_planned_accesses_skip_completed_parts(g6):
+    _, tw, _, _, _ = g6
+    crit, h2 = tw["spec"]["crit"], tw["spec"]["h2_arms"]
+    full = ETR.planned_accesses(crit, "B", True, h2)
+    part = ETR.planned_accesses(crit, "B", True, h2, done={("B", "RPE1"), ("Bsec", "RPE1")})
+    rpe1 = {f"setB:{a}" for a in ETR.verdict_arms({"backgrounds": {"RPE1": crit["backgrounds"]["RPE1"]}})}
+    assert rpe1 <= {s for _, s in full} and not rpe1 & {s for _, s in part}
+    assert ETR.planned_accesses(crit, "A", True, h2, done={("A",)}) == []
+
+
+def test_b2_external_profile_fills_unmeasured_genes_with_training_mean():
+    from essml.baselines import KNNExpression
+    rng = np.random.default_rng(0)
+    cols = [f"expression:{g}" for g in range(30)]
+    X = pd.DataFrame(rng.normal(size=(40, 30)), index=[f"L{i}" for i in range(40)], columns=cols)
+    Y = pd.DataFrame(rng.normal(size=(40, 5)), index=X.index, columns=list("abcde"))
+    m = KNNExpression(k=5, n_top=10).fit(Y, X=X)
+    f = HC.Finalist("B2", "b2", "x", "0" * 64, {"model": "B2"})
+    row = pd.Series(rng.normal(size=30), index=[str(g) for g in range(30)])
+    row[[m.feat_[0].split(":")[1], m.feat_[1].split(":")[1]]] = np.nan      # unmeasured in the external profile
+    pid, Xe = ETR.real_x_builder(f, m, "state:x", row, "WT")
+    assert np.isfinite(Xe[list(m.feat_)].to_numpy()).all()
+    assert Xe.loc[pid, m.feat_[0]] == pytest.approx(m.xm_[0])
+    assert np.isfinite(m.predict([pid], X=Xe).to_numpy()).all()
+    with pytest.raises(NotImplementedError):
+        ETR.real_x_builder(HC.Finalist("M5", "m5", "x", "1" * 64, {"model": "M5"}), m, "state:x", row, "WT")
