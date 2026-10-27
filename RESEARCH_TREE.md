@@ -220,11 +220,23 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     lineage-linked; within-library P1 0.279 (D16).
 - [ ] G3 model ladder continued
   - [x] Re-run m1_E_resB0, r1_E, t_E_status and m1_E on frozen evaluation code (run IDs above, under G0)
-  - [ ] Report columns: within-library and within-lineage P1; Nadeau–Bengio SE (D16, D17)
-  - [ ] Stronger negative controls: E permuted within lineage (and within lineage × library); permuted B0 path
-  - [ ] Move check_solver tests (p>n, LOO with offset, held-out feature perturbation) into tests/
-  - [ ] M1b block-weight tuning (B0 residual); C and E+C first
-  - [ ] M2 on the D14 base, with pass-through for non-variable genes and nested local-λ CV
+  - [x] Report columns (scripts/g3_kernel_report.py; docs/g3_kernel_results.md): within-library and
+    within-lineage P1 (reviewer definitions; reproduce the review exactly), within lineage × library P1, NB SE
+    (≈1.5× fold SE). m1_E_resB0: 0.279 / 0.245 / 0.199.
+  - [x] Stronger negative controls. Permuted B0 path: P1 0.003. Within lineage: within-lineage P1 −0.004.
+    Lineage × library: within-lin×lib −0.007, but within-lineage 0.071 (> expected 0.03), so library groups carry
+    within-lineage structure. [!] On the B0 path the LOO-r criterion → −1 as λ → ∞ (D3 artefact), so with no
+    signal it picks the smallest λ. Possible small-λ bias on weak genes (decision pending).
+  - [x] Solver tests moved into tests/ (p>n, LOO with B1 offset, real-path held-out feature perturbation), plus
+    tests for M1b tuning, M2 nesting, exclude_from_training/LOLO.
+  - [-] M1b block-weight tuning (B0 residual; ≤25 eigh): all tuned sets beat E-only, but only by +0.0004 (E+C)
+    to +0.0015 (full), 5/5, Holm p < 0.01. Below δ. Tuned θ: C 1/32–1/64, M 1/16, H/F ≤ 1/64, Meta 1/4.
+  - [-] M2 on the D14 base (pass-through, nested local λ): none +0.0019, paralogs +0.0034, partners +0.0025.
+    Below δ. P1-all is no longer hurt. Paralogs add +0.010 within lineage × library cells.
+  - [x] Leave-one-lineage-out (18 lineages ≥ 20 lines): m1_E_resB0 0.203, T 0.205, B2 0.120, B1 0. M1 > B2
+    in 18/18. EC leave-out: no effect on P1. POU5F1/PRDM14 are not predicted even with EC lines in training
+    (−0.09 vs observed −0.88). Only 4 of the "7 EC lines" are dev lines.
+  - [x] H3 no-EC variant: t_E_status_noEC (20261027-000415), dev CV P1 0.3081; to be frozen at G4.
   - [-] M4: the pre-check MLP lost to ridge on PCs (0.3028 vs 0.3068, 5/5 seeds). Dropped (D19).
   - [-] M3 LightGBM on m1_E_resB0 residuals, nested: ΔP1 +0.0018 ± 0.0002 (< δ). No-go. Gains are threshold genes
     (NRAS hotspot; X-buffered RPS4X, EIF1AX; NAA10). Permuted control −0.004.
@@ -236,7 +248,6 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] Published-comparable block (loosely comparable): m1_E_resB0 mean Spearman 0.284 on DeepDEP genes and
     0.303 on LEAP genes; 4,362 genes with pooled r ≥ 0.2.
   - [ ] M5 stacking of finalists
-  - [ ] Leave-one-lineage-out; no-EC variant for H3
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
   - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.
