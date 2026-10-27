@@ -170,8 +170,10 @@ for the M1 base. LightGBM 4.7.0.
 - Selection rule: ΔP1 = +0.0018 > 1 SE (0.0002) but **< δ = 0.005** → M3 does not replace
   m1_E_resB0. The gain is real (5/5 folds) but small: per gene-fold the change is ±0.04 (5–95%),
   improved in 37% of gene-folds, unchanged (no trees) in 28% of genes; median 4 boosting rounds.
-  The largest per-gene gains (r +0.2 to +0.47) are in a handful of genes (e.g. Entrez 4893 NRAS,
-  9130, 131118, 474170, 1964).
+  The largest per-gene gains (mean r +0.19 to +0.47) are a handful of genes with known
+  threshold-type dependencies: NRAS (hotspot-mutation addiction), and X/Y or paralog-buffered
+  genes (FAM50A, EIF1AX, RPS4X, NAA10, RPP25L, DNAJC19, LRRC37A2) whose dependency switches on
+  when the paralog is lost or unexpressed — exactly where trees beat a linear kernel.
 - Runtime: 2,087 s fit+predict for 5 folds (wall ≈ 39 min, including 3 folds whose inner M1 OOF
   was not cached: ≈ 500 s each for 10 M1 fits); the trees themselves take ≈ 47 s per fold for
   ~2,170 genes. Peak RSS 4.2 GB (above the DESIGN §10 per-stage guide of 4 GB).
