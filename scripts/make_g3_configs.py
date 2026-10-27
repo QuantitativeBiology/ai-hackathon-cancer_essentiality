@@ -98,11 +98,12 @@ def secondary(names):
     out = []
     for n, c in src.items():
         lolo = dict(c, name=f"{n}_lolo", threads=6, requires_gate="G2",
-                    fold_scheme="lineage", min_obs=20,
+                    fold_scheme="lineage", min_obs=20, lolo_min_lines=20,
                     expected="Secondary split (DESIGN §3): each dev lineage held out in turn. "
                              "min_obs 20 = DESIGN §4 'within-lineage per-gene r (lineages with >= 20 "
-                             "held-out lines)'; smaller lineages are predicted but not scored per "
-                             "lineage. B1 = B0 for an unseen lineage, so its P1 is 0 by construction.")
+                             "held-out lines)'; lineages with < 20 dev lines are never held out "
+                             "(they stay in every training set; lolo_min_lines). B1 = B0 for an unseen "
+                             "lineage, so its P1 is 0 by construction.")
         out.append(lolo)
         if n == "t_E_status":  # the EC leave-out of T IS the H3 no-EC variant (one run)
             out += noec()

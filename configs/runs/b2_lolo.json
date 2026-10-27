@@ -47,5 +47,6 @@
   ]
  },
  "fold_scheme": "lineage",
- "expected": "Secondary split (DESIGN \u00a73): each dev lineage held out in turn. min_obs 20 = DESIGN \u00a74 'within-lineage per-gene r (lineages with >= 20 held-out lines)'; smaller lineages are predicted but not scored per lineage. B1 = B0 for an unseen lineage, so its P1 is 0 by construction."
+ "lolo_min_lines": 20,
+ "expected": "Secondary split (DESIGN \u00a73): each dev lineage held out in turn. min_obs 20 = DESIGN \u00a74 'within-lineage per-gene r (lineages with >= 20 held-out lines)'; lineages with < 20 dev lines are never held out (they stay in every training set; lolo_min_lines). B1 = B0 for an unseen lineage, so its P1 is 0 by construction."
 }

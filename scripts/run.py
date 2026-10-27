@@ -26,6 +26,11 @@ Config keys:
     fold_scheme          secondary splits (DESIGN §3): "cv" (default: configs/splits.csv cv_fold) or
                          "lineage" (leave-one-lineage-out: outer fold k = k-th dev lineage in sorted
                          order; summary.json records the fold -> lineage map)
+    lolo_min_lines       fold_scheme "lineage" only: hold out only lineages with >= this many dev lines
+                         (default 1 = all). Smaller lineages are never held out but stay in every
+                         training set, so each held-out lineage's fit is the full-LOLO fit. Needed
+                         because the frozen evaluate() cannot score a fold with no gene observed in
+                         >= min_obs held-out lines.
     exclude_from_training  dev ModelIDs never used for training (every outer and inner fit; the
                          sentinel raises if one reaches a fit) but still predicted in their own
                          held-out fold (H3 no-EC variant, EC leave-out split)
@@ -444,8 +449,9 @@ def main(argv=None):
         scheme = cfg.get("fold_scheme", "cv")
         fold_names = None
         if scheme == "lineage":  # leave-one-lineage-out (DESIGN §3 secondary split)
-            levels = sorted(lineage.unique())
-            folds = lineage.map({l: i for i, l in enumerate(levels)}).astype(int)
+            size = lineage.value_counts()
+            levels = sorted(size.index[size >= int(cfg.get("lolo_min_lines", 1))])
+            folds = lineage.map({l: i for i, l in enumerate(levels)}).fillna(-1).astype(int)
             fold_names = dict(enumerate(levels))
         elif scheme != "cv":
             raise ValueError(f"unknown fold_scheme {scheme}")
@@ -469,6 +475,8 @@ def main(argv=None):
         print(f"run {run_id}: {cfg['model']} dev lines {len(Y)}, eval genes {len(eval_genes)}, "
               f"NEGv1 mapped {neg_rep['n_mapped']}/{neg_rep['n_neg']}")
         fl = None if a.folds is None else [int(x) for x in a.folds.split(",")]
+        if fl is None and (folds < 0).any():
+            fl = sorted(int(f) for f in folds.unique() if f >= 0)  # -1 = never held out
         n_log = len(FIT_LOG)
         res = run_cv(Y, folds, groups, lineage, X, cfg, eval_genes, neg, seed, fl)
         if cfg.get("oracle_select"):  # deliberately leaky diagnostic (e.g. non-nested R4)
@@ -481,18 +489,18 @@ def main(argv=None):
         row["n_train_ids"] = len(train_ids)
 
         ho_ids = res["pred"].index
-        if fl is not None:
+        if a.folds is not None:
             row["status"] = "partial_folds"
+        cache_dir = ROOT / "cache" / "runs" / run_id
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        res["pred"].astype(np.float32).to_parquet(cache_dir / "pred.parquet")  # before evaluation
         ev = evaluate(res["pred"], Y.loc[ho_ids], gene_cls, folds.loc[ho_ids],
                       baseline_preds={b: p for b, p in res["ref_pred"].items()},
                       genes=eval_genes, min_obs=int(cfg.get("min_obs", 40)))
         hl = ev["headline"]
 
         out_dir = ROOT / "results" / "runs" / run_id
-        cache_dir = ROOT / "cache" / "runs" / run_id
         out_dir.mkdir(parents=True, exist_ok=True)
-        cache_dir.mkdir(parents=True, exist_ok=True)
-        res["pred"].astype(np.float32).to_parquet(cache_dir / "pred.parquet")
         ev["per_gene"].to_parquet(cache_dir / "per_gene_fold.parquet")
         ev["per_line"].to_parquet(cache_dir / "per_line.parquet")
         ev["per_fold"].round(6).to_csv(out_dir / "per_fold.csv", index=False)

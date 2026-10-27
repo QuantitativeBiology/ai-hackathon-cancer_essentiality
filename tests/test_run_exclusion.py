@@ -65,3 +65,16 @@ def test_m2_cache_key_is_exact():
                 m._cache_key(Y, lineage, np.roll(grp, 1)),
                 m._cache_key(Y, lineage.sample(frac=1, random_state=0).set_axis(lineage.index), grp)]
     assert k not in variants and len(set(variants)) == len(variants)
+
+
+def test_lolo_folds_marked_minus_one_are_never_held_out_but_always_train():
+    folds = LOLO.copy()
+    small = folds.index[folds == folds.max()]
+    folds[small] = -1  # e.g. a lineage below lolo_min_lines
+    cfg = dict(CFGS["B1"], inner_folds=3, inner_min_obs=5, reference_baselines={"B0": {}})
+    run.FIT_LOG.clear()
+    fl = sorted(int(f) for f in folds.unique() if f >= 0)
+    out = run.run_cv(Y, folds, groups, lineage, None, cfg, Y.columns, set(), seed=7, folds_to_run=fl,
+                     log=lambda *a: None)
+    assert not set(small) & set(out["pred"].index)
+    assert all(set(small) <= set(tr) for tr in out["train_ids"].values())
