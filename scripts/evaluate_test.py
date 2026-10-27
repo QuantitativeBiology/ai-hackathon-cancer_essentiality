@@ -494,7 +494,10 @@ def step_per_tier(ctx, f, pred, truth, refs):
         for s in range(0, W.shape[0], 64):
             Rb = heldout.weighted_pearson_cols(P[:, m], T[:, m], W[s:s + 64], ctx["min_obs"])
             boot.append(_spearman_rows(Rb, mean_r[m]))
-        rho[name] = {"n_genes": int(m.sum()), **heldout.summarise(point, np.concatenate(boot))}
+        # normal interval (as P2b, D21b): resampling duplicates lines, which adds noise to every r_g and biases the
+        # replicate Spearman downward (dev dry run: point 0.698, percentile interval 0.569-0.627); the percentile
+        # interval and the bias are reported alongside
+        rho[name] = {"n_genes": int(m.sum()), **heldout.summarise(point, np.concatenate(boot), method="normal")}
     out["spearman_dev_mean_r_vs_heldout_r"] = rho
     return out
 

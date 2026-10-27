@@ -229,6 +229,8 @@ def test_per_tier_reporting_and_tier_table_hash(g4):
     assert np.isclose(pg.loc[m, "r"].mean(), hi["P1"], atol=1e-4)
     rho = pt["spearman_dev_mean_r_vs_heldout_r"]["evaluable"]
     assert rho["point"] > 0.3 and rho["ci_lo"] <= rho["point"] <= rho["ci_hi"]
+    assert rho["ci_method"] == "normal" and "ci_percentile" in rho                # duplicate-line bias (as P2b)
+    assert np.isclose(rho["point"] - rho["ci_lo"], rho["ci_hi"] - rho["point"])
     row = {r["role"]: r for r in s["table"]}["headline"]
     assert row["P1_high"] == hi["P1"] and row["spearman_dev_mean_r_vs_r"] == rho["point"]
 
