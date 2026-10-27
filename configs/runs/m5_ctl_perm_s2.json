@@ -1,0 +1,102 @@
+{
+ "name": "m5_ctl_perm_s2",
+ "model": "M5",
+ "features": [],
+ "params": {
+  "inputs": [
+   {
+    "name": "m1_E_resB0",
+    "model": "M1",
+    "params": {
+     "modalities": [
+      "E"
+     ],
+     "residual": "B0"
+    }
+   },
+   {
+    "name": "m2n_E_paralogs",
+    "model": "M2",
+    "params": {
+     "m1_params": {
+      "modalities": [
+       "E"
+      ],
+      "residual": "B0"
+     },
+     "base": "M1",
+     "priors": "paralogs",
+     "local_genes": "variable",
+     "nested_lambda": true
+    },
+    "inner_params": {
+     "nested_lambda": false
+    }
+   },
+   {
+    "name": "g3_m3n",
+    "model": "M3",
+    "params": {
+     "m1_params": {
+      "modalities": [
+       "E"
+      ],
+      "residual": "B0"
+     },
+     "inner_folds": 5,
+     "oof_seed": 20261026,
+     "split_seed": 20261026,
+     "pool_blocks": [
+      "E",
+      "C",
+      "M",
+      "H",
+      "meta"
+     ],
+     "k_screen": 50,
+     "use_m1_feature": true,
+     "lgb_params": {},
+     "num_boost_round": 500,
+     "early_stopping": 30,
+     "n_jobs": 6,
+     "nested_es": true
+    }
+   }
+  ],
+  "mode": "stack",
+  "inner_folds": 5,
+  "seed": 20261026,
+  "min_class_genes": 20,
+  "permute_input": "m2n_E_paralogs",
+  "permute_seed": 2
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "expected": "POST-HOC diagnostic after m5_ctl_perm (seed 0) gave max weight 0.041 > 0.01: one permutation is shared by all genes, so line-level structure makes the permuted input's weight vary with the permutation at the scale ~1/sqrt(n lines) ~ 0.035, not 1/sqrt(n cells). Expect weights of the same order (<= ~0.05) in other directions, i.e. chance-level, with P1 within 0.001 of m5_ctl_perm."
+}

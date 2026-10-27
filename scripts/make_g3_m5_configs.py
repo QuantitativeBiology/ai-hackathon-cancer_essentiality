@@ -123,7 +123,25 @@ def m5():
     ]
 
 
-GROUPS = {"lamcrit": lamcrit, "m5": m5}
+def m5_posthoc():
+    """POST-HOC (written after m5_ctl_perm missed its pre-stated weight bound): the same control with
+    other permutation seeds, to see whether the permuted input's weight is chance-level. Diagnostic
+    only; nothing is selected on it."""
+    inp = m5_inputs()
+    return [base(f"m5_ctl_perm_s{k}", "M5", {"inputs": inp, "mode": "stack", "inner_folds": 5,
+                                             "seed": 20261026, "min_class_genes": 20,
+                                             "permute_input": "m2n_E_paralogs", "permute_seed": k},
+                 gate="G2",
+                 expected="POST-HOC diagnostic after m5_ctl_perm (seed 0) gave max weight 0.041 > "
+                          "0.01: one permutation is shared by all genes, so line-level structure "
+                          "makes the permuted input's weight vary with the permutation at the scale "
+                          "~1/sqrt(n lines) ~ 0.035, not 1/sqrt(n cells). Expect weights of the same "
+                          "order (<= ~0.05) in other directions, i.e. chance-level, with P1 within "
+                          "0.001 of m5_ctl_perm.")
+            for k in (1, 2)]
+
+
+GROUPS = {"lamcrit": lamcrit, "m5": m5, "m5_posthoc": m5_posthoc}
 
 
 def main(argv):
