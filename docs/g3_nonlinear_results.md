@@ -145,3 +145,9 @@ Fold 0 only (`--folds 0`, registry status `partial_folds`), 6 threads, torch 2.6
 - Probe numbers (fold 0, 100-gene subset; not a selection result): P1 0.3417 vs m1_E_resB0 0.3344
   on the same genes (+0.0073); 69% of genes got no correction (early stopping found no
   improvement over a zero correction).
+
+### R3. R2/R4 coverage decisions
+- R2: see deviation D-G3-3 → `g3_r2_sub150`.
+- R4 timing probe `g3_r4_probe` (run 20261027-004320, fold 0, 29 modelled genes): 55 s at 6
+  processes ≈ 1.9 s per gene → full ≈ 5.6 h > 2 h → **pre-declared 500-gene subset**
+  (`g3_r4_sub500`, nested) and the leaky non-nested run on the same genes (`g3_r4_oracle_sub500`).
