@@ -18,6 +18,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -6.675023864133323e-05,
      "per_study": {
       "ACH-000024": 0.034984
      },
@@ -40,6 +41,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": 2.8188020728155475e-05,
      "per_study": {
       "ACH-000106": -0.009275
      },
@@ -62,6 +64,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": 3.463984999564282e-05,
      "per_study": {
       "ACH-000338": -0.030232
      },
@@ -84,6 +87,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": 7.008398675086708e-05,
      "per_study": {
       "ACH-000365": 0.032729
      },
@@ -106,6 +110,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": 0.0001418757766643297,
      "per_study": {
       "ACH-000371": 0.015519
      },
@@ -175,6 +180,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -0.019771129662931444,
      "per_study": {
       "ACH-000024": 0.032842
      },
@@ -197,6 +203,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -0.007809711220052178,
      "per_study": {
       "ACH-000106": -0.006881
      },
@@ -219,6 +226,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -0.0038929327058894736,
      "per_study": {
       "ACH-000338": -0.100949
      },
@@ -241,6 +249,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -0.011893239779663752,
      "per_study": {
       "ACH-000365": 0.017313
      },
@@ -263,6 +272,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -0.004037004016043469,
      "per_study": {
       "ACH-000371": -0.029597
      },
@@ -358,105 +368,110 @@
  "secondary_headline": {
   "Q3a_primary": {
    "ACH-000024": {
-    "point": 0.034210926806236164,
-    "ci_lo": 0.026020536310398818,
-    "ci_hi": 0.042440014528744456,
-    "se": 0.004132140879987238,
+    "point": 0.03570910437711905,
+    "ci_lo": 0.027589397660979797,
+    "ci_hi": 0.044128355500446685,
+    "se": 0.004129590422889941,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -6.142364070790829e-05,
     "per_study": {
-     "ACH-000024": 0.034211
+     "ACH-000024": 0.035709
     },
     "per_entry": {
-     "ACH-000024": 0.034211
+     "ACH-000024": 0.035709
     },
     "model_abs_per_entry": {
-     "ACH-000024": 0.834794
+     "ACH-000024": 0.836292
     },
     "comparator_abs_per_entry": {
      "ACH-000024": 0.800583
     }
    },
    "ACH-000106": {
-    "point": -0.008633862832380435,
-    "ci_lo": -0.01543399878507759,
-    "ci_hi": -0.001374226682183919,
-    "se": 0.003701081073394588,
+    "point": -0.006255515087205232,
+    "ci_lo": -0.01284981655162957,
+    "ci_hi": 0.0008223126496120883,
+    "se": 0.003562835029871957,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 1.8816214004404967e-05,
     "per_study": {
-     "ACH-000106": -0.008634
+     "ACH-000106": -0.006256
     },
     "per_entry": {
-     "ACH-000106": -0.008634
+     "ACH-000106": -0.006256
     },
     "model_abs_per_entry": {
-     "ACH-000106": 0.786901
+     "ACH-000106": 0.789279
     },
     "comparator_abs_per_entry": {
      "ACH-000106": 0.795535
     }
    },
    "ACH-000338": {
-    "point": -0.027111912046328013,
-    "ci_lo": -0.03466147438262926,
-    "ci_hi": -0.019762940553342025,
-    "se": 0.0037806307922855307,
+    "point": -0.025772755936809055,
+    "ci_lo": -0.03300918881037906,
+    "ci_hi": -0.018536077939613975,
+    "se": 0.0037233470829688767,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 9.387027496626094e-05,
     "per_study": {
-     "ACH-000338": -0.027112
+     "ACH-000338": -0.025773
     },
     "per_entry": {
-     "ACH-000338": -0.027112
+     "ACH-000338": -0.025773
     },
     "model_abs_per_entry": {
-     "ACH-000338": 0.747028
+     "ACH-000338": 0.748367
     },
     "comparator_abs_per_entry": {
      "ACH-000338": 0.77414
     }
    },
    "ACH-000365": {
-    "point": 0.032973829502599084,
-    "ci_lo": 0.024176759931475517,
-    "ci_hi": 0.04212739806407094,
-    "se": 0.004541266004752664,
+    "point": 0.034404793039318426,
+    "ci_lo": 0.025578101693696256,
+    "ci_hi": 0.04331655635398943,
+    "se": 0.004476682150268906,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 6.674148601588936e-05,
     "per_study": {
-     "ACH-000365": 0.032974
+     "ACH-000365": 0.034405
     },
     "per_entry": {
-     "ACH-000365": 0.032974
+     "ACH-000365": 0.034405
     },
     "model_abs_per_entry": {
-     "ACH-000365": 0.876006
+     "ACH-000365": 0.877437
     },
     "comparator_abs_per_entry": {
      "ACH-000365": 0.843033
     }
    },
    "ACH-000371": {
-    "point": 0.023117525368744674,
-    "ci_lo": 0.014267792426252516,
-    "ci_hi": 0.03232794968031593,
-    "se": 0.004603575633679055,
+    "point": 0.02581649355922644,
+    "ci_lo": 0.017148376518503584,
+    "ci_hi": 0.03489649025139819,
+    "se": 0.004536911296796976,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 8.478467505352444e-05,
     "per_study": {
-     "ACH-000371": 0.023118
+     "ACH-000371": 0.025816
     },
     "per_entry": {
-     "ACH-000371": 0.023118
+     "ACH-000371": 0.025816
     },
     "model_abs_per_entry": {
-     "ACH-000371": 0.852617
+     "ACH-000371": 0.855316
     },
     "comparator_abs_per_entry": {
      "ACH-000371": 0.8295
@@ -465,105 +480,110 @@
   },
   "Q3b_primary": {
    "ACH-000024": {
-    "point": 0.03552278820375332,
-    "ci_lo": -0.022432000095450454,
-    "ci_hi": 0.07756415188894415,
-    "se": 0.025202645539400947,
+    "point": 0.03686327077747997,
+    "ci_lo": -0.020343890885670984,
+    "ci_hi": 0.07899050515140822,
+    "se": 0.0250082737234351,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -0.01394761832774944,
     "per_study": {
-     "ACH-000024": 0.035523
+     "ACH-000024": 0.036863
     },
     "per_entry": {
-     "ACH-000024": 0.035523
+     "ACH-000024": 0.036863
     },
     "model_abs_per_entry": {
-     "ACH-000024": 0.850536
+     "ACH-000024": 0.851877
     },
     "comparator_abs_per_entry": {
      "ACH-000024": 0.815013
     }
    },
    "ACH-000106": {
-    "point": -0.006880733944954143,
-    "ci_lo": -0.05483043546365925,
-    "ci_hi": 0.03866747436630865,
-    "se": 0.023795057543029578,
+    "point": -0.002293577981651307,
+    "ci_lo": -0.05105876269018258,
+    "ci_hi": 0.042426730416486765,
+    "se": 0.023900602749653613,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -0.005113060743997746,
     "per_study": {
-     "ACH-000106": -0.006881
+     "ACH-000106": -0.002294
     },
     "per_entry": {
-     "ACH-000106": -0.006881
+     "ACH-000106": -0.002294
     },
     "model_abs_per_entry": {
-     "ACH-000106": 0.815749
+     "ACH-000106": 0.820336
     },
     "comparator_abs_per_entry": {
      "ACH-000106": 0.82263
     }
    },
    "ACH-000338": {
-    "point": -0.08739837398373984,
-    "ci_lo": -0.14601479219068153,
-    "ci_hi": -0.0390361136908908,
-    "se": 0.027394214210414443,
+    "point": -0.08130081300813019,
+    "ci_lo": -0.13919253237612614,
+    "ci_hi": -0.0335347849049357,
+    "se": 0.02695805636455133,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -0.007567618225296044,
     "per_study": {
-     "ACH-000338": -0.087398
+     "ACH-000338": -0.081301
     },
     "per_entry": {
-     "ACH-000338": -0.087398
+     "ACH-000338": -0.081301
     },
     "model_abs_per_entry": {
-     "ACH-000338": 0.72832
+     "ACH-000338": 0.734417
     },
     "comparator_abs_per_entry": {
      "ACH-000338": 0.815718
     }
    },
    "ACH-000365": {
-    "point": 0.026315789473684292,
-    "ci_lo": -0.024631028740594595,
-    "ci_hi": 0.06052842657827912,
-    "se": 0.02244171538473643,
+    "point": 0.029778393351800547,
+    "ci_lo": -0.02012561768586632,
+    "ci_hi": 0.0635214203565267,
+    "se": 0.022320805623037156,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -0.011718190567352849,
     "per_study": {
-     "ACH-000365": 0.026316
+     "ACH-000365": 0.029778
     },
     "per_entry": {
-     "ACH-000365": 0.026316
+     "ACH-000365": 0.029778
     },
     "model_abs_per_entry": {
-     "ACH-000365": 0.885042
+     "ACH-000365": 0.888504
     },
     "comparator_abs_per_entry": {
      "ACH-000365": 0.858726
     }
    },
    "ACH-000371": {
-    "point": 0.0,
-    "ci_lo": -0.06169686251038411,
-    "ci_hi": 0.038128339379947286,
-    "se": 0.026320216874987083,
+    "point": 0.0037783375314861534,
+    "ci_lo": -0.05740976946334092,
+    "ci_hi": 0.04423697503853433,
+    "se": 0.026805119009986857,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -0.0123966779898896,
     "per_study": {
-     "ACH-000371": 0.0
+     "ACH-000371": 0.003778
     },
     "per_entry": {
-     "ACH-000371": 0.0
+     "ACH-000371": 0.003778
     },
     "model_abs_per_entry": {
-     "ACH-000371": 0.816121
+     "ACH-000371": 0.819899
     },
     "comparator_abs_per_entry": {
      "ACH-000371": 0.816121

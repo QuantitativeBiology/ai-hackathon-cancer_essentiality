@@ -1,0 +1,104 @@
+{
+ "tree_clean": {
+  "pass": false,
+  "dirty": [
+   " M README.md",
+   " M configs/finalists.example.json",
+   " M docs/predictability.md",
+   " M scripts/evaluate_test.py",
+   " M scripts/evaluate_transfer.py",
+   " M scripts/heldout_common.py",
+   " M scripts/predict.py",
+   " M src/essml/models/g3_common.py",
+   " M src/essml/models/lgbm.py",
+   " M src/essml/models/m5_stack.py",
+   " M src/essml/modelstore.py",
+   " M tests/test_evaluate_test.py",
+   " M tests/test_evaluate_transfer.py",
+   " M tests/test_predict.py",
+   " M tests/toy_heldout.py",
+   "?? results/dryrun/predictability/distribution_m1_E_resB0_excl_fold0.json",
+   "?? results/dryrun/predictability/predictable_genes_m1_E_resB0_excl_fold0.csv",
+   "?? results/dryrun/test/access_ledger_20261027-192859.json",
+   "?? results/dryrun/test/b0/per_gene.csv.gz",
+   "?? results/dryrun/test/b0/per_line.csv"
+  ]
+ },
+ "finalists_committed": {
+  "pass": true
+ },
+ "transfer_freeze_committed": {
+  "pass": true
+ },
+ "gate_G4": {
+  "pass": false
+ },
+ "frozen_hashes": {
+  "pass": true,
+  "changed": []
+ },
+ "criteria_inputs_unchanged": {
+  "pass": true,
+  "missing": [],
+  "changed": [],
+  "known_post_freeze_changes": {
+   "scripts/transfer_criteria.py": "commit 8a613f0: the replicate-ceiling read was routed through guard.load_harmonised (G0 provenance item); computations unchanged (independent review)"
+  }
+ },
+ "noEC_excludes_4_EC_dev_lines": {
+  "pass": true
+ },
+ "models_take_external_profiles": {
+  "pass": true,
+  "unsupported": {},
+  "note": "a non-kernel-ridge headline (e.g. M5) needs builder support or --no-secondary"
+ },
+ "setA_test_reference_present": {
+  "pass": true,
+  "file": "results/dryrun/test/t_E_status/setA_reference.csv"
+ },
+ "guard_would_grant": {
+  "pass": false,
+  "n_planned": 33,
+  "skipped_complete_parts": [],
+  "per_access": {
+   "t_E_status|setA:A1": "ESSML_UNBLIND!=1",
+   "m5_avg|setA:A1": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000095": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000200": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000269": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000067": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000208": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000231": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000329": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000479": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000232": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000035": "ESSML_UNBLIND!=1",
+   "t_E_status|setB:ACH-000257": "ESSML_UNBLIND!=1",
+   "t_E_status_noEC|setB:ACH-000035": "ESSML_UNBLIND!=1",
+   "t_E_status_noEC|setB:ACH-000257": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000095": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000200": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000269": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000067": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000208": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000231": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000329": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000095": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000200": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000269": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000067": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000208": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000231": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000329": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000035": "ESSML_UNBLIND!=1",
+   "m5_avg|setB:ACH-000257": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000035": "ESSML_UNBLIND!=1",
+   "b2|setB:ACH-000257": "ESSML_UNBLIND!=1"
+  }
+ },
+ "spent_incomplete_parts": {
+  "pass": true,
+  "parts": []
+ }
+}

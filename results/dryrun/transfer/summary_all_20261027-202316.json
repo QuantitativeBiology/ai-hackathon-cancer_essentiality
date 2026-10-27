@@ -1,0 +1,1401 @@
+{
+ "gate": "G6",
+ "dry_run": true,
+ "stage": "all",
+ "timestamp": "2026-10-27T20:23:16",
+ "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+ "population": "dry-run: dev fold 0 stands in for the test set; training = other dev folds",
+ "preflight": {
+  "tree_clean": {
+   "pass": false,
+   "dirty": [
+    " M README.md",
+    " M configs/finalists.example.json",
+    " M docs/predictability.md",
+    " M scripts/evaluate_test.py",
+    " M scripts/evaluate_transfer.py",
+    " M scripts/heldout_common.py",
+    " M scripts/predict.py",
+    " M src/essml/models/g3_common.py",
+    " M src/essml/models/lgbm.py",
+    " M src/essml/models/m5_stack.py",
+    " M src/essml/modelstore.py",
+    " M tests/test_evaluate_test.py",
+    " M tests/test_evaluate_transfer.py",
+    " M tests/test_predict.py",
+    " M tests/toy_heldout.py",
+    "?? results/dryrun/predictability/distribution_m1_E_resB0_excl_fold0.json",
+    "?? results/dryrun/predictability/predictable_genes_m1_E_resB0_excl_fold0.csv",
+    "?? results/dryrun/test/access_ledger_20261027-192859.json",
+    "?? results/dryrun/test/b0/per_gene.csv.gz",
+    "?? results/dryrun/test/b0/per_line.csv"
+   ]
+  },
+  "finalists_committed": {
+   "pass": true
+  },
+  "transfer_freeze_committed": {
+   "pass": true
+  },
+  "gate_G4": {
+   "pass": false
+  },
+  "frozen_hashes": {
+   "pass": true,
+   "changed": []
+  },
+  "criteria_inputs_unchanged": {
+   "pass": true,
+   "missing": [],
+   "changed": [],
+   "known_post_freeze_changes": {
+    "scripts/transfer_criteria.py": "commit 8a613f0: the replicate-ceiling read was routed through guard.load_harmonised (G0 provenance item); computations unchanged (independent review)"
+   }
+  },
+  "noEC_excludes_4_EC_dev_lines": {
+   "pass": true
+  },
+  "models_take_external_profiles": {
+   "pass": true,
+   "unsupported": {},
+   "note": "a non-kernel-ridge headline (e.g. M5) needs builder support or --no-secondary"
+  },
+  "setA_test_reference_present": {
+   "pass": true,
+   "file": "results/dryrun/test/t_E_status/setA_reference.csv"
+  },
+  "guard_would_grant": {
+   "pass": false,
+   "n_planned": 33,
+   "skipped_complete_parts": [],
+   "per_access": {
+    "t_E_status|setA:A1": "ESSML_UNBLIND!=1",
+    "m5_avg|setA:A1": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000095": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000200": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000269": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000067": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000208": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000231": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000329": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000479": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000232": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000035": "ESSML_UNBLIND!=1",
+    "t_E_status|setB:ACH-000257": "ESSML_UNBLIND!=1",
+    "t_E_status_noEC|setB:ACH-000035": "ESSML_UNBLIND!=1",
+    "t_E_status_noEC|setB:ACH-000257": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000095": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000200": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000269": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000067": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000208": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000231": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000329": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000095": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000200": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000269": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000067": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000208": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000231": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000329": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000035": "ESSML_UNBLIND!=1",
+    "m5_avg|setB:ACH-000257": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000035": "ESSML_UNBLIND!=1",
+    "b2|setB:ACH-000257": "ESSML_UNBLIND!=1"
+   }
+  },
+  "spent_incomplete_parts": {
+   "pass": true,
+   "parts": []
+  }
+ },
+ "dry_run_standins": {
+  "lineages": {
+   "RPE1": "CNS/Brain",
+   "hPSC": "Lung",
+   "setA": "Lymphoid"
+  },
+  "lines": [
+   "ACH-000024",
+   "ACH-000035",
+   "ACH-000067",
+   "ACH-000095",
+   "ACH-000106",
+   "ACH-000200",
+   "ACH-000208",
+   "ACH-000231",
+   "ACH-000232",
+   "ACH-000257",
+   "ACH-000269",
+   "ACH-000311",
+   "ACH-000329",
+   "ACH-000338",
+   "ACH-000365",
+   "ACH-000371",
+   "ACH-000416",
+   "ACH-000479"
+  ]
+ },
+ "n_boot": 2000,
+ "seed": 20261026,
+ "models": {
+  "T": {
+   "source": "persisted",
+   "tag": "dry_t_E_status_24b46e2a"
+  },
+  "H3_noEC": {
+   "source": "persisted",
+   "tag": "dry_t_E_status_noEC_fa0181c1"
+  },
+  "headline": {
+   "source": "fitted",
+   "tag": "dry_m5_avg_6dbebcf4",
+   "fit_s": {
+    "1": 0.3667781001422554,
+    "2": 0.27119749994017184,
+    "3": 0.2776339999400079,
+    "4": 0.26315919985063374
+   }
+  },
+  "B2": {
+   "source": "persisted",
+   "tag": "dry_b2_289f5170"
+  }
+ },
+ "self_check": {
+  "native_vs_builder_max_abs_diff": {
+   "t_E_status": 0.0,
+   "t_E_status_noEC": 0.0,
+   "m5_avg": 0.0,
+   "b2": 0.0
+  },
+  "profiles": {
+   "line:ACH-000035|b2": {
+    "n_genes": 18434,
+    "sd": 0.401072,
+    "ok": true
+   },
+   "line:ACH-000035|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.401028,
+    "ok": true
+   },
+   "line:ACH-000035|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.401043,
+    "ok": true
+   },
+   "line:ACH-000035|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.400394,
+    "ok": true
+   },
+   "line:ACH-000067|b2": {
+    "n_genes": 18434,
+    "sd": 0.400156,
+    "ok": true
+   },
+   "line:ACH-000067|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.401463,
+    "ok": true
+   },
+   "line:ACH-000067|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.400205,
+    "ok": true
+   },
+   "line:ACH-000095|b2": {
+    "n_genes": 18434,
+    "sd": 0.401367,
+    "ok": true
+   },
+   "line:ACH-000095|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.401417,
+    "ok": true
+   },
+   "line:ACH-000095|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.401447,
+    "ok": true
+   },
+   "line:ACH-000095|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.400924,
+    "ok": true
+   },
+   "line:ACH-000200|b2": {
+    "n_genes": 18434,
+    "sd": 0.400206,
+    "ok": true
+   },
+   "line:ACH-000200|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.400164,
+    "ok": true
+   },
+   "line:ACH-000200|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.399509,
+    "ok": true
+   },
+   "line:ACH-000208|b2": {
+    "n_genes": 18434,
+    "sd": 0.400151,
+    "ok": true
+   },
+   "line:ACH-000208|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.403384,
+    "ok": true
+   },
+   "line:ACH-000208|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.401821,
+    "ok": true
+   },
+   "line:ACH-000231|b2": {
+    "n_genes": 18434,
+    "sd": 0.398996,
+    "ok": true
+   },
+   "line:ACH-000231|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.40092,
+    "ok": true
+   },
+   "line:ACH-000231|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.400573,
+    "ok": true
+   },
+   "line:ACH-000257|b2": {
+    "n_genes": 18434,
+    "sd": 0.401166,
+    "ok": true
+   },
+   "line:ACH-000257|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.404702,
+    "ok": true
+   },
+   "line:ACH-000257|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.404728,
+    "ok": true
+   },
+   "line:ACH-000257|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.403547,
+    "ok": true
+   },
+   "line:ACH-000269|b2": {
+    "n_genes": 18434,
+    "sd": 0.399131,
+    "ok": true
+   },
+   "line:ACH-000269|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.401335,
+    "ok": true
+   },
+   "line:ACH-000269|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.4,
+    "ok": true
+   },
+   "line:ACH-000311|b2": {
+    "n_genes": 18434,
+    "sd": 0.395219,
+    "ok": true
+   },
+   "line:ACH-000311|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.397131,
+    "ok": true
+   },
+   "line:ACH-000311|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.397122,
+    "ok": true
+   },
+   "line:ACH-000311|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.39756,
+    "ok": true
+   },
+   "line:ACH-000329|b2": {
+    "n_genes": 18434,
+    "sd": 0.400045,
+    "ok": true
+   },
+   "line:ACH-000329|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.401267,
+    "ok": true
+   },
+   "line:ACH-000329|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.400515,
+    "ok": true
+   },
+   "line:ACH-000416|b2": {
+    "n_genes": 18434,
+    "sd": 0.400515,
+    "ok": true
+   },
+   "line:ACH-000416|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.401335,
+    "ok": true
+   },
+   "line:ACH-000416|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.401334,
+    "ok": true
+   },
+   "line:ACH-000416|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.401171,
+    "ok": true
+   }
+  },
+  "line": {
+   "t_E_status": "ACH-000015",
+   "t_E_status_noEC": "ACH-000015",
+   "m5_avg": "ACH-000015",
+   "b2": "ACH-000015"
+  }
+ },
+ "anchors_missing": [],
+ "setA": {
+  "Q3a_primary": {
+   "per_line": {
+    "ACH-000024": {
+     "point": 0.03498374216328359,
+     "ci_lo": 0.02671531282024021,
+     "ci_hi": 0.043275580809021906,
+     "category": "skill>0",
+     "test_percentile": 95.07389162561576
+    },
+    "ACH-000106": {
+     "point": -0.009275486787797105,
+     "ci_lo": -0.016218797243137878,
+     "ci_hi": -0.0017205481944538499,
+     "category": "skill<0",
+     "test_percentile": 1.9704433497536946
+    },
+    "ACH-000338": {
+     "point": -0.030231719596362394,
+     "ci_lo": -0.03828792388151776,
+     "ci_hi": -0.02279091563520472,
+     "category": "skill<0",
+     "test_percentile": 0.49261083743842365
+    },
+    "ACH-000365": {
+     "point": 0.032728908413321656,
+     "ci_lo": 0.02381586453927457,
+     "ci_hi": 0.041983731347337745,
+     "category": "skill>0",
+     "test_percentile": 92.11822660098522
+    },
+    "ACH-000371": {
+     "point": 0.015519037891144394,
+     "ci_lo": 0.0064702549733890976,
+     "ci_hi": 0.025132114379124822,
+     "category": "skill>0",
+     "test_percentile": 67.48768472906403
+    }
+   },
+   "median_test_percentile": 67.48768472906403,
+   "descriptive_verdict": "comparable to cancer test lines",
+   "n_lines_skill_positive": 3
+  },
+  "Q3b_primary": {
+   "per_line": {
+    "ACH-000024": {
+     "point": 0.032841823056300345,
+     "ci_lo": -0.02730688922535904,
+     "ci_hi": 0.07104800936768141,
+     "category": "CI covers 0",
+     "test_percentile": 86.20689655172413
+    },
+    "ACH-000106": {
+     "point": -0.006880733944954143,
+     "ci_lo": -0.060156973379629546,
+     "ci_hi": 0.040518091400154235,
+     "category": "CI covers 0",
+     "test_percentile": 29.064039408866993
+    },
+    "ACH-000338": {
+     "point": -0.10094850948509493,
+     "ci_lo": -0.15807364612511665,
+     "ci_hi": -0.05041636627841491,
+     "category": "skill<0",
+     "test_percentile": 0.0
+    },
+    "ACH-000365": {
+     "point": 0.01731301939058172,
+     "ci_lo": -0.034973489306180966,
+     "ci_hi": 0.048719512195121994,
+     "category": "CI covers 0",
+     "test_percentile": 66.00985221674877
+    },
+    "ACH-000371": {
+     "point": -0.029596977329974905,
+     "ci_lo": -0.08132541343405468,
+     "ci_hi": 0.017439718364197433,
+     "category": "CI covers 0",
+     "test_percentile": 6.403940886699508
+    }
+   },
+   "median_test_percentile": 29.064039408866993,
+   "descriptive_verdict": "comparable to cancer test lines",
+   "n_lines_skill_positive": 0
+  }
+ },
+ "setB": {
+  "verdicts": {
+   "RPE1": {
+    "Q3a": {
+     "verdict": "transfers",
+     "reasons": [
+      "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous"
+     ],
+     "transfers_condition": true,
+     "fails_condition": false,
+     "swap_cap": false,
+     "ratio_condition_vacuous": true
+    },
+    "Q3b": {
+     "verdict": "inconclusive",
+     "reasons": [
+      "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+      "fails blocked: anchor gate not informative/positive"
+     ],
+     "transfers_condition": false,
+     "fails_condition": false,
+     "swap_cap": false,
+     "ratio_condition_vacuous": true
+    }
+   },
+   "hPSC": {
+    "Q3a": {
+     "verdict": "inconclusive",
+     "reasons": [
+      "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+      "fails blocked: anchor gate not informative/positive"
+     ],
+     "transfers_condition": false,
+     "fails_condition": false,
+     "swap_cap": false,
+     "ratio_condition_vacuous": true
+    },
+    "Q3b": {
+     "verdict": "inconclusive",
+     "reasons": [
+      "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+      "fails blocked: anchor gate not informative/positive"
+     ],
+     "transfers_condition": false,
+     "fails_condition": false,
+     "swap_cap": false,
+     "ratio_condition_vacuous": true
+    }
+   }
+  },
+  "overall": {
+   "Q3a": {
+    "verdict": "inconclusive",
+    "per_background": {
+     "RPE1": "transfers",
+     "hPSC": "inconclusive"
+    }
+   },
+   "Q3b": {
+    "verdict": "inconclusive",
+    "per_background": {
+     "RPE1": "inconclusive",
+     "hPSC": "inconclusive"
+    }
+   }
+  },
+  "ceiling_comparison": {
+   "RPE1": {
+    "Q3a_primary": {
+     "T_skill": 0.014424200702226914,
+     "T_ci": [
+      0.008011333611334343,
+      0.021588276963255038
+     ],
+     "ceiling_skill": -0.03250800586503308,
+     "MDE": 0.03381003936590521,
+     "skill_over_ceiling": null
+    },
+    "Q3a_effect_label": {
+     "T_skill": 0.016750176900276567,
+     "T_ci": [
+      0.008011601333044639,
+      0.026665134557430827
+     ],
+     "ceiling_skill": -0.03793135044321877,
+     "MDE": 0.037071685233764196,
+     "skill_over_ceiling": null
+    },
+    "Q3b_primary": {
+     "T_skill": 0.002906613347875689,
+     "T_ci": [
+      -0.017698340982471653,
+      0.022540261764068766
+     ],
+     "ceiling_skill": -0.1545052107213026,
+     "MDE": 0.14139020754592574,
+     "skill_over_ceiling": null
+    },
+    "Q3b_vs_B0": {
+     "T_skill": 0.009386150274232896,
+     "T_ci": [
+      -0.014105200475250919,
+      0.034408641840075735
+     ],
+     "ceiling_skill": -0.1480256737949454,
+     "MDE": 0.14224937377909283,
+     "skill_over_ceiling": null
+    },
+    "Q3b_rare_vs_B1n": {
+     "T_skill": 0.0695569828722003,
+     "T_ci": [
+      -0.09582146355799369,
+      0.23191376879699244
+     ],
+     "ceiling_skill": -0.10972222222222223,
+     "MDE": 0.2755193170951122,
+     "skill_over_ceiling": null
+    }
+   },
+   "hPSC": {
+    "Q3a_primary": {
+     "T_skill": 0.0035016262185063596,
+     "T_ci": [
+      -0.0003423425951608906,
+      0.007232811395527783
+     ],
+     "ceiling_skill": -0.07819020192714055,
+     "MDE": 0.07729154266049588,
+     "skill_over_ceiling": null
+    },
+    "Q3a_effect_label": {
+     "T_skill": 0.006478018625233339,
+     "T_ci": [
+      0.0014845013377245537,
+      0.011598166386978796
+     ],
+     "ceiling_skill": -0.07239132954480776,
+     "MDE": 0.07914668630568031,
+     "skill_over_ceiling": null
+    },
+    "Q3b_primary": {
+     "T_skill": -0.006224066390041472,
+     "T_ci": [
+      -0.03261361400747592,
+      0.023286507765314858
+     ],
+     "ceiling_skill": -0.18257261410788372,
+     "MDE": 0.2603614715725964,
+     "skill_over_ceiling": null
+    },
+    "Q3b_vs_B0": {
+     "T_skill": -0.014522821576763545,
+     "T_ci": [
+      -0.04916246755229805,
+      0.012677137028469485
+     ],
+     "ceiling_skill": -0.1908713692946058,
+     "MDE": 0.2611872676537797,
+     "skill_over_ceiling": null
+    },
+    "Q3b_rare_vs_B1n": {
+     "T_skill": -0.050000000000000044,
+     "T_ci": [
+      -0.26565104166666664,
+      0.25
+     ],
+     "ceiling_skill": -0.2,
+     "MDE": 0.37496969420406634,
+     "skill_over_ceiling": null
+    }
+   }
+  },
+  "plan_matches_frozen": {
+   "RPE1": null,
+   "hPSC": null
+  }
+ },
+ "hypotheses": {
+  "H1": "pass",
+  "H2": "pass",
+  "H3": "inconclusive",
+  "H4": "inconclusive"
+ },
+ "predictions_with_confidence": {
+  "file": "results/dryrun/transfer/predictions_with_confidence_all_20261027-202316.parquet",
+  "sha256": "daa3c6206767d746936c6dcb6c07cd14f0d68282abf2a06b4a092840ec4f0094",
+  "n_rows": 1271946,
+  "n_predictions": 69,
+  "predictable_genes": "configs/predictable_genes.csv",
+  "predictable_genes_sha256": "c8a32daded480ce7110353d6dad694902e52b49dbf2dbad3ed2b8689b05ba07a",
+  "note": "confidence / tier = the G4 headline model's dev-CV per-gene tiers (DESIGN \u00a74); for model T and the other roles they are a proxy for how well the gene's variation is predictable from expression in cancer lines, not a property of the external screen"
+ },
+ "accesses": [
+  {
+   "timestamp": "2026-10-27T21:16:54",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setA:A1(dry stand-in)",
+   "n_ids": 5,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:18:08",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setA:A1(dry stand-in)",
+   "n_ids": 5,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:42",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000200:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:42",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000200(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:44",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000269:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:44",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000269(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:46",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000067:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:46",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000067(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:48",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000329:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:48",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000329(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:50",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000095:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:50",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000095(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:52",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000208:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:52",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000208(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:54",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000231:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:20:54",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000231(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:53",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000479:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:53",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000479(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:55",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000232:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:55",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000232(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:57",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000311:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:57",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000311(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:59",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000035:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:27:59",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000035(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:28:02",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000257:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:28:02",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000257(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:28:04",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "dry:ACH-000416:24b46e2a",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:28:04",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setB:ACH-000416(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:25",
+   "finalist": "t_E_status_noEC",
+   "role": "H3_noEC",
+   "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
+   "scope": "dry:ACH-000035:fa0181c1",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:25",
+   "finalist": "t_E_status_noEC",
+   "role": "H3_noEC",
+   "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
+   "scope": "setB:ACH-000035(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:27",
+   "finalist": "t_E_status_noEC",
+   "role": "H3_noEC",
+   "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
+   "scope": "dry:ACH-000257:fa0181c1",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:27",
+   "finalist": "t_E_status_noEC",
+   "role": "H3_noEC",
+   "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
+   "scope": "setB:ACH-000257(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:30",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000200:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:30",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000200(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:32",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000269:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:32",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000269(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:34",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000067:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:34",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000067(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:36",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000329:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:36",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000329(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:38",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000095:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:38",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000095(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:40",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000208:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:40",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000208(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:42",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000231:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:29:42",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000231(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:31:57",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000200:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:31:57",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000200(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:31:59",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000269:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:31:59",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000269(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:01",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000067:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:01",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000067(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:03",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000329:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:03",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000329(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:05",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000095:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:05",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000095(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:07",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000208:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:07",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000208(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:09",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000231:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:32:09",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000231(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:22",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000035:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:22",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000035(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:24",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "dry:ACH-000257:6dbebcf4",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:24",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setB:ACH-000257(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:39",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000035:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:39",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000035(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:41",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "dry:ACH-000257:289f5170",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-27T21:33:41",
+   "finalist": "b2",
+   "role": "B2",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "scope": "setB:ACH-000257(dry stand-in)",
+   "n_ids": 1,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  }
+ ],
+ "n_accesses_granted": 68
+}

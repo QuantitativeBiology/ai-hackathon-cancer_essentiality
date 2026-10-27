@@ -27,6 +27,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -2.6744154332085726e-05,
      "per_study": {
       "A_mair2019_HAP1_T18": -0.001968
      },
@@ -60,6 +61,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": -0.00949337935124247,
      "per_study": {
       "A_mair2019_HAP1_T18": 0.02099
      },
@@ -134,6 +136,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -1.6167387862005625e-05,
     "per_study": {
      "s_mair": 0.003502
     },
@@ -156,6 +159,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -1.6469255897855715e-05,
     "per_study": {
      "s_mair": 0.00552
     },
@@ -189,6 +193,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": 4.679868396421233e-06,
      "per_study": {
       "s_mair": -0.021057
      },
@@ -216,6 +221,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -2.5800675790279073e-05,
     "per_study": {
      "s_mair": 0.006478
     },
@@ -238,6 +244,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -2.658576934067708e-05,
     "per_study": {
      "s_mair": 0.008343
     },
@@ -272,6 +279,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.0031031337985409093,
     "per_study": {
      "s_mair": -0.006224
     },
@@ -294,6 +302,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.0069332983830281475,
     "per_study": {
      "s_mair": -0.004149
     },
@@ -337,6 +346,7 @@
      "n_boot_valid": 2000,
      "n_entries_valid": 1,
      "entries_invalid": [],
+     "boot_mean_minus_point": 0.0002957307033033263,
      "per_study": {
       "s_mair": -0.028008
      },
@@ -364,6 +374,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.0013159227726831212,
     "per_study": {
      "s_mair": -0.014523
     },
@@ -386,6 +397,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.005146087357170358,
     "per_study": {
      "s_mair": -0.012448
     },
@@ -420,6 +432,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.04094484726445627,
     "per_study": {
      "s_mair": -0.05
     },
@@ -442,6 +455,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.01430565306192162,
     "per_study": {
      "s_mair": 0.0
     },

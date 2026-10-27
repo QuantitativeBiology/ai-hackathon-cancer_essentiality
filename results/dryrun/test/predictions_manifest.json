@@ -1,0 +1,222 @@
+{
+ "m5_avg": {
+  "file": "cache/dryrun/test/preds/m5_avg.parquet",
+  "sha256": "238847c0a13f581ee10d8c34694ad6f84c7eab49e2c49ac1a96bb8f5cb4c17c3",
+  "n_lines": 208,
+  "n_genes": 18434,
+  "fit_s": 0.3596177001018077,
+  "predict_s": 327.63778689992614,
+  "refit_s": 327.99740460002795,
+  "refit_note": "M5 average: inputs refitted on the training lines inside predict (refit_s = fit + predict)",
+  "n_train_ids": 814,
+  "chosen_params": {},
+  "threads": 4,
+  "train_ids_sha256": "198e0a7b00f7e73f6d5e3a85a38229f3921ef16a2a18306cbd8d0c469953ad9c",
+  "excluded_from_training": [],
+  "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+  "timestamp": "2026-10-27T19:34:44",
+  "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+  "predictions_with_confidence": {
+   "file": "cache/dryrun/test/preds/m5_avg_with_confidence.parquet",
+   "sha256": "e02165f00e571726e3c11af763b5b0e84306cf4e903337a4870bac6441fc1718",
+   "predictable_genes": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "predictable_genes_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd"
+  },
+  "peak_rss_mb": 3051.05078125,
+  "rss_method": "psutil.peak_wset",
+  "total_s": 370.34478679997846
+ },
+ "t_E_status": {
+  "file": "cache/dryrun/test/preds/t_E_status.parquet",
+  "sha256": "7466e48113aeaac3251cef72b82ed80a91094f5a96c06ed7bac4cb933b4cf617",
+  "n_lines": 208,
+  "n_genes": 18434,
+  "fit_s": 70.82538380008191,
+  "predict_s": 0.7618883000686765,
+  "refit_s": 71.58727210015059,
+  "refit_note": "fit_s = tuning + fit",
+  "n_train_ids": 814,
+  "chosen_params": {},
+  "threads": 4,
+  "train_ids_sha256": "198e0a7b00f7e73f6d5e3a85a38229f3921ef16a2a18306cbd8d0c469953ad9c",
+  "excluded_from_training": [],
+  "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+  "timestamp": "2026-10-27T19:36:42",
+  "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+  "predictions_with_confidence": {
+   "file": "cache/dryrun/test/preds/t_E_status_with_confidence.parquet",
+   "sha256": "dd0e44454c13c410e06403de40b643b326b97d4b0066db8fcc6a803a2623abe8",
+   "predictable_genes": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "predictable_genes_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd"
+  },
+  "fold_preds": {
+   "1": {
+    "file": "cache/dryrun/test/preds/t_E_status_fold1.parquet",
+    "sha256": "293b2cf2206d8f17ed701f7f79e676a8e3b56adea6a59d829842db83d6dec195"
+   },
+   "2": {
+    "file": "cache/dryrun/test/preds/t_E_status_fold2.parquet",
+    "sha256": "558865d36e547c9cc4a7b523f74c6722d97a354704da32d15b947fda0ef0958f"
+   },
+   "3": {
+    "file": "cache/dryrun/test/preds/t_E_status_fold3.parquet",
+    "sha256": "4f61dbeda0a3b75830ca290e7d90ba8238fa042833a94289be68e4d66abdc522"
+   },
+   "4": {
+    "file": "cache/dryrun/test/preds/t_E_status_fold4.parquet",
+    "sha256": "dc55d0bedf88125b4cae8817e1f0f885852808987083b74d03bc7db3872a02b8"
+   }
+  },
+  "fold_models": {
+   "tag": "dry_t_E_status_24b46e2a",
+   "source": "persisted"
+  },
+  "peak_rss_mb": 1882.98828125,
+  "rss_method": "psutil.peak_wset",
+  "total_s": 120.27083109994419
+ },
+ "t_E_status_noEC": {
+  "file": "cache/dryrun/test/preds/t_E_status_noEC.parquet",
+  "sha256": "f209bd3979713311495a7f25a5e35750d4a9ea9d33bd1a4e8b463cbac47308b5",
+  "n_lines": 208,
+  "n_genes": 18434,
+  "fit_s": 54.3332809000276,
+  "predict_s": 0.7419690999668092,
+  "refit_s": 55.07524999999441,
+  "refit_note": "fit_s = tuning + fit",
+  "n_train_ids": 812,
+  "chosen_params": {},
+  "threads": 4,
+  "train_ids_sha256": "11b9e07c3d1d94d6af9d7aea7efa76af0f9db1e2779663dbaaadae2f2dbbf123",
+  "excluded_from_training": [
+   "ACH-001578",
+   "ACH-002291",
+   "ACH-001374",
+   "ACH-001668"
+  ],
+  "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
+  "timestamp": "2026-10-27T19:38:26",
+  "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+  "predictions_with_confidence": {
+   "file": "cache/dryrun/test/preds/t_E_status_noEC_with_confidence.parquet",
+   "sha256": "b1535cbe8fcd6799cb2e78df8b3f870015d8a1287642f8615dc74d55f3fcf6ff",
+   "predictable_genes": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "predictable_genes_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd"
+  },
+  "peak_rss_mb": 1875.515625,
+  "rss_method": "psutil.peak_wset",
+  "total_s": 77.66613420005888
+ },
+ "b0": {
+  "file": "cache/dryrun/test/preds/b0.parquet",
+  "sha256": "e6752edcafa8dc204d2575529e6560cfd8ff824aaedb544ee8c6d9bdebba29e1",
+  "n_lines": 208,
+  "n_genes": 18434,
+  "fit_s": 0.12157409987412393,
+  "predict_s": 0.01247820002026856,
+  "refit_s": 0.1340522998943925,
+  "refit_note": "fit_s = tuning + fit",
+  "n_train_ids": 814,
+  "chosen_params": {},
+  "threads": 4,
+  "train_ids_sha256": "198e0a7b00f7e73f6d5e3a85a38229f3921ef16a2a18306cbd8d0c469953ad9c",
+  "excluded_from_training": [],
+  "config_hash": "831b9415fbf1b09d4876aa13173dbea90b8b764975d020fcd4a376bb999672d2",
+  "timestamp": "2026-10-27T19:38:52",
+  "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+  "predictions_with_confidence": {
+   "file": "cache/dryrun/test/preds/b0_with_confidence.parquet",
+   "sha256": "d28ef1f3043772e90379fc7bf783fb3c5e0e9faf71fedad25c1378b52e400674",
+   "predictable_genes": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "predictable_genes_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd"
+  },
+  "peak_rss_mb": 975.80859375,
+  "rss_method": "psutil.peak_wset",
+  "total_s": 21.510898999869823
+ },
+ "b1": {
+  "file": "cache/dryrun/test/preds/b1.parquet",
+  "sha256": "3ed94497084f9c8741ac3ca8d3a01130b37953d503d67df05e1ad66da54c88b3",
+  "n_lines": 208,
+  "n_genes": 18434,
+  "fit_s": 22.299354899907485,
+  "predict_s": 0.013467899989336729,
+  "refit_s": 22.31282279989682,
+  "refit_note": "fit_s = tuning + fit",
+  "n_train_ids": 814,
+  "chosen_params": {
+   "kappa": 10
+  },
+  "threads": 4,
+  "train_ids_sha256": "198e0a7b00f7e73f6d5e3a85a38229f3921ef16a2a18306cbd8d0c469953ad9c",
+  "excluded_from_training": [],
+  "config_hash": "0e2a7a27931baea8a604ae29c759de57c31ea3ccfdbbe43218f9116f6c774a0d",
+  "timestamp": "2026-10-27T19:39:40",
+  "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+  "predictions_with_confidence": {
+   "file": "cache/dryrun/test/preds/b1_with_confidence.parquet",
+   "sha256": "f9543600f66bd54417e4294c117fab095d15c2d5c8e0c62d3c18813cfab875c9",
+   "predictable_genes": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "predictable_genes_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd"
+  },
+  "peak_rss_mb": 1005.171875,
+  "rss_method": "psutil.peak_wset",
+  "total_s": 46.270139399915934
+ },
+ "b2": {
+  "file": "cache/dryrun/test/preds/b2.parquet",
+  "sha256": "e708547f5c4cc1a4d45902b573a3da8ee0e1b83eeb23f2611116c5081171bb8d",
+  "n_lines": 208,
+  "n_genes": 18434,
+  "fit_s": 27.59917540010065,
+  "predict_s": 0.68648979999125,
+  "refit_s": 28.2856652000919,
+  "refit_note": "fit_s = tuning + fit",
+  "n_train_ids": 814,
+  "chosen_params": {
+   "k": 30
+  },
+  "threads": 4,
+  "train_ids_sha256": "198e0a7b00f7e73f6d5e3a85a38229f3921ef16a2a18306cbd8d0c469953ad9c",
+  "excluded_from_training": [],
+  "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+  "timestamp": "2026-10-27T19:40:38",
+  "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+  "predictions_with_confidence": {
+   "file": "cache/dryrun/test/preds/b2_with_confidence.parquet",
+   "sha256": "6203684bb1c6ff010bac56e09c9b6a6731fd55c9a773c241a78a7395949a08da",
+   "predictable_genes": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "predictable_genes_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd"
+  },
+  "peak_rss_mb": 1202.75390625,
+  "rss_method": "psutil.peak_wset",
+  "total_s": 51.45554620004259
+ },
+ "m1_E_resB0": {
+  "file": "cache/dryrun/test/preds/m1_E_resB0.parquet",
+  "sha256": "c16972a951f934cdb14c84eb3b7758a7e805e23e5203300d4a4d40428af68cb9",
+  "n_lines": 208,
+  "n_genes": 18434,
+  "fit_s": 55.53970219986513,
+  "predict_s": 0.734564800048247,
+  "refit_s": 56.27426699991338,
+  "refit_note": "fit_s = tuning + fit",
+  "n_train_ids": 814,
+  "chosen_params": {},
+  "threads": 4,
+  "train_ids_sha256": "198e0a7b00f7e73f6d5e3a85a38229f3921ef16a2a18306cbd8d0c469953ad9c",
+  "excluded_from_training": [],
+  "config_hash": "91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4",
+  "timestamp": "2026-10-27T19:42:00",
+  "git_commit": "4c9118c1b67cc6f853ecfffff3dd0138e9582f61",
+  "predictions_with_confidence": {
+   "file": "cache/dryrun/test/preds/m1_E_resB0_with_confidence.parquet",
+   "sha256": "051f736bf5b714acf328e400d13592b10011eb38b265995beb6d805b33570aec",
+   "predictable_genes": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "predictable_genes_sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd"
+  },
+  "peak_rss_mb": 1879.125,
+  "rss_method": "psutil.peak_wset",
+  "total_s": 77.87140469998121
+ }
+}

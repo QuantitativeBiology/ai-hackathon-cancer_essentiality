@@ -89,8 +89,8 @@
    "observed_condition": true,
    "sign_agreement": "2/2",
    "model_delta": {
-    "MDM2": -0.6450994795623352,
-    "PPM1D": -0.287927537066439
+    "MDM2": -0.6450994795623349,
+    "PPM1D": -0.28792753706643903
    },
    "observed_delta": {
     "MDM2": -0.9811564385890961,
@@ -317,32 +317,33 @@
   "RPE1": {
    "errors": {},
    "Q3a_primary_headline": {
-    "point": 0.013282694758246477,
-    "ci_lo": 0.007571922758240628,
-    "ci_hi": 0.018990421462146072,
-    "se": 0.0029229867934572364,
+    "point": 0.014173590537047573,
+    "ci_lo": 0.008173210234411424,
+    "ci_hi": 0.02017739749391585,
+    "se": 0.0030491423757765717,
     "n_boot_valid": 2000,
     "n_entries_valid": 5,
     "entries_invalid": [],
+    "boot_mean_minus_point": -4.515446323988259e-06,
     "per_study": {
-     "s_brown": 0.013102,
-     "s_haap": 0.014257,
-     "s_hart": 0.019702,
-     "s_olivieri": 0.006069
+     "s_brown": 0.014418,
+     "s_haap": 0.01526,
+     "s_hart": 0.020511,
+     "s_olivieri": 0.006505
     },
     "per_entry": {
-     "s_brown:WT": 0.014038,
-     "s_brown:null": 0.012167,
-     "s_haap:null": 0.014257,
-     "s_hart:WT": 0.019702,
-     "s_olivieri:null": 0.006069
+     "s_brown:WT": 0.015033,
+     "s_brown:null": 0.013804,
+     "s_haap:null": 0.01526,
+     "s_hart:WT": 0.020511,
+     "s_olivieri:null": 0.006505
     },
     "model_abs_per_entry": {
-     "s_brown:WT": 0.883678,
-     "s_brown:null": 0.903561,
-     "s_haap:null": 0.849763,
-     "s_hart:WT": 0.851283,
-     "s_olivieri:null": 0.884888
+     "s_brown:WT": 0.884674,
+     "s_brown:null": 0.905197,
+     "s_haap:null": 0.850767,
+     "s_hart:WT": 0.852092,
+     "s_olivieri:null": 0.885323
     },
     "comparator_abs_per_entry": {
      "s_brown:WT": 0.86964,
@@ -353,32 +354,33 @@
     }
    },
    "Q3b_primary_headline": {
-    "point": 0.0017638684619124129,
-    "ci_lo": -0.017925204801119435,
-    "ci_hi": 0.021961436068045747,
-    "se": 0.010045184775708958,
+    "point": 0.0009673899722462131,
+    "ci_lo": -0.017387310479180646,
+    "ci_hi": 0.021444870547660127,
+    "se": 0.00975256766297214,
     "n_boot_valid": 2000,
     "n_entries_valid": 5,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.0009568644942099158,
     "per_study": {
-     "s_brown": 0.016604,
-     "s_haap": -0.006944,
-     "s_hart": -0.00686,
-     "s_olivieri": 0.004255
+     "s_brown": 0.012038,
+     "s_haap": -0.00496,
+     "s_hart": -0.005335,
+     "s_olivieri": 0.002128
     },
     "per_entry": {
-     "s_brown:WT": 0.006349,
-     "s_brown:null": 0.02686,
-     "s_haap:null": -0.006944,
-     "s_hart:WT": -0.00686,
-     "s_olivieri:null": 0.004255
+     "s_brown:WT": 0.002381,
+     "s_brown:null": 0.021694,
+     "s_haap:null": -0.00496,
+     "s_hart:WT": -0.005335,
+     "s_olivieri:null": 0.002128
     },
     "model_abs_per_entry": {
-     "s_brown:WT": 0.926984,
-     "s_brown:null": 0.919421,
-     "s_haap:null": 0.925595,
-     "s_hart:WT": 0.89253,
-     "s_olivieri:null": 0.965957
+     "s_brown:WT": 0.923016,
+     "s_brown:null": 0.914256,
+     "s_haap:null": 0.927579,
+     "s_hart:WT": 0.894055,
+     "s_olivieri:null": 0.96383
     },
     "comparator_abs_per_entry": {
      "s_brown:WT": 0.920635,
@@ -391,23 +393,23 @@
    "deviation_corr_headline": {
     "s_brown:WT": {
      "n_genes": 5428,
-     "r": 0.369917
+     "r": 0.38622
     },
     "s_brown:null": {
      "n_genes": 5428,
-     "r": 0.37771
+     "r": 0.393932
     },
     "s_haap:null": {
      "n_genes": 5377,
-     "r": 0.336423
+     "r": 0.360774
     },
     "s_hart:WT": {
      "n_genes": 5377,
-     "r": 0.430756
+     "r": 0.4466
     },
     "s_olivieri:null": {
      "n_genes": 5377,
-     "r": 0.314065
+     "r": 0.319341
     }
    },
    "Q3a_primary_B2": {
@@ -418,6 +420,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 5,
     "entries_invalid": [],
+    "boot_mean_minus_point": -6.191939300668158e-05,
     "per_study": {
      "s_brown": 0.01002,
      "s_haap": 0.004153,
@@ -454,6 +457,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 5,
     "entries_invalid": [],
+    "boot_mean_minus_point": -0.002666774432980943,
     "per_study": {
      "s_brown": 0.027287,
      "s_haap": 0.015873,
@@ -509,42 +513,44 @@
   "hPSC": {
    "errors": {},
    "Q3a_primary_headline": {
-    "point": 0.007210057977507844,
-    "ci_lo": 0.003500338391036892,
-    "ci_hi": 0.01070157773908589,
-    "se": 0.0018366864500984005,
+    "point": 0.008342552107822865,
+    "ci_lo": 0.004493933020491924,
+    "ci_hi": 0.012183165269694042,
+    "se": 0.0019505492561880408,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 1.768445677175108e-05,
     "per_study": {
-     "s_mair": 0.00721
+     "s_mair": 0.008343
     },
     "per_entry": {
-     "s_mair:WT": 0.00721
+     "s_mair:WT": 0.008343
     },
     "model_abs_per_entry": {
-     "s_mair:WT": 0.885952
+     "s_mair:WT": 0.887085
     },
     "comparator_abs_per_entry": {
      "s_mair:WT": 0.878742
     }
    },
    "Q3b_primary_headline": {
-    "point": 0.009336099585062319,
-    "ci_lo": -0.026598789995127447,
-    "ci_hi": 0.032471061547148544,
-    "se": 0.014482112517588023,
+    "point": 0.011410788381742809,
+    "ci_lo": -0.019882934211697668,
+    "ci_hi": 0.03587303184827333,
+    "se": 0.014259300731390485,
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -0.00128512457832196,
     "per_study": {
-     "s_mair": 0.009336
+     "s_mair": 0.011411
     },
     "per_entry": {
-     "s_mair:WT": 0.009336
+     "s_mair:WT": 0.011411
     },
     "model_abs_per_entry": {
-     "s_mair:WT": 0.959544
+     "s_mair:WT": 0.961618
     },
     "comparator_abs_per_entry": {
      "s_mair:WT": 0.950207
@@ -553,7 +559,7 @@
    "deviation_corr_headline": {
     "s_mair:WT": {
      "n_genes": 5428,
-     "r": 0.285824
+     "r": 0.302388
     }
    },
    "Q3a_primary_B2": {
@@ -564,6 +570,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": -4.589327891805443e-05,
     "per_study": {
      "s_mair": 0.005819
     },
@@ -585,6 +592,7 @@
     "n_boot_valid": 2000,
     "n_entries_valid": 1,
     "entries_invalid": [],
+    "boot_mean_minus_point": 0.005092836645836872,
     "per_study": {
      "s_mair": 0.001037
     },

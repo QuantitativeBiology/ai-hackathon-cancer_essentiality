@@ -1,0 +1,10 @@
+{
+ "n_lines": 208,
+ "max_abs_diff_vs_cv_fold0": 1.862645149230957e-09,
+ "refit_s": 1074.774460799992,
+ "note": "M5 average: inputs refitted on the training lines inside predict (refit_s = fit + predict; all model caches fresh)",
+ "wall_s": 1101.6,
+ "what": "final-code G4 phase A for the headline m5_avg in the dev-only dry run (fold 0 stands in for the test set): every model cache fresh (cache/m2_inner, m5_inner, m5_outer redirected to a new empty directory), compared with CV run 20261027-161041_m5_avg_6dbebcf4 fold 0",
+ "threads": 4,
+ "n_train": 818
+}
