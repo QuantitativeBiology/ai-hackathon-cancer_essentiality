@@ -1,0 +1,602 @@
+{
+ "background": "hPSC",
+ "errors": {},
+ "plan": {
+  "verdict_studies": [
+   "s_mair"
+  ],
+  "n_genes": 16857,
+  "n_blocks": 10659,
+  "matches_frozen_plan": null
+ },
+ "harmonisation": {
+  "frozen_passed": true,
+  "recomputed_consensus_qc": {
+   "s_mair:WT": true
+  },
+  "used": true
+ },
+ "anchor_gate": {
+  "Q3a_primary": {
+   "anchors": {
+    "A_mair2019_HAP1_T18": {
+     "point": -0.0019678185961713446,
+     "ci_lo": -0.0064031632333938155,
+     "ci_hi": 0.002261878250967309,
+     "se": 0.0022016875669529264,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "per_study": {
+      "A_mair2019_HAP1_T18": -0.001968
+     },
+     "per_entry": {
+      "A_mair2019_HAP1_T18": -0.001968
+     },
+     "model_abs_per_entry": {
+      "A_mair2019_HAP1_T18": 0.742189
+     },
+     "comparator_abs_per_entry": {
+      "A_mair2019_HAP1_T18": 0.744157
+     },
+     "depmap_id": "ACH-002475",
+     "oof_folds": [
+      2
+     ],
+     "n_universe": 16272
+    }
+   },
+   "n_anchors": 1,
+   "positive_anchors": [],
+   "informative_positive": false
+  },
+  "Q3b_primary": {
+   "anchors": {
+    "A_mair2019_HAP1_T18": {
+     "point": 0.020989505247376306,
+     "ci_lo": -0.04028954414943374,
+     "ci_hi": 0.05693721633888045,
+     "se": 0.025343550582462668,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "per_study": {
+      "A_mair2019_HAP1_T18": 0.02099
+     },
+     "per_entry": {
+      "A_mair2019_HAP1_T18": 0.02099
+     },
+     "model_abs_per_entry": {
+      "A_mair2019_HAP1_T18": 0.70015
+     },
+     "comparator_abs_per_entry": {
+      "A_mair2019_HAP1_T18": 0.67916
+     },
+     "depmap_id": "ACH-002475",
+     "oof_folds": [
+      2
+     ],
+     "n_universe": 16272
+    }
+   },
+   "n_anchors": 1,
+   "positive_anchors": [],
+   "informative_positive": false
+  }
+ },
+ "verdicts": {
+  "Q3a": {
+   "verdict": "inconclusive",
+   "reasons": [
+    "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+    "fails blocked: anchor gate not informative/positive"
+   ],
+   "transfers_condition": false,
+   "fails_condition": false,
+   "swap_cap": false,
+   "ratio_condition_vacuous": true
+  },
+  "Q3b": {
+   "verdict": "inconclusive",
+   "reasons": [
+    "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+    "fails blocked: anchor gate not informative/positive"
+   ],
+   "transfers_condition": false,
+   "fails_condition": false,
+   "swap_cap": false,
+   "ratio_condition_vacuous": true
+  }
+ },
+ "secondary": {
+  "deviation_corr_T_ensemble": {
+   "s_mair:WT": {
+    "n_genes": 5428,
+    "r": 0.254844
+   }
+  },
+  "lost_gained_essentials": {
+   "s_mair:WT": {
+    "n_lost": 0,
+    "frac_lost_predicted_up": null,
+    "n_gained": 244,
+    "frac_gained_predicted_down": 0.668033
+   }
+  }
+ },
+ "statistics": {
+  "Q3a_primary": {
+   "T": {
+    "point": 0.0035016262185063596,
+    "ci_lo": -0.0003423425951608906,
+    "ci_hi": 0.007232811395527783,
+    "se": 0.001963202351754489,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.003502
+    },
+    "per_entry": {
+     "s_mair:WT": 0.003502
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.882244
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.878742
+    }
+   },
+   "verdict_bearing": true,
+   "T_ensemble": {
+    "point": 0.005520389164177186,
+    "ci_lo": 0.0016858968271689432,
+    "ci_hi": 0.009295047680948068,
+    "se": 0.0019702026676983566,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.00552
+    },
+    "per_entry": {
+     "s_mair:WT": 0.00552
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.884263
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.878742
+    }
+   },
+   "ceiling": {
+    "ceiling_skill": -0.07819020192714055,
+    "MDE": 0.07729154266049588,
+    "se": 0.03864577133024794,
+    "ci": [
+     -0.18100069672064364,
+     -0.06988805485543692
+    ],
+    "source": "computed (dry run stand-in)"
+   },
+   "skill_over_ceiling": null,
+   "swap": {
+    "RPE1 stand-in|line:ACH-000095": {
+     "point": -0.021056946592883374,
+     "ci_lo": -0.025933484530510458,
+     "ci_hi": -0.01621103705249656,
+     "se": 0.0025831589902744214,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "per_study": {
+      "s_mair": -0.021057
+     },
+     "per_entry": {
+      "s_mair:WT": -0.021057
+     },
+     "model_abs_per_entry": {
+      "s_mair:WT": 0.857685
+     },
+     "comparator_abs_per_entry": {
+      "s_mair:WT": 0.878742
+     }
+    }
+   },
+   "matched_minus_swap_point": {
+    "RPE1 stand-in|line:ACH-000095": 0.024558572811389734
+   }
+  },
+  "Q3a_effect_label": {
+   "T": {
+    "point": 0.006478018625233339,
+    "ci_lo": 0.0014845013377245537,
+    "ci_hi": 0.011598166386978796,
+    "se": 0.0025848279297579733,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.006478
+    },
+    "per_entry": {
+     "s_mair:WT": 0.006478
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.907294
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.900816
+    }
+   },
+   "verdict_bearing": false,
+   "T_ensemble": {
+    "point": 0.008342866399552729,
+    "ci_lo": 0.0033197671700048704,
+    "ci_hi": 0.013438738412574624,
+    "se": 0.0026066534972151285,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.008343
+    },
+    "per_entry": {
+     "s_mair:WT": 0.008343
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.909159
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.900816
+    }
+   },
+   "ceiling": {
+    "ceiling_skill": -0.07239132954480776,
+    "MDE": 0.07914668630568031,
+    "se": 0.039573343152840154,
+    "ci": [
+     -0.17850352050503568,
+     -0.06181883412009521
+    ],
+    "source": "computed (dry run stand-in)"
+   },
+   "skill_over_ceiling": null
+  },
+  "Q3b_primary": {
+   "T": {
+    "point": -0.006224066390041472,
+    "ci_lo": -0.03261361400747592,
+    "ci_hi": 0.023286507765314858,
+    "se": 0.014010723490160021,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": -0.006224
+    },
+    "per_entry": {
+     "s_mair:WT": -0.006224
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.943983
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.950207
+    }
+   },
+   "verdict_bearing": true,
+   "T_ensemble": {
+    "point": -0.004149377593360981,
+    "ci_lo": -0.03266661021254968,
+    "ci_hi": 0.03265306122448974,
+    "se": 0.01648401021394387,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": -0.004149
+    },
+    "per_entry": {
+     "s_mair:WT": -0.004149
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.946058
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.950207
+    }
+   },
+   "ceiling": {
+    "ceiling_skill": -0.18257261410788372,
+    "MDE": 0.2603614715725964,
+    "se": 0.1301807357862982,
+    "ci": [
+     -0.5155813586097946,
+     -0.09542535814198011
+    ],
+    "source": "computed (dry run stand-in)"
+   },
+   "skill_over_ceiling": null,
+   "recall_clopper_pearson_T_ensemble": {
+    "s_mair:WT": {
+     "recall": 0.946058,
+     "n_pos": 241,
+     "ci": [
+      0.9095239789496669,
+      0.9709690373855101
+     ]
+    }
+   },
+   "swap": {
+    "RPE1 stand-in|line:ACH-000095": {
+     "point": -0.028008298755186734,
+     "ci_lo": -0.06477474800304302,
+     "ci_hi": 0.005390897956858562,
+     "se": 0.017770848014910277,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "per_study": {
+      "s_mair": -0.028008
+     },
+     "per_entry": {
+      "s_mair:WT": -0.028008
+     },
+     "model_abs_per_entry": {
+      "s_mair:WT": 0.922199
+     },
+     "comparator_abs_per_entry": {
+      "s_mair:WT": 0.950207
+     }
+    }
+   },
+   "matched_minus_swap_point": {
+    "RPE1 stand-in|line:ACH-000095": 0.021784232365145262
+   }
+  },
+  "Q3b_vs_B0": {
+   "T": {
+    "point": -0.014522821576763545,
+    "ci_lo": -0.04916246755229805,
+    "ci_hi": 0.012677137028469485,
+    "se": 0.014157447555084893,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": -0.014523
+    },
+    "per_entry": {
+     "s_mair:WT": -0.014523
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.943983
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.958506
+    }
+   },
+   "verdict_bearing": false,
+   "T_ensemble": {
+    "point": -0.012448132780083054,
+    "ci_lo": -0.0493329091423262,
+    "ci_hi": 0.020663300298343706,
+    "se": 0.01692091941407056,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": -0.012448
+    },
+    "per_entry": {
+     "s_mair:WT": -0.012448
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.946058
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.958506
+    }
+   },
+   "ceiling": {
+    "ceiling_skill": -0.1908713692946058,
+    "MDE": 0.2611872676537797,
+    "se": 0.13059363382688985,
+    "ci": [
+     -0.5276655099990867,
+     -0.11058740534724622
+    ],
+    "source": "computed (dry run stand-in)"
+   },
+   "skill_over_ceiling": null
+  },
+  "Q3b_rare_vs_B1n": {
+   "T": {
+    "point": -0.050000000000000044,
+    "ci_lo": -0.26565104166666664,
+    "ci_hi": 0.25,
+    "se": 0.12400736221246271,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": -0.05
+    },
+    "per_entry": {
+     "s_mair:WT": -0.05
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.416667
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.466667
+    }
+   },
+   "verdict_bearing": false,
+   "T_ensemble": {
+    "point": 0.0,
+    "ci_lo": -0.2857142857142857,
+    "ci_hi": 0.30000000000000004,
+    "se": 0.14816841044259763,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.0
+    },
+    "per_entry": {
+     "s_mair:WT": 0.0
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.466667
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.466667
+    }
+   },
+   "ceiling": {
+    "ceiling_skill": -0.2,
+    "MDE": 0.37496969420406634,
+    "se": 0.18748484710203317,
+    "ci": [
+     -0.6666666666666666,
+     0.07692307692307693
+    ],
+    "source": "computed (dry run stand-in)"
+   },
+   "skill_over_ceiling": null
+  }
+ },
+ "hypotheses": {
+  "H3": {
+   "result": "inconclusive",
+   "n_observed_depleted": 0,
+   "observed_depleted": [],
+   "reason": "< 3 genes observed < -0.5 in Mair 2019",
+   "per_gene": {
+    "5460": {
+     "observed": -0.229306,
+     "T": -0.030324,
+     "noEC": -0.028492
+    },
+    "79923": {
+     "observed": 0.062605,
+     "T": 0.238391,
+     "noEC": 0.238322
+    },
+    "6657": {
+     "observed": 0.121982,
+     "T": -0.315088,
+     "noEC": -0.313369
+    },
+    "79727": {
+     "observed": 0.000586,
+     "T": -0.082881,
+     "noEC": -0.08441
+    },
+    "1789": {
+     "observed": -0.110689,
+     "T": 0.077199,
+     "noEC": 0.076416
+    },
+    "63978": {
+     "observed": -0.336997,
+     "T": -0.079634,
+     "noEC": -0.078219
+    },
+    "7546": {
+     "observed": 0.030618,
+     "T": -0.005678,
+     "noEC": -0.005729
+    },
+    "54596": {
+     "observed": 0.048979,
+     "T": -0.009043,
+     "noEC": -0.009377
+    },
+    "55211": {
+     "observed": 0.056858,
+     "T": 0.078522,
+     "noEC": 0.079984
+    }
+   },
+   "noEC_excluded_lines": [
+    "ACH-001578",
+    "ACH-002291",
+    "ACH-001374",
+    "ACH-001668"
+   ]
+  }
+ },
+ "negative_controls_descriptive": {
+  "oncogene_addiction": {
+   "KRAS": {
+    "s_mair:WT": {
+     "T": -0.643295,
+     "B0": -0.753092,
+     "observed": -0.650658
+    }
+   },
+   "BRAF": {
+    "s_mair:WT": {
+     "T": -0.151428,
+     "B0": -0.191533,
+     "observed": -0.078348
+    }
+   },
+   "CTNNB1": {
+    "s_mair:WT": {
+     "T": 0.001219,
+     "B0": -0.28896,
+     "observed": 0.036856
+    }
+   }
+  },
+  "cn_null": {
+   "SMARCA2": {
+    "s_mair:WT": {
+     "T": -0.038481,
+     "B0": 0.03735,
+     "observed": -0.089446
+    }
+   },
+   "ARID1B": {
+    "s_mair:WT": {
+     "T": -0.078483,
+     "B0": -0.058181,
+     "observed": -0.032498
+    }
+   },
+   "STAG1": {
+    "s_mair:WT": {
+     "T": -0.151022,
+     "B0": -0.172073,
+     "observed": -0.123297
+    }
+   },
+   "ME2": {
+    "s_mair:WT": {
+     "T": -0.136131,
+     "B0": -0.082529,
+     "observed": -0.174009
+    }
+   },
+   "ME3": {
+    "s_mair:WT": {
+     "T": -0.004736,
+     "B0": 0.065465,
+     "observed": 0.187554
+    }
+   },
+   "ENO1": {
+    "s_mair:WT": {
+     "T": -0.385168,
+     "B0": -0.639846,
+     "observed": -0.880688
+    }
+   }
+  }
+ },
+ "status": "complete"
+}

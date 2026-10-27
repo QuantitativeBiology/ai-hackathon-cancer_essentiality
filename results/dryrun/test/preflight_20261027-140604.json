@@ -1,0 +1,50 @@
+{
+ "tree_clean": {
+  "pass": false,
+  "dirty": [
+   " M results/registry.csv",
+   "?? docs/g3_m5_results.md",
+   "?? results/dryrun/transfer/access_ledger_all.json",
+   "?? results/dryrun/transfer/preflight_all.json",
+   "?? results/dryrun/transfer/setA/summary.json",
+   "?? results/dryrun/transfer/setB/RPE1.json",
+   "?? results/dryrun/transfer/setB/hPSC.json",
+   "?? results/g3_m5_summary.json"
+  ]
+ },
+ "finalists_committed": {
+  "pass": true,
+  "file": "configs/finalists.example.json"
+ },
+ "gate_G3": {
+  "pass": false
+ },
+ "frozen_hashes": {
+  "pass": true,
+  "changed": []
+ },
+ "noEC_excludes_4_EC_dev_lines": {
+  "pass": true,
+  "lines": [
+   "ACH-001578",
+   "ACH-002291",
+   "ACH-001374",
+   "ACH-001668"
+  ]
+ },
+ "guard_would_grant": {
+  "pass": false,
+  "per_finalist": {
+   "m1_E_resB0": "ESSML_UNBLIND!=1",
+   "t_E_status": "ESSML_UNBLIND!=1",
+   "t_E_status_noEC": "ESSML_UNBLIND!=1",
+   "b0": "ESSML_UNBLIND!=1",
+   "b1": "ESSML_UNBLIND!=1",
+   "b2": "ESSML_UNBLIND!=1"
+  }
+ },
+ "spent_incomplete": {
+  "pass": true,
+  "finalists": []
+ }
+}

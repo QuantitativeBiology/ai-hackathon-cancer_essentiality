@@ -1,0 +1,100 @@
+{
+ "errors": {},
+ "Q3a_primary_headline": {
+  "point": 0.007210057977507844,
+  "ci_lo": 0.003500338391036892,
+  "ci_hi": 0.01070157773908589,
+  "se": 0.0018366864500984005,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "per_study": {
+   "s_mair": 0.00721
+  },
+  "per_entry": {
+   "s_mair:WT": 0.00721
+  },
+  "model_abs_per_entry": {
+   "s_mair:WT": 0.885952
+  },
+  "comparator_abs_per_entry": {
+   "s_mair:WT": 0.878742
+  }
+ },
+ "Q3b_primary_headline": {
+  "point": 0.009336099585062319,
+  "ci_lo": -0.026598789995127447,
+  "ci_hi": 0.032471061547148544,
+  "se": 0.014482112517588023,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "per_study": {
+   "s_mair": 0.009336
+  },
+  "per_entry": {
+   "s_mair:WT": 0.009336
+  },
+  "model_abs_per_entry": {
+   "s_mair:WT": 0.959544
+  },
+  "comparator_abs_per_entry": {
+   "s_mair:WT": 0.950207
+  }
+ },
+ "deviation_corr_headline": {
+  "s_mair:WT": {
+   "n_genes": 5428,
+   "r": 0.285824
+  }
+ },
+ "Q3a_primary_B2": {
+  "point": 0.0058192405439849715,
+  "ci_lo": 0.003150791882595417,
+  "ci_hi": 0.00852918320052533,
+  "se": 0.001373088561558686,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "per_study": {
+   "s_mair": 0.005819
+  },
+  "per_entry": {
+   "s_mair:WT": 0.005819
+  },
+  "model_abs_per_entry": {
+   "s_mair:WT": 0.884562
+  },
+  "comparator_abs_per_entry": {
+   "s_mair:WT": 0.878742
+  }
+ },
+ "Q3b_primary_B2": {
+  "point": 0.0010373443983402453,
+  "ci_lo": -0.015308250789931418,
+  "ci_hi": 0.02559115625403388,
+  "se": 0.010909509424354376,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "per_study": {
+   "s_mair": 0.001037
+  },
+  "per_entry": {
+   "s_mair:WT": 0.001037
+  },
+  "model_abs_per_entry": {
+   "s_mair:WT": 0.951245
+  },
+  "comparator_abs_per_entry": {
+   "s_mair:WT": 0.950207
+  }
+ },
+ "deviation_corr_B2": {
+  "s_mair:WT": {
+   "n_genes": 5428,
+   "r": 0.254102
+  }
+ },
+ "status": "complete"
+}

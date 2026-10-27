@@ -1,0 +1,192 @@
+{
+ "errors": {},
+ "Q3a_primary_headline": {
+  "point": 0.013282694758246477,
+  "ci_lo": 0.007571922758240628,
+  "ci_hi": 0.018990421462146072,
+  "se": 0.0029229867934572364,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "per_study": {
+   "s_brown": 0.013102,
+   "s_haap": 0.014257,
+   "s_hart": 0.019702,
+   "s_olivieri": 0.006069
+  },
+  "per_entry": {
+   "s_brown:WT": 0.014038,
+   "s_brown:null": 0.012167,
+   "s_haap:null": 0.014257,
+   "s_hart:WT": 0.019702,
+   "s_olivieri:null": 0.006069
+  },
+  "model_abs_per_entry": {
+   "s_brown:WT": 0.883678,
+   "s_brown:null": 0.903561,
+   "s_haap:null": 0.849763,
+   "s_hart:WT": 0.851283,
+   "s_olivieri:null": 0.884888
+  },
+  "comparator_abs_per_entry": {
+   "s_brown:WT": 0.86964,
+   "s_brown:null": 0.891394,
+   "s_haap:null": 0.835506,
+   "s_hart:WT": 0.831581,
+   "s_olivieri:null": 0.878818
+  }
+ },
+ "Q3b_primary_headline": {
+  "point": 0.0017638684619124129,
+  "ci_lo": -0.017925204801119435,
+  "ci_hi": 0.021961436068045747,
+  "se": 0.010045184775708958,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "per_study": {
+   "s_brown": 0.016604,
+   "s_haap": -0.006944,
+   "s_hart": -0.00686,
+   "s_olivieri": 0.004255
+  },
+  "per_entry": {
+   "s_brown:WT": 0.006349,
+   "s_brown:null": 0.02686,
+   "s_haap:null": -0.006944,
+   "s_hart:WT": -0.00686,
+   "s_olivieri:null": 0.004255
+  },
+  "model_abs_per_entry": {
+   "s_brown:WT": 0.926984,
+   "s_brown:null": 0.919421,
+   "s_haap:null": 0.925595,
+   "s_hart:WT": 0.89253,
+   "s_olivieri:null": 0.965957
+  },
+  "comparator_abs_per_entry": {
+   "s_brown:WT": 0.920635,
+   "s_brown:null": 0.892562,
+   "s_haap:null": 0.93254,
+   "s_hart:WT": 0.89939,
+   "s_olivieri:null": 0.961702
+  }
+ },
+ "deviation_corr_headline": {
+  "s_brown:WT": {
+   "n_genes": 5428,
+   "r": 0.369917
+  },
+  "s_brown:null": {
+   "n_genes": 5428,
+   "r": 0.37771
+  },
+  "s_haap:null": {
+   "n_genes": 5377,
+   "r": 0.336423
+  },
+  "s_hart:WT": {
+   "n_genes": 5377,
+   "r": 0.430756
+  },
+  "s_olivieri:null": {
+   "n_genes": 5377,
+   "r": 0.314065
+  }
+ },
+ "Q3a_primary_B2": {
+  "point": 0.010754432810495582,
+  "ci_lo": 0.004174635137721364,
+  "ci_hi": 0.017754521401461807,
+  "se": 0.003505288218202474,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "per_study": {
+   "s_brown": 0.01002,
+   "s_haap": 0.004153,
+   "s_hart": 0.020833,
+   "s_olivieri": 0.008012
+  },
+  "per_entry": {
+   "s_brown:WT": 0.010499,
+   "s_brown:null": 0.00954,
+   "s_haap:null": 0.004153,
+   "s_hart:WT": 0.020833,
+   "s_olivieri:null": 0.008012
+  },
+  "model_abs_per_entry": {
+   "s_brown:WT": 0.880139,
+   "s_brown:null": 0.900934,
+   "s_haap:null": 0.839659,
+   "s_hart:WT": 0.852414,
+   "s_olivieri:null": 0.88683
+  },
+  "comparator_abs_per_entry": {
+   "s_brown:WT": 0.86964,
+   "s_brown:null": 0.891394,
+   "s_haap:null": 0.835506,
+   "s_hart:WT": 0.831581,
+   "s_olivieri:null": 0.878818
+  }
+ },
+ "Q3b_primary_B2": {
+  "point": 0.013139956622819776,
+  "ci_lo": -0.010594860577879882,
+  "ci_hi": 0.030927575920369283,
+  "se": 0.010562070400923003,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "per_study": {
+   "s_brown": 0.027287,
+   "s_haap": 0.015873,
+   "s_hart": -0.007622,
+   "s_olivieri": 0.017021
+  },
+  "per_entry": {
+   "s_brown:WT": 0.014286,
+   "s_brown:null": 0.040289,
+   "s_haap:null": 0.015873,
+   "s_hart:WT": -0.007622,
+   "s_olivieri:null": 0.017021
+  },
+  "model_abs_per_entry": {
+   "s_brown:WT": 0.934921,
+   "s_brown:null": 0.932851,
+   "s_haap:null": 0.948413,
+   "s_hart:WT": 0.891768,
+   "s_olivieri:null": 0.978723
+  },
+  "comparator_abs_per_entry": {
+   "s_brown:WT": 0.920635,
+   "s_brown:null": 0.892562,
+   "s_haap:null": 0.93254,
+   "s_hart:WT": 0.89939,
+   "s_olivieri:null": 0.961702
+  }
+ },
+ "deviation_corr_B2": {
+  "s_brown:WT": {
+   "n_genes": 5428,
+   "r": 0.290208
+  },
+  "s_brown:null": {
+   "n_genes": 5428,
+   "r": 0.350311
+  },
+  "s_haap:null": {
+   "n_genes": 5377,
+   "r": 0.2669
+  },
+  "s_hart:WT": {
+   "n_genes": 5377,
+   "r": 0.419379
+  },
+  "s_olivieri:null": {
+   "n_genes": 5377,
+   "r": 0.331496
+  }
+ },
+ "status": "complete"
+}

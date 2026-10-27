@@ -1,0 +1,722 @@
+{
+ "verdicts": {
+  "RPE1": {
+   "Q3a": {
+    "verdict": "transfers",
+    "reasons": [
+     "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous"
+    ],
+    "transfers_condition": true,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": true
+   },
+   "Q3b": {
+    "verdict": "inconclusive",
+    "reasons": [
+     "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+     "fails blocked: anchor gate not informative/positive"
+    ],
+    "transfers_condition": false,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": true
+   }
+  },
+  "hPSC": {
+   "Q3a": {
+    "verdict": "inconclusive",
+    "reasons": [
+     "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+     "fails blocked: anchor gate not informative/positive"
+    ],
+    "transfers_condition": false,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": true
+   },
+   "Q3b": {
+    "verdict": "inconclusive",
+    "reasons": [
+     "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+     "fails blocked: anchor gate not informative/positive"
+    ],
+    "transfers_condition": false,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": true
+   }
+  }
+ },
+ "overall": {
+  "Q3a": {
+   "verdict": "inconclusive",
+   "per_background": {
+    "RPE1": "transfers",
+    "hPSC": "inconclusive"
+   }
+  },
+  "Q3b": {
+   "verdict": "inconclusive",
+   "per_background": {
+    "RPE1": "inconclusive",
+    "hPSC": "inconclusive"
+   }
+  }
+ },
+ "declared_backgrounds": {
+  "primary_T": {
+   "status": "inconclusive by declaration",
+   "reason": "Shifrut 2018 (SSMD -0.81) and Carnevale 2022 ORCS fail QC; Ting 2018 CD4 is a ~2.5k-gene focused chip without anchor or ceiling"
+  },
+  "HMEC": {
+   "status": "not assessable",
+   "reason": "Tuano 2023 libraries hold < 10 NEGv1 evaluation genes; Sack 2018 score direction unknown"
+  },
+  "CRISPRi (iPSC, neurons, microglia)": {
+   "status": "descriptive only",
+   "reason": null
+  },
+  "other": {
+   "status": "not evaluated (no matched expression profile)",
+   "reason": null
+  }
+ },
+ "hypotheses": {
+  "H1": {
+   "result": "pass",
+   "model_condition": true,
+   "observed_condition": true,
+   "sign_agreement": "2/2",
+   "model_delta": {
+    "MDM2": -0.6450994795623352,
+    "PPM1D": -0.287927537066439
+   },
+   "observed_delta": {
+    "MDM2": -0.9811564385890961,
+    "PPM1D": -0.3429792672395706
+   },
+   "note": "feature sanity check (single two-point counterfactual), not independent transfer evidence"
+  },
+  "H2": {
+   "result": "pass",
+   "n_genes": 15,
+   "spearman": 0.8928571428571428,
+   "sign_agreement": 0.8666666666666667,
+   "n_per_study": {
+    "brown2019": 15,
+    "bowden2020": 15
+   },
+   "genes": [
+    "472",
+    "1026",
+    "11200",
+    "1643",
+    "2232",
+    "4193",
+    "4194",
+    "8493",
+    "50484",
+    "27244",
+    "8795",
+    "7157",
+    "7158",
+    "57646",
+    "64393"
+   ],
+   "per_study": {
+    "brown2019": {
+     "result": "pass",
+     "n_genes": 15,
+     "spearman": 0.8749999999999999,
+     "sign_agreement": 0.8,
+     "n_per_study": {
+      "brown2019": 15
+     },
+     "genes": [
+      "472",
+      "1026",
+      "11200",
+      "1643",
+      "2232",
+      "4193",
+      "4194",
+      "8493",
+      "50484",
+      "27244",
+      "8795",
+      "7157",
+      "7158",
+      "57646",
+      "64393"
+     ]
+    },
+    "bowden2020": {
+     "result": "pass",
+     "n_genes": 15,
+     "spearman": 0.8535714285714284,
+     "sign_agreement": 0.8666666666666667,
+     "n_per_study": {
+      "bowden2020": 15
+     },
+     "genes": [
+      "472",
+      "1026",
+      "11200",
+      "1643",
+      "2232",
+      "4193",
+      "4194",
+      "8493",
+      "50484",
+      "27244",
+      "8795",
+      "7157",
+      "7158",
+      "57646",
+      "64393"
+     ]
+    }
+   },
+   "raw_scale_secondary": {
+    "result": "pass",
+    "n_genes": 15,
+    "spearman": 0.8928571428571428,
+    "sign_agreement": 0.8666666666666667,
+    "n_per_study": {
+     "brown2019": 15,
+     "bowden2020": 15
+    },
+    "genes": [
+     "472",
+     "1026",
+     "11200",
+     "1643",
+     "2232",
+     "4193",
+     "4194",
+     "8493",
+     "50484",
+     "27244",
+     "8795",
+     "7157",
+     "7158",
+     "57646",
+     "64393"
+    ]
+   }
+  },
+  "H1_prime": {
+   "s_brown:WT": {
+    "TP53": 2.111202,
+    "CDKN1A": 1.056665,
+    "TP53BP1": 0.385117,
+    "USP28": 0.703165,
+    "CHEK2": 0.12692,
+    "ATM": 0.212055
+   },
+   "s_brown:null": {
+    "TP53": 0.218891,
+    "CDKN1A": 0.245799,
+    "TP53BP1": -0.158188,
+    "USP28": 0.012598,
+    "CHEK2": 0.14069,
+    "ATM": -0.065104
+   },
+   "s_haap:null": {
+    "TP53": 0.541518,
+    "CDKN1A": 0.296099,
+    "TP53BP1": -0.059461,
+    "USP28": 0.231374,
+    "CHEK2": 0.387829,
+    "ATM": 0.087658
+   },
+   "s_hart:WT": {
+    "TP53": 0.54578,
+    "CDKN1A": 0.145879,
+    "TP53BP1": -0.08756,
+    "USP28": 0.157258,
+    "CHEK2": 0.096932,
+    "ATM": 0.086739
+   },
+   "s_olivieri:null": {
+    "TP53": 0.338807,
+    "CDKN1A": 0.358618,
+    "TP53BP1": -0.050695,
+    "USP28": 0.00431,
+    "CHEK2": 0.342375,
+    "ATM": -0.151554
+   }
+  },
+  "H3": {
+   "result": "inconclusive",
+   "n_observed_depleted": 0,
+   "observed_depleted": [],
+   "reason": "< 3 genes observed < -0.5 in Mair 2019",
+   "per_gene": {
+    "5460": {
+     "observed": -0.229306,
+     "T": -0.030324,
+     "noEC": -0.028492
+    },
+    "79923": {
+     "observed": 0.062605,
+     "T": 0.238391,
+     "noEC": 0.238322
+    },
+    "6657": {
+     "observed": 0.121982,
+     "T": -0.315088,
+     "noEC": -0.313369
+    },
+    "79727": {
+     "observed": 0.000586,
+     "T": -0.082881,
+     "noEC": -0.08441
+    },
+    "1789": {
+     "observed": -0.110689,
+     "T": 0.077199,
+     "noEC": 0.076416
+    },
+    "63978": {
+     "observed": -0.336997,
+     "T": -0.079634,
+     "noEC": -0.078219
+    },
+    "7546": {
+     "observed": 0.030618,
+     "T": -0.005678,
+     "noEC": -0.005729
+    },
+    "54596": {
+     "observed": 0.048979,
+     "T": -0.009043,
+     "noEC": -0.009377
+    },
+    "55211": {
+     "observed": 0.056858,
+     "T": 0.078522,
+     "noEC": 0.079984
+    }
+   },
+   "noEC_excluded_lines": [
+    "ACH-001578",
+    "ACH-002291",
+    "ACH-001374",
+    "ACH-001668"
+   ]
+  },
+  "H4": {
+   "result": "inconclusive",
+   "reason": "declared: primary T-cell screens fail QC (Shifrut 2018 SSMD -0.81)"
+  },
+  "errors": {}
+ },
+ "secondary": {
+  "RPE1": {
+   "errors": {},
+   "Q3a_primary_headline": {
+    "point": 0.013282694758246477,
+    "ci_lo": 0.007571922758240628,
+    "ci_hi": 0.018990421462146072,
+    "se": 0.0029229867934572364,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "per_study": {
+     "s_brown": 0.013102,
+     "s_haap": 0.014257,
+     "s_hart": 0.019702,
+     "s_olivieri": 0.006069
+    },
+    "per_entry": {
+     "s_brown:WT": 0.014038,
+     "s_brown:null": 0.012167,
+     "s_haap:null": 0.014257,
+     "s_hart:WT": 0.019702,
+     "s_olivieri:null": 0.006069
+    },
+    "model_abs_per_entry": {
+     "s_brown:WT": 0.883678,
+     "s_brown:null": 0.903561,
+     "s_haap:null": 0.849763,
+     "s_hart:WT": 0.851283,
+     "s_olivieri:null": 0.884888
+    },
+    "comparator_abs_per_entry": {
+     "s_brown:WT": 0.86964,
+     "s_brown:null": 0.891394,
+     "s_haap:null": 0.835506,
+     "s_hart:WT": 0.831581,
+     "s_olivieri:null": 0.878818
+    }
+   },
+   "Q3b_primary_headline": {
+    "point": 0.0017638684619124129,
+    "ci_lo": -0.017925204801119435,
+    "ci_hi": 0.021961436068045747,
+    "se": 0.010045184775708958,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "per_study": {
+     "s_brown": 0.016604,
+     "s_haap": -0.006944,
+     "s_hart": -0.00686,
+     "s_olivieri": 0.004255
+    },
+    "per_entry": {
+     "s_brown:WT": 0.006349,
+     "s_brown:null": 0.02686,
+     "s_haap:null": -0.006944,
+     "s_hart:WT": -0.00686,
+     "s_olivieri:null": 0.004255
+    },
+    "model_abs_per_entry": {
+     "s_brown:WT": 0.926984,
+     "s_brown:null": 0.919421,
+     "s_haap:null": 0.925595,
+     "s_hart:WT": 0.89253,
+     "s_olivieri:null": 0.965957
+    },
+    "comparator_abs_per_entry": {
+     "s_brown:WT": 0.920635,
+     "s_brown:null": 0.892562,
+     "s_haap:null": 0.93254,
+     "s_hart:WT": 0.89939,
+     "s_olivieri:null": 0.961702
+    }
+   },
+   "deviation_corr_headline": {
+    "s_brown:WT": {
+     "n_genes": 5428,
+     "r": 0.369917
+    },
+    "s_brown:null": {
+     "n_genes": 5428,
+     "r": 0.37771
+    },
+    "s_haap:null": {
+     "n_genes": 5377,
+     "r": 0.336423
+    },
+    "s_hart:WT": {
+     "n_genes": 5377,
+     "r": 0.430756
+    },
+    "s_olivieri:null": {
+     "n_genes": 5377,
+     "r": 0.314065
+    }
+   },
+   "Q3a_primary_B2": {
+    "point": 0.010754432810495582,
+    "ci_lo": 0.004174635137721364,
+    "ci_hi": 0.017754521401461807,
+    "se": 0.003505288218202474,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "per_study": {
+     "s_brown": 0.01002,
+     "s_haap": 0.004153,
+     "s_hart": 0.020833,
+     "s_olivieri": 0.008012
+    },
+    "per_entry": {
+     "s_brown:WT": 0.010499,
+     "s_brown:null": 0.00954,
+     "s_haap:null": 0.004153,
+     "s_hart:WT": 0.020833,
+     "s_olivieri:null": 0.008012
+    },
+    "model_abs_per_entry": {
+     "s_brown:WT": 0.880139,
+     "s_brown:null": 0.900934,
+     "s_haap:null": 0.839659,
+     "s_hart:WT": 0.852414,
+     "s_olivieri:null": 0.88683
+    },
+    "comparator_abs_per_entry": {
+     "s_brown:WT": 0.86964,
+     "s_brown:null": 0.891394,
+     "s_haap:null": 0.835506,
+     "s_hart:WT": 0.831581,
+     "s_olivieri:null": 0.878818
+    }
+   },
+   "Q3b_primary_B2": {
+    "point": 0.013139956622819776,
+    "ci_lo": -0.010594860577879882,
+    "ci_hi": 0.030927575920369283,
+    "se": 0.010562070400923003,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "per_study": {
+     "s_brown": 0.027287,
+     "s_haap": 0.015873,
+     "s_hart": -0.007622,
+     "s_olivieri": 0.017021
+    },
+    "per_entry": {
+     "s_brown:WT": 0.014286,
+     "s_brown:null": 0.040289,
+     "s_haap:null": 0.015873,
+     "s_hart:WT": -0.007622,
+     "s_olivieri:null": 0.017021
+    },
+    "model_abs_per_entry": {
+     "s_brown:WT": 0.934921,
+     "s_brown:null": 0.932851,
+     "s_haap:null": 0.948413,
+     "s_hart:WT": 0.891768,
+     "s_olivieri:null": 0.978723
+    },
+    "comparator_abs_per_entry": {
+     "s_brown:WT": 0.920635,
+     "s_brown:null": 0.892562,
+     "s_haap:null": 0.93254,
+     "s_hart:WT": 0.89939,
+     "s_olivieri:null": 0.961702
+    }
+   },
+   "deviation_corr_B2": {
+    "s_brown:WT": {
+     "n_genes": 5428,
+     "r": 0.290208
+    },
+    "s_brown:null": {
+     "n_genes": 5428,
+     "r": 0.350311
+    },
+    "s_haap:null": {
+     "n_genes": 5377,
+     "r": 0.2669
+    },
+    "s_hart:WT": {
+     "n_genes": 5377,
+     "r": 0.419379
+    },
+    "s_olivieri:null": {
+     "n_genes": 5377,
+     "r": 0.331496
+    }
+   },
+   "status": "complete"
+  },
+  "hPSC": {
+   "errors": {},
+   "Q3a_primary_headline": {
+    "point": 0.007210057977507844,
+    "ci_lo": 0.003500338391036892,
+    "ci_hi": 0.01070157773908589,
+    "se": 0.0018366864500984005,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.00721
+    },
+    "per_entry": {
+     "s_mair:WT": 0.00721
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.885952
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.878742
+    }
+   },
+   "Q3b_primary_headline": {
+    "point": 0.009336099585062319,
+    "ci_lo": -0.026598789995127447,
+    "ci_hi": 0.032471061547148544,
+    "se": 0.014482112517588023,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.009336
+    },
+    "per_entry": {
+     "s_mair:WT": 0.009336
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.959544
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.950207
+    }
+   },
+   "deviation_corr_headline": {
+    "s_mair:WT": {
+     "n_genes": 5428,
+     "r": 0.285824
+    }
+   },
+   "Q3a_primary_B2": {
+    "point": 0.0058192405439849715,
+    "ci_lo": 0.003150791882595417,
+    "ci_hi": 0.00852918320052533,
+    "se": 0.001373088561558686,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.005819
+    },
+    "per_entry": {
+     "s_mair:WT": 0.005819
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.884562
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.878742
+    }
+   },
+   "Q3b_primary_B2": {
+    "point": 0.0010373443983402453,
+    "ci_lo": -0.015308250789931418,
+    "ci_hi": 0.02559115625403388,
+    "se": 0.010909509424354376,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "per_study": {
+     "s_mair": 0.001037
+    },
+    "per_entry": {
+     "s_mair:WT": 0.001037
+    },
+    "model_abs_per_entry": {
+     "s_mair:WT": 0.951245
+    },
+    "comparator_abs_per_entry": {
+     "s_mair:WT": 0.950207
+    }
+   },
+   "deviation_corr_B2": {
+    "s_mair:WT": {
+     "n_genes": 5428,
+     "r": 0.254102
+    }
+   },
+   "status": "complete"
+  }
+ },
+ "plan_matches_frozen": {
+  "RPE1": null,
+  "hPSC": null
+ },
+ "ceiling_comparison": {
+  "RPE1": {
+   "Q3a_primary": {
+    "T_skill": 0.014424200702226914,
+    "T_ci": [
+     0.008011333611334343,
+     0.021588276963255038
+    ],
+    "ceiling_skill": -0.03250800586503308,
+    "MDE": 0.03381003936590521,
+    "skill_over_ceiling": null
+   },
+   "Q3a_effect_label": {
+    "T_skill": 0.016750176900276567,
+    "T_ci": [
+     0.008011601333044639,
+     0.026665134557430827
+    ],
+    "ceiling_skill": -0.03793135044321877,
+    "MDE": 0.037071685233764196,
+    "skill_over_ceiling": null
+   },
+   "Q3b_primary": {
+    "T_skill": 0.002906613347875689,
+    "T_ci": [
+     -0.017698340982471653,
+     0.022540261764068766
+    ],
+    "ceiling_skill": -0.1545052107213026,
+    "MDE": 0.14139020754592574,
+    "skill_over_ceiling": null
+   },
+   "Q3b_vs_B0": {
+    "T_skill": 0.009386150274232896,
+    "T_ci": [
+     -0.014105200475250919,
+     0.034408641840075735
+    ],
+    "ceiling_skill": -0.1480256737949454,
+    "MDE": 0.14224937377909283,
+    "skill_over_ceiling": null
+   },
+   "Q3b_rare_vs_B1n": {
+    "T_skill": 0.0695569828722003,
+    "T_ci": [
+     -0.09582146355799369,
+     0.23191376879699244
+    ],
+    "ceiling_skill": -0.10972222222222223,
+    "MDE": 0.2755193170951122,
+    "skill_over_ceiling": null
+   }
+  },
+  "hPSC": {
+   "Q3a_primary": {
+    "T_skill": 0.0035016262185063596,
+    "T_ci": [
+     -0.0003423425951608906,
+     0.007232811395527783
+    ],
+    "ceiling_skill": -0.07819020192714055,
+    "MDE": 0.07729154266049588,
+    "skill_over_ceiling": null
+   },
+   "Q3a_effect_label": {
+    "T_skill": 0.006478018625233339,
+    "T_ci": [
+     0.0014845013377245537,
+     0.011598166386978796
+    ],
+    "ceiling_skill": -0.07239132954480776,
+    "MDE": 0.07914668630568031,
+    "skill_over_ceiling": null
+   },
+   "Q3b_primary": {
+    "T_skill": -0.006224066390041472,
+    "T_ci": [
+     -0.03261361400747592,
+     0.023286507765314858
+    ],
+    "ceiling_skill": -0.18257261410788372,
+    "MDE": 0.2603614715725964,
+    "skill_over_ceiling": null
+   },
+   "Q3b_vs_B0": {
+    "T_skill": -0.014522821576763545,
+    "T_ci": [
+     -0.04916246755229805,
+     0.012677137028469485
+    ],
+    "ceiling_skill": -0.1908713692946058,
+    "MDE": 0.2611872676537797,
+    "skill_over_ceiling": null
+   },
+   "Q3b_rare_vs_B1n": {
+    "T_skill": -0.050000000000000044,
+    "T_ci": [
+     -0.26565104166666664,
+     0.25
+    ],
+    "ceiling_skill": -0.2,
+    "MDE": 0.37496969420406634,
+    "skill_over_ceiling": null
+   }
+  }
+ },
+ "errors": {},
+ "status": "complete"
+}
