@@ -1,0 +1,15 @@
+# Python 3.13.1 (Windows 11, CPU only). Versions used for all registered runs; full freeze: configs/pip_freeze_initial.txt
+numpy==2.1.3
+scipy==1.15.2
+pandas==2.2.3
+pyarrow==19.0.1
+scikit-learn==1.5.2
+lightgbm==4.7.0
+statsmodels==0.14.4
+openpyxl==3.1.5
+psutil==6.1.1
+pytest==9.1.1
+# Optional: M4 pre-check (src/essml/models/factorised.py)
+torch==2.6.0
+# Optional: Chronos comparison for external TKOv3 screens (scripts/chronos_tkov3.py; not adopted, D11)
+# crispr_chronos==2.3.11  tensorflow==2.21
