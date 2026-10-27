@@ -175,13 +175,23 @@ def _group_blocks(groups):
     return [np.asarray(ix) for ix in g.groupby(g).indices.values() if len(ix) > 1]
 
 
-def loo_cluster(Kc, Rc, Yc, groups, lam_grid):
+LAM_CRITERIA = ("loo_r", "loo_mse", "inner_cv_r")
+
+
+def loo_cluster(Kc, Rc, Yc, groups, lam_grid, criterion="loo_r"):
     """eigh of the centred cluster kernel + closed-form leave-one(-group)-out over lam_grid.
 
     Kc: centred kernel (n x n); Rc: centred residual targets (n x G); Yc: original targets on the
-    same rows (criterion); groups: labels (n,) or None. Returns (d, V, U, r_grid (L x G), E_last).
+    same rows (criterion); groups: labels (n,) or None. Returns (d, V, U, score_grid (L x G)).
     The LOO hat matrix of ridge with an unpenalised intercept is 11'/n + V diag(d/(d+lam)) V'.
+    criterion "loo_r" (default, M1 of record): score = per-gene Pearson r of the LOO predictions
+    of y. "loo_mse" (D20c diagnostic): score = -(LOO MSE of y / training variance of y) per gene
+    (scale-free, so every gene weighs equally as in P1; a constant gene scores -1). The LOO error
+    E of the residual target equals the LOO error of y (the cluster intercept is refitted without
+    the left-out line).
     """
+    if criterion not in ("loo_r", "loo_mse"):
+        raise ValueError(f"loo_cluster criterion must be loo_r or loo_mse, not {criterion}")
     n = Kc.shape[0]
     d, V = eigh(Kc)
     d = np.clip(d, 0.0, None)
@@ -203,6 +213,11 @@ def loo_cluster(Kc, Rc, Yc, groups, lam_grid):
             Hgg = 1.0 / n + (Vg * s) @ Vg.T
             Fg = Vg @ (s[:, None] * U)
             E[ix] = np.linalg.solve(np.eye(len(ix)) - Hgg, Rc[ix] - Fg)
+        if criterion == "loo_mse":
+            ssq = np.einsum("ij,ij->j", E, E)
+            with np.errstate(invalid="ignore", divide="ignore"):
+                r_grid[li] = np.where(syy > 0, -ssq / np.where(syy > 0, syy, 1.0), -1.0)
+            continue
         se = E.sum(0)
         sey = np.einsum("ij,ij->j", E, yc)
         see = np.einsum("ij,ij->j", E, E) - se ** 2 / n
@@ -214,17 +229,64 @@ def loo_cluster(Kc, Rc, Yc, groups, lam_grid):
     return d, V, U, r_grid
 
 
+INNER_CV_MIN_OBS = 20  # inner_cv_r: genes need >= 20 observed inner-validation lines
+
+
+def inner_cv_r_grid(K, R, Y, clusters, splits, lam_grid, min_obs=INNER_CV_MIN_OBS):
+    """Grouped inner-CV criterion (D20c): per inner split s and lambda, per-gene Pearson r of the
+    pattern ridge fitted on the inner-training rows (cluster rows in a_s) on the inner-validation
+    rows b_s (observed y only). Returns (S, L, G) array (NaN = gene not scored in that split).
+
+    Uses the outer clusters restricted to a_s (every cluster gene is observed on the cluster rows),
+    each with its own centring and eigh, i.e. exactly the final fit's model on fewer rows."""
+    from .g3_common import masked_r
+    G = R.shape[1]
+    out = np.full((len(splits), len(lam_grid), G), np.nan)
+    for si, (a, b) in enumerate(splits):
+        in_a = np.zeros(K.shape[0], bool)
+        in_a[a] = True
+        b = np.asarray(b)
+        for c in clusters:
+            rows = c["rows"][in_a[c["rows"]]]
+            genes = c["genes"]
+            if len(rows) < 3:
+                continue
+            Ks = K[np.ix_(rows, rows)]
+            kbar = Ks.mean(0)
+            Kc = Ks - kbar[None, :] - kbar[:, None] + kbar.mean()
+            Rs = R[np.ix_(rows, genes)]
+            rbar = Rs.mean(0)
+            d, V = eigh(Kc)
+            d = np.clip(d, 0.0, None)
+            U = V.T @ (Rs - rbar)
+            kb = K[np.ix_(b, rows)] - kbar[None, :]
+            KV = kb @ V
+            Tb = Y[np.ix_(b, genes)]
+            for li, lam in enumerate(lam_grid):
+                P = rbar + KV @ (U / (d + lam)[:, None])
+                out[si, li, genes] = masked_r(P, Tb, min_obs)
+    return out
+
+
 def fit_pattern_ridge(K, R, Y, gene_group, groups=None, lam_grid=LAM_GRID, merge_frac=0.01,
-                      min_rows=50, log=None):
+                      min_rows=50, log=None, criterion="loo_r", inner_splits=None):
     """Pattern-wise exact kernel ridge for all genes with grouped-LOO lambda.
 
     K: (n, n) linear kernel on training rows (uncentred). R: (n, G) targets to regress (NaN =
     unobserved). Y: (n, G) original targets for the LOO criterion (same NaN pattern; may equal R).
     gene_group: (G,) int labels; lambda is shared within each label. groups: (n,) patient labels
     for leave-group-out (None = singletons).
+    criterion: "loo_r" (default; M1 of record), "loo_mse" or "inner_cv_r" (D20c diagnostics).
+    "inner_cv_r" needs ``inner_splits`` (list of (train_pos, val_pos) on the rows of K; patient-
+    grouped) and scores each group by the mean over splits of the mean per-gene r over the group's
+    fitted genes scored in that split.
     Returns dict(clusters=[{rows, genes, alpha, rbar, kbar}], fallback, lam (per gene),
     lam_by_group, score_by_group (L x n_groups), r_grid (L x G), report).
     """
+    if criterion not in LAM_CRITERIA:
+        raise ValueError(f"criterion must be one of {LAM_CRITERIA}")
+    if criterion == "inner_cv_r" and not inner_splits:
+        raise ValueError("criterion inner_cv_r needs inner_splits")
     t0 = time.perf_counter()
     R = np.asarray(R, np.float64)
     Y = np.asarray(Y, np.float64)
@@ -246,9 +308,15 @@ def fit_pattern_ridge(K, R, Y, gene_group, groups=None, lam_grid=LAM_GRID, merge
         rbar = Rs.mean(0)
         Ys = Y[np.ix_(rows, genes)]
         d, V, U, rg = loo_cluster(Kc, Rs - rbar, Ys, None if grp_arr is None else grp_arr[rows],
-                                  lam_grid)
+                                  lam_grid, criterion="loo_mse" if criterion == "loo_mse" else "loo_r")
         r_grid[:, genes] = rg
         keep.append((c, d, V, U, rbar, kbar))
+    cv = None
+    if criterion == "inner_cv_r":
+        cv = inner_cv_r_grid(K, R, Y, clusters, inner_splits, lam_grid)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            r_grid = np.nanmean(cv, axis=0)  # per-gene inner-CV r (reporting)
     gene_group = np.asarray(gene_group)
     labels = sorted(set(gene_group.tolist()))
     fitted = np.zeros(G, bool)
@@ -259,8 +327,14 @@ def fit_pattern_ridge(K, R, Y, gene_group, groups=None, lam_grid=LAM_GRID, merge
     for j, lab in enumerate(labels):
         m = fitted & (gene_group == lab)
         if m.any():
-            score[:, j] = r_grid[:, m].mean(1)
-            lam_by_group[lab] = float(lam_grid[int(np.argmax(score[:, j]))])  # first maximum
+            if cv is None:
+                score[:, j] = r_grid[:, m].mean(1)
+            else:  # mean over inner splits of the group's mean per-gene r in that split (D3)
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore", RuntimeWarning)
+                    score[:, j] = np.nanmean(np.nanmean(cv[:, :, m], axis=2), axis=0)
+            li = int(np.nanargmax(score[:, j])) if np.isfinite(score[:, j]).any() else 0
+            lam_by_group[lab] = float(lam_grid[li])  # first maximum
     lam_gene = np.array([lam_by_group.get(l, np.nan) for l in gene_group])
     out_clusters = []
     for c, d, V, U, rbar, kbar in keep:
@@ -275,6 +349,10 @@ def fit_pattern_ridge(K, R, Y, gene_group, groups=None, lam_grid=LAM_GRID, merge
                lam_by_group={str(k): v for k, v in lam_by_group.items()},
                lam_at_grid_edge={str(k): bool(v in (lam_grid[0], lam_grid[-1]))
                                  for k, v in lam_by_group.items()})
+    if criterion != "loo_r":  # D20c diagnostics: criterion curve per gene group
+        rep["lam_criterion"] = criterion
+        rep["score_by_group"] = {str(lab): np.round(score[:, j], 6).tolist()
+                                 for j, lab in enumerate(labels)}
     if log:
         log(rep)
     return {"clusters": out_clusters, "fallback": fb, "lam": lam_gene, "lam_by_group": lam_by_group,
@@ -288,6 +366,19 @@ def predict_pattern_ridge(k_new, clusters, G):
         a = c["alpha"].astype(np.float64, copy=False)
         out[:, c["genes"]] = c["rbar"] + (k_new[:, c["rows"]] - c["kbar"]) @ a
     return out
+
+
+def lam_inner_splits(ids, lineage, groups, n_splits, seed):
+    """Patient-grouped, lineage-stratified inner folds of the training rows (positions), for the
+    inner_cv_r lambda criterion (same splitter as scripts/run.py's inner tuning)."""
+    from sklearn.model_selection import StratifiedGroupKFold
+    strata = (np.zeros(len(ids), int) if lineage is None
+              else pd.Series(lineage).astype(str).to_numpy())
+    grp = (np.arange(len(ids)) if groups is None else np.asarray(groups)).astype(str)
+    sgk = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=int(seed))
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", UserWarning)
+        return [(np.sort(a), np.sort(b)) for a, b in sgk.split(np.zeros(len(ids)), strata, grp)]
 
 
 # ============================================================================ B1 kappa by grouped CV
@@ -471,7 +562,7 @@ class KernelRidgeM1:
     def __init__(self, modalities=("E",), clip=8.0, lam_grid=None, merge_frac=0.01, min_rows=50,
                  kappa=None, seed=20261026, scale=None, permute_seed=None, residual=None,
                  permute_within=None, tune_weights=False, weight_grid=WEIGHT_GRID,
-                 max_tune_eval=MAX_TUNE_EVAL):
+                 max_tune_eval=MAX_TUNE_EVAL, lam_criterion="loo_r", lam_inner_folds=5):
         self.modalities = list(modalities)
         self.clip = float(clip)
         self.lam_grid = np.asarray(LAM_GRID if lam_grid is None else lam_grid, np.float64)
@@ -486,10 +577,18 @@ class KernelRidgeM1:
         self.tune_weights = bool(tune_weights)  # M1b: block weights by training LOO (DESIGN §5)
         self.weight_grid = tuple(float(v) for v in weight_grid)
         self.max_tune_eval = int(max_tune_eval)
+        if lam_criterion not in LAM_CRITERIA:
+            raise ValueError(f"lam_criterion must be one of {LAM_CRITERIA}")
+        self.lam_criterion = lam_criterion  # D20c diagnostic; "loo_r" = M1 of record
+        self.lam_inner_folds = int(lam_inner_folds)
         if residual is not None:  # diagnostic override of the class default ("B1" / "B0")
             if residual not in ("B0", "B1"):
                 raise ValueError("residual must be 'B0' or 'B1'")
             self.residual = residual
+        if self.lam_criterion == "inner_cv_r" and self.residual != "B0":
+            # the B1 leave-line-out residual of an inner-training line uses the lineage means of
+            # ALL training lines, inner-validation targets included
+            raise ValueError("lam_criterion inner_cv_r is implemented for the B0 residual only")
 
     # -- features
     def _raw(self, X, ids=None):
@@ -579,8 +678,12 @@ class KernelRidgeM1:
         if self.tune_weights and len(self.mod_blocks_) > 1:
             Z, tune_rep = self._tune_weights(Z, R, Yv, gg, groups)
         K = Z @ Z.T
+        splits = None
+        if self.lam_criterion == "inner_cv_r":
+            splits = lam_inner_splits(ids, lin, groups, self.lam_inner_folds, self.seed)
         sol = fit_pattern_ridge(K, R, Yv, gg, groups=groups, lam_grid=self.lam_grid,
-                                merge_frac=self.merge_frac, min_rows=self.min_rows)
+                                merge_frac=self.merge_frac, min_rows=self.min_rows,
+                                criterion=self.lam_criterion, inner_splits=splits)
         self.clusters_ = sol["clusters"]
         self.lam_ = sol["lam"]
         self.lam_by_group_ = sol["lam_by_group"]
