@@ -1,0 +1,44 @@
+{
+ "_comment": "EXAMPLE ONLY - NOT configs/finalists.json. Committing configs/finalists.json (same schema) is the PI's G4 act (DESIGN §4/§9): the guard releases test / set-A / set-B targets only to config_hash values listed in a COMMITTED configs/finalists.json. scripts/evaluate_test.py and scripts/evaluate_transfer.py read: headline, T, H3_noEC and baselines.B0/B1/B2, each with name, config (path), config_hash (sha256 of json.dumps(config, sort_keys=True), scripts/run.py) and optional cv_run_id (the clean freeze-eval CV run, used for reproduction checks). At most 2 finalists beyond the headline plus baselines (DESIGN §4): here T and H3_noEC.",
+ "headline": {
+  "name": "m1_E_resB0",
+  "config": "configs/runs/m1_E_resB0.json",
+  "config_hash": "91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4",
+  "cv_run_id": "20261026-222117_m1_E_resB0_91e52f9d",
+  "note": "current best (D17/D20a); the PI names the headline after M5 (G3 close-out)"
+ },
+ "T": {
+  "name": "t_E_status",
+  "config": "configs/runs/t_E_status.json",
+  "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+  "cv_run_id": "20261026-224125_t_E_status_24b46e2a",
+  "note": "transfer model T: E + TP53/RB1 status flags, no lineage (DESIGN §5)"
+ },
+ "H3_noEC": {
+  "name": "t_E_status_noEC",
+  "config": "configs/runs/t_E_status_noEC.json",
+  "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
+  "cv_run_id": "20261027-000415_t_E_status_noEC_fa0181c1",
+  "note": "H3 no-EC variant: T trained without the 4 EC dev lines (D20d erratum)"
+ },
+ "baselines": {
+  "B0": {
+   "name": "b0",
+   "config": "configs/runs/b0.json",
+   "config_hash": "831b9415fbf1b09d4876aa13173dbea90b8b764975d020fcd4a376bb999672d2",
+   "cv_run_id": "20261026-220531_b0_831b9415"
+  },
+  "B1": {
+   "name": "b1",
+   "config": "configs/runs/b1.json",
+   "config_hash": "0e2a7a27931baea8a604ae29c759de57c31ea3ccfdbbe43218f9116f6c774a0d",
+   "cv_run_id": "20261026-220921_b1_0e2a7a27"
+  },
+  "B2": {
+   "name": "b2",
+   "config": "configs/runs/b2.json",
+   "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+   "cv_run_id": "20261026-221456_b2_289f5170"
+  }
+ }
+}
