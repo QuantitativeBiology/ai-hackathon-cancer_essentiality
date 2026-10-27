@@ -264,11 +264,15 @@ def run():
         a = long[long["model"] == c].pivot(index="pair_id", columns="fold", values="ap_all")
         b = long[long["model"] == ref].pivot(index="pair_id", columns="fold", values="ap_all")
         dap = {p: (a.loc[p] - b.loc[p]).to_numpy(np.float64) for p in a.index}
-        rule[c] = MD.clearly_helps(dap, eligible, **decl["rule"])
+        rule[c] = MD.clearly_helps(dap, eligible, **{k: v for k, v in decl["rule"].items() if not k.startswith("_")})
     rule_met = any(v["met"] for v in rule.values())
     pooled = {m: {met: pooled_ci(long, eligible, m, ref, met)
                   for met in ["ap_all", "nap_all", "r_all", "ap_mut", "r_mut", "auroc_bm"]}
               for m in models if m != ref}
+    # post hoc sensitivity (descriptive, not part of the rule): NRAS's direction was hinted in G3 (D24)
+    no_nras = [p for p in eligible if p != "NRAS_hotspot"]
+    sens = {m: {"ap_all_excl_NRAS": pooled_ci(long, no_nras, m, ref, "ap_all")}
+            for m in models if m != ref}
     from essml.io import load_matrix
     E = load_matrix("expression")
     lineage = dev["OncotreeLineage"]
@@ -279,6 +283,7 @@ def run():
            "declared": str(DECL.relative_to(ROOT)), "pair_file": str(PAIR_CSV.relative_to(ROOT)),
            "run_ids": run_ids, "reference": ref, "eligible_pairs": eligible,
            "rule": rule, "rule_met": rule_met, "pooled_vs_ref": pooled,
+           "sensitivity_post_hoc": sens,
            "per_pair": per_pair, "mechanism": mech,
            "pairs": pairs.to_dict(orient="records")}
     OUT_JSON.write_text(json.dumps(res, indent=1, default=_json))
