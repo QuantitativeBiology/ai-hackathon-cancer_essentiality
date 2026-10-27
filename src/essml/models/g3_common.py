@@ -46,6 +46,9 @@ def default_groups(ids):
     return sp["PatientID"].reindex(ids).fillna(pd.Series(ids, index=ids)).astype(str).to_numpy()
 
 
+GENOMIC_BLOCKS = {"C", "M", "H", "F_pair", "F_gene"}  # raw 0 = diploid / wild type / no event (DESIGN §2)
+
+
 class CellFeatures:
     """Line-level design matrix fitted on training IDs (``FoldTransformer``), clipped at +-clip.
 
@@ -62,6 +65,20 @@ class CellFeatures:
     def _raw(self, X):
         if isinstance(X, pd.DataFrame):
             raw = {"X": X}
+        elif isinstance(X, dict):
+            # raw blocks supplied for NEW lines (external profiles, essml.models.m5_stack): a block that is not
+            # supplied is an empty frame with the block's columns, so every line is 'absent' from it and the
+            # FoldTransformer applies the DESIGN §2 convention (genomic raw 0 = diploid / wild-type plus the
+            # '<block>:absent' flag; categorical meta -> no level; expression is never zero-filled)
+            raw = {}
+            for b in self.blocks:
+                ref = load_blocks([b])[b]
+                if b not in X:
+                    raw[b] = ref.iloc[:0]
+                elif b in GENOMIC_BLOCKS:  # a supplied genomic block: unlisted / NaN entries = diploid WT (0)
+                    raw[b] = X[b].reindex(columns=ref.columns).fillna(0.0)
+                else:
+                    raw[b] = X[b]
         else:
             raw = dict(load_blocks(self.blocks))
         if self.permute_seed is not None:

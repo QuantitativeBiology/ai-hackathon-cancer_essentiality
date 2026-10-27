@@ -47,7 +47,10 @@ def load_fold_models(run_id, model_dir=MODEL_DIR, target_loader=None):
         m.__dict__.update(obj["state"])
         if "Y_" in obj["dropped"]:
             Y = target_loader(obj["train_ids"])
-            m.Y_ = Y.loc[:, m.genes_].to_numpy("float64")
+            if hasattr(m, "restore_targets"):  # models that keep a target frame (M5)
+                m.restore_targets(Y)
+            else:
+                m.Y_ = Y.loc[:, m.genes_].to_numpy("float64")
         out.append((obj["fold"], m, obj))
     if not out:
         raise FileNotFoundError(f"no fold models for run {run_id}")

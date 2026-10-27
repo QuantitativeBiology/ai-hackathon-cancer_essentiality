@@ -155,6 +155,9 @@ def _fill_mean(P, Yv):
 class StackM5:
     name = "M5"
     uses_groups = True
+    # True (G6 / scripts/predict.py): input models refitted for a prediction are kept on the instance (models_) and
+    # reused for every later prediction, instead of being refitted per call. Off for CV runs (memory).
+    KEEP_INPUTS = False
 
     def __init__(self, inputs, mode="stack", inner_folds=5, seed=20261026, min_class_genes=20,
                  permute_input=None, permute_seed=0, cache=True, input_factory=None):
@@ -254,6 +257,15 @@ class StackM5:
             oof = np.load(path).astype(np.float64)  # identical values whether cached or fresh
         return oof, False
 
+    def _log_fit(self, spec, ids):
+        """Every outer input refit is recorded (``input_fit_log_``) and must use training lines only."""
+        ids = set(map(str, ids))
+        if not ids <= set(map(str, self.Y_.index)):
+            raise AssertionError(f"{spec['name']}: an input refit received lines outside the training fold")
+        if getattr(self, "input_fit_log_", None) is None:
+            self.input_fit_log_ = []
+        self.input_fit_log_.append({"input": spec["name"], "ids": sorted(ids)})
+
     def _perm(self, n, salt):
         return np.random.default_rng([self.permute_seed, salt]).permutation(n)
 
@@ -274,6 +286,8 @@ class StackM5:
         self.names_ = [s["name"] for s in self.inputs]
         self.labels_ = class_partition(Y)
         self.oof_log_, self.timing_, self.inner_reports_ = [], {}, {}
+        self.models_ = None  # input refits on all training lines (kept only with KEEP_INPUTS / predict_from_blocks)
+        self.input_fit_log_ = []
         M = len(self.inputs)
         rep = {"mode": self.mode, "class_n_genes": {c: int((self.labels_ == c).sum())
                                                     for c in CLASS_ORDER}}
@@ -331,15 +345,23 @@ class StackM5:
         lin_new = None if lineage is None else pd.Series(lineage).reindex(index)
         for spec in self.inputs:
             path = OUTER_CACHE / f"{self._outer_key(spec, index)}.npy" if self.cache else None
+            kept = (getattr(self, "models_", None) or {}).get(spec["name"])
             if path is not None and path.exists():
                 P = np.load(path)
+            elif kept is not None:
+                P = kept.predict(index, lineage=lin_new).to_numpy(np.float64)
             else:
                 t0 = time.perf_counter()
                 m = self._make(spec, inner=False)
+                self._log_fit(spec, self.Y_.index)
                 m.fit(self.Y_, lineage=self.lin_, X=self.X_, groups=self.groups_)
                 P = m.predict(index, lineage=lin_new).to_numpy(np.float64)
                 self.timing_.setdefault("outer_" + spec["name"], []).append(
                     round(time.perf_counter() - t0, 1))
+                if self.KEEP_INPUTS:
+                    if getattr(self, "models_", None) is None:
+                        self.models_ = {}
+                    self.models_[spec["name"]] = m
                 del m
                 if path is not None:
                     OUTER_CACHE.mkdir(parents=True, exist_ok=True)
@@ -349,8 +371,91 @@ class StackM5:
             out[spec["name"]] = P
         return out
 
+    # -------------------------------------------------------------- new lines from supplied raw blocks
+    def fitted_inputs(self):
+        """The inputs refitted on all training lines (as in ``input_predictions``), kept in memory for repeated
+        predictions of new lines from supplied features (G6 external profiles, scripts/predict.py)."""
+        if getattr(self, "models_", None) is None:
+            self.models_ = {}
+        if len(self.models_) < len(self.inputs):
+            for spec in (s for s in self.inputs if s["name"] not in self.models_):
+                t0 = time.perf_counter()
+                m = self._make(spec, inner=False)
+                self._log_fit(spec, self.Y_.index)
+                m.fit(self.Y_, lineage=self.lin_, X=self.X_, groups=self.groups_)
+                self.models_[spec["name"]] = m
+                self.timing_.setdefault("kept_" + spec["name"], []).append(round(time.perf_counter() - t0, 1))
+        return self.models_
+
+    def _local_builder(self, raw, m2):
+        """M2 gene-level features for new lines: their own expression; gene-level CN / damaging mutation from
+        ``raw['_cn']`` / ``raw['_damaging']`` when supplied, else absent = diploid (CN 1) / wild type (0), the
+        DESIGN §2 convention (priors.LocalFeatureBuilder fill values). Unmeasured or absent expression -> the
+        gene's mean over the TRAINING lines in the builder's expression matrix (every gene, including low-SD
+        genes that M1 drops; expression is never zero-filled, DESIGN §2)."""
+        from .m2_local import _builder
+        base = _builder()
+        b = base.__class__.__new__(base.__class__)
+        b.__dict__.update(base.__dict__)
+        E = raw.get("_expression", raw["E"]).astype(np.float64)
+        tr = base.E.index.intersection(pd.Index(map(str, self.Y_.index)))
+        mean = base.E.loc[tr].astype(np.float64).mean()
+        mean.index = mean.index.astype(str)
+        E.columns = E.columns.astype(str)
+        E = E.reindex(columns=E.columns.union(mean.index))
+        E = E.fillna(mean.reindex(E.columns))
+        b.E = E
+        b.CN = raw.get("_cn", base.CN.iloc[:0])
+        b.M = raw.get("_damaging", base.M.iloc[:0])
+        return b
+
+    def predict_from_blocks(self, index, X: dict, lineage=None) -> pd.DataFrame:
+        """Predict new lines from supplied raw feature blocks (``X``: block name -> frame indexed by ``index``;
+        'E' required). Blocks not supplied (C, M, H, meta, ...) are absent: diploid / wild-type / unknown per
+        DESIGN §2 (essml.features 'Convention'; FoldTransformer absent handling). Optional '_expression',
+        '_cn', '_damaging' feed M2's gene-level features (default: 'E'; diploid; wild type)."""
+        index = pd.Index(index)
+        if pd.Index(map(str, index)).isin(set(map(str, self.Y_.index))).any():
+            raise ValueError("M5 predicts lines outside its training fold only")
+        if "E" not in X:
+            raise ValueError("expression block 'E' is required")
+        models = self.fitted_inputs()
+        lin_new = None if lineage is None else pd.Series(lineage).reindex(index)
+        raw = {k: v for k, v in X.items() if not k.startswith("_")}
+        out = np.zeros((len(index), len(self.genes_)))
+        for k, spec in enumerate(self.inputs):
+            m = models[spec["name"]]
+            if spec["model"] == "M2":
+                Xi = {"_m1": raw, "_local": self._local_builder(X, m)}
+            else:
+                Xi = raw
+            P = m.predict(index, lineage=lin_new, X=Xi).to_numpy(np.float64)
+            if not np.isfinite(P).all():
+                bad = self.genes_[~np.isfinite(P).all(0)][:5].tolist()
+                raise ValueError(f"M5 input {spec['name']}: non-finite predictions for new lines (e.g. genes {bad})")
+            for c, w in self.weights_.items():
+                msk = self.labels_ == c
+                if w[k] != 0:
+                    out[:, msk] += w[k] * P[:, msk]
+        return pd.DataFrame(out, index=index, columns=self.genes_)
+
+    def restore_targets(self, Y: pd.DataFrame):
+        """essml.modelstore: training targets are not pickled; restore them as the frame M5 uses (rows must be in
+        the training order: lineage and patient groups are positional)."""
+        if list(map(str, Y.index)) != list(map(str, self.lin_.index)) or len(Y) != len(self.groups_):
+            raise ValueError("restored targets are not in the training-line order")
+        self.Y_ = Y.loc[:, self.genes_].astype(np.float64)
+
+    def compact(self):
+        for m in (getattr(self, "models_", None) or {}).values():
+            if hasattr(m, "compact"):
+                m.compact()
+        return self
+
     def predict(self, index, lineage=None, X=None) -> pd.DataFrame:
         index = pd.Index(index)
+        if isinstance(X, dict) and self.input_factory is None:
+            return self.predict_from_blocks(index, X, lineage)
         preds = self.input_predictions(index, lineage)
         out = np.zeros((len(index), len(self.genes_)))
         for k, name in enumerate(self.names_):

@@ -245,13 +245,21 @@ class LGBMResidualM3:
                    "Xb": f(ob, oof_es[ob, g], sel_in[j]), "yb": R_es[ob, j],
                    "Xf": f(of, oof[of, g], self.sel_full_[j]), "yf": R[of, j]}
 
+    def compact(self):
+        """Before pickling (M5 kept inputs): the base M1 drops its rebuildable training design."""
+        if hasattr(self.m1_, "compact"):
+            self.m1_.compact()
+        return self
+
     def predict(self, index, lineage=None, X=None) -> pd.DataFrame:
         import lightgbm as lgb
         index = pd.Index(index)
         sid = pd.Index([str(i) for i in index])
         frame = isinstance(X, pd.DataFrame)
         lin = None if lineage is None else pd.Series(lineage).reindex(index)
-        m1new = self.m1_.predict(index, lineage=lin, X=X if frame else None).to_numpy(np.float64)
+        # X: None (cache features), a frame (tests), or a dict of raw blocks for new lines (CellFeatures._raw)
+        m1new = self.m1_.predict(index, lineage=lin, X=X if (frame or isinstance(X, dict)) else None
+                                 ).to_numpy(np.float64)
         Znew = self.cf_.transform(sid, X)
         P = m1new.copy()
         for j, m in enumerate(self.boosters_):
