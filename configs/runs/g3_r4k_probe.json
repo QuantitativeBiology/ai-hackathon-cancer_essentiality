@@ -1,0 +1,55 @@
+{
+ "features": [],
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G1",
+ "cache_reference": true,
+ "name": "g3_r4k_probe",
+ "model": "R4",
+ "params": {
+  "ks": [
+   200,
+   500,
+   1000,
+   2000
+  ],
+  "ridge_alphas": [
+   0.1,
+   1.0,
+   10.0,
+   100.0,
+   1000.0
+  ],
+  "inner_folds": 3,
+  "split_seed": 20261026,
+  "n_jobs": 6,
+  "nested": true,
+  "gene_subset": "configs/g3_variable_subset500.csv",
+  "subset_first_n": 30
+ },
+ "prereg": "R4 with the top-k grid extended beyond 200 (RESEARCH_TREE D19): k in {200, 500, 1000, 2000} x {ridge, RBF-SVR}, nested per-gene choice by inner 3-fold grouped CV, pre-declared 500-gene subset. Time box 3 h, 6 processes. Rule: the probe g3_r4k_probe (fold 0, first 30 subset genes) is timed first; if the projected 5-fold wall time of g3_r4k_sub500 exceeds 3 h, run g3_r4k3_sub500 (k in {200, 500, 1000}) instead."
+}
