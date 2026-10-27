@@ -62,7 +62,7 @@ import run as RUN  # noqa: E402  (scripts/run.py: launcher protocol, sentinel, r
 class Paths:
     root: Path = ROOT
     splits: Path = ROOT / "configs" / "splits.csv"
-    crispr: Path = guard.CRISPR_PARQUET
+    crispr: Path | None = None    # None = the guard's own target file (only toy tests substitute one)
     access_log: Path = guard.ACCESS_LOG
     eval_genes: Path = ROOT / "configs" / "eval_genes.csv"
     gene_classes: Path = ROOT / "configs" / "gene_classes.csv"
@@ -85,8 +85,10 @@ class Paths:
     extra: dict = field(default_factory=dict)
 
     def guard_kw(self):
-        return dict(splits_path=self.splits, crispr_path=self.crispr, log_path=self.access_log,
-                    repo_root=self.root)
+        kw = dict(splits_path=self.splits, log_path=self.access_log, repo_root=self.root)
+        if self.crispr is not None:
+            kw["crispr_path"] = self.crispr
+        return kw
 
     def rel(self, p) -> str:
         try:
