@@ -25,7 +25,7 @@ Protocol
 3. Phase B: per finalist, in the order headline, T, H3 no-EC, B1, B2, B0: exactly ONE
    ``guard.load_targets(test_ids, config_hash)`` (an in-process ledger refuses a second request
    before the guard sees it; the guard refuses repeats across processes). The tracked access log is
-   committed right after each granted access (scripts/heldout_common.py explains why). Targets live
+   committed before each further access and at the end (scripts/heldout_common.py explains why). Targets live
    in memory only, never on disk. Post-access steps run one by one, each guarded by try/except, and
    results are written after each step, core metrics first.
 4. Results: results/test/<finalist>/summary.json (+ per_gene.csv.gz, per_line.csv), the combined
@@ -42,9 +42,10 @@ lineages with >= 20 test lines and per-library-group P1 (min_obs 20 inside those
 published-comparable block (loosely comparable). Test-line library groups = the dev NaN-pattern
 groups (configs/library_groups.csv definition) matched on the test line's own NaN pattern.
 
-Crash after an access: predictions are on disk, so ``--resume`` refits nothing and skips finalists
-whose results are complete; a finalist whose access was granted but whose core results are missing
-cannot be re-accessed (guard) and is reported for a PI decision.
+Crash after an access: predictions are on disk, so ``--resume`` refits nothing, skips finalists
+whose results are complete and evaluates the remaining ones; a finalist whose access was granted but
+whose core results are missing cannot be re-accessed (guard): it is marked
+``access_spent_incomplete`` for a PI decision and does not block the others.
 """
 from __future__ import annotations
 
@@ -128,7 +129,7 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
     checks["gate_G3"] = {"pass": HC.gate_passed(paths, "G3")}
     bad = HC.frozen_ok(paths)
     checks["frozen_hashes"] = {"pass": not bad, "changed": bad}
-    HC.check_noec(fin["H3_noEC"])
+    HC.check_noec_matches_T(fin["H3_noEC"], fin["T"])
     checks["noEC_excludes_4_EC_dev_lines"] = {"pass": True, "lines": HC.EC_DEV}
     done = completed(paths, fin)
     unb = {}
@@ -137,9 +138,12 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
             unb[f.name] = "complete (resume)"
             continue
         ok, reason = guard.unblinding_check(f.config_hash, "test", paths.root, paths.access_log)
+        if resume and reason == "finalist already accessed this scope":
+            reason = "access spent, results incomplete (PI decision)"
         unb[f.name] = reason
-    checks["guard_would_grant"] = {"pass": all(v in ("ok", "complete (resume)") for v in unb.values()),
-                                   "per_finalist": unb}
+    okv = ("ok", "complete (resume)", "access spent, results incomplete (PI decision)")
+    checks["guard_would_grant"] = {"pass": all(v in okv for v in unb.values()), "per_finalist": unb}
+    checks["spent_incomplete"] = {"pass": True, "finalists": [n for n, v in unb.items() if v.startswith("access spent")]}
     if not dry:
         failed = [k for k, v in checks.items() if not v["pass"]]
         if failed:
@@ -241,6 +245,14 @@ def step_core(ctx, f, pred, truth, refs):
     ev["per_line"].drop(columns=["fold"]).round(5).to_csv(od / "per_line.csv", index=False)
     return {"headline": ev["headline"], "summary": {c: {k: v for k, v in d.items() if not k.endswith(("_sd", "_folds"))}
                                                     for c, d in ev["summary"].items()}}
+
+
+def step_p2_sensitivity(ctx, f, pred, truth, refs):
+    """DESIGN §4 P2 sensitivity check: essentiality label at -1.0 instead of -0.5 (frozen evaluate)."""
+    ev = evaluate(pred, truth, ctx["gene_cls"], None, baseline_preds=refs, genes=ctx["eval_genes"],
+                  min_obs=ctx["min_obs"], thr=-1.0, spearman=False)
+    keep = ("P2a", "dP2a_vs_B0", "dP2a_vs_B1", "dP2a_vs_B2", "P2b_nap_prev05", "P2b_auroc_prev05", "P2b_n_prev05")
+    return {"thr": -1.0, **{k: ev["headline"].get(k) for k in keep if k in ev["headline"]}}
 
 
 def step_bootstrap(ctx, f, pred, truth, refs):
@@ -350,7 +362,8 @@ def step_setA_reference(ctx, f, pred, truth, refs):
             "definition": step_setA_reference.__doc__.split("\n", 1)[1].strip()}
 
 
-STEPS = [("core", step_core), ("bootstrap", step_bootstrap), ("within_group", step_within),
+STEPS = [("core", step_core), ("bootstrap", step_bootstrap), ("p2_sensitivity_thr_-1", step_p2_sensitivity),
+         ("within_group", step_within),
          ("strata", step_strata), ("published_comparable", step_published), ("setA_reference", step_setA_reference)]
 
 
@@ -467,16 +480,20 @@ def cv_comparison(f, pred, truth, ctx, paths):
     return out
 
 
-def phase_b(fin, paths, pop, man, n_boot, dry, log=print, min_obs=MIN_OBS_TEST, steps=STEPS, rehearsal=True):
+def phase_b(fin, paths, pop, man, n_boot, dry, log=print, min_obs=MIN_OBS_TEST, steps=STEPS, rehearsal=True,
+            run_tag="run"):
     preds = {f.name: load_pred(Path(paths.root, man[f.name]["file"]), man[f.name]["sha256"]) for f in fin.values()}
     preds_role = {f.role: preds[f.name] for f in fin.values()}
     ctx = build_context(fin, paths, pop, man, n_boot, min_obs, dry)
     ctx["preds"] = preds_role
     if rehearsal and len(completed(paths, fin)) < len(fin):
         rehearse(fin, preds_role, ctx, pop, paths, log)
-    ledger = HC.AccessLedger(Path(paths.out_dir) / "access_ledger.json")
-    if (Path(paths.out_dir) / "access_ledger.json").exists():
-        ledger.rows = json.loads((Path(paths.out_dir) / "access_ledger.json").read_text())
+    # per-run file names: outputs committed by an earlier (crashed) run are never modified before an access
+    prior = []
+    for q in sorted(Path(paths.out_dir).glob("access_ledger_*.json")):
+        prior += json.loads(q.read_text())
+    ledger = HC.AccessLedger(Path(paths.out_dir) / f"access_ledger_{run_tag}.json")
+    ledger.rows = prior
     done = completed(paths, fin)
     results, previous = {}, None
     for role in HC.ROLE_ORDER:
@@ -485,9 +502,13 @@ def phase_b(fin, paths, pop, man, n_boot, dry, log=print, min_obs=MIN_OBS_TEST, 
             log(f"{f.name}: complete (resume), not accessed again")
             results[f.name] = json.loads((Path(paths.out_dir) / f.name / "summary.json").read_text())
             continue
-        if ledger.n_granted(f.config_hash) and not dry:
-            raise SystemExit(f"{f.name}: test access already granted but results incomplete; the guard refuses a "
-                             "second access. PI decision needed (see results/test/access_ledger.json).")
+        spent = (not dry) and (ledger.n_granted(f.config_hash) > 0 or not guard.unblinding_check(
+            f.config_hash, "test", paths.root, paths.access_log)[0] and guard._granted_before(
+            f.config_hash, "test", paths.access_log))
+        if spent:
+            log(f"{f.name}: test access already spent but results incomplete -> PI decision (not re-accessed)")
+            results[f.name] = {"status": "access_spent_incomplete", "finalist": f.name}
+            continue
         truth_all = HC.guarded_targets(f, pop.heldout_ids, paths, ledger, dry,
                                        scope_label=None if not dry else f"test-standin:dev-fold0")
         truth_all.columns = truth_all.columns.astype(str)
@@ -506,6 +527,8 @@ def phase_b(fin, paths, pop, man, n_boot, dry, log=print, min_obs=MIN_OBS_TEST, 
             HC.write_json(Path(paths.out_dir) / f.name / "summary.json", HC.clean_floats(res))
         results[f.name] = res
     del previous
+    if not dry:
+        HC.ensure_log_committed(paths, "G4/G6 access log (end of G4 run)")
     return results, ledger, ctx
 
 
@@ -563,12 +586,16 @@ def run_g4(finalists_path, paths: HC.Paths, dry=False, threads=4, n_boot=2000, i
     fin = HC.load_finalists(finalists_path, paths.root)
     checks = preflight(fin, paths, dry, rel, resume)
     Path(paths.out_dir).mkdir(parents=True, exist_ok=True)
-    HC.write_json(Path(paths.out_dir) / "preflight.json", HC.clean_floats(checks))
+    tag = f"{stamp:%Y%m%d-%H%M%S}"
+    HC.write_json(Path(paths.out_dir) / f"preflight_{tag}.json", HC.clean_floats(checks))
     pop = HC.population(paths, dry)
     log(f"G4 {'DRY RUN ' if dry else ''}{pop.label}: {len(pop.train_ids)} training lines, "
         f"{len(pop.heldout_ids)} held-out lines")
     man = phase_a(fin, paths, dry, threads, isolate, resume, feature_loader, log, argv_extra)
-    results, ledger, ctx = phase_b(fin, paths, pop, man, n_boot, dry, log, min_obs=min_obs, steps=steps)
+    if not dry:  # predictions (sha256) are committed before the first target request
+        HC.commit_new_file(paths, manifest_path(paths), "G4 predictions manifest (before any test access)")
+    results, ledger, ctx = phase_b(fin, paths, pop, man, n_boot, dry, log, min_obs=min_obs, steps=steps,
+                                   run_tag=tag)
     roles = guard.roles_of(list(pop.train_ids) + list(pop.heldout_ids), paths.splits)
     ctx["roles_used"] = ";".join(f"{k}:{v}" for k, v in sorted(roles.value_counts().items()))
     summary = {"gate": "G4", "dry_run": dry, "population": pop.label, "timestamp": stamp.isoformat(timespec="seconds"),

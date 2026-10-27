@@ -8,10 +8,12 @@ transfer; resampling: essml.heldout).
   checks that each config file hashes to its recorded ``config_hash`` (scripts/run.py convention).
 * Tree checks: ``strict_dirty`` (modified OR untracked non-ignored files) and ``commit_access_log``.
   ``results/test_access_log.csv`` is TRACKED, and the guard appends a row on every non-dev access,
-  so after the first granted access the tree is dirty and the guard refuses every later finalist
+  so after the first access the tree is dirty and the guard would refuse every later finalist
   ("dirty tree"). The scripts therefore commit the access log (that path only, after verifying it
-  is the only modified tracked file) immediately after each granted access. If the PI untracks the
-  log instead, nothing is committed.
+  is the only modified tracked file) immediately BEFORE each further access and once at the end
+  (``ensure_log_committed``, with retries). The access itself is recorded in the ledger and
+  evaluated first, so a failing commit can only stop the NEXT access, never waste the current one.
+  If the PI untracks the log instead, nothing is committed.
 * ``AccessLedger``: in-process record of every target access; refuses a second request for the same
   (config_hash, scope) before the guard is even called, and is written next to the results.
 * Model fitting reuses scripts/run.py (``fit_predict_fold``, ``run_cv``, ``Sentinel``, FIT_LOG):
@@ -25,6 +27,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 
@@ -151,9 +154,20 @@ def check_noec(f: Finalist, ec_lines=EC_DEV):
     if excl != sorted(ec_lines):
         raise ValueError(f"H3 no-EC variant must exclude exactly the EC dev lines {sorted(ec_lines)} (D20d); "
                          f"config excludes {excl}")
-    base = {k: v for k, v in f.cfg.items() if k not in ("name", "exclude_from_training", "expected", "threads",
-                                                         "requires_gate")}
-    return base
+    return {k: v for k, v in f.cfg.items() if k not in NOEC_FREE_KEYS}
+
+
+NOEC_FREE_KEYS = ("name", "exclude_from_training", "expected", "threads", "requires_gate")
+
+
+def check_noec_matches_T(noec: Finalist, t: Finalist):
+    """The no-EC variant must be T in every fitting-relevant key (only the exclusion differs)."""
+    a = check_noec(noec)
+    b = {k: v for k, v in t.cfg.items() if k not in NOEC_FREE_KEYS}
+    if a != b:
+        diff = sorted(k for k in set(a) | set(b) if a.get(k) != b.get(k))
+        raise ValueError(f"H3 no-EC config differs from T beyond the exclusion: {diff}")
+    return True
 
 
 # ============================================================================ git / tree
@@ -203,6 +217,31 @@ def commit_access_log(paths: Paths, message: str) -> str | None:
         if r.returncode != 0:
             raise RuntimeError(f"git {' '.join(args)} failed: {r.stderr.strip()}")
     return git_head(paths.root)
+
+
+def commit_new_file(paths: Paths, path, message: str) -> str:
+    """Commit one evaluation output (e.g. the predictions manifest, before any access: tamper-evident)."""
+    rel = paths.rel(path)
+    if not _git(["status", "--porcelain", "--", rel], paths.root).stdout.strip():
+        return git_head(paths.root)  # already committed and unchanged
+    for args in (["add", "--", rel], ["commit", "-q", "-m", message, "--", rel]):
+        r = _git(args, paths.root)
+        if r.returncode != 0:
+            raise RuntimeError(f"git {' '.join(args)} failed: {r.stderr.strip()}")
+    return git_head(paths.root)
+
+
+def ensure_log_committed(paths: Paths, message: str, retries=5, wait=2.0):
+    """Commit the access log if it is modified (before the next access / at the end); retried, then fatal."""
+    last = None
+    for i in range(retries):
+        try:
+            return commit_access_log(paths, message)
+        except RuntimeError as e:  # e.g. index.lock held by an editor, or another tracked file modified
+            last = e
+            time.sleep(wait * (i + 1))
+    raise RuntimeError(f"access log could not be committed ({last}); stopping BEFORE the next access. Commit "
+                       f"{paths.rel(paths.access_log)} alone, then re-run with --resume.")
 
 
 def sha256_lf(path) -> str:
@@ -261,15 +300,14 @@ def guarded_targets(finalist: Finalist, ids, paths: Paths, ledger: AccessLedger,
         raise guard.BlindingError(f"dry run requested non-dev IDs: {roles[roles != 'dev'].value_counts().to_dict()}")
     scope = scope_label or ("dev-standin" if dry else (guard._scope(roles, screen)))
     ledger.check(finalist.config_hash, scope)
+    if not dry and commit_log:  # earlier rows of the tracked log are committed before this access
+        ensure_log_committed(paths, f"G4/G6 access log (before {finalist.name} {scope})")
     try:
         Y = guard.load_targets(list(ids), config_hash=finalist.config_hash, screen=screen, **paths.guard_kw())
     except guard.BlindingError as e:
         ledger.record(finalist, scope, len(ids), False, note=str(e)[:300])
         raise
-    commit = None
-    if not dry and commit_log:
-        commit = commit_access_log(paths, f"G4/G6 access log: {finalist.name} ({finalist.config_hash[:8]}) {scope}")
-    ledger.record(finalist, scope, len(ids), True, commit=commit)
+    ledger.record(finalist, scope, len(ids), True)
     return Y
 
 

@@ -266,10 +266,15 @@ def test_crash_after_access_needs_no_second_access(tmp_path, monkeypatch):
     hl = json.loads((w["paths"].out_dir / "toy_m1" / "summary.json").read_text())
     assert "core" in hl and "bootstrap" in hl and "late" in hl["errors"]   # earlier results kept
     assert (_log(w)["granted"] == "True").sum() == 6
-    # resume: predictions are reused, complete finalists are skipped, T cannot be re-accessed
-    with pytest.raises(SystemExit, match="already accessed"):
-        _run(w, resume=True)
-    assert (_log(w)["granted"] == "True").sum() == 6
+    # resume (after the PI commits the outputs): predictions reused, complete finalists skipped, T's spent
+    # access is not retried and does not block the others
+    TH.git(w["repo"], "add", "-A")
+    TH.git(w["repo"], "commit", "-q", "-m", "partial G4 results")
+    s2 = _run(w, resume=True)
+    st2 = {r["role"]: r["status"] for r in s2["table"]}
+    assert st2["T"] == "access_spent_incomplete" and st2["headline"] == "complete_with_errors"
+    assert s2["preflight"]["spent_incomplete"]["finalists"] == ["toy_t"]
+    assert (_log(w)["granted"] == "True").sum() == 6 and len(_log(w)) == 6
 
 
 def test_ledger_refuses_second_request_before_guard(tmp_path, monkeypatch):
@@ -314,4 +319,16 @@ def test_example_finalists_file_matches_configs():
     root = Path(__file__).resolve().parents[1]
     fin = HC.load_finalists(root / "configs" / "finalists.example.json", root)
     assert fin["headline"].name == "m1_E_resB0" and fin["T"].name == "t_E_status"
-    HC.check_noec(fin["H3_noEC"])
+    assert HC.check_noec_matches_T(fin["H3_noEC"], fin["T"])
+
+
+def test_p2b_ci_is_centred_on_point_despite_duplicate_bias(synth):
+    """Resampled AP is biased upward (duplicated positives credit their copies); the P2b CI is point +/- z SE."""
+    T, gc, W, b0 = synth
+    P = T + np.random.default_rng(4).normal(0, 1.0, T.shape)
+    _, b = _boot(P, T, gc, W, b0)
+    r = b["P2b_nap_prev05"]
+    assert r["ci_method"] == "normal" and r["ci_lo"] < r["point"] < r["ci_hi"]
+    assert r["ci_hi"] - r["point"] == pytest.approx(r["point"] - r["ci_lo"])
+    assert r["bias"] > 0                                    # the artefact the normal interval avoids
+    assert not b["P1_variable"]["point_outside_percentile_ci"]

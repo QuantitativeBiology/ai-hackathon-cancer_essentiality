@@ -223,6 +223,10 @@ def make_transfer_world(w, n_boot=100):
     b0 = pd.Series(GeneMean().fit(Ydev).mu_, index=genes)
     lm = LineageMean(10).fit(Ydev, w["lineage"].reindex(Ydev.index)).lineage_means()
     comp = pd.DataFrame({"B0": b0, "B1_L0": lm.loc["L0"], "B1_L1": lm.loc["L1"], "B1_L2": lm.loc["L2"], "B1_Eye": b0})
+    ref = repo / "results" / "test" / "toy_t"                # stand-in for G4's set-A reference distribution
+    ref.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame({"ModelID": w["test"], "Q3a_fold": rng.normal(0.05, 0.03, len(w["test"])),
+                  "Q3b_fold": rng.normal(0.05, 0.05, len(w["test"]))}).to_csv(ref / "setA_reference.csv", index=False)
     for f in ("harmonisation_frozen.json", "transfer_criteria.json"):
         (repo / "configs" / f).write_text(json.dumps({"toy": True}))
     git(repo, "add", "-A")

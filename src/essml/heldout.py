@@ -20,7 +20,14 @@ NOT frozen evaluation code. Point estimates always come from the frozen ``essml.
 Conventions fixed here (documented in the G4 output): the evaluable gene set, class membership and
 the P2b gene subset are those of the point estimate (fixed; only lines are resampled); per-line AP
 (P2a) is a property of the line, so its replicate value is the weighted mean of the per-line APs.
-CI = percentile (numpy 'linear'), SE = SD (ddof=1) of the replicates.
+CI = percentile (numpy 'linear'), SE = SD (ddof=1) of the replicates; every summary also reports the
+bootstrap mean, its bias (mean - point) and flags a point outside the percentile interval.
+
+P2b exception (normal interval): per-gene AP counts each item in its own precision, so a positive line
+duplicated by resampling credits its own copy; resampled AP is biased upward (dev fold-0 dry run: nAP
++0.017, the percentile interval [0.200, 0.221] excluded the point 0.194, in every positive-count
+stratum). That shift is an artefact of drawing duplicates, not sampling variability, so the P2b CI is
+point +/- z * bootstrap SE (the percentile interval is reported alongside). P1 (Pearson) is not affected.
 """
 from __future__ import annotations
 
@@ -166,15 +173,27 @@ def weighted_ap_cols(P, T, W, genes_mask=None, thr=-0.5):
 
 
 # ============================================================================ summaries
-def summarise(point, boot, level=CI_LEVEL) -> dict:
+def summarise(point, boot, level=CI_LEVEL, method="percentile") -> dict:
+    """method 'percentile' (default) or 'normal' (point +/- z * bootstrap SE; used for P2b, module doc)."""
+    from scipy.stats import norm
     b = np.asarray(boot, np.float64)
     ok = np.isfinite(b)
     a = (1 - level) / 2 * 100
     if ok.sum() < 2:
-        return {"point": _f(point), "ci_lo": None, "ci_hi": None, "se": None, "n_boot_valid": int(ok.sum())}
+        return {"point": _f(point), "ci_lo": None, "ci_hi": None, "se": None, "n_boot_valid": int(ok.sum()),
+                "ci_method": method}
     lo, hi = np.percentile(b[ok], [a, 100 - a])
-    return {"point": _f(point), "ci_lo": float(lo), "ci_hi": float(hi), "se": float(np.std(b[ok], ddof=1)),
-            "n_boot_valid": int(ok.sum())}
+    se = float(np.std(b[ok], ddof=1))
+    mean = float(b[ok].mean())
+    out = {"point": _f(point), "ci_lo": float(lo), "ci_hi": float(hi), "se": se, "n_boot_valid": int(ok.sum()),
+           "ci_method": method, "boot_mean": mean,
+           "bias": None if point is None or not np.isfinite(point) else mean - float(point),
+           "point_outside_percentile_ci": bool(point is not None and np.isfinite(point)
+                                               and not (lo - 1e-12 <= point <= hi + 1e-12))}
+    if method == "normal" and point is not None and np.isfinite(point):
+        z = float(norm.ppf(1 - (1 - level) / 2))
+        out.update(ci_lo=float(point) - z * se, ci_hi=float(point) + z * se, ci_percentile=[float(lo), float(hi)])
+    return out
 
 
 def _f(x):
@@ -253,6 +272,6 @@ def bootstrap_test_metrics(pred: pd.DataFrame, truth: pd.DataFrame, gene_classes
         with np.errstate(invalid="ignore", divide="ignore"):
             nap = (apb - pv) / (1.0 - pv)
         out["P2b_nap_prev05"] = summarise(summ["selective"]["P2b_nap_prev05"],
-                                          _nanmean_rows(nap, np.ones(nap.shape[1], bool)))
+                                          _nanmean_rows(nap, np.ones(nap.shape[1], bool)), method="normal")
         out["_P2b_n_genes"] = int(e05.sum())
     return out
