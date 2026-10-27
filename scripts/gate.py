@@ -4,6 +4,8 @@
     python scripts/gate.py G1     # baseline sanity on the latest ok b0/b1/b2 registry runs
 
     python scripts/gate.py G2     # M1/M1b/R1/T/M2 + ablation: scripts/g2_report.py output
+    python scripts/gate.py G3     # model ladder closed: headline chosen by the rule, finalists' CV runs,
+                                  # frozen tiers, dev-only G4 dry run reproduces CV fold 0
 
 G1 requires a passed G0. Checks (DESIGN §12): B0 P1 is exactly 0 in every fold and gene class;
 B1 P1 (variable) > 0 with every fold > 0. B2 is reported, not gated.
@@ -109,9 +111,60 @@ def g2():
     return checks
 
 
+def g3():
+    """DESIGN §12 G3 "model ladder closed" (D23): evidence that the G4 finalists are ready to freeze."""
+    g2j = GATES / "G2.json"
+    if not g2j.exists() or not json.loads(g2j.read_text())["pass"]:
+        raise SystemExit("G2 has not passed")
+    p = subprocess.run([sys.executable, "-m", "pytest", "-q", "tests", "-p", "no:cacheprovider"],
+                       cwd=ROOT, capture_output=True, text=True)
+    tail = [l for l in p.stdout.strip().splitlines() if l.strip()][-1]
+    fin = json.loads((ROOT / "configs" / "finalists.example.json").read_text())
+    entries = [fin["headline"], *fin["additional"], fin["T"], fin["H3_noEC"], *fin["baselines"].values()]
+    reg = pd.read_csv(ROOT / "results" / "registry.csv", dtype=str).set_index("run_id")
+    cv_bad = []
+    for e in entries:
+        r = reg.loc[e["cv_run_id"]] if e["cv_run_id"] in reg.index else None
+        cfg = json.loads((ROOT / e["config"]).read_text())
+        h = __import__("hashlib").sha256(json.dumps(cfg, sort_keys=True).encode()).hexdigest()
+        if r is None or r["status"] != "ok" or r["leaky"] != "0" or r["config_hash"] != e["config_hash"]                 or h != e["config_hash"]:
+            cv_bad.append(e["name"])
+    m5 = json.loads((ROOT / "results" / "g3_m5_summary.json").read_text())
+    sel = [s for s in m5["selection_log"] if s["candidate"] == fin["headline"]["name"]]
+    tiers = pd.read_csv(ROOT / "configs" / "predictable_genes.csv", dtype=str)
+    tracked = subprocess.run(["git", "ls-files", "--error-unmatch", "configs/predictable_genes.csv"], cwd=ROOT,
+                             capture_output=True).returncode == 0
+    dry = json.loads((ROOT / "results" / "dryrun" / "test" / "summary.json").read_text())
+    dry_p1 = {t["finalist"]: t.get("P1_variable") for t in dry["table"]}
+    cv_p1 = {k: v["cv_fold0"]["variable"]["P1"] for k, v in dry["cv_comparison"].items()}
+    repro = {k: (dry_p1.get(k), cv_p1[k]) for k in cv_p1}
+    cold = json.loads((ROOT / "results" / "dryrun" / "test" / "m5_cold_refit_check.json").read_text())
+    checks = [
+        {"check": "pytest -q tests", "result": tail, "pass": p.returncode == 0},
+        {"check": "every finalist's CV run is registered ok, not leaky, and its config hashes to config_hash",
+         "finalists": [e["name"] for e in entries], "bad": cv_bad, "pass": not cv_bad},
+        {"check": "headline chosen by the DESIGN §4 rule (dP1 > delta and > 1 SE vs the incumbent)",
+         "headline": fin["headline"]["name"], "selected_model": m5["selected_model"], "selection": sel,
+         "delta": m5["delta"], "pass": m5["selected_model"] == fin["headline"]["name"] and bool(sel)
+         and sel[0]["replaces"] and sel[0]["dP1"] > m5["delta"] and sel[0]["dP1"] > sel[0]["se"]},
+        {"check": "at most 2 additional finalists besides headline, T, H3 no-EC and baselines (DESIGN §4, §5)",
+         "additional": [a["name"] for a in fin["additional"]], "pass": len(fin["additional"]) <= 2},
+        {"check": "per-gene tiers committed, primary, 5 folds, from the headline's CV run (D22)",
+         "tracked": tracked, "source_run_id": sorted(tiers["source_run_id"].unique()),
+         "pass": tracked and set(tiers["table_role"]) == {"primary"}
+         and set(tiers["folds_used"]) == {"0;1;2;3;4"}
+         and set(tiers["source_run_id"]) == {fin["headline"]["cv_run_id"]}},
+        {"check": "dev-only G4 dry run (fold 0 stands in) reproduces CV fold-0 P1 (variable) for every finalist",
+         "dry_vs_cv": repro, "pass": all(a is not None and abs(a - b) < 1e-5 for a, b in repro.values())},
+        {"check": "headline refit from fresh caches reproduces CV fold-0 predictions",
+         "max_abs_diff": cold["max_abs_diff_vs_cv_fold0"], "pass": cold["max_abs_diff_vs_cv_fold0"] < 1e-6},
+    ]
+    return checks
+
+
 def main():
     gate = sys.argv[1]
-    checks = {"G0": g0, "G1": g1, "G2": g2}[gate]()
+    checks = {"G0": g0, "G1": g1, "G2": g2, "G3": g3}[gate]()
     commit, dirty = _git()
     out = {"gate": gate, "pass": all(c["pass"] for c in checks), "checks": checks,
            "commit": commit, "dirty_tree": dirty,

@@ -372,6 +372,25 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - VPS4A/VPS4B: both directions are published synthetic lethalities (Neggers 2020: 18q/VPS4B loss → VPS4A;
       16q/VPS4A loss → VPS4B). The two files list different directions, which is not an error. Both are too rare
       here to test (1 and 4 lines).
+- D25 (G3 gate and G4 freeze, 2026-10-27). The m5_avg integration was handed back
+  (evaluate_test.py, evaluate_transfer.py, predict.py, m5_stack.py; 288 tests; a fresh-agent leakage review
+  found no leakage, and its six findings were fixed with tests).
+  - **(a) Finalist count.** DESIGN §5 (finalists.json "freezes the headline model, model T and the H3 no-EC
+    variant") names T and T no-EC separately from the §4 cap of "at most 2 additional finalists". So m1_E_resB0
+    is the only additional finalist, which is within the cap. The G3 gate checks this.
+  - **(b) Dry run.** The dev-only dry run (fold 0 stands in) reproduces CV fold-0 P1 for every finalist
+    (m5_avg 0.322908). A refit from fresh caches reproduces the fold-0 predictions within 1.9e-9.
+  - **(c) Full-dev refit times.** Quiet machine, 4 threads, cold caches: m5_avg 1642 s (M2 1385 s), m1_E_resB0
+    119 s. These are the runtimes for REPORT.
+  - **(d) G6 "full = headline" secondary.** On external profiles m5_avg gets expression only, with genomics set to
+    diploid wild type (DESIGN §2/§5). So it is effectively expression-driven, and unlike T it does not see TP53/RB1
+    status of engineered lines. Accepted as specified; REPORT will say so when comparing it with T.
+  - **(e) Caches.** CV-era caches lack a code fingerprint, so G4 refits with fresh caches. The old caches are
+    deleted after G6.
+  - **(f) Registry flags.** dirty_tree=1 on the m1_E_resB0 and T CV rows is the old self-dirtying bug (fixed
+    since). The dry-run reproduction confirms that the frozen code gives the registered predictions.
+  - **(g) Gate.** scripts/gate.py G3 added and passed (results/gates/G3.json). Next: commit configs/finalists.json
+    (the D23 finalists, identical to finalists.example.json), then the one-time G4.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -455,6 +474,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] λ-criterion diagnostic (D20c): LOO-MSE −0.0011 (more shrinkage, worse at every SD decile);
     grouped inner-CV r = same variable-gene λ (−0.00005). No small-λ bias on real data; LOO r kept.
   - [x] G4/G6 scripts built and dry-run on dev only (fold 0 reproduces CV exactly; 249 tests); D21
+  - [x] G3 gate passed (D25): m5_avg wired into G4/G6/predict.py; dry run reproduces CV fold 0 for all finalists
   - [x] Per-gene predictability tiers frozen (m5_avg; m1 secondary), confidence score in outputs, characterisation,
     predict.py, per-tier G4 reporting with a dev-only dry run (D22; docs/predictability.md)
   - [!] M5 (docs/g3_m5_results.md): plain average m5_avg ΔP1 +0.0094 (SE 0.0002, 5/5) clears δ;
