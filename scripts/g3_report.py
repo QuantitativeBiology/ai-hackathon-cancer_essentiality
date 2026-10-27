@@ -176,12 +176,14 @@ def main(names=None, pooled=True):
           "P1 all | P2b nAP | P2b AUROC | fit+pred s | replaces |")
     print("|---|---|---|---|---|---|---|---|---|---|---|")
     for _, r in T.iterrows():
+        dag = "" if r["genes"] == "all variable" else " †"
         print(f"| {r['name']}{' (leaky)' if r['leaky'] else ''} | {r['run_id'][:15]} | {r['genes']} | "
               f"{r['folds']} | {fmt(r['P1_var'])} ± {fmt(r['P1_var_sd'])} | "
               f"{r['dP1']:+.4f} ± {fmt(r['dP1_se'])} ({r['folds_better']}/{r['folds']}) | "
-              f"{fmt(r['P1_all'])} | {fmt(r['P2b_nap'])} | {fmt(r['P2b_auroc'])} | "
+              f"{fmt(r['P1_all'])}{dag} | {fmt(r['P2b_nap'])}{dag} | {fmt(r['P2b_auroc'])}{dag} | "
               f"{r['fit_s'] + r['predict_s']:.0f} | {'yes' if r['selected'] else 'no'} |")
-    print()
+    print("\n† subset run: P1 all and P2b cover every gene, most of them passed through (M3: M1; "
+          "R2/R4: training mean); ΔP1 and 'replaces' refer to the subset genes only.\n")
     pb = published_block({**REF, **{n: found[n] for n in names
                                     if n in found and per_fold(found[n])['fold'].nunique() == 5}},
                          pooled=pooled)
