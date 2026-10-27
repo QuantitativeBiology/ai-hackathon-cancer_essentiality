@@ -4,6 +4,23 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-27 — G3 close-out: M5 and the λ-criterion diagnostic (docs/g3_m5_results.md)
+- **Result:** the pre-declared plain average of m1_E_resB0, m2n_E_paralogs and g3_m3n (`m5_avg`)
+  clears the selection rule: ΔP1 +0.0094 (SE 0.0002, NB 0.0003, 5/5) vs m1_E_resB0, P1 variable
+  0.3175. The gain holds within library (+0.010), within lineage (+0.012) and within
+  lineage × library (+0.012).
+- **Stacking:** M5 stacking (`m5_stack`, nested OOF, NNLS per class) scores 0.3180, which does not
+  beat the average (+0.0005, SE 0.0008), so the average represents M5 (pre-registered).
+- **Mechanism (post hoc):** M2/M3 corrections are over-scaled about 2×; averaging shrinks them.
+- **Controls and checks:**
+  - The permuted-input control missed both pre-stated bounds (max weight 0.041 > 0.01;
+    P1 −0.005). The bounds were mis-specified; two post-hoc seeds show the weights are
+    chance-level (D21b).
+  - Independent leakage review: no leak.
+- **λ diagnostic (D20c):** LOO-MSE −0.0011; grouped inner-CV r picks the same variable-gene λ
+  (−0.00005). The small-λ bias is not present on real data; closed.
+- **Pending PI decision:** confirm m5_avg as the G4 headline (D21a).
+
 ### 2026-10-26 — M3: first model rung (G2) done
 - **Result:** the kernel-ridge rung (G2) more than doubles the lineage-mean baseline's per-gene skill, but it is not
   better than a plain ridge regression on expression.
@@ -244,6 +261,20 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - Disclosure: per-gene CV r values already exist in results/runs/*/per_gene.csv.gz. Their aggregate means were
     seen, but the distribution was not examined before these thresholds were set.
 
+- D21 (G3 close-out; docs/g3_m5_results.md). Proposed; (a) awaits PI confirmation:
+  - **(a) Selection:** under the pre-registered rule (configs/runs/m5_stack.json), the M5 rung is
+    represented by the plain average `m5_avg`, because m5_stack did not beat it by > 1 SE.
+    `m5_avg` replaces m1_E_resB0 on dev CV: ΔP1 +0.0094 > δ, SE 0.0002. The test set is still
+    blind; finalists.json is the PI's call at G4. T stays the transfer model.
+  - **(b) Control miss accepted as interpreted:** m5_ctl_perm max weight 0.041 (bound 0.01).
+    One permutation is shared by all genes, so chance alignment scales as 1/√(n lines). Post-hoc
+    seeds give 0.035 and 0.037, mean about 0.01. The P1 bound wrongly assumed M2 was redundant.
+  - **(c) D20c closed:** LOO r stays the λ criterion of record (LOO-MSE −0.0011; inner-CV r
+    identical for variable genes).
+  - **(d) Deviation D-M5-1:** M2 inner fits used the non-nested local λ, declared before running.
+  - **(e) Post-hoc finding, not used:** M2/M3 corrections are over-scaled about 2×. Re-specifying
+    them with nested-CV shrinkage would need a new pre-registration.
+
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
 - [x] 1. Literature and dataset survey → LITERATURE.md (+ docs/lit/*)
@@ -318,10 +349,13 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     shrinkage here. Not extended further.
   - [x] Published-comparable block (loosely comparable): m1_E_resB0 mean Spearman 0.284 on DeepDEP genes and
     0.303 on LEAP genes; 4,362 genes with pooled r ≥ 0.2.
-  - [ ] λ-criterion diagnostic on the headline: LOO-MSE and grouped inner-CV r (D20c)
+  - [x] λ-criterion diagnostic (D20c): LOO-MSE −0.0011 (more shrinkage, worse at every SD decile);
+    grouped inner-CV r = same variable-gene λ (−0.00005). No small-λ bias on real data; LOO r kept.
   - [x] G4/G6 scripts built and dry-run on dev only (fold 0 reproduces CV exactly; 249 tests); D21
   - [ ] Per-gene predictability tiers frozen, confidence score in outputs, characterisation (D22)
-  - [ ] M5 stacking (inputs: m1_E_resB0, m2n_E_paralogs, g3_m3n nested); plain averaging is the baseline
+  - [!] M5 (docs/g3_m5_results.md): plain average m5_avg ΔP1 +0.0094 (SE 0.0002, 5/5) clears δ;
+    stacking m5_stack +0.0099 does not beat the average (+0.0005, SE 0.0008). Mechanism: M2/M3
+    corrections over-scaled about 2× (post hoc). Control weight 0.041 (chance-level; D21b). PI to confirm (D21a).
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
   - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.
