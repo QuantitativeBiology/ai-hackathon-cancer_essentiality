@@ -202,3 +202,27 @@ Same 150 genes (dev-wide variable, evaluable in every fold), per-fold means then
   ridge (better on only 30% of gene-folds). This matches the literature's "ridge ≥ sparse linear"
   on held-out lines, and it is ~1,000× more expensive per gene than the kernel ridge.
 - P1 all / P2b of this run are not meaningful (all other genes are predicted by the training mean).
+
+### R6. R4 TrPLet-like top-k: nested vs non-nested (published-method re-run; not a selection candidate)
+Runs `g3_r4_sub500` 20261027-043531 (nested) and `g3_r4_oracle_sub500` 20261027-052843 (leaky=1),
+the pre-declared 500-gene random variable subset, all 5 folds, 6 processes. 12 candidates per gene:
+top-k E features by |r| (k ∈ 5…200) × {ridge (LOO α), RBF-SVR}. Wall: nested 53 min, oracle 22 min.
+
+Same 500 genes, per-fold means then averaged:
+
+| model | P1 ± fold SD | ΔP1 vs m1_E_resB0 (SE; folds) | mean Spearman | genes r ≥ 0.2 (per fold) |
+|---|---|---|---|---|
+| m1_E_resB0 | 0.3182 ± 0.0054 | — | 0.2915 | 410.0 |
+| R1 (ridge) | 0.3172 ± 0.0062 | −0.0010 (0.0008) | 0.2897 | 409.8 |
+| **R4 nested** | **0.2800 ± 0.0065** | **−0.0382 (0.0016; 0/5)** | 0.2487 | 353.8 |
+| R4 non-nested (leaky, best-of-12 by outer-CV r) | 0.2981 ± 0.0065 | −0.0201 (0.0014; 0/5) | 0.2651 | 381.4 |
+| B2 (kNN) | 0.2615 | −0.0567 | 0.2345 | 330.8 |
+| B1 (lineage mean) | 0.1915 | −0.1267 | 0.1729 | 218.4 |
+
+- **Optimism of non-nested selection: +0.0181 P1 (SE 0.0003, 5/5 folds)** — about half of R4's gap to
+  ridge, from choosing 1 of only 12 candidates per gene on the reported folds (TrPLet chose 1 of 60).
+  Even with this optimism R4 stays 0.020 below multi-output ridge.
+- Nested choices favour the largest k (ridge k=200 33%, SVR k=200 23%; 2,500 gene-folds); the
+  oracle also picks k=200 most often. k=200 is the grid edge, so R4 with larger k might close part
+  of the gap (TrPLet used larger sets); not run (time box), noted as a limitation.
+- P1 all / P2b of these runs are not meaningful (non-modelled genes get the training mean).
