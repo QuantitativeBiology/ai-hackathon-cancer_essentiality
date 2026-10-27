@@ -154,6 +154,47 @@ Computed on training data, with prevalences over observed (non-NaN) lines only:
 - Exactly one **headline model** is named in `configs/finalists.json` and committed before the test is opened.
   At most 2 additional finalists are allowed, plus baselines.
 
+### Per-gene predictability (diagnostic; added pre-G4, RESEARCH_TREE D22)
+This section does not change the headline metric (P1), the selection rule or δ. It is fixed before any test-set
+access and before the per-gene distribution is examined for this purpose.
+
+**Source:** dev-CV out-of-fold predictions of the G4 headline model, which is `m1_E_resB0` unless G3 selects
+another. Per gene g, compute r_g,k (Pearson r across held-out lines in fold k) for the 5 outer folds.
+- mean_r = the mean over folds;
+- min_r = the minimum over folds;
+- sd_r = the fold SD.
+
+A gene is scored in a fold only where evaluate's min_obs rule makes it evaluable. A gene must be evaluable in all
+5 folds to receive a tier; otherwise it is "not evaluable".
+
+**Tiers (frozen to `configs/predictable_genes.csv`):**
+- **predictable (high):** mean_r ≥ 0.30 and min_r ≥ 0.20.
+- **medium:** not high, mean_r ≥ 0.15 and min_r > 0.
+- **low:** all other evaluable genes.
+
+**Confidence score** (shipped with every prediction): mean_r − sd_r, clipped to [−1, 1], plus the tier.
+
+**Null calibration:** the same tiers are computed on the permuted-expression B0-path control
+(`ctl_resB0_permuted`). The expected number of false "high" genes is the number of control genes passing. If that
+exceeds 5% of the observed high set, the 0.30 threshold is raised to the smallest value in {0.35, 0.40, 0.50} at
+which it is ≤ 5%. This is the only allowed adjustment, and it is recorded.
+
+**Characterisation (dev only):** both groups are compared on:
+- gene-effect SD and mean, and fraction of lines < −0.5;
+- gene class (variable / selective / common essential / non-essential);
+- screen reliability: cross-library agreement inside DepMap, with the method declared in config before it is
+  computed;
+- known biomarker-dependency pairs, from a literature list committed before the comparison;
+- own-expression association with the gene's own effect;
+- paralog status;
+- pathway enrichment (MSigDB Hallmark and Reactome, hypergeometric over the evaluable background, BH).
+
+**Test reporting (G4):**
+- P1 and P2b are reported separately for high / medium / low genes;
+- also reported: the across-gene Spearman correlation between dev mean_r and test r_g, which checks whether the
+  confidence score itself transfers.
+- The headline P1 is still the variable-gene mean.
+
 ### Runtime
 Wall-clock fit and predict, thread count and peak RSS, logged by the common launcher.
 

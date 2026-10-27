@@ -230,6 +230,19 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - The choices in the agent's report (fixed gene sets in the bootstrap, modal-lineage strata, NaN-pattern library
       matching, set-A reference from T's fold models, the criteria file's "every background agrees" rule, and only
       tier A1 evaluated) are accepted as the operational reading of DESIGN.
+- D22 (pre-G4, user request): add a per-gene predictability diagnostic (DESIGN §4 "Per-gene predictability").
+  - Users need to know which genes are reliably predictable, not only the mean P1.
+  - The tier criterion is fixed here and committed before the per-gene distribution is examined for this purpose:
+    - high: mean fold r ≥ 0.30 and min fold r ≥ 0.20;
+    - medium: mean r ≥ 0.15 and min r > 0;
+    - low: the rest.
+  - It is null-calibrated on the permuted control, with one pre-declared threshold escalation.
+  - The set is frozen to configs/predictable_genes.csv before finalists.json. Every prediction ships with a
+    confidence score (mean r − fold SD) and the tier.
+  - Test-set P1 and P2b are reported per tier.
+  - This is a diagnostic only: headline P1, the selection rule and δ are unchanged.
+  - Disclosure: per-gene CV r values already exist in results/runs/*/per_gene.csv.gz. Their aggregate means were
+    seen, but the distribution was not examined before these thresholds were set.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -307,6 +320,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     0.303 on LEAP genes; 4,362 genes with pooled r ≥ 0.2.
   - [ ] λ-criterion diagnostic on the headline: LOO-MSE and grouped inner-CV r (D20c)
   - [x] G4/G6 scripts built and dry-run on dev only (fold 0 reproduces CV exactly; 249 tests); D21
+  - [ ] Per-gene predictability tiers frozen, confidence score in outputs, characterisation (D22)
   - [ ] M5 stacking (inputs: m1_E_resB0, m2n_E_paralogs, g3_m3n nested); plain averaging is the baseline
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
