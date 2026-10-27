@@ -1,0 +1,44 @@
+pair_id,biomarker,biomarker_type,dependency,relation,headline_input,input_note,citation,source
+KRAS_mut,KRAS mutation,hotspot_mutation,KRAS,oncogene_addiction,no,mutation status is not an input (expression only); downstream transcriptional programs may act as a proxy,Tsherniak 2017 Cell; Behan 2019 Nature,well-established (Tsherniak 2017 in docs/lit/prior_methods.md [1])
+NRAS_mut,NRAS mutation,hotspot_mutation,NRAS,oncogene_addiction,no,mutation status is not an input,Tsherniak 2017 Cell; Behan 2019 Nature,well-established
+BRAF_V600,BRAF V600 mutation,hotspot_mutation,BRAF,oncogene_addiction,no,mutation status is not an input; melanoma lineage expression is a partial proxy,Tsherniak 2017 Cell; Behan 2019 Nature,well-established
+PIK3CA_mut,PIK3CA hotspot mutation,hotspot_mutation,PIK3CA,oncogene_addiction,no,mutation status is not an input,Behan 2019 Nature,well-established
+CTNNB1_mut,CTNNB1 activating mutation,hotspot_mutation,CTNNB1,oncogene_addiction,no,mutation status is not an input; WNT target expression is a partial proxy,Rosenbluh 2012 Cell; Behan 2019 Nature,well-established
+EGFR_mut_amp,EGFR mutation or amplification,hotspot_mutation_or_amplification,EGFR,oncogene_addiction,proxy,amplification raises EGFR mRNA (in E); mutation is not an input,Behan 2019 Nature,well-established
+ERBB2_amp,ERBB2 amplification,amplification,ERBB2,oncogene_addiction,direct,amplification drives ERBB2 over-expression which E measures,Marcotte 2016 Cell; Behan 2019 Nature,well-established
+MYCN_amp,MYCN amplification,amplification,MYCN,oncogene_addiction,direct,amplification drives MYCN over-expression which E measures,Durbin 2018 Nat Genet,well-established
+ESR1_pos,ER-positive breast cancer (ESR1 expression),expression,ESR1,oncogene_addiction,direct,ESR1 expression is in E,Marcotte 2016 Cell,well-established
+ALK_mut,ALK mutation or fusion,hotspot_mutation_or_fusion,ALK,oncogene_addiction,proxy,ALK expression (in E) is necessary but mutation/fusion status is not an input,George 2008 Nature; Mosse 2008 Nature,well-established
+EWSR1_FLI1,EWSR1-FLI1 fusion (Ewing sarcoma),fusion,FLI1,oncogene_addiction,proxy,fusion status is not an input (F excluded from the headline); FLI1 3' transcript and the Ewing expression program are in E,Delattre 1992 Nature (fusion); Tsherniak 2017 Cell,well-established
+BCR_ABL1,BCR-ABL1 fusion,fusion,ABL1,oncogene_addiction,no,fusion status is not an input; ABL1 is ubiquitously expressed,Druker 2001 N Engl J Med,well-established
+MTAP_PRMT5,MTAP deletion,deletion,PRMT5,collateral_lethality,proxy,homozygous MTAP deletion gives near-zero MTAP mRNA (in E); CN is not an input,Mavrakis 2016 Science; Kryukov 2016 Science,docs/lit/prior_methods.md [28] (Mavrakis 2016 [search]; Kryukov 2016 [unverified there])
+MTAP_MAT2A,MTAP deletion,deletion,MAT2A,collateral_lethality,proxy,homozygous MTAP deletion gives near-zero MTAP mRNA (in E),Marjon 2016 Cell Rep; Kryukov 2016 Science,well-established
+ENO1_ENO2,ENO1 homozygous deletion,deletion,ENO2,collateral_lethality,proxy,ENO1 deletion gives near-zero ENO1 mRNA (in E),Muller 2012 Nature,docs/lit/prior_methods.md [28] ([unverified] there; well-established)
+ME2_ME3,ME2 deletion,deletion,ME3,collateral_lethality,proxy,ME2 loss lowers ME2 mRNA (in E),Dey 2017 Nature,well-established
+MSI_WRN,microsatellite instability,MSI,WRN,synthetic_lethality,proxy,MSI status is not an input; MLH1 promoter silencing (in E) marks part of MSI lines,Chan 2019 Nature; Behan 2019 Nature; Kategaya 2019 iScience; Lieb 2019 eLife,well-established
+SMARCA4_SMARCA2,SMARCA4 loss,loss_of_function,SMARCA2,paralog_synthetic_lethality,proxy,truncating SMARCA4 loss often lowers SMARCA4 mRNA (in E); mutation is not an input,Hoffman 2014 PNAS; Oike 2013 Cancer Res,well-established
+ARID1A_ARID1B,ARID1A loss,loss_of_function,ARID1B,paralog_synthetic_lethality,no,ARID1A truncating mutations often leave mRNA levels intact; mutation is not an input,Helming 2014 Nat Med,well-established
+STAG2_STAG1,STAG2 loss,loss_of_function,STAG1,paralog_synthetic_lethality,proxy,STAG2 loss often lowers STAG2 mRNA (in E); mutation is not an input,van der Lelij 2017 eLife; Benedetti 2017 Oncotarget,well-established
+VPS4A_VPS4B,VPS4A copy loss,deletion,VPS4B,paralog_synthetic_lethality,proxy,copy loss lowers VPS4A mRNA (in E); CN is not an input,Neggers 2020 Cell Rep,well-established
+PTEN_PIK3CB,PTEN loss,loss_of_function,PIK3CB,synthetic_lethality,proxy,PTEN deletion lowers PTEN mRNA (in E); mutation is not an input,Wee 2008 PNAS,well-established
+TP53WT_MDM2,TP53 wild type,wild_type,MDM2,p53_pathway,proxy,TP53 status is not an input (the T model has it; the headline does not); p53-target expression (in E) is a proxy,Vassilev 2004 Science; DESIGN 7.5 H1,well-established
+TP53WT_MDM4,TP53 wild type,wild_type,MDM4,p53_pathway,proxy,as MDM2,Vassilev 2004 Science (pathway); DESIGN 7.5 H1,well-established
+TP53WT_PPM1D,TP53 wild type,wild_type,PPM1D,p53_pathway,proxy,as MDM2,DESIGN 7.5 H1 (PPM1D in TP53-WT backgrounds),well-established (DepMap TP53-WT-selective dependency)
+MEL_SOX10,melanoma lineage,lineage,SOX10,lineage_TF,proxy,lineage is not an input; the melanocytic expression program and SOX10 mRNA are in E,Tsherniak 2017 Cell,well-established
+MEL_MITF,melanoma lineage,lineage,MITF,lineage_TF,proxy,lineage is not an input; MITF mRNA and the melanocytic program are in E,Garraway 2005 Nature,well-established
+AML_MYB,AML / T-ALL lineage,lineage,MYB,lineage_TF,proxy,lineage is not an input; haematopoietic expression program is in E,Zuber 2011 Genes Dev,well-established
+AML_SPI1,AML lineage,lineage,SPI1,lineage_TF,proxy,lineage is not an input; myeloid expression program is in E,Wang 2017 Cell,well-established
+AML_CEBPA,AML lineage,lineage,CEBPA,lineage_TF,proxy,lineage is not an input; myeloid expression program is in E,Wang 2017 Cell,well-established
+AML_RUNX1,AML lineage,lineage,RUNX1,lineage_TF,proxy,lineage is not an input; haematopoietic expression program is in E,Wang 2017 Cell,well-established
+OV_PAX8,ovarian / kidney lineage,lineage,PAX8,lineage_TF,proxy,lineage is not an input; PAX8 mRNA is in E,Cheung 2011 PNAS,well-established
+MM_IRF4,multiple myeloma lineage,lineage,IRF4,lineage_TF,proxy,lineage is not an input; IRF4 mRNA is in E,Shaffer 2008 Nature,well-established
+BRCA_GATA3,luminal breast lineage,lineage,GATA3,lineage_TF,proxy,lineage is not an input; GATA3 mRNA is in E,Tsherniak 2017 Cell (lineage-restricted TF dependencies),well-established
+BRCA_FOXA1,luminal breast / prostate lineage,lineage,FOXA1,lineage_TF,proxy,lineage is not an input; FOXA1 mRNA is in E,Tsherniak 2017 Cell (lineage-restricted TF dependencies),well-established
+PRAD_AR,prostate lineage,lineage,AR,lineage_TF,proxy,lineage is not an input; AR mRNA is in E,Tsherniak 2017 Cell (lineage-restricted TF dependencies),well-established
+SCLC_ASCL1,small-cell lung cancer lineage,lineage,ASCL1,lineage_TF,proxy,lineage is not an input; ASCL1 mRNA is in E,Augustyn 2014 PNAS,well-established
+NB_PHOX2B,neuroblastoma lineage,lineage,PHOX2B,lineage_TF,proxy,lineage is not an input; PHOX2B mRNA is in E,Durbin 2018 Nat Genet,well-established
+NB_HAND2,neuroblastoma lineage,lineage,HAND2,lineage_TF,proxy,lineage is not an input; HAND2 mRNA is in E,Durbin 2018 Nat Genet,well-established
+LUAD_NKX2-1,lung adenocarcinoma lineage (NKX2-1 amplification),lineage,NKX2-1,lineage_TF,proxy,lineage and CN are not inputs; NKX2-1 mRNA is in E,Weir 2007 Nature; Kwei 2008 Oncogene,well-established
+SQ_SOX2,squamous lineage (SOX2 amplification),lineage,SOX2,lineage_TF,proxy,lineage and CN are not inputs; SOX2 mRNA is in E,Bass 2009 Nat Genet,well-established
+SQ_TP63,squamous lineage,lineage,TP63,lineage_TF,proxy,lineage is not an input; TP63 mRNA is in E,Tsherniak 2017 Cell (lineage-restricted TF dependencies),well-established
+RMS_MYOD1,rhabdomyosarcoma lineage,lineage,MYOD1,lineage_TF,proxy,lineage is not an input; MYOD1 mRNA is in E,Gryder 2017 Cancer Discov,well-established

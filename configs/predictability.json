@@ -1,0 +1,102 @@
+{
+ "_comment": "Per-gene predictability diagnostic (DESIGN v3 section 4 'Per-gene predictability', RESEARCH_TREE D22). Every method and threshold below is declared and committed BEFORE the per-gene tier distribution, the characterisation statistics or the biomarker comparison are computed. Diagnostic only: headline P1, the selection rule, delta, gene classes, labels and metrics are unchanged. Read by src/essml/predictability.py, scripts/predictability_tiers.py, scripts/predictability_characterise.py, scripts/evaluate_test.py and scripts/predict.py.",
+ "written": "2026-10-27, before computing any tier",
+ "source": {
+  "role": "G4 headline model (m1_E_resB0 unless G3 selects another; recompute with --run if M5 becomes the headline)",
+  "run_name": "m1_E_resB0",
+  "run_id": "20261026-222117_m1_E_resB0_91e52f9d",
+  "config": "configs/runs/m1_E_resB0.json",
+  "predictions": "cache/runs/<run_id>/pred.parquet (dev-CV out-of-fold predictions); if absent, re-run the config with scripts/run.py"
+ },
+ "null_control": {
+  "run_name": "ctl_resB0_permuted",
+  "run_id": "20261026-231349_ctl_resB0_permuted_28e789f7",
+  "config": "configs/runs/ctl_resB0_permuted.json"
+ },
+ "per_fold_r": {
+  "definition": "r_g,k = Pearson r across the held-out lines of outer fold k, computed by the frozen essml.evaluate (single call, fold_of_line = configs/splits.csv cv_fold, genes = all predicted genes, gene classes = configs/gene_classes.csv); NaN where the gene has fewer than min_obs observed held-out lines (evaluate's min_obs rule); constant predictions give r = 0 (frozen convention).",
+  "min_obs": 40,
+  "folds": [0, 1, 2, 3, 4],
+  "mean_r": "mean over folds",
+  "min_r": "minimum over folds",
+  "sd_r": "fold SD, ddof = 1 (as evaluate's fold SDs)",
+  "check": "the recomputed per-fold r must equal the run's cached cache/runs/<run_id>/per_gene_fold.parquet r on the eval genes (|diff| <= 1e-9) when that file exists"
+ },
+ "tiers": {
+  "evaluable": "evaluable (finite r) in every fold of per_fold_r.folds; otherwise tier 'not_evaluable' (no confidence score)",
+  "high": "mean_r >= T_high (T_high = 0.30 unless escalated) and min_r >= 0.20",
+  "medium": "not high, mean_r >= 0.15 and min_r > 0",
+  "low": "every other evaluable gene",
+  "comparison": "inclusive (>=) where DESIGN says >=, strict where it says >; values are compared in float64 without rounding"
+ },
+ "confidence": "clip(mean_r - sd_r, -1, 1) for evaluable genes; NaN for not_evaluable genes",
+ "null_calibration": {
+  "definition": "the same per-fold r, tiers and thresholds on the null control's out-of-fold predictions; expected false high = number of null genes that are 'high'",
+  "max_false_high_fraction": 0.05,
+  "rule": "if n_high(null, 0.30) > 0.05 * n_high(observed, 0.30), raise T_high (only) to the smallest value in the ladder at which n_high(null, T) <= 0.05 * n_high(observed, T); medium is unchanged. This is the only allowed adjustment and it is recorded in results/predictability/distribution.json and in the threshold column of configs/predictable_genes.csv.",
+  "ladder": [0.35, 0.40, 0.50],
+  "if_no_ladder_value_passes": "use 0.50 (the top of the ladder), record status 'ladder_exhausted' and flag for the PI",
+  "estimated_fdr": "n_high(null) / n_high(observed) at the threshold used (also reported at every ladder value)"
+ },
+ "outputs": {
+  "table": "configs/predictable_genes.csv: entrez, symbol, r_fold0..r_fold4, mean_r, min_r, sd_r, n_folds_evaluable, confidence, tier, source_run_id, threshold_high_mean_r (one row per predicted gene)",
+  "distribution": "results/predictability/distribution.json: quantiles and histogram of mean_r (all evaluable and variable genes), tier counts, null counts, estimated FDR, per-gene P2b (normalised AP, AUROC) by tier",
+  "figures": "docs/figures/predictability_*.png"
+ },
+ "p2b_by_tier": "per gene and fold, the frozen evaluate's nap / auroc (>= 3 positives and >= 3 negatives, label effect < -0.5); the per-gene value is the mean over folds where defined. Reported for selective genes (configs/gene_classes.csv) with headline-style restriction (fold prevalence <= 0.5 in every fold used) and without it.",
+ "dry_run": {
+  "purpose": "G4 dry run (scripts/evaluate_test.py --dry-run-dev): dev fold 0 stands in for the test set, so the tiers used there are computed from folds 1-4 only (fold 0's own CV results are not used). Disclosure: the fold 1-4 models were trained on lines that include fold 0.",
+  "exclude_folds": [0],
+  "out_dir": "results/dryrun/predictability"
+ },
+ "characterisation": {
+  "population": "dev lines only (configs/splits.csv role == dev); CRISPR values only via essml.guard.load_targets(dev IDs)",
+  "comparisons": "tiers high / medium / low (not_evaluable excluded). Continuous gene properties: per-tier median and IQR; high vs low and medium vs low: difference in medians with a 95% gene-bootstrap CI (2000 resamples, seed 20261026), rank-biserial correlation and Mann-Whitney U p; Kruskal-Wallis across the three tiers; Spearman correlation of the property with mean_r across evaluable genes (gene-bootstrap CI). Binary properties: per-tier fraction, odds ratio high vs low with Woolf 95% CI and Fisher exact p. Genes are not independent (co-regulated, shared lines), so p-values and gene-bootstrap CIs are descriptive.",
+  "gene_effect": "from all dev lines (observed only): SD (ddof 1), mean and fraction of lines < -0.5 (configs/gene_classes.csv sd / frac_below; mean recomputed from guarded dev targets)",
+  "gene_class": "configs/gene_classes.csv classes variable, selective, rare_selective, common_essential, nonessential: tier x class counts and fractions",
+  "screen_reliability": {
+   "primary": {
+    "name": "lineage_mean_crosslib_01",
+    "method": "Library groups = configs/library_groups.csv lib_group (dev NaN-pattern groups). For each gene, per-lineage mean gene effect over the observed dev lines of library group 0 and, separately, of library group 1, for lineages (configs/splits.csv OncotreeLineage) with >= 5 dev lines in BOTH groups; a lineage mean needs >= 3 observed lines of the gene in that group. Reliability = Pearson r across eligible lineages of the two vectors of lineage means; NaN if fewer than 5 lineages have both means.",
+    "groups": [0, 1],
+    "min_lines_per_lineage_per_group": 5,
+    "min_observed_lines_for_a_mean": 3,
+    "min_lineages": 5
+   },
+   "secondary": {
+    "name": "lineage_mean_crosslib_02",
+    "method": "same, library groups 0 and 2",
+    "groups": [0, 2],
+    "min_lines_per_lineage_per_group": 5,
+    "min_observed_lines_for_a_mean": 3,
+    "min_lineages": 5
+   },
+   "anchor_agreement": {
+    "name": "external_anchor_agreement",
+    "method": "External anchor screens of DepMap DEV lines only (results/harmonisation/anchor_agreement.csv role == anchor; 23 screens of 18 dev lines), profile = cache/harmonised/anchor_LOAO_location__<anchor id>.parquet column loao_corrected (affine + gene-wise location correction fitted WITHOUT that anchor), read only through essml.guard.load_harmonised(name, anchor_model_id=<dev ModelID>) (guard-approved anchor reader; each read is logged). Per gene: Pearson r across anchor screens between the external effect and the DepMap gene effect of the same dev line; genes need >= 15 anchor screens with both values. Descriptive (most anchors are AML lines).",
+    "min_anchor_screens": 15
+   }
+  },
+  "biomarker_pairs": "configs/biomarker_pairs.csv (committed before the comparison): report each pair's dependency-gene tier, mean_r and whether the biomarker is a headline-model input (the headline uses expression only).",
+  "own_expression": "per gene, Pearson r across dev lines between the gene's own expression (cache/features/E.parquet, log2(TPM+1), column = Entrez) and its gene effect, observed lines only; genes absent from E -> NaN. Reported signed and as |r|.",
+  "paralog": "cache/priors/paralog_top.parquet (Ensembl 116 Compara): has_paralog = family_size_id20 > 0 (a paralog with >= 20% identity); max_identity (0 if none); high-identity paralog = max_identity >= 50.",
+  "enrichment": {
+   "collections": {
+    "hallmark": "cache/features/gene_sets.json['hallmark'] (MSigDB 2024.1.Hs Hallmark, Entrez)",
+    "reactome": "data/raw_external/reactome_gmt/ReactomePathways.gmt.zip, symbols mapped to Entrez via configs/gene_classes.csv DepMap symbols, then HGNC approved symbols, then unique previous/alias symbols"
+   },
+   "tests": {
+    "high_vs_evaluable": "foreground = high tier; background = all evaluable genes (tiers high/medium/low)",
+    "low_among_variable": "foreground = low tier among variable evaluable genes; background = variable evaluable genes"
+   },
+   "set_size": "gene sets restricted to the background; tested if 10 <= size <= 500",
+   "statistic": "one-sided hypergeometric over-representation P(X >= k); BH within each collection x test; report odds ratio and fold enrichment",
+   "report": "sets with BH q < 0.05, top 15 by q per collection x test"
+  }
+ },
+ "test_reporting": {
+  "per_tier": "P1 (all genes of the tier, and tier x variable) and P2b normalised AP / AUROC (selective genes of the tier, prevalence <= 0.5) from the frozen evaluate's per-gene output, with patient-bootstrap CIs as the headline (essml.heldout).",
+  "transfer_check": "Spearman correlation across evaluable genes between dev mean_r and test r_g, with a patient-bootstrap percentile CI (same draws as the headline bootstrap).",
+  "precondition": "scripts/evaluate_test.py refuses to run unless configs/predictable_genes.csv is committed (tracked and unmodified) and records its sha256 in every output."
+ }
+}
