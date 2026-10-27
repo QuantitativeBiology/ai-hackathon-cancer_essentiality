@@ -323,6 +323,14 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     already hinted.
   - If the rule is met, one targeted own-genomic M2 variant is pre-registered and judged by the unchanged
     selection rule.
+  - **Outcome (docs/mutation_dependencies.md):** the rule is NOT met, so no targeted variant was built.
+    - Pair file committed first (57984af); 17 of 19 pairs eligible.
+    - Condition 1 holds: pooled ΔAUPRC vs m1_E_resB0 is +0.029 [0.009, 0.048] (m1bt_full) and
+      +0.062 [0.051, 0.073] (g3_m3n), over 15 pairs defined in all folds.
+    - Condition 2 fails: only NRAS gains ≥ 0.10 in ≥ 4/5 folds; BRAF 3/5 under M3.
+    - Expression misses RAS/RAF hotspot addiction within lineages. The headline m5_avg, through M3, recovers most
+      of it (NRAS AUPRC 0.21 → 0.63). Amplification, p53-axis and loss pairs are already carried by expression.
+    - An independent review reproduced every number and found no leakage.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader

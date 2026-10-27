@@ -139,7 +139,7 @@ def summarise(long, pairs, models, ref, comparators, decl):
         base = sub[sub["model"] == ref].set_index("fold").sort_index()
         for m in models:
             x = sub[sub["model"] == m].set_index("fold").sort_index()
-            d = {"n": {c: int(x[c].iloc[0]) for c in ["n_obs", "n_dep"]},
+            d = {"n_total": {c: int(x[c].sum()) for c in ["n_obs", "n_dep", "n_mut", "n_wt"]},
                  "n_fold_mut": x["n_mut"].tolist(), "n_fold_dep_mut": x["n_dep_mut"].tolist()}
             for c in mets:
                 v = x[c].to_numpy(np.float64)
