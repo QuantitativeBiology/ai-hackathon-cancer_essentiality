@@ -130,8 +130,8 @@ def p2b_by_tier(long: pd.DataFrame, table: pd.DataFrame, gc: pd.DataFrame, folds
     prev = sub.pivot(index="gene", columns="fold", values="prev")
     defined = nap.notna()
     prev_ok = (prev.where(defined) <= 0.5) | ~defined
-    g = pd.DataFrame({"nap": nap.mean(1), "auroc": auc.mean(1), "n_folds_defined": defined.sum(1),
-                      "prev05_all_folds": prev_ok.all(1) & defined.any(1)})
+    g = pd.DataFrame({"nap": nap.mean(axis=1), "auroc": auc.mean(axis=1), "n_folds_defined": defined.sum(axis=1),
+                      "prev05_all_folds": prev_ok.all(axis=1) & defined.any(axis=1)})
     t = table.set_index("entrez")["tier"]
     sel = gc["selective"].reindex(g.index).fillna(False).astype(bool)
     out = {"definition": "selective genes (configs/gene_classes.csv); per gene the mean over folds of the frozen "
@@ -162,21 +162,24 @@ def make_figures(table: pd.DataFrame, null_table: pd.DataFrame, gc: pd.DataFrame
     nev = null_table[null_table["tier"] != "not_evaluable"].set_index("entrez")
     nvar = gc["variable"].reindex(nev.index).fillna(False).astype(bool)
 
-    # 1. distribution of mean_r: variable vs other evaluable genes, with the permuted-control null
-    fig, ax = plt.subplots(figsize=(6.4, 3.4), dpi=150)
+    # 1. distribution of mean_r (all evaluable | variable genes), each with the permuted-expression control
+    fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.2), dpi=150, sharex=True)
     bins = np.arange(-0.3, 1.0001, 0.02)
-    ax.hist(ev.loc[~var, "mean_r"].clip(-0.3, 1), bins=bins, color="#1baf7a", alpha=0.6, label=f"other evaluable genes (n={int((~var).sum())})")
-    ax.hist(ev.loc[var, "mean_r"].clip(-0.3, 1), bins=bins, color="#2a78d6", alpha=0.85,
-            label=f"variable genes (n={int(var.sum())})")
-    ax.hist(nev.loc[nvar, "mean_r"].clip(-0.3, 1), bins=bins, histtype="step", color=ink, lw=1.0,
-            label="permuted-expression control, variable genes")
-    for x, lab in ((0.15, "medium ≥ 0.15"), (t_high, f"high ≥ {t_high:.2f}")):
-        ax.axvline(x, color=muted, lw=0.8, ls="--")
-        ax.text(x + 0.008, ax.get_ylim()[1] * 0.95, lab, color=muted, va="top", fontsize=8)
-    ax.set_xlabel("mean per-gene r over the 5 dev-CV folds (m1_E_resB0)")
-    ax.set_ylabel("genes")
-    ax.legend(frameon=False, fontsize=8, loc="upper right")
-    ax.grid(axis="y", color=grid, lw=0.5)
+    for ax, (title, sel, nsel) in zip(axes, (("all evaluable genes", slice(None), slice(None)),
+                                             ("variable genes (SD > 0.25)", var, nvar))):
+        x = ev.loc[sel, "mean_r"].clip(-0.3, 1)
+        ax.hist(x, bins=bins, color="#2a78d6", label=f"m1_E_resB0 (n={len(x)})")
+        ax.hist(nev.loc[nsel, "mean_r"].clip(-0.3, 1), bins=bins, histtype="step", color=ink, lw=1.0,
+                label="permuted-expression control")
+        top = ax.get_ylim()[1]
+        for xv, lab, yf in ((0.15, "0.15", 0.97), (t_high, f"{t_high:.2f}", 0.97)):
+            ax.axvline(xv, color=muted, lw=0.8, ls="--")
+            ax.text(xv + 0.01, top * yf, lab, color=muted, va="top", fontsize=8)
+        ax.set_title(title, fontsize=9, color=ink, loc="left")
+        ax.set_xlabel("mean per-gene r over 5 dev-CV folds")
+        ax.grid(axis="y", color=grid, lw=0.5)
+        ax.legend(frameon=False, fontsize=7.5, loc="upper right", bbox_to_anchor=(1.0, 0.82))
+    axes[0].set_ylabel("genes")
     fig.tight_layout()
     fig.savefig(fig_dir / "predictability_mean_r_hist.png")
     plt.close(fig)
