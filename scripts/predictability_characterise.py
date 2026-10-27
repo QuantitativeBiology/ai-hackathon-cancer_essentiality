@@ -137,8 +137,8 @@ def lineage_mean_reliability(Y, lineage, lib, groups, min_lines, min_obs_mean, m
             ids = lineage.index[(lineage == l) & (lib == g)]
             V = Y.loc[ids].to_numpy(np.float64)
             n = np.isfinite(V).sum(0)
-            with np.errstate(invalid="ignore"):
-                m = np.nanmean(V, 0) if len(ids) else np.full(V.shape[1], np.nan)
+            with np.errstate(invalid="ignore", divide="ignore"):
+                m = np.where(n > 0, np.nansum(V, 0) / np.maximum(n, 1), np.nan)
             rows.append(np.where(n >= min_obs_mean, m, np.nan))
         mats.append(np.vstack(rows))
     r, n = masked_pearson_cols(mats[0], mats[1], min_lineages)
@@ -149,8 +149,8 @@ def anchor_agreement(Y_dev_loader, min_screens, log=print):
     """Per-gene Pearson across dev anchor screens of external (LOAO-corrected) vs DepMap effect."""
     a = pd.read_csv(ROOT / "results" / "harmonisation" / "anchor_agreement.csv")
     a = a[a["role"] == "anchor"][["id", "depmap_id"]].drop_duplicates()
-    roles = guard.roles_of(list(a["depmap_id"]))
-    a = a[a["depmap_id"].map(roles).eq("dev").to_numpy()]
+    roles = guard.roles_of(sorted(set(a["depmap_id"])))
+    a = a[a["depmap_id"].map(roles.to_dict()).eq("dev").to_numpy()]  # dev anchors only
     ext = {}
     for aid, mid in zip(a["id"], a["depmap_id"]):
         name = f"anchor_LOAO_location__{aid}"

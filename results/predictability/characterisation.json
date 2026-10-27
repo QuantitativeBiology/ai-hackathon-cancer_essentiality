@@ -1,0 +1,1585 @@
+{
+ "generated": "2026-10-27T16:34:20",
+ "git_commit": "7d08a0f84064321076a8391c992e15d2a86a8e68",
+ "table": "configs/predictable_genes.csv",
+ "table_sha256": "2820494128fcc1dbef93364ce63192536333cf64dfbce66d5eb55184e9391176",
+ "population": "dev lines only (configs/splits.csv role == dev); CRISPR values only via essml.guard.load_targets(dev IDs)",
+ "comparisons_method": "tiers high / medium / low (not_evaluable excluded). Continuous gene properties: per-tier median and IQR; high vs low and medium vs low: difference in medians with a 95% gene-bootstrap CI (2000 resamples, seed 20261026), rank-biserial correlation and Mann-Whitney U p; Kruskal-Wallis across the three tiers; Spearman correlation of the property with mean_r across evaluable genes (gene-bootstrap CI). Binary properties: per-tier fraction, odds ratio high vs low with Woolf 95% CI and Fisher exact p. Genes are not independent (co-regulated, shared lines), so p-values and gene-bootstrap CIs are descriptive.",
+ "reliability_info": {
+  "lineage_mean_crosslib_01": {
+   "groups": [
+    0,
+    1
+   ],
+   "eligible_lineages": [
+    "Bowel",
+    "Breast",
+    "CNS/Brain",
+    "Esophagus/Stomach",
+    "Head and Neck",
+    "Lung",
+    "Ovary/Fallopian Tube",
+    "Pancreas",
+    "Peripheral Nervous System",
+    "Uterus"
+   ],
+   "n_genes_defined": 17786
+  },
+  "lineage_mean_crosslib_02": {
+   "groups": [
+    0,
+    2
+   ],
+   "eligible_lineages": [
+    "Bone",
+    "Bowel",
+    "Breast",
+    "CNS/Brain",
+    "Esophagus/Stomach",
+    "Pancreas",
+    "Soft Tissue"
+   ],
+   "n_genes_defined": 17525
+  },
+  "external_anchor_agreement": {
+   "n_screens": 23,
+   "n_lines": 18,
+   "screens": [
+    "A_doench2016_HT29_Avana",
+    "A_sanson2018_A375",
+    "A_hart2015_DLD1",
+    "A_hart2015_HCT116",
+    "A_mair2019_HAP1_T18",
+    "A_wang2015_K562",
+    "A_wang2015_Raji",
+    "A_wang2017_EOL1",
+    "A_wang2017_HEL",
+    "A_wang2017_MOLM13",
+    "A_wang2017_MV411",
+    "A_wang2017_MonoMac1",
+    "A_wang2017_NB4",
+    "A_wang2017_OCIAML2",
+    "A_wang2017_OCIAML3",
+    "A_wang2017_TF1",
+    "A_wang2017_THP1",
+    "A_tzelepis2016_HT1080",
+    "A_tzelepis2016_HT29_d25",
+    "A_tzelepis2016_MOLM13",
+    "A_tzelepis2016_MV411",
+    "A_tzelepis2016_OCIAML2",
+    "A_tzelepis2016_OCIAML3"
+   ],
+   "n_genes_defined": 17350
+  }
+ },
+ "n_per_tier": {
+  "low": 10103,
+  "medium": 6211,
+  "high": 1601,
+  "not_evaluable": 519
+ },
+ "continuous": {
+  "effect_sd": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "mean": 0.3053067457838851,
+     "median": 0.287,
+     "q25": 0.22267,
+     "q75": 0.36563
+    },
+    "medium": {
+     "n": 6211,
+     "mean": 0.18086291579455807,
+     "median": 0.15255,
+     "q25": 0.132385,
+     "q75": 0.19866
+    },
+    "low": {
+     "n": 10103,
+     "mean": 0.13949605166782145,
+     "median": 0.13295,
+     "q25": 0.121415,
+     "q75": 0.1471
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.15404999999999996,
+    "median_diff_ci95": [
+     0.14792000000000002,
+     0.16085075
+    ],
+    "rank_biserial": 0.9285982735105118,
+    "mannwhitney_p": 0.0
+   },
+   "medium_vs_low": {
+    "median_diff": 0.01959999999999998,
+    "median_diff_ci95": [
+     0.01830000000000001,
+     0.020949999999999996
+    ],
+    "rank_biserial": 0.4083122074798311,
+    "mannwhitney_p": 0.0
+   },
+   "high_vs_medium": {
+    "median_diff": 0.13445,
+    "median_diff_ci95": [
+     0.12815875,
+     0.14099075
+    ],
+    "rank_biserial": 0.7069411315239198,
+    "mannwhitney_p": 0.0
+   },
+   "kruskal_p": 0.0,
+   "spearman_with_mean_r": {
+    "rho": 0.5068743103017987,
+    "ci95": [
+     0.49494857141209103,
+     0.5190618942846357
+    ],
+    "n": 17915,
+    "n_boot": 500
+   }
+  },
+  "effect_mean": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "mean": -0.5590148379914613,
+     "median": -0.39840032403068454,
+     "q25": -0.7761022749711411,
+     "q75": -0.1728980759831194
+    },
+    "medium": {
+     "n": 6211,
+     "mean": -0.23756135079837598,
+     "median": -0.0801856795990764,
+     "q25": -0.23049261348372568,
+     "q75": 0.0035391120257474125
+    },
+    "low": {
+     "n": 10103,
+     "mean": -0.030888970023529673,
+     "median": -0.0024362658770231975,
+     "q25": -0.06480275999627573,
+     "q75": 0.051415109477331994
+    }
+   },
+   "high_vs_low": {
+    "median_diff": -0.3959640581536613,
+    "median_diff_ci95": [
+     -0.4249136840099006,
+     -0.3635575463391129
+    ],
+    "rank_biserial": -0.7920438842817172,
+    "mannwhitney_p": 0.0
+   },
+   "medium_vs_low": {
+    "median_diff": -0.0777494137220532,
+    "median_diff_ci95": [
+     -0.08316249354126184,
+     -0.07184905875654037
+    ],
+    "rank_biserial": -0.3862093723968515,
+    "mannwhitney_p": 0.0
+   },
+   "high_vs_medium": {
+    "median_diff": -0.31821464443160813,
+    "median_diff_ci95": [
+     -0.3476684545566949,
+     -0.2859821874132211
+    ],
+    "rank_biserial": -0.4944950180569603,
+    "mannwhitney_p": 4.7730929665058775e-205
+   },
+   "kruskal_p": 0.0,
+   "spearman_with_mean_r": {
+    "rho": -0.46040125803548865,
+    "ci95": [
+     -0.47163494994925914,
+     -0.447774375785654
+    ],
+    "n": 17915,
+    "n_boot": 500
+   }
+  },
+  "effect_frac_below_-0.5": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "mean": 0.42007466583385383,
+     "median": 0.30431,
+     "q25": 0.07045,
+     "q75": 0.80137
+    },
+    "medium": {
+     "n": 6211,
+     "mean": 0.15651248269199805,
+     "median": 0.01076,
+     "q25": 0.00294,
+     "q75": 0.07241
+    },
+    "low": {
+     "n": 10103,
+     "mean": 0.022189539740671088,
+     "median": 0.00294,
+     "q25": 0.00098,
+     "q75": 0.00685
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.30137,
+    "median_diff_ci95": [
+     0.2651355,
+     0.33855
+    ],
+    "rank_biserial": 0.9000933112241847,
+    "mannwhitney_p": 0.0
+   },
+   "medium_vs_low": {
+    "median_diff": 0.00782,
+    "median_diff_ci95": [
+     0.006840000000000001,
+     0.0088
+    ],
+    "rank_biserial": 0.40993152911104813,
+    "mannwhitney_p": 0.0
+   },
+   "high_vs_medium": {
+    "median_diff": 0.29355000000000003,
+    "median_diff_ci95": [
+     0.25734,
+     0.32975
+    ],
+    "rank_biserial": 0.5871179570890879,
+    "mannwhitney_p": 1.758531066285155e-288
+   },
+   "kruskal_p": 0.0,
+   "spearman_with_mean_r": {
+    "rho": 0.5022178915465106,
+    "ci95": [
+     0.48962370323796855,
+     0.5137133229767903
+    ],
+    "n": 17915,
+    "n_boot": 500
+   }
+  },
+  "own_expr_r": {
+   "per_tier": {
+    "high": {
+     "n": 1600,
+     "mean": -0.03486857084536208,
+     "median": -0.010996576609180197,
+     "q25": -0.09863662692586977,
+     "q75": 0.055999591925077266
+    },
+    "medium": {
+     "n": 6198,
+     "mean": -0.013621693087730955,
+     "median": -0.01111748025792153,
+     "q25": -0.057619652415902105,
+     "q75": 0.03419419199481898
+    },
+    "low": {
+     "n": 10054,
+     "mean": -0.011110427698620069,
+     "median": -0.009364434190296141,
+     "q25": -0.041026963931304096,
+     "q75": 0.021374911285105803
+    }
+   },
+   "high_vs_low": {
+    "median_diff": -0.0016321424188840555,
+    "median_diff_ci95": [
+     -0.008910354749785318,
+     0.00585539837862431
+    ],
+    "rank_biserial": -0.023673662223990477,
+    "mannwhitney_p": 0.12767245371248132
+   },
+   "medium_vs_low": {
+    "median_diff": -0.001753046067625389,
+    "median_diff_ci95": [
+     -0.004250522261226395,
+     0.0010206682351707557
+    ],
+    "rank_biserial": -0.010140754607276259,
+    "mannwhitney_p": 0.2767833735232065
+   },
+   "high_vs_medium": {
+    "median_diff": 0.00012090364874133355,
+    "median_diff_ci95": [
+     -0.0075666517499378815,
+     0.00780968820451034
+    ],
+    "rank_biserial": -0.026071515004840284,
+    "mannwhitney_p": 0.10734472569337981
+   },
+   "kruskal_p": 0.16721744127769683,
+   "spearman_with_mean_r": {
+    "rho": -0.015781001818477407,
+    "ci95": [
+     -0.03156250772795557,
+     0.0006129073182083894
+    ],
+    "n": 17852,
+    "n_boot": 500
+   }
+  },
+  "own_expr_abs_r": {
+   "per_tier": {
+    "high": {
+     "n": 1600,
+     "mean": 0.10680634614355398,
+     "median": 0.07706559587056963,
+     "q25": 0.03510361266635388,
+     "q75": 0.1390954356000929
+    },
+    "medium": {
+     "n": 6198,
+     "mean": 0.059785600417152855,
+     "median": 0.046542289977747224,
+     "q25": 0.021965181075236737,
+     "q75": 0.08311925045412319
+    },
+    "low": {
+     "n": 10054,
+     "mean": 0.03920685716091708,
+     "median": 0.03161306446873216,
+     "q25": 0.014573161596931483,
+     "q75": 0.055268036875633295
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.04545253140183747,
+    "median_diff_ci95": [
+     0.040819642806209915,
+     0.049464761717042574
+    ],
+    "rank_biserial": 0.4848320320270538,
+    "mannwhitney_p": 1.1381524541534635e-213
+   },
+   "medium_vs_low": {
+    "median_diff": 0.014929225509015064,
+    "median_diff_ci95": [
+     0.01321011686671106,
+     0.016635866098591346
+    ],
+    "rank_biserial": 0.23562655176085912,
+    "mannwhitney_p": 6.747925676747842e-141
+   },
+   "high_vs_medium": {
+    "median_diff": 0.030523305892822407,
+    "median_diff_ci95": [
+     0.025635406373573012,
+     0.03466400732225346
+    ],
+    "rank_biserial": 0.28481929654727334,
+    "mannwhitney_p": 2.8756884393841905e-69
+   },
+   "kruskal_p": 4.8464129027925546e-294,
+   "spearman_with_mean_r": {
+    "rho": 0.2884799906475782,
+    "ci95": [
+     0.2747722292501886,
+     0.30256533911663375
+    ],
+    "n": 17852,
+    "n_boot": 500
+   }
+  },
+  "own_expr_mean_log2tpm": {
+   "per_tier": {
+    "high": {
+     "n": 1600,
+     "mean": 5.002773207406208,
+     "median": 4.942346572875977,
+     "q25": 3.930572986602783,
+     "q75": 6.0345951318740845
+    },
+    "medium": {
+     "n": 6198,
+     "mean": 3.2907926466648565,
+     "median": 3.4683786630630493,
+     "q25": 1.0013269186019897,
+     "q75": 4.94322943687439
+    },
+    "low": {
+     "n": 10054,
+     "mean": 2.088055300363175,
+     "median": 1.515686273574829,
+     "q25": 0.31006138026714325,
+     "q75": 3.5216286182403564
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 3.4266602993011475,
+    "median_diff_ci95": [
+     3.286583644151688,
+     3.5356284081935883
+    ],
+    "rank_biserial": 0.7010758155957828,
+    "mannwhitney_p": 0.0
+   },
+   "medium_vs_low": {
+    "median_diff": 1.9526923894882202,
+    "median_diff_ci95": [
+     1.8280314937233926,
+     2.0691681295633315
+    ],
+    "rank_biserial": 0.29704022287392506,
+    "mannwhitney_p": 1.0543486205511851e-222
+   },
+   "high_vs_medium": {
+    "median_diff": 1.4739679098129272,
+    "median_diff_ci95": [
+     1.3248263537883758,
+     1.5902644664049148
+    ],
+    "rank_biserial": 0.42210128267182956,
+    "mannwhitney_p": 7.951673040776553e-150
+   },
+   "kruskal_p": 0.0,
+   "spearman_with_mean_r": {
+    "rho": 0.36788570421389544,
+    "ci95": [
+     0.35518435465092313,
+     0.38022022633118824
+    ],
+    "n": 17852,
+    "n_boot": 500
+   }
+  },
+  "paralog_max_identity": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "mean": 31.77119056839475,
+     "median": 27.6382,
+     "q25": 0.0,
+     "q75": 54.1667
+    },
+    "medium": {
+     "n": 6211,
+     "mean": 36.69753358557398,
+     "median": 35.7391,
+     "q25": 15.377600000000001,
+     "q75": 56.2055
+    },
+    "low": {
+     "n": 10103,
+     "mean": 40.741586398099585,
+     "median": 41.6,
+     "q25": 24.073500000000003,
+     "q75": 58.2838
+    }
+   },
+   "high_vs_low": {
+    "median_diff": -13.9618,
+    "median_diff_ci95": [
+     -15.861345,
+     -11.691365000000003
+    ],
+    "rank_biserial": -0.19436518413742576,
+    "mannwhitney_p": 3.738018098073788e-36
+   },
+   "medium_vs_low": {
+    "median_diff": -5.860900000000001,
+    "median_diff_ci95": [
+     -6.904154999999999,
+     -4.751487500000004
+    ],
+    "rank_biserial": -0.09396865481483407,
+    "mannwhitney_p": 4.06032201988703e-24
+   },
+   "high_vs_medium": {
+    "median_diff": -8.1009,
+    "median_diff_ci95": [
+     -10.103727499999996,
+     -5.811202500000006
+    ],
+    "rank_biserial": -0.10313751940780047,
+    "mannwhitney_p": 1.263768096515125e-10
+   },
+   "kruskal_p": 2.42228264004798e-47,
+   "spearman_with_mean_r": {
+    "rho": -0.10740659779649485,
+    "ci95": [
+     -0.1212802070694198,
+     -0.09332638617243384
+    ],
+    "n": 17915,
+    "n_boot": 500
+   }
+  },
+  "lineage_mean_crosslib_01": {
+   "per_tier": {
+    "high": {
+     "n": 1591,
+     "mean": 0.4567092175510019,
+     "median": 0.5133871523354433,
+     "q25": 0.2680597444397711,
+     "q75": 0.6886706864938743
+    },
+    "medium": {
+     "n": 6174,
+     "mean": 0.2861427149366697,
+     "median": 0.31993886337442834,
+     "q25": 0.07523907544030431,
+     "q75": 0.5298544705623504
+    },
+    "low": {
+     "n": 10021,
+     "mean": 0.16798105438028474,
+     "median": 0.18895704411875908,
+     "q25": -0.062357052280684985,
+     "q75": 0.42429271049281275
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.3244301082166842,
+    "median_diff_ci95": [
+     0.30592240836625223,
+     0.3463619203365264
+    ],
+    "rank_biserial": 0.48429580094247093,
+    "mannwhitney_p": 4.402363904284035e-212
+   },
+   "medium_vs_low": {
+    "median_diff": 0.13098181925566926,
+    "median_diff_ci95": [
+     0.11692938570669872,
+     0.14324743939398882
+    ],
+    "rank_biserial": 0.20186361475368853,
+    "mannwhitney_p": 1.4483088433748852e-103
+   },
+   "high_vs_medium": {
+    "median_diff": 0.19344828896101496,
+    "median_diff_ci95": [
+     0.17508168775629557,
+     0.21671386263355585
+    ],
+    "rank_biserial": 0.31799397200441337,
+    "mannwhitney_p": 1.9417700338061328e-85
+   },
+   "kruskal_p": 3.8752659794254554e-266,
+   "spearman_with_mean_r": {
+    "rho": 0.27388473524241963,
+    "ci95": [
+     0.2599652737766752,
+     0.2871149962729239
+    ],
+    "n": 17786,
+    "n_boot": 500
+   }
+  },
+  "lineage_mean_crosslib_02": {
+   "per_tier": {
+    "high": {
+     "n": 1584,
+     "mean": 0.247359110928939,
+     "median": 0.31841162972468423,
+     "q25": -0.07790424452411693,
+     "q75": 0.6268709941409774
+    },
+    "medium": {
+     "n": 6053,
+     "mean": 0.08418470126256325,
+     "median": 0.10635488730445418,
+     "q25": -0.24320146100637927,
+     "q75": 0.42817407355816783
+    },
+    "low": {
+     "n": 9888,
+     "mean": 0.008005835667817394,
+     "median": 0.01057577540307052,
+     "q25": -0.3151197617906616,
+     "q75": 0.3273442992876866
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.3078358543216137,
+    "median_diff_ci95": [
+     0.2742069070239286,
+     0.35280096132533517
+    ],
+    "rank_biserial": 0.3124781645336865,
+    "mannwhitney_p": 5.801929583169773e-89
+   },
+   "medium_vs_low": {
+    "median_diff": 0.09577911190138366,
+    "median_diff_ci95": [
+     0.07222924110404395,
+     0.11702752856799062
+    ],
+    "rank_biserial": 0.10380096499261904,
+    "mannwhitney_p": 3.194067196064161e-28
+   },
+   "high_vs_medium": {
+    "median_diff": 0.21205674242023004,
+    "median_diff_ci95": [
+     0.17554345683985598,
+     0.2600104940549271
+    ],
+    "rank_biserial": 0.21796333565291115,
+    "mannwhitney_p": 8.384503652155986e-41
+   },
+   "kruskal_p": 1.8638243017638097e-98,
+   "spearman_with_mean_r": {
+    "rho": 0.15202639463663364,
+    "ci95": [
+     0.13663607188532007,
+     0.16582375134257446
+    ],
+    "n": 17525,
+    "n_boot": 500
+   }
+  },
+  "external_anchor_agreement": {
+   "per_tier": {
+    "high": {
+     "n": 1583,
+     "mean": 0.2975406950115132,
+     "median": 0.30351764959242056,
+     "q25": 0.10950548049774636,
+     "q75": 0.5008373140284459
+    },
+    "medium": {
+     "n": 6018,
+     "mean": 0.1341588455855189,
+     "median": 0.1296803870627938,
+     "q25": -0.04335305827375102,
+     "q75": 0.3115606043193727
+    },
+    "low": {
+     "n": 9749,
+     "mean": 0.04492363887571415,
+     "median": 0.040599768017691294,
+     "q25": -0.11531836407536014,
+     "q75": 0.20117294869856372
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.2629178815747293,
+    "median_diff_ci95": [
+     0.24828944830585467,
+     0.2801772284363125
+    ],
+    "rank_biserial": 0.5181729768419159,
+    "mannwhitney_p": 1.558844553668248e-240
+   },
+   "medium_vs_low": {
+    "median_diff": 0.0890806190451025,
+    "median_diff_ci95": [
+     0.07956586628013115,
+     0.09906647249986526
+    ],
+    "rank_biserial": 0.2005983962837783,
+    "mannwhitney_p": 1.0927555728049681e-99
+   },
+   "high_vs_medium": {
+    "median_diff": 0.17383726252962675,
+    "median_diff_ci95": [
+     0.15719087955981959,
+     0.1924197686046954
+    ],
+    "rank_biserial": 0.3431612931263064,
+    "mannwhitney_p": 2.778929156857517e-98
+   },
+   "kruskal_p": 6.295571025318629e-287,
+   "spearman_with_mean_r": {
+    "rho": 0.2667295765410215,
+    "ci95": [
+     0.25400267825129497,
+     0.2808685956584434
+    ],
+    "n": 17350,
+    "n_boot": 500
+   }
+  },
+  "lineage_mean_crosslib_01__variable_genes": {
+   "per_tier": {
+    "high": {
+     "n": 1016,
+     "mean": 0.46416863882388915,
+     "median": 0.5268271684381753,
+     "q25": 0.27498737458918043,
+     "q75": 0.6946058131698309
+    },
+    "medium": {
+     "n": 920,
+     "mean": 0.3095698516270344,
+     "median": 0.3303686985283059,
+     "q25": 0.10750637880232117,
+     "q75": 0.5478843462726724
+    },
+    "low": {
+     "n": 151,
+     "mean": 0.16433860555282528,
+     "median": 0.20443596042970277,
+     "q25": -0.07705135970727213,
+     "q75": 0.41081990837519
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.32239120800847254,
+    "median_diff_ci95": [
+     0.26031418734880957,
+     0.3914800895989989
+    ],
+    "rank_biserial": 0.4976534390154872,
+    "mannwhitney_p": 5.1542712859852753e-23
+   },
+   "medium_vs_low": {
+    "median_diff": 0.12593273809860314,
+    "median_diff_ci95": [
+     0.056284845461357036,
+     0.19930733907127549
+    ],
+    "rank_biserial": 0.23997984451482868,
+    "mannwhitney_p": 2.227649341355525e-06
+   },
+   "high_vs_medium": {
+    "median_diff": 0.19645846990986943,
+    "median_diff_ci95": [
+     0.15869309611465973,
+     0.24193381214747928
+    ],
+    "rank_biserial": 0.2953954125299556,
+    "mannwhitney_p": 2.614859222502607e-29
+   },
+   "kruskal_p": 1.7098288018642736e-40,
+   "spearman_with_mean_r": {
+    "rho": 0.3569151076809135,
+    "ci95": [
+     0.3156919110418015,
+     0.3969428023865931
+    ],
+    "n": 2087,
+    "n_boot": 500
+   }
+  },
+  "lineage_mean_crosslib_02__variable_genes": {
+   "per_tier": {
+    "high": {
+     "n": 1015,
+     "mean": 0.25837694197338945,
+     "median": 0.35735242718745813,
+     "q25": -0.06539940156472791,
+     "q75": 0.6434560872656558
+    },
+    "medium": {
+     "n": 903,
+     "mean": 0.058304668949067384,
+     "median": 0.1095160655132358,
+     "q25": -0.29826027181826253,
+     "q75": 0.40712741043160766
+    },
+    "low": {
+     "n": 144,
+     "mean": -0.01180125360365164,
+     "median": -0.006235969611125285,
+     "q25": -0.359051856020127,
+     "q75": 0.2936427851224096
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.3635883967985834,
+    "median_diff_ci95": [
+     0.2202263796907804,
+     0.5012751710077685
+    ],
+    "rank_biserial": 0.3412151067323481,
+    "mannwhitney_p": 3.270491302906053e-11
+   },
+   "medium_vs_low": {
+    "median_diff": 0.11575203512436108,
+    "median_diff_ci95": [
+     -0.022209773870284246,
+     0.24576314955120696
+    ],
+    "rank_biserial": 0.09197735941921992,
+    "mannwhitney_p": 0.07599822418790375
+   },
+   "high_vs_medium": {
+    "median_diff": 0.24783636167422235,
+    "median_diff_ci95": [
+     0.1871692901668609,
+     0.3089683768442968
+    ],
+    "rank_biserial": 0.2551636853618753,
+    "mannwhitney_p": 4.517175387734474e-22
+   },
+   "kruskal_p": 2.7290951321594584e-25,
+   "spearman_with_mean_r": {
+    "rho": 0.2938203076625235,
+    "ci95": [
+     0.2543847509988803,
+     0.33425997307068006
+    ],
+    "n": 2062,
+    "n_boot": 500
+   }
+  },
+  "external_anchor_agreement__variable_genes": {
+   "per_tier": {
+    "high": {
+     "n": 1012,
+     "mean": 0.30217077440852114,
+     "median": 0.3068700151134015,
+     "q25": 0.11222356513628956,
+     "q75": 0.5091425463768733
+    },
+    "medium": {
+     "n": 909,
+     "mean": 0.1685879790373171,
+     "median": 0.16396541328432104,
+     "q25": -0.009352565608825495,
+     "q75": 0.3489841094016724
+    },
+    "low": {
+     "n": 146,
+     "mean": 0.05373867148773956,
+     "median": 0.04291158646222219,
+     "q25": -0.0681934763486167,
+     "q75": 0.18860190532232107
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.2639584286511793,
+    "median_diff_ci95": [
+     0.21783546104704246,
+     0.3052724860536256
+    ],
+    "rank_biserial": 0.528317721587525,
+    "mannwhitney_p": 5.0611801941811745e-25
+   },
+   "medium_vs_low": {
+    "median_diff": 0.12105382682209885,
+    "median_diff_ci95": [
+     0.07768988484936658,
+     0.16274786785920714
+    ],
+    "rank_biserial": 0.2772126527721266,
+    "mannwhitney_p": 7.343691155636292e-08
+   },
+   "high_vs_medium": {
+    "median_diff": 0.14290460182908046,
+    "median_diff_ci95": [
+     0.11482765280925038,
+     0.17176300069350178
+    ],
+    "rank_biserial": 0.28342182044291375,
+    "mannwhitney_p": 6.633745815059104e-27
+   },
+   "kruskal_p": 3.4675824645086534e-40,
+   "spearman_with_mean_r": {
+    "rho": 0.345572294178804,
+    "ci95": [
+     0.30236629874968135,
+     0.3881938191318783
+    ],
+    "n": 2067,
+    "n_boot": 500
+   }
+  },
+  "own_expr_abs_r__variable_genes": {
+   "per_tier": {
+    "high": {
+     "n": 1025,
+     "mean": 0.10151277643661762,
+     "median": 0.07632473541887956,
+     "q25": 0.033039050533979805,
+     "q75": 0.12714471574156644
+    },
+    "medium": {
+     "n": 932,
+     "mean": 0.0618221501222714,
+     "median": 0.05123935586626217,
+     "q25": 0.02391751606407677,
+     "q75": 0.0903116992751056
+    },
+    "low": {
+     "n": 160,
+     "mean": 0.046148236452922486,
+     "median": 0.03671098796268949,
+     "q25": 0.017117090285885574,
+     "q75": 0.06761566451627074
+    }
+   },
+   "high_vs_low": {
+    "median_diff": 0.03961374745619007,
+    "median_diff_ci95": [
+     0.03177469760379941,
+     0.04850215179469992
+    ],
+    "rank_biserial": 0.3879756097560976,
+    "mannwhitney_p": 2.744321496903584e-15
+   },
+   "medium_vs_low": {
+    "median_diff": 0.014528367903572682,
+    "median_diff_ci95": [
+     0.007321036605194446,
+     0.02345110432962907
+    ],
+    "rank_biserial": 0.19902092274678118,
+    "mannwhitney_p": 5.666928491067979e-05
+   },
+   "high_vs_medium": {
+    "median_diff": 0.025085379552617387,
+    "median_diff_ci95": [
+     0.017652126756302955,
+     0.030562987733695552
+    ],
+    "rank_biserial": 0.22018214173558048,
+    "mannwhitney_p": 3.6469855521478263e-17
+   },
+   "kruskal_p": 2.330457616157831e-24,
+   "spearman_with_mean_r": {
+    "rho": 0.2858861357595928,
+    "ci95": [
+     0.2413889289306547,
+     0.32802576550054185
+    ],
+    "n": 2117,
+    "n_boot": 500
+   }
+  }
+ },
+ "binary": {
+  "class_variable": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "n_true": 1026,
+     "fraction": 0.6408494690818238
+    },
+    "medium": {
+     "n": 6211,
+     "n_true": 932,
+     "fraction": 0.1500563516341974
+    },
+    "low": {
+     "n": 10103,
+     "n_true": 160,
+     "fraction": 0.01583688013461348
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 110.50396648180774,
+    "or_ci95": [
+     91.71324806282655,
+     133.14463140425983
+    ],
+    "fisher_p": 0.0
+   },
+   "medium_vs_low": {
+    "odds_ratio": 10.942594039898637,
+    "or_ci95": [
+     9.224600896624931,
+     12.98054687285554
+    ],
+    "fisher_p": 4.7608849015884076e-245
+   }
+  },
+  "class_selective": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "n_true": 1043,
+     "fraction": 0.6514678326046222
+    },
+    "medium": {
+     "n": 6211,
+     "n_true": 1262,
+     "fraction": 0.20318789244888102
+    },
+    "low": {
+     "n": 10103,
+     "n_true": 267,
+     "fraction": 0.02642779372463625
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 68.70464277646232,
+    "or_ci95": [
+     58.59918237323956,
+     80.55279524167771
+    ],
+    "fisher_p": 0.0
+   },
+   "medium_vs_low": {
+    "odds_ratio": 9.379655077025625,
+    "or_ci95": [
+     8.184717670582893,
+     10.749048764403748
+    ],
+    "fisher_p": 8.6598136977807e-309
+   }
+  },
+  "class_rare_selective": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "n_true": 233,
+     "fraction": 0.14553404122423486
+    },
+    "medium": {
+     "n": 6211,
+     "n_true": 1405,
+     "fraction": 0.22621156013524393
+    },
+    "low": {
+     "n": 10103,
+     "n_true": 1353,
+     "fraction": 0.13392061763832525
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 1.103104591284804,
+    "or_ci95": [
+     0.9493348394473,
+     1.2817813997241008
+    ],
+    "fisher_p": 0.20862577716451752
+   },
+   "medium_vs_low": {
+    "odds_ratio": 1.8904992627310842,
+    "or_ci95": [
+     1.7407559040315304,
+     2.0531238493056616
+    ],
+    "fisher_p": 2.4880453320218967e-51
+   }
+  },
+  "class_common_essential": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "n_true": 241,
+     "fraction": 0.15053091817613992
+    },
+    "medium": {
+     "n": 6211,
+     "n_true": 482,
+     "fraction": 0.07760425052326518
+    },
+    "low": {
+     "n": 10103,
+     "n_true": 116,
+     "fraction": 0.011481738097594774
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 15.217715337551043,
+    "or_ci95": [
+     12.112360297111696,
+     19.119218254262
+    ],
+    "fisher_p": 4.422438160757585e-126
+   },
+   "medium_vs_low": {
+    "odds_ratio": 7.219572148810444,
+    "or_ci95": [
+     5.881877017374065,
+     8.861494699382405
+    ],
+    "fisher_p": 2.3178789387390496e-104
+   }
+  },
+  "class_nonessential": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "n_true": 9,
+     "fraction": 0.005621486570893191
+    },
+    "medium": {
+     "n": 6211,
+     "n_true": 215,
+     "fraction": 0.03461600386411206
+    },
+    "low": {
+     "n": 10103,
+     "n_true": 580,
+     "fraction": 0.05740869048797387
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 0.09786750716983274,
+    "or_ci95": [
+     0.0514356798751694,
+     0.18621410240678224
+    ],
+    "fisher_p": 1.239423188595054e-26
+   },
+   "medium_vs_low": {
+    "odds_ratio": 0.589581433269321,
+    "or_ci95": [
+     0.5025838846039233,
+     0.6916383057722764
+    ],
+    "fisher_p": 2.1888621257809272e-11
+   }
+  },
+  "paralog_has_id20": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "n_true": 991,
+     "fraction": 0.6189881324172393
+    },
+    "medium": {
+     "n": 6211,
+     "n_true": 4458,
+     "fraction": 0.7177588150056352
+    },
+    "low": {
+     "n": 10103,
+     "n_true": 8087,
+     "fraction": 0.8004553103038702
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 0.4049402838274554,
+    "or_ci95": [
+     0.36202941501140706,
+     0.4529373212977554
+    ],
+    "fisher_p": 3.677463099650881e-53
+   },
+   "medium_vs_low": {
+    "odds_ratio": 0.6339674107294354,
+    "or_ci95": [
+     0.5889208394050955,
+     0.682459595542557
+    ],
+    "fisher_p": 1.4406255427657127e-33
+   }
+  },
+  "paralog_high_identity_ge50": {
+   "per_tier": {
+    "high": {
+     "n": 1601,
+     "n_true": 472,
+     "fraction": 0.2948157401623985
+    },
+    "medium": {
+     "n": 6211,
+     "n_true": 1990,
+     "fraction": 0.3203992915794558
+    },
+    "low": {
+     "n": 10103,
+     "n_true": 3750,
+     "fraction": 0.37117687815500344
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 0.7086624837803831,
+    "or_ci95": [
+     0.6318552565585404,
+     0.7948062641008566
+    ],
+    "fisher_p": 2.3219394628150946e-09
+   },
+   "medium_vs_low": {
+    "odds_ratio": 0.7987654155094454,
+    "or_ci95": [
+     0.7471137185489098,
+     0.8539880518499787
+    ],
+    "fisher_p": 4.025414361850633e-11
+   }
+  },
+  "paralog_has_id20__variable_genes": {
+   "per_tier": {
+    "high": {
+     "n": 1026,
+     "n_true": 600,
+     "fraction": 0.5847953216374269
+    },
+    "medium": {
+     "n": 932,
+     "n_true": 457,
+     "fraction": 0.490343347639485
+    },
+    "low": {
+     "n": 160,
+     "n_true": 89,
+     "fraction": 0.55625
+    }
+   },
+   "high_vs_low": {
+    "odds_ratio": 1.124804338286822,
+    "or_ci95": [
+     0.8048182233449416,
+     1.5720131114459157
+    ],
+    "fisher_p": 0.49245013512595837
+   },
+   "medium_vs_low": {
+    "odds_ratio": 0.7686410658583438,
+    "or_ci95": [
+     0.5490994943241139,
+     1.0759599930993877
+    ],
+    "fisher_p": 0.14556425882883522
+   }
+  }
+ },
+ "class_by_tier": {
+  "variable": {
+   "high": 1026,
+   "medium": 932,
+   "low": 160,
+   "not_evaluable": 41
+  },
+  "selective": {
+   "high": 1043,
+   "medium": 1262,
+   "low": 267,
+   "not_evaluable": 38
+  },
+  "rare_selective": {
+   "high": 233,
+   "medium": 1405,
+   "low": 1353,
+   "not_evaluable": 86
+  },
+  "common_essential": {
+   "high": 241,
+   "medium": 482,
+   "low": 116,
+   "not_evaluable": 9
+  },
+  "nonessential": {
+   "high": 9,
+   "medium": 215,
+   "low": 580,
+   "not_evaluable": 21
+  },
+  "all": {
+   "high": 1601,
+   "medium": 6211,
+   "low": 10103,
+   "not_evaluable": 519
+  }
+ },
+ "biomarker_pairs": {
+  "file": "results/predictability/biomarker_pairs.csv",
+  "tier_counts": {
+   "high": 32,
+   "medium": 8,
+   "low": 3
+  },
+  "tier_by_relation": {
+   "collateral_lethality": {
+    "high": 2,
+    "low": 1,
+    "medium": 1
+   },
+   "lineage_TF": {
+    "high": 15,
+    "low": 1,
+    "medium": 2
+   },
+   "oncogene_addiction": {
+    "high": 8,
+    "low": 1,
+    "medium": 3
+   },
+   "p53_pathway": {
+    "high": 3,
+    "low": 0,
+    "medium": 0
+   },
+   "paralog_synthetic_lethality": {
+    "high": 3,
+    "low": 0,
+    "medium": 1
+   },
+   "synthetic_lethality": {
+    "high": 1,
+    "low": 0,
+    "medium": 1
+   }
+  },
+  "tier_by_headline_input": {
+   "direct": {
+    "high": 2,
+    "low": 0,
+    "medium": 1
+   },
+   "no": {
+    "high": 5,
+    "low": 0,
+    "medium": 2
+   },
+   "proxy": {
+    "high": 25,
+    "low": 3,
+    "medium": 5
+   }
+  },
+  "median_mean_r_by_input": {
+   "direct": 0.332879,
+   "no": 0.394854,
+   "proxy": 0.486942
+  },
+  "fraction_high_overall_evaluable": 0.0893664526932738
+ },
+ "enrichment": {
+  "reactome_mapping": {
+   "n_sets": 2868,
+   "n_symbol_entries": 142657,
+   "n_mapped": 139381,
+   "fraction_mapped": 0.9770358271938987
+  },
+  "hallmark_n_sets": 50,
+  "tests": {
+   "high_vs_evaluable__hallmark": {
+    "n_foreground": 1601,
+    "n_background": 17915,
+    "n_sets_tested": 50,
+    "n_sig_q05": 21,
+    "top": [
+     {
+      "set": "HALLMARK_E2F_TARGETS",
+      "set_size_in_background": 198,
+      "overlap": 66,
+      "fold_enrichment": 3.7299604413907974,
+      "q_bh": 2.3203755377835433e-20
+     },
+     {
+      "set": "HALLMARK_OXIDATIVE_PHOSPHORYLATION",
+      "set_size_in_background": 198,
+      "overlap": 62,
+      "fold_enrichment": 3.503902232821658,
+      "q_bh": 7.695045347300798e-18
+     },
+     {
+      "set": "HALLMARK_G2M_CHECKPOINT",
+      "set_size_in_background": 196,
+      "overlap": 58,
+      "fold_enrichment": 3.3112914122550956,
+      "q_bh": 1.385616005561882e-15
+     },
+     {
+      "set": "HALLMARK_MYC_TARGETS_V1",
+      "set_size_in_background": 199,
+      "overlap": 58,
+      "fold_enrichment": 3.2613724462411997,
+      "q_bh": 2.2506918353672502e-15
+     },
+     {
+      "set": "HALLMARK_MTORC1_SIGNALING",
+      "set_size_in_background": 197,
+      "overlap": 51,
+      "fold_enrichment": 2.8968728301156954,
+      "q_bh": 1.9318376633291668e-11
+     },
+     {
+      "set": "HALLMARK_PI3K_AKT_MTOR_SIGNALING",
+      "set_size_in_background": 105,
+      "overlap": 34,
+      "fold_enrichment": 3.6233901430653463,
+      "q_bh": 1.0350452495747298e-10
+     },
+     {
+      "set": "HALLMARK_MITOTIC_SPINDLE",
+      "set_size_in_background": 198,
+      "overlap": 48,
+      "fold_enrichment": 2.712698502829671,
+      "q_bh": 7.488153546557108e-10
+     },
+     {
+      "set": "HALLMARK_DNA_REPAIR",
+      "set_size_in_background": 146,
+      "overlap": 35,
+      "fold_enrichment": 2.682505796890642,
+      "q_bh": 2.927557698820743e-07
+     },
+     {
+      "set": "HALLMARK_APOPTOSIS",
+      "set_size_in_background": 161,
+      "overlap": 37,
+      "fold_enrichment": 2.5715876335054566,
+      "q_bh": 3.5446366695887864e-07
+     },
+     {
+      "set": "HALLMARK_UV_RESPONSE_UP",
+      "set_size_in_background": 157,
+      "overlap": 36,
+      "fold_enrichment": 2.565832660319784,
+      "q_bh": 5.083362333538583e-07
+     },
+     {
+      "set": "HALLMARK_CHOLESTEROL_HOMEOSTASIS",
+      "set_size_in_background": 71,
+      "overlap": 22,
+      "fold_enrichment": 3.4672871708703186,
+      "q_bh": 5.636172739402534e-07
+     },
+     {
+      "set": "HALLMARK_UV_RESPONSE_DN",
+      "set_size_in_background": 144,
+      "overlap": 30,
+      "fold_enrichment": 2.3312252758692487,
+      "q_bh": 3.816798445890214e-05
+     },
+     {
+      "set": "HALLMARK_PROTEIN_SECRETION",
+      "set_size_in_background": 93,
+      "overlap": 22,
+      "fold_enrichment": 2.647068700341856,
+      "q_bh": 6.802438219193299e-05
+     },
+     {
+      "set": "HALLMARK_TGF_BETA_SIGNALING",
+      "set_size_in_background": 53,
+      "overlap": 15,
+      "fold_enrichment": 3.166947544577092,
+      "q_bh": 0.00014751623864057002
+     },
+     {
+      "set": "HALLMARK_FATTY_ACID_METABOLISM",
+      "set_size_in_background": 156,
+      "overlap": 29,
+      "fold_enrichment": 2.0801702461602525,
+      "q_bh": 0.00038323404452621506
+     }
+    ]
+   },
+   "high_vs_evaluable__reactome": {
+    "n_foreground": 1601,
+    "n_background": 17915,
+    "n_sets_tested": 1724,
+    "n_sig_q05": 901,
+    "top": [
+     {
+      "set": "Cell Cycle, Mitotic (R-HSA-69278)",
+      "set_size_in_background": 500,
+      "overlap": 154,
+      "fold_enrichment": 3.4464834478450967,
+      "q_bh": 3.7228269529784134e-42
+     },
+     {
+      "set": "Translation (R-HSA-72766)",
+      "set_size_in_background": 346,
+      "overlap": 122,
+      "fold_enrichment": 3.945565091182173,
+      "q_bh": 7.332166860974964e-40
+     },
+     {
+      "set": "Cell Cycle Checkpoints (R-HSA-69620)",
+      "set_size_in_background": 265,
+      "overlap": 97,
+      "fold_enrichment": 4.095918824319706,
+      "q_bh": 5.675937540518636e-33
+     },
+     {
+      "set": "Transcriptional Regulation by TP53 (R-HSA-3700989)",
+      "set_size_in_background": 353,
+      "overlap": 99,
+      "fold_enrichment": 3.1382386716517474,
+      "q_bh": 3.5213159038550665e-23
+     },
+     {
+      "set": "Mitochondrial translation elongation (R-HSA-5389840)",
+      "set_size_in_background": 88,
+      "overlap": 46,
+      "fold_enrichment": 5.849256146726478,
+      "q_bh": 6.087662539046898e-23
+     },
+     {
+      "set": "M Phase (R-HSA-68886)",
+      "set_size_in_background": 357,
+      "overlap": 99,
+      "fold_enrichment": 3.1030763335940246,
+      "q_bh": 6.087662539046898e-23
+     },
+     {
+      "set": "RHO GTPase Effectors (R-HSA-195258)",
+      "set_size_in_background": 277,
+      "overlap": 85,
+      "fold_enrichment": 3.4337180958651747,
+      "q_bh": 7.591642795425436e-23
+     },
+     {
+      "set": "Mitochondrial translation initiation (R-HSA-5368286)",
+      "set_size_in_background": 88,
+      "overlap": 45,
+      "fold_enrichment": 5.722098404406337,
+      "q_bh": 4.322340904763915e-22
+     },
+     {
+      "set": "Mitochondrial translation (R-HSA-5368287)",
+      "set_size_in_background": 100,
+      "overlap": 47,
+      "fold_enrichment": 5.2592442223610245,
+      "q_bh": 3.9327175799232904e-21
+     },
+     {
+      "set": "Diseases of signal transduction by growth factor receptors and second messengers (R-HSA-5663202)",
+      "set_size_in_background": 448,
+      "overlap": 110,
+      "fold_enrichment": 2.7475155037030428,
+      "q_bh": 4.085163534841926e-21
+     },
+     {
+      "set": "Mitochondrial translation termination (R-HSA-5419276)",
+      "set_size_in_background": 89,
+      "overlap": 44,
+      "fold_enrichment": 5.532076160265003,
+      "q_bh": 6.106343407442457e-21
+     },
+     {
+      "set": "Mitotic G1 phase and G1/S transition (R-HSA-453279)",
+      "set_size_in_background": 137,
+      "overlap": 55,
+      "fold_enrichment": 4.492288122842931,
+      "q_bh": 7.12495396337801e-21
+     },
+     {
+      "set": "Mitochondrial ribosome-associated quality control (R-HSA-9937383)",
+      "set_size_in_background": 90,
+      "overlap": 44,
+      "fold_enrichment": 5.47060864737317,
+      "q_bh": 9.247821892333215e-21
+     },
+     {
+      "set": "Regulation of T cell activation by CD28 family (R-HSA-388841)",
+      "set_size_in_background": 224,
+      "overlap": 71,
+      "fold_enrichment": 3.546792741143928,
+      "q_bh": 4.2611801631411713e-20
+     },
+     {
+      "set": "Mitotic Anaphase (R-HSA-68882)",
+      "set_size_in_background": 215,
+      "overlap": 69,
+      "fold_enrichment": 3.5911712156646285,
+      "q_bh": 7.005700663129342e-20
+     }
+    ]
+   },
+   "low_among_variable__hallmark": {
+    "n_foreground": 160,
+    "n_background": 2118,
+    "n_sets_tested": 37,
+    "n_sig_q05": 0,
+    "top": []
+   },
+   "low_among_variable__reactome": {
+    "n_foreground": 160,
+    "n_background": 2118,
+    "n_sets_tested": 779,
+    "n_sig_q05": 0,
+    "top": []
+   }
+  }
+ }
+}
