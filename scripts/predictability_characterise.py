@@ -346,6 +346,13 @@ def main(argv=None):
     bp = pd.read_csv(ROOT / "configs" / "biomarker_pairs.csv")
     sym2ent = {s: e for e, s in gc_raw["symbol"].items()}
     bp["dependency_entrez"] = bp["dependency"].map(sym2ent)
+    # amendment (configs/predictability.json biomarker_pairs_amendment): inputs per model
+    bp = bp.rename(columns={"headline_input": "m1_E_resB0_input"})
+    m3_types = {"hotspot_mutation", "hotspot_mutation_or_amplification", "amplification", "deletion",
+                "loss_of_function", "wild_type", "lineage", "hotspot_mutation_or_fusion", "expression"}
+    dep_var = bp["dependency_entrez"].map(props["class_variable"]).fillna(False).astype(bool)
+    bp["m5_avg_input"] = np.where(dep_var & bp["biomarker_type"].isin(m3_types), "available_to_M3",
+                                  bp["m1_E_resB0_input"])
     bp = bp.join(props[["tier", "mean_r", "confidence", "effect_sd", "effect_frac_below_-0.5", "own_expr_r"]],
                  on="dependency_entrez")
     bp = bp.join(tab[[f"r_fold{k}" for k in range(5)] + ["min_r"]], on="dependency_entrez")
@@ -358,8 +365,15 @@ def main(argv=None):
         "file": "results/predictability/biomarker_pairs.csv",
         "tier_counts": bp["tier"].value_counts().to_dict(),
         "tier_by_relation": pd.crosstab(bp["relation"], bp["tier"]).to_dict(orient="index"),
-        "tier_by_headline_input": pd.crosstab(bp["headline_input"], bp["tier"]).to_dict(orient="index"),
-        "median_mean_r_by_input": bp.groupby("headline_input")["mean_r"].median().to_dict(),
+        "tier_by_m5_avg_input": pd.crosstab(bp["m5_avg_input"], bp["tier"]).to_dict(orient="index"),
+        "median_mean_r_by_m5_avg_input": bp.groupby("m5_avg_input")["mean_r"].median().to_dict(),
+        "tier_m1_by_m1_E_resB0_input": (pd.crosstab(bp["m1_E_resB0_input"], bp["tier_m1_secondary"])
+                                        .to_dict(orient="index") if "tier_m1_secondary" in bp else None),
+        "median_mean_r_m1_by_m1_E_resB0_input": (bp.groupby("m1_E_resB0_input")["mean_r_m1_secondary"].median()
+                                                 .to_dict() if "mean_r_m1_secondary" in bp else None),
+        "input_labels": "m1_E_resB0_input = the committed headline_input column (written for the expression-only "
+                        "model); m5_avg_input derived mechanically (configs/predictability.json "
+                        "biomarker_pairs_amendment)",
         "fraction_high_overall_evaluable": float((tier == "high").sum() / ev.sum())}
 
     # enrichment

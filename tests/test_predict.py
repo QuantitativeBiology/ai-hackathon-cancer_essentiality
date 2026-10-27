@@ -100,6 +100,7 @@ def test_main_end_to_end_on_toy_model(tmp_path, monkeypatch):
     assert {"sample", "predicted_effect", "confidence", "tier", "ad_distance", "ad_percentile_vs_dev"} <= set(res.columns)
     direct = _model(X, Y, train).predict([held], X=X.loc[[held]]).iloc[0]
     assert np.allclose(res["predicted_effect"].to_numpy(), direct.to_numpy())
+    assert "note" in res.columns and res["note"].fillna("").eq("").all()       # toy symbols: no flagged gene
     meta = json.loads(out.with_suffix(".meta.json").read_text())
     assert meta["excluded_lines"] == [held] and meta["n_training_lines"] == len(train)
     assert meta["predictable_genes_sha256"] == PD.PR.sha256_file(tmp_path / "pg.csv")
@@ -108,3 +109,26 @@ def test_main_end_to_end_on_toy_model(tmp_path, monkeypatch):
 def test_m5_avg_not_supported_yet(tmp_path):
     with pytest.raises(SystemExit, match="m5_avg"):
         PD.main(["--expression", "x.csv", "--out", str(tmp_path / "o.csv"), "--model", "m5_avg"])
+
+
+def test_mutation_note_only_for_expression_only_model():
+    long = pd.DataFrame({"symbol": ["NRAS", "KRAS", "BRAF", "PIK3CA", "SOX10"]})
+    n = PD.add_notes(long, "m1_E_resB0")["note"].tolist()
+    assert n[:4] == [PD.MUTATION_NOTE] * 4 and n[4] == ""
+    assert (PD.add_notes(long, "m5_avg")["note"] == "").all()
+    assert PD.MUTATION_NOTE == "mutation-driven dependency; expression-only model underpredicts; use m5_avg"
+
+
+def test_fit_model_refuses_non_dev_lines():
+    """predict.py trains on DepMap dev lines only: a test-set ID is refused before any target is read."""
+    sp = pd.read_csv(PD.ROOT / "configs" / "splits.csv", index_col=0)
+    test_id = sp.index[sp["role"] == "test"][0]
+    dev_id = sp.index[sp["role"] == "dev"][0]
+    with pytest.raises(PD.guard.BlindingError):
+        PD.fit_model("m1_E_resB0", [dev_id, test_id])
+
+
+def test_run_id_selects_the_run_models_tier_table():
+    assert PD.PR.table_for_run("20261026-222117_m1_E_resB0_91e52f9d").name == "predictable_genes_m1.csv"
+    assert PD.PR.table_for_run("20261027-161041_m5_avg_6dbebcf4").name == "predictable_genes.csv"
+    assert PD.PR.table_for_run("20261027-023409_m1_E_resB0_noEC_1d8386a5") is None

@@ -196,5 +196,17 @@ def table_provenance(path=TABLE) -> dict:
             "tier_counts": t["tier"].value_counts().to_dict()}
 
 
+def table_for_run(run_id: str, config=CONFIG):
+    """Tier table of the model behind ``run_id`` (a CV run id '<stamp>_<name>_<hash8>' or a predict.py tag
+    'predict_<name>_<hash12>'): the primary table for the G4 headline, the secondary table for a secondary source
+    (configs/predictability.json); None if the run's model has no tier table of its own."""
+    import re
+    cfg = load_config(config)
+    for src in [cfg["source"]] + list(cfg.get("secondary_sources", [])):
+        if re.search(rf"(^|_){re.escape(src['run_name'])}_[0-9a-f]{{8,12}}$", str(run_id)):
+            return ROOT / src["table"].split(" ")[0]
+    return None
+
+
 def load_config(path=CONFIG) -> dict:
     return json.loads(Path(path).read_text(encoding="utf-8"))

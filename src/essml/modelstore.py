@@ -59,7 +59,8 @@ def predict_new(run_id, index, lineage=None, X=None, model_dir=MODEL_DIR, target
     """Mean prediction of the run's fold models for new lines (index) given lineage / features.
 
     output="tidy" (default, user-facing): one row per (line, gene) with the per-gene ``confidence`` and
-    ``tier`` of configs/predictable_genes.csv (DESIGN §4 "Per-gene predictability"; another table via
+    ``tier`` of the run's model (essml.predictability.table_for_run: m5_avg -> configs/predictable_genes.csv,
+    m1_E_resB0 -> configs/predictable_genes_m1.csv; otherwise the frozen headline table; another table via
     ``predictable_genes``); columns ModelID, entrez, symbol, predicted_effect, confidence, tier.
     output="wide": the [line x gene] matrix (internal use, e.g. ensembles).
     per_model=True returns {fold: wide prediction} instead (for ensemble-size-matched comparisons).
@@ -74,7 +75,8 @@ def predict_new(run_id, index, lineage=None, X=None, model_dir=MODEL_DIR, target
     if output == "wide":
         return mean
     from . import predictability as PR
-    return PR.annotate_long(mean, PR.load_table(predictable_genes or PR.TABLE))
+    table = predictable_genes or PR.table_for_run(run_id) or PR.TABLE  # the run's own model's tiers if it has them
+    return PR.annotate_long(mean, PR.load_table(table))
 
 
 def predict_anchor(run_id, model_id, lineage=None, X=None, model_dir=MODEL_DIR,

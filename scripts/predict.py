@@ -23,7 +23,8 @@ M2/M3 need gene-level features built from the new line's expression and a nested
 script does not implement yet. Until then predictions come from m1_E_resB0 (dev-CV P1 0.308 vs 0.3175).
 
 Output (``--out``, csv or parquet): one row per (sample, gene): sample, entrez, symbol, predicted_effect,
-confidence, tier, ad_distance, ad_percentile_vs_dev, nearest_lineage. ``confidence`` / ``tier`` come from
+confidence, tier, ad_distance, ad_percentile_vs_dev, nearest_lineage, note. ``note`` flags NRAS / KRAS / BRAF /
+PIK3CA for the expression-only model (mutation-driven dependencies it underpredicts; D24), with a one-line warning. ``confidence`` / ``tier`` come from
 the dev-CV per-gene predictability table of the model used (m1_E_resB0: configs/predictable_genes_m1.csv,
 the secondary table; the frozen G4 tiers in configs/predictable_genes.csv are those of m5_avg). The
 applicability-domain distance is the mean (1 - Pearson r) to the 10 nearest DepMap dev lines on the top-5000
@@ -59,6 +60,11 @@ from essml import predictability as PR  # noqa: E402
 
 SUPPORTED = {"m1_E_resB0": {"config": ROOT / "configs" / "runs" / "m1_E_resB0.json",
                             "table": ROOT / "configs" / "predictable_genes_m1.csv"}}
+# PI note (D24, docs/mutation_dependencies.md): the expression-only model misses RAS/RAF/PI3K hotspot addiction
+# within lineages (NRAS AUPRC 0.21 for m1_E_resB0 vs 0.63 for m5_avg). Reporting only; tiers are unaffected.
+MUTATION_NOTE_GENES = {"NRAS", "KRAS", "BRAF", "PIK3CA"}
+MUTATION_NOTE = "mutation-driven dependency; expression-only model underpredicts; use m5_avg"
+EXPRESSION_ONLY_MODELS = {"m1_E_resB0"}
 AD_K = 10
 N_HVG = 5000
 X_BUILDER = (lambda E: {"E": E})  # raw expression block for the kernel models
@@ -165,6 +171,12 @@ def get_models(model_name, train_ids, save=False, model_dir=modelstore.MODEL_DIR
 
 
 # ============================================================================ prediction
+def add_notes(long: pd.DataFrame, model_name: str) -> pd.DataFrame:
+    """``note`` column: flags mutation-driven dependencies for expression-only models (D24; not a tier change)."""
+    note = np.where(long["symbol"].isin(MUTATION_NOTE_GENES) & (model_name in EXPRESSION_ONLY_MODELS), MUTATION_NOTE, "")
+    return long.assign(note=note)
+
+
 def predict_table(expr: pd.DataFrame, models, table: pd.DataFrame, x_builder=None, ad: pd.DataFrame | None = None):
     """Mean prediction of ``models`` for the samples of ``expr`` -> tidy table with confidence / tier (+ AD)."""
     x_builder = x_builder or X_BUILDER
@@ -212,7 +224,11 @@ def main(argv=None):
     print(f"{len(expr)} samples; {n_cov}/{pool.shape[1]} model genes present in the input "
           f"(absent genes -> training mean); harmonise={a.harmonise}")
     ad = None if a.no_ad else applicability_domain(expr_h, pool_ad, lineage)
-    table = PR.load_table(a.predictable_genes or SUPPORTED[a.model]["table"])
+    table_path = a.predictable_genes or (a.run_id and PR.table_for_run(a.run_id)) or SUPPORTED[a.model]["table"]
+    table = PR.load_table(table_path)
+    if a.model in EXPRESSION_ONLY_MODELS:
+        print(f"WARNING: {a.model} is expression-only and underpredicts mutation-driven dependencies "
+              f"({', '.join(sorted(MUTATION_NOTE_GENES))}; see the 'note' column); m5_avg is not yet supported here.")
     if a.run_id:
         wide = modelstore.predict_new(a.run_id, [f"input::{s}" for s in expr.index],
                                       X=X_BUILDER(expr_h.set_axis([f"input::{s}" for s in expr.index], axis=0)),
@@ -225,6 +241,7 @@ def main(argv=None):
     else:
         models, tag = get_models(a.model, train_ids, a.save_models)
         long = predict_table(expr_h, models, table, ad=ad)
+    long = add_notes(long, a.model)
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     if out.suffix == ".parquet":
@@ -233,8 +250,7 @@ def main(argv=None):
         long.to_csv(out, index=False)
     meta = {"model": a.model, "model_tag": tag, "n_training_lines": int(len(train_ids)), "excluded_lines": excl,
             "harmonise": a.harmonise, "input_gene_fraction_recognised": cov, "model_genes_present": n_cov,
-            "predictable_genes": str(a.predictable_genes or SUPPORTED[a.model]["table"]),
-            "predictable_genes_sha256": PR.sha256_file(a.predictable_genes or SUPPORTED[a.model]["table"]),
+            "predictable_genes": str(table_path), "predictable_genes_sha256": PR.sha256_file(table_path),
             "applicability": None if ad is None else ad.reset_index().to_dict(orient="records")}
     out.with_suffix(".meta.json").write_text(json.dumps(meta, indent=1, default=str))
     print(f"wrote {out} ({len(long)} rows) and {out.with_suffix('.meta.json')}")
