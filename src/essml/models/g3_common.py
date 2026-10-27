@@ -50,8 +50,9 @@ class CellFeatures:
     """Line-level design matrix fitted on training IDs (``FoldTransformer``), clipped at +-clip.
 
     blocks: raw block names (cache/features) with DESIGN §2 default specs. ``permute_seed``
-    (negative control): the same random permutation of ModelIDs is applied to every raw block, so
-    each line receives another line's features (train and held-out alike)."""
+    (negative control, DESIGN §8 "features permuted across training lines"): within each raw block,
+    the rows of the TRAINING lines present in that block are randomly permuted among themselves
+    (one map per block, fixed at ``fit``); held-out and all other lines keep their own rows."""
 
     def __init__(self, blocks=("E",), clip=8.0, permute_seed=None):
         self.blocks = list(blocks)
@@ -64,14 +65,23 @@ class CellFeatures:
         else:
             raw = dict(load_blocks(self.blocks))
         if self.permute_seed is not None:
-            allids = sorted(set().union(*[set(b.index) for b in raw.values()]))
-            perm = np.random.default_rng(int(self.permute_seed)).permutation(len(allids))
-            remap = dict(zip(allids, np.asarray(allids)[perm]))
-            raw = {k: v.rename(index=remap) for k, v in raw.items()}
+            raw = {k: v.rename(index=self.perm_maps_[k]) for k, v in raw.items()}
         return raw
+
+    def _make_perm(self, X, train_ids):
+        raw = {"X": X} if isinstance(X, pd.DataFrame) else load_blocks(self.blocks)
+        rng = np.random.default_rng(int(self.permute_seed))
+        tr = set(map(str, train_ids))
+        self.perm_maps_ = {}
+        for k in sorted(raw):
+            ids = sorted(i for i in map(str, raw[k].index) if i in tr)
+            perm = rng.permutation(len(ids))
+            self.perm_maps_[k] = dict(zip(ids, np.asarray(ids)[perm]))
 
     def fit(self, train_ids, X=None):
         self.frame_mode_ = isinstance(X, pd.DataFrame)
+        if self.permute_seed is not None:
+            self._make_perm(X, train_ids)
         if self.frame_mode_:
             specs = {"X": F.BlockSpec()}
         else:

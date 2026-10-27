@@ -12,7 +12,10 @@ Per outer training fold (training lines only reach any statistic):
    (``FoldTransformer`` fitted on the training lines). Screening uses only the rows the trees are
    fitted on: inside the early-stopping split it is computed on the inner-training rows; for the
    final fit on all training rows.
-4. Early stopping: ONE patient-grouped 80/20 split of the training lines; LightGBM (L2) with
+4. Early stopping: ONE patient-grouped 80/20 split of the training lines (``nested_es=True``:
+   the first OOF split, whose training rows get M1 features/residuals from a nested OOF pass
+   inside them, so nothing in the early-stopping fit came from an M1 that saw the validation
+   rows; G3 review finding 1); LightGBM (L2) with
    early stopping on the inner-validation rows gives ``best_iter``. If the best validation MSE is
    not below that of a zero correction, the gene gets no correction (best_iter = 0). Final model:
    ``best_iter`` rounds on all observed training rows.
@@ -88,6 +91,16 @@ def _fit_gene(task):
     return bst.model_to_string(), best, (mse_best, mse_zero)
 
 
+def _fill_mean(oof, Y):
+    """NaN OOF predictions (gene unobserved in an inner training part) -> training gene mean."""
+    oof = np.asarray(oof, np.float64)
+    bad = ~np.isfinite(oof)
+    if bad.any():
+        mu = np.nan_to_num(np.nanmean(Y.to_numpy(np.float64), axis=0))
+        oof = np.where(bad, mu[None, :], oof)
+    return oof
+
+
 class LGBMResidualM3:
     name = "M3"
     uses_groups = True
@@ -96,7 +109,7 @@ class LGBMResidualM3:
                  pool_blocks=("E", "C", "M", "H", "meta"), k_screen=50, use_m1_feature=True,
                  lgb_params=None, num_boost_round=500, early_stopping=30, n_jobs=6,
                  gene_subset=None, subset_first_n=None, min_rows=50, permute_seed=None,
-                 task_chunk=200, cache_inner=True):
+                 task_chunk=200, cache_inner=True, nested_es=False):
         self.m1_params = dict(m1_params or {"modalities": ["E"], "residual": "B0"})
         self.inner_folds, self.oof_seed, self.split_seed = int(inner_folds), int(oof_seed), int(split_seed)
         self.pool_blocks = list(pool_blocks)
@@ -110,6 +123,7 @@ class LGBMResidualM3:
         self.permute_seed = permute_seed
         self.task_chunk = int(task_chunk)
         self.cache_inner = bool(cache_inner)
+        self.nested_es = bool(nested_es)
 
     # -------------------------------------------------------------- helpers
     def _subset(self, genes):
@@ -129,14 +143,22 @@ class LGBMResidualM3:
         from .m2_local import LocalStageM2
         st = LocalStageM2(m1_params=self.m1_params, inner_folds=self.inner_folds,
                           seed=self.oof_seed, cache_inner=self.cache_inner)
-        oof, _, cached = st.inner_oof(Y, lin, groups, X_m1)
-        oof = np.asarray(oof, np.float64)
-        bad = ~np.isfinite(oof)
-        if bad.any():
-            mu = np.nan_to_num(np.nanmean(Y.to_numpy(np.float64), axis=0))
-            oof = np.where(bad, mu[None, :], oof)
+        oof, splits, cached = st.inner_oof(Y, lin, groups, X_m1)
+        oof = _fill_mean(oof, Y)
+        oof_es, es_split = None, None
+        if self.nested_es:
+            # early-stopping split = OOF split 0: its validation rows b keep oof[b] (M1 fitted on
+            # the other rows only); its training rows a get a NESTED out-of-fold M1 pass inside a,
+            # so no feature or residual used to fit the early-stopping trees came from an M1 model
+            # that saw the validation rows' targets (G3 review finding 1).
+            a, b = (np.sort(x) for x in splits[0])
+            sub = None if X_m1 is None else X_m1.loc[Y.index[a]]
+            o_a, _, _ = st.inner_oof(Y.iloc[a], lin, np.asarray(groups)[a], sub)
+            oof_es = oof.copy()
+            oof_es[a] = _fill_mean(o_a, Y.iloc[a])
+            es_split = (a, b)
         m1 = KernelRidgeM1(**self.m1_params).fit(Y, lineage=lin, X=X_m1, groups=groups)
-        return oof, m1, cached
+        return oof, m1, cached, oof_es, es_split
 
     # -------------------------------------------------------------- fit / predict
     def fit(self, Y: pd.DataFrame, lineage=None, X=None, groups=None):
@@ -150,7 +172,7 @@ class LGBMResidualM3:
         frame = isinstance(X, pd.DataFrame)
         X_m1 = X if frame else None
         self.genes_ = Y.columns
-        oof, self.m1_, cached = self._base(Y, lin, groups, X_m1)
+        oof, self.m1_, cached, oof_es, es_split = self._base(Y, lin, groups, X_m1)
         t_base = time.perf_counter() - t0
 
         Yv = Y.to_numpy(np.float64)
@@ -162,17 +184,22 @@ class LGBMResidualM3:
         O = obs[:, self.model_genes_]
         self.cf_, Zp = CellFeatures(self.pool_blocks if not frame else ("X",),
                                     permute_seed=self.permute_seed).fit(ids, X)
-        a, b = inner_split(ids, groups, lin, seed=self.split_seed)
+        if self.nested_es:
+            a, b = es_split
+            R_es = Yv[:, self.model_genes_] - oof_es[:, self.model_genes_]
+        else:
+            a, b = inner_split(ids, groups, lin, seed=self.split_seed)
+            oof_es, R_es = oof, R
         in_a = np.zeros(len(ids), bool)
         in_a[a] = True
         t1 = time.perf_counter()
         k = min(self.k_screen, Zp.shape[1])
-        sel_in = screen_top_k(Zp, np.where(O & in_a[:, None], R, np.nan), k,
+        sel_in = screen_top_k(Zp, np.where(O & in_a[:, None], R_es, np.nan), k,
                               [O[:, j] & in_a for j in range(O.shape[1])])
         sel_full = screen_top_k(Zp, R, k, [O[:, j] for j in range(O.shape[1])])
         t_screen = time.perf_counter() - t1
         self.sel_full_ = sel_full
-        cache = (Zp, oof, R, O, a, b)
+        cache = (Zp, oof, R, O, a, b, oof_es, R_es)
         J = len(self.model_genes_)
         self.boosters_ = [None] * J
         self.best_iter_ = np.zeros(J, int)
@@ -187,7 +214,8 @@ class LGBMResidualM3:
         bi = self.best_iter_
         ok = np.isfinite(mse).all(1) & (bi > 0)
         self.report_ = {"n_model_genes": int(J), "pool_cols": int(Zp.shape[1]), "k_screen": int(k),
-                        "inner_cached": bool(cached), "base_s": round(t_base, 1),
+                        "inner_cached": bool(cached), "nested_es": self.nested_es,
+                        "base_s": round(t_base, 1),
                         "screen_s": round(t_screen, 1), "trees_s": round(time.perf_counter() - t2, 1),
                         "n_inner_train": int(len(a)), "n_inner_val": int(len(b)),
                         "frac_genes_no_correction": round(float((bi == 0).mean()), 4) if J else None,
@@ -205,7 +233,7 @@ class LGBMResidualM3:
         return np.ascontiguousarray(F, dtype=np.float32)
 
     def _tasks(self, cache, sel_in, js):
-        Zp, oof, R, O, a, b = cache
+        Zp, oof, R, O, a, b, oof_es, R_es = cache
         f = lambda Zr, m1c, cols: self._feats(self.use_m1_feature, Zr, m1c, cols)  # noqa: E731
         for j in js:
             g = self.model_genes_[j]
@@ -213,8 +241,8 @@ class LGBMResidualM3:
             ob = b[O[b, j]]
             of = np.flatnonzero(O[:, j])
             yield {"params": self.lgb_params, "n_round": self.num_boost_round, "es": self.early_stopping,
-                   "Xa": f(Zp[oa], oof[oa, g], sel_in[j]), "ya": R[oa, j],
-                   "Xb": f(Zp[ob], oof[ob, g], sel_in[j]), "yb": R[ob, j],
+                   "Xa": f(Zp[oa], oof_es[oa, g], sel_in[j]), "ya": R_es[oa, j],
+                   "Xb": f(Zp[ob], oof_es[ob, g], sel_in[j]), "yb": R_es[ob, j],
                    "Xf": f(Zp[of], oof[of, g], self.sel_full_[j]), "yf": R[of, j]}
 
     def predict(self, index, lineage=None, X=None) -> pd.DataFrame:

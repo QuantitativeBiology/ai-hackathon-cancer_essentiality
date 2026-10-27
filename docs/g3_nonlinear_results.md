@@ -87,7 +87,19 @@ AUROC (selective genes, prevalence ≤ 0.5), fit time. Subset runs are compared 
 the same genes from its stored per-gene results.
 
 ## Deviations
-(none yet)
+- **D-G3-1 (M3 early stopping, after the independent leakage review, before any full-M3 result).**
+  The reviewer found that M3's early-stopping training rows got M1 features and residual targets
+  from out-of-fold M1 models that had seen the early-stopping validation rows' targets (the split
+  coincided with OOF fold 0). This is inside the training fold, so it is not outer leakage, and toy
+  simulations showed it is pessimistic (it suppresses corrections). Fix (`nested_es=True`, configs
+  `g3_m3n*`): the early-stopping split is OOF split 0; its training rows get M1 features from a
+  nested OOF pass inside them; its validation rows keep the M1 fitted on the training rows only.
+  The first full run `g3_m3` (20261026-235648) was killed during fold 0 and marked failed; it
+  produced no numbers. Seen before this decision: only the 100-gene fold-0 probe.
+- **D-G3-2 (negative control).** `permute_seed` originally permuted rows over every ID in the
+  feature cache (including test/set-A/unscreened lines' *features*; no targets). Fixed before any
+  control was run: rows are permuted only among the outer-training lines present in each block;
+  held-out lines keep their own features (DESIGN §8 "features permuted across training lines").
 
 ## Results
 

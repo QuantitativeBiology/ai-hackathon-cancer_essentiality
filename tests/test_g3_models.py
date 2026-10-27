@@ -155,3 +155,60 @@ def test_oracle_select_is_optimistic():
     r1 = np.nanmean([np.nanmean(masked_r(pred.loc[folds.index[folds == f]].to_numpy(),
                                          Y.loc[folds.index[folds == f]].to_numpy())) for f in range(3)])
     assert r1 >= r0 - 1e-12
+
+
+def test_m3_nested_es_split_never_sees_validation_targets():
+    """With nested_es, the early-stopping training rows' M1 features come from M1 fits that never
+    saw the early-stopping validation rows: changing those rows' targets leaves them identical."""
+    Y, X, lin, grp, folds = _toy(n=150)
+    m = LGBMResidualM3(n_jobs=1, min_rows=20, m1_params=M1P, cache_inner=False, nested_es=True)
+    g = grp.to_numpy()
+    oof, _, _, oof_es, (a, b) = m._base(Y, lin, g, X)
+    assert not set(g[a]).intersection(g[b])
+    Y2 = Y.copy()
+    Y2.iloc[b] = np.random.default_rng(9).normal(size=(len(b), Y.shape[1])) * 5
+    _, _, _, oof_es2, (a2, b2) = m._base(Y2, lin, g, X)
+    assert np.array_equal(a, a2) and np.array_equal(b, b2)
+    np.testing.assert_allclose(oof_es[a], oof_es2[a])
+    np.testing.assert_allclose(oof_es[b], oof[b])  # validation rows: M1 fitted on a only
+
+
+def test_m3_nested_es_fits():
+    Y, X, lin, grp, folds = _toy()
+    tr, ho = Y.index[folds != 0], Y.index[folds == 0]
+    m = LGBMResidualM3(n_jobs=1, k_screen=5, min_rows=20, m1_params=M1P, num_boost_round=20,
+                       early_stopping=5, cache_inner=False, nested_es=True)
+    m.fit(Y.loc[tr], lineage=lin.loc[tr], X=X, groups=grp.loc[tr].to_numpy())
+    assert np.isfinite(m.predict(ho, lineage=lin.loc[ho], X=X).to_numpy()).all()
+
+
+@pytest.mark.parametrize("key", ["RidgePC", "MLP", "R2", "R4"])
+def test_cache_path_ignores_held_out_rows(key, monkeypatch):
+    """Production path (X=None, raw block from the in-memory feature cache): corrupting or adding
+    other lines' rows in the cached block changes neither the fit nor a held-out line's prediction."""
+    from essml.models import g3_common
+    Y, X, lin, grp, folds = _toy()
+    tr, ho = Y.index[folds != 0], Y.index[folds == 0]
+    monkeypatch.setitem(g3_common._RAW, "E", X.copy())
+    m = MODELS[key]().fit(Y.loc[tr], lineage=lin.loc[tr], X=None, groups=grp.loc[tr].to_numpy())
+    p1 = m.predict(ho[:1], lineage=lin.loc[ho[:1]], X=None)
+    E2 = X.copy()
+    E2.loc[ho[1:]] = E2.loc[ho[1:]] * 40 - 7
+    extra = pd.DataFrame(np.random.default_rng(4).normal(size=(30, X.shape[1])) * 30,
+                         index=[f"Z{i}" for i in range(30)], columns=X.columns)
+    monkeypatch.setitem(g3_common._RAW, "E", pd.concat([E2, extra]))
+    m2 = MODELS[key]().fit(Y.loc[tr], lineage=lin.loc[tr], X=None, groups=grp.loc[tr].to_numpy())
+    p2 = m2.predict(ho[:1], lineage=lin.loc[ho[:1]], X=None)
+    pd.testing.assert_frame_equal(p1, p2)
+
+
+def test_permutation_only_among_training_lines():
+    from essml.models.g3_common import CellFeatures
+    Y, X, lin, grp, folds = _toy()
+    tr, ho = X.index[folds != 0], X.index[folds == 0]
+    cf, Z = CellFeatures(permute_seed=1).fit(tr, X)
+    mp = cf.perm_maps_["X"]
+    assert set(mp) == set(tr) and set(mp.values()) == set(tr)
+    assert sum(k != v for k, v in mp.items()) > len(tr) // 2
+    plain, _ = CellFeatures().fit(tr, X)
+    np.testing.assert_allclose(cf.transform(ho, X), plain.transform(ho, X), atol=1e-6)
