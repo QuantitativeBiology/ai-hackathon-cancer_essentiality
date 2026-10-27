@@ -1,0 +1,97 @@
+{
+ "name": "m5_avg",
+ "model": "M5",
+ "features": [],
+ "params": {
+  "inputs": [
+   {
+    "name": "m1_E_resB0",
+    "model": "M1",
+    "params": {
+     "modalities": [
+      "E"
+     ],
+     "residual": "B0"
+    }
+   },
+   {
+    "name": "m2n_E_paralogs",
+    "model": "M2",
+    "params": {
+     "m1_params": {
+      "modalities": [
+       "E"
+      ],
+      "residual": "B0"
+     },
+     "base": "M1",
+     "priors": "paralogs",
+     "local_genes": "variable",
+     "nested_lambda": true
+    },
+    "inner_params": {
+     "nested_lambda": false
+    }
+   },
+   {
+    "name": "g3_m3n",
+    "model": "M3",
+    "params": {
+     "m1_params": {
+      "modalities": [
+       "E"
+      ],
+      "residual": "B0"
+     },
+     "inner_folds": 5,
+     "oof_seed": 20261026,
+     "split_seed": 20261026,
+     "pool_blocks": [
+      "E",
+      "C",
+      "M",
+      "H",
+      "meta"
+     ],
+     "k_screen": 50,
+     "use_m1_feature": true,
+     "lgb_params": {},
+     "num_boost_round": 500,
+     "early_stopping": 30,
+     "n_jobs": 6,
+     "nested_es": true
+    }
+   }
+  ],
+  "mode": "average"
+ },
+ "grid": {},
+ "reference_baselines": {
+  "B0": {},
+  "B1": {
+   "grid": {
+    "kappa": [
+     0,
+     1,
+     2,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     10000
+    ]
+   }
+  }
+ },
+ "inner_folds": 5,
+ "min_obs": 40,
+ "inner_min_obs": 30,
+ "threads": 6,
+ "requires_gate": "G2",
+ "cache_reference": true,
+ "declared": "Plain average of m1_E_resB0, m2n_E_paralogs and g3_m3n (equal weights, inputs refitted on all training lines): the baseline M5 must beat. DESIGN \u00a74 rule vs m1_E_resB0 (paired fold-wise dP1 on dev-wide variable genes > 0.005 and > 1 fold SE)."
+}
