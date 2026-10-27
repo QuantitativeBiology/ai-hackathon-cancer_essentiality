@@ -303,6 +303,20 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     cv_run_id, built from that run. Its sha256 goes into every output.
   - **(e) Null control (disclosure).** DESIGN fixes ctl_resB0_permuted, an expression-permuted M1 path, as the null.
     It does not reproduce M3's genomic inputs; an m5-matched expression null does not exist.
+  - **(f) PI decisions on the hand-back (2026-10-27).**
+    - G4 per-tier tables: every finalist is scored against the primary m5_avg tiers, so all finalists share one
+      gene partition. m1_E_resB0 is also scored against its own frozen table (configs/predictable_genes_m1.csv),
+      labelled secondary. Both tables are computed from the same single prediction per finalist, so no access is
+      added.
+    - No m5-matched null is built. The null measures chance per-gene r over about 200 held-out lines, which barely
+      depends on the model: 0 null genes reach high at any threshold, and the null's 99th percentile on variable
+      genes is 0.098, against a high bar of mean r ≥ 0.30 with min r ≥ 0.20. This stays disclosed as (e).
+    - predict.py must serve m5_avg, the headline, before G7. It is assigned with the m5_avg G4/G6 integration.
+    - A non-resume evaluate_test run that silently skips finalists with existing results is a bug. It must refuse
+      or ask for --resume. Fixed before G4.
+    - Disclosure: the characterisation read 23 external anchor screens of DepMap dev lines (set B, guard-logged)
+      for screen-agreement statistics. No model predictions were evaluated on them. These anchors were already
+      read for the G5 replicate ceilings.
 
 - D23 (G3 close-out; docs/g3_m5_results.md). Confirmed by PI (D23f):
   - **(a) Selection:** under the pre-registered rule (configs/runs/m5_stack.json), the M5 rung is

@@ -29,7 +29,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | G2 First models and modality ablation | done | Ridge-type models beat both baselines; [docs/g2_results.md](docs/g2_results.md) |
 | G3 Model ladder | done | Headline: plain average of ridge, its paralog per-gene stage and LightGBM (M5); [docs/g3_m5_results.md](docs/g3_m5_results.md) |
 | Mutation-driven dependencies | done | Expression alone misses RAS/RAF hotspot addiction; the headline recovers most of it through LightGBM ([docs/mutation_dependencies.md](docs/mutation_dependencies.md)) |
-| Per-gene predictability | in progress | Pre-registered tiers and a per-gene confidence score (DESIGN §4); frozen before the test |
+| Per-gene predictability | done | Frozen tiers from the headline model: 1,632 high, 6,198 medium and 10,085 low genes, plus 519 not evaluable (1,054 / 921 / 143 / 41 of the variable genes). Every prediction ships with a confidence score and its tier ([docs/predictability.md](docs/predictability.md)) |
 | G4 Freeze finalists, one-time test evaluation | planned | |
 | G6 Apply to non-transformed cells | planned | |
 | G7 REPORT.md | planned | |
@@ -98,7 +98,11 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 5. **Runs:** `python scripts/run.py --config configs/runs/m1_E_resB0.json --threads 6`.
    - Every run is logged in `results/registry.csv` with config hash, commit and data hashes.
    - Reports: `scripts/g2_report.py`, `scripts/g3_kernel_report.py` and `scripts/g3_report.py`.
-6. **Test set:** `src/essml/guard.py` refuses test and external-screen targets unless the run's config hash is listed in a committed `configs/finalists.json` and `ESSML_UNBLIND=1` is set. Each access is logged in `results/test_access_log.csv`.
+6. **Predict for new lines:** `python scripts/predict.py --expression my_lines.csv --out predictions.csv`.
+   - The output gives each gene's predicted effect, confidence, tier and an applicability-domain distance.
+   - For non-DepMap profiles, add `--harmonise quantile`.
+   - It currently serves the expression-only M1. Support for the headline M5 is planned.
+7. **Test set:** `src/essml/guard.py` refuses test and external-screen targets unless the run's config hash is listed in a committed `configs/finalists.json` and `ESSML_UNBLIND=1` is set. Each access is logged in `results/test_access_log.csv`.
 
 ## Data and licensing
 
