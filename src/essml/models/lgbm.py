@@ -226,24 +226,24 @@ class LGBMResidualM3:
         return self
 
     @staticmethod
-    def _feats(use_m1, Zrows, m1col, cols):
-        F = Zrows[:, cols]
+    def _feats(use_m1, Z, rows, m1col, cols):
+        F = Z[np.ix_(rows, cols)]  # copy only the selected rows x columns
         if use_m1:
             F = np.column_stack([m1col, F])
         return np.ascontiguousarray(F, dtype=np.float32)
 
     def _tasks(self, cache, sel_in, js):
         Zp, oof, R, O, a, b, oof_es, R_es = cache
-        f = lambda Zr, m1c, cols: self._feats(self.use_m1_feature, Zr, m1c, cols)  # noqa: E731
+        f = lambda rows, m1c, cols: self._feats(self.use_m1_feature, Zp, rows, m1c, cols)  # noqa: E731
         for j in js:
             g = self.model_genes_[j]
             oa = a[O[a, j]]
             ob = b[O[b, j]]
             of = np.flatnonzero(O[:, j])
             yield {"params": self.lgb_params, "n_round": self.num_boost_round, "es": self.early_stopping,
-                   "Xa": f(Zp[oa], oof_es[oa, g], sel_in[j]), "ya": R_es[oa, j],
-                   "Xb": f(Zp[ob], oof_es[ob, g], sel_in[j]), "yb": R_es[ob, j],
-                   "Xf": f(Zp[of], oof[of, g], self.sel_full_[j]), "yf": R[of, j]}
+                   "Xa": f(oa, oof_es[oa, g], sel_in[j]), "ya": R_es[oa, j],
+                   "Xb": f(ob, oof_es[ob, g], sel_in[j]), "yb": R_es[ob, j],
+                   "Xf": f(of, oof[of, g], self.sel_full_[j]), "yf": R[of, j]}
 
     def predict(self, index, lineage=None, X=None) -> pd.DataFrame:
         import lightgbm as lgb
@@ -259,6 +259,6 @@ class LGBMResidualM3:
                 continue
             g = self.model_genes_[j]
             bst = lgb.Booster(model_str=m)
-            P[:, g] += bst.predict(self._feats(self.use_m1_feature, Znew, m1new[:, g],
-                                               self.sel_full_[j]), num_threads=1)
+            P[:, g] += bst.predict(self._feats(self.use_m1_feature, Znew, np.arange(len(Znew)),
+                                               m1new[:, g], self.sel_full_[j]), num_threads=1)
         return pd.DataFrame(P, index=index, columns=self.genes_)
