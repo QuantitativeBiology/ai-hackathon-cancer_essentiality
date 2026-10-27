@@ -116,7 +116,10 @@ def m5():
                                    "mode": "stack", "inner_folds": 5, "seed": 20261026,
                                    "min_class_genes": 20}, gate="G2",
              declared="FALLBACK F1 of m5_stack (run only if the pre-declared time-box trigger "
-                      "fires): as m5_stack but the M3 inner fits use nested_es=False. " + M5_PREREG),
+                      "fires): as m5_stack but the M3 inner fits use nested_es=False (un-nested "
+                      "early stopping inside the inner-training lines; still leak-free with respect "
+                      "to the inner-held-out lines); the statement 'M3 inner fits: exact' in the "
+                      "m5_stack text below does NOT apply to F1. " + M5_PREREG),
     ]
 
 

@@ -324,6 +324,9 @@ class StackM5:
     def input_predictions(self, index, lineage=None):
         """Outer predictions of every input (refitted on all training lines; exact-key cache)."""
         index = pd.Index(index)
+        if pd.Index(map(str, index)).isin(set(map(str, self.Y_.index))).any():
+            # M5 predicts new (held-out) lines only; the refits below see the training fold only
+            raise ValueError("M5 predicts lines outside its training fold only")
         out = {}
         lin_new = None if lineage is None else pd.Series(lineage).reindex(index)
         for spec in self.inputs:

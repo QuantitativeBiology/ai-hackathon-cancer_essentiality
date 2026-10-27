@@ -122,7 +122,7 @@ def test_permuted_input_control_gets_about_zero_weight():
     kb = st.names_.index("b")
     assert all(w[kb] > 0.2 for w in st.weights_.values())  # unpermuted: both inputs are used
     ctl = _stack(X, mk, permute_input="b").fit(Y, lineage=lin, groups=groups)
-    assert all(w[kb] < 0.02 for w in ctl.weights_.values())
+    assert all(w[kb] <= 0.01 for w in ctl.weights_.values())  # pre-registered bound
     tr, te = Y.index[:180], Y.index[180:]
     ctl = _stack(X, mk, permute_input="b").fit(Y.loc[tr], lineage=lin, groups=groups[:180])
     P = ctl.predict(te)
@@ -158,3 +158,92 @@ def test_rejects_bad_config():
         StackM5([{"name": "a", "model": "M1"}], permute_input="zzz")
     with pytest.raises(ValueError):
         StackM5([{"name": "a", "model": "M1"}, {"name": "a", "model": "M2"}])
+
+
+def test_permuted_input_is_permuted_at_prediction_too():
+    X, Y, lin, groups = _toy()
+    tr, te = Y.index[:180], Y.index[180:]
+    mk = {"a": lambda: Ridge(X, noise=0.1, seed=2), "b": lambda: Ridge(X, noise=0.1, seed=3)}
+    ctl = _stack(X, mk, permute_input="b")
+    ctl.fit(Y.loc[tr], lineage=lin, groups=groups[:180])
+    ctl.weights_ = {c: np.array([0.0, 1.0]) for c in ctl.weights_}  # all weight on the permuted input
+    P = ctl.predict(te).to_numpy()
+    pb = mk["b"]().fit(Y.loc[tr]).predict(te).to_numpy()
+    perm = ctl._perm(len(te), 1)
+    assert np.allclose(P, pb[perm]) and not np.allclose(P, pb)
+
+
+def test_predict_refuses_training_lines():
+    X, Y, lin, groups = _toy()
+    st = _stack(X, {"a": lambda: Ridge(X)}, mode="average").fit(Y.iloc[:180], lineage=lin,
+                                                                groups=groups[:180])
+    with pytest.raises(ValueError):
+        st.predict(Y.index[170:200])
+
+
+def test_check_nesting_raises_on_overlap_and_missing_lines():
+    X, Y, lin, groups = _toy()
+    st = _stack(X, {"a": lambda: Ridge(X)}).fit(Y, lineage=lin, groups=groups)
+    e = st.oof_log_[0]
+    st.oof_log_[0] = dict(e, fit=e["fit"] | {next(iter(e["pred"]))})
+    with pytest.raises(AssertionError):
+        st.check_nesting()
+    st.oof_log_ = st.oof_log_[1:]
+    with pytest.raises(AssertionError):
+        st.check_nesting()
+
+
+def test_nan_targets_weights_and_predictions():
+    X, Y, lin, groups = _toy()
+    Y = Y.copy()
+    mask = rng.random(Y.shape) < 0.15
+    Y = Y.mask(mask)
+    mk = {"a": lambda: NanRidge(X), "b": lambda: NanRidge(X, noise=0.3, seed=1)}
+    st = _stack(X, mk).fit(Y.iloc[:180], lineage=lin, groups=groups[:180])
+    for w in st.weights_.values():
+        assert np.isfinite(w).all() and (w >= 0).all() and np.isclose(w.sum(), 1)
+    assert np.isfinite(st.predict(Y.index[180:]).to_numpy()).all()
+
+
+class NanRidge(Ridge):
+    def fit(self, Y, lineage=None, X=None, groups=None):
+        return super().fit(Y.fillna(Y.mean()), lineage, X, groups)
+
+
+def test_cache_round_trip_and_exact_keys(tmp_path, monkeypatch):
+    """Real-path caches (m5_inner via a non-M1 input, m5_outer) with redirected directories: a hit
+    equals a fresh fit; changing one training target gives a different key (miss)."""
+    from essml.models import m5_stack as M
+    monkeypatch.setattr(M, "INNER_CACHE", tmp_path / "inner")
+    monkeypatch.setattr(M, "OUTER_CACHE", tmp_path / "outer")
+    X, Y, lin, groups = _toy()
+    calls = []
+
+    class Counted(Ridge):
+        def fit(self, Y, lineage=None, X=None, groups=None):
+            calls.append(len(Y))
+            return super().fit(Y, lineage, X, groups)
+
+    def mk():
+        st = StackM5([{"name": "a", "model": "toy"}, {"name": "b", "model": "toy2"}])
+        st.input_factory = lambda spec, inner: (Counted(X) if spec["model"] == "toy"
+                                                else Counted(X, noise=0.3, seed=1))
+        return st  # cache stays on (cache flag was set before the factory was attached)
+    tr, te = Y.index[:180], Y.index[180:]
+    a = mk().fit(Y.loc[tr], lineage=lin, groups=groups[:180])
+    Pa = a.predict(te)
+    n_first = len(calls)
+    assert n_first == 2 * 5 + 2 and len(list((tmp_path / "inner").glob("*.npy"))) == 2
+    b = mk().fit(Y.loc[tr], lineage=lin, groups=groups[:180])
+    Pb = b.predict(te)
+    assert len(calls) == n_first  # everything from cache
+    assert all(b.report_["inner_cached"].values())
+    pd.testing.assert_frame_equal(Pa, Pb)
+    for k in a.weights_:
+        assert np.allclose(a.weights_[k], b.weights_[k], atol=1e-6)  # float32 inner cache
+    Y2 = Y.loc[tr].copy()
+    Y2.iloc[0, 0] += 1e-9
+    c = mk()
+    c.fit(Y2, lineage=lin, groups=groups[:180])
+    assert not any(c.report_["inner_cached"].values())
+    assert c._outer_key(c.inputs[0], te) != a._outer_key(a.inputs[0], te)
