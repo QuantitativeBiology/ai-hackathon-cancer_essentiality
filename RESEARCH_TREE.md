@@ -194,8 +194,8 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     because POU5F1 and PRDM14 are not predicted in EC lines even with them in training (−0.10 vs −0.88 observed).
     This is stated now so a failed H3 cannot be explained away later.
   - **(f) Caches:** keep cache/m2_inner and cache/runs until M5 and G4 finish; delete after G4.
-- D21 (pre-G4, held-out evaluation scripts; scripts/evaluate_test.py, evaluate_transfer.py; proposed, PI to
-  confirm). All choices were made on toy data and a dev-only dry run (dev fold 0 standing in for the test set),
+- D21 (pre-G4, held-out evaluation scripts; scripts/evaluate_test.py, evaluate_transfer.py; confirmed by PI,
+  see D21f). All choices were made on toy data and a dev-only dry run (dev fold 0 standing in for the test set),
   before any test, set-A or set-B access.
   - **(a) Access-log protocol:** results/test_access_log.csv is tracked, and the guard appends a row on each access.
     So the scripts commit that file alone before every further access and at the end. Otherwise the second
@@ -214,6 +214,22 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - **(e) Dry-run observation:** with the real anchor screens, no library-matched anchor has positive T skill (all
     lower CIs ≤ 0 on dev-fold stand-in models). If this holds at G6, the anchor gate is not informative and
     "fails" is unreachable. Verdicts would then be transfers or inconclusive only.
+  - **(f) PI confirmation:**
+    - (a) is kept: the log stays tracked and the automatic log-only commits are the audit trail. Untracking it would
+      weaken blinding evidence.
+    - (b) is accepted. The DESIGN §4 bootstrap CI is not pinned to the percentile method. The normal-approximation
+      bootstrap CI is reported as primary for P2b, and the percentile interval and bias are reported too.
+    - (c) is accepted with disclosure.
+    - (d) is a process deviation, recorded in REPORT limitations. Only column names were read; set-B values are
+      untouched.
+    - (e) is recorded now, before unblinding: under the frozen criteria, "fails" will probably be unreachable. Any
+      "inconclusive" verdict must then be reported as "not detectable with these screens", and not softened. The
+      dry run already shows that external cancer-line screens do not reward T over the gene mean. This agrees
+      with the replicate-ceiling finding (G5a) that cross-study variability is as large as the context-specific
+      signal.
+    - The choices in the agent's report (fixed gene sets in the bootstrap, modal-lineage strata, NaN-pattern library
+      matching, set-A reference from T's fold models, the criteria file's "every background agrees" rule, and only
+      tier A1 evaluated) are accepted as the operational reading of DESIGN.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -290,6 +306,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] Published-comparable block (loosely comparable): m1_E_resB0 mean Spearman 0.284 on DeepDEP genes and
     0.303 on LEAP genes; 4,362 genes with pooled r ≥ 0.2.
   - [ ] λ-criterion diagnostic on the headline: LOO-MSE and grouped inner-CV r (D20c)
+  - [x] G4/G6 scripts built and dry-run on dev only (fold 0 reproduces CV exactly; 249 tests); D21
   - [ ] M5 stacking (inputs: m1_E_resB0, m2n_E_paralogs, g3_m3n nested); plain averaging is the baseline
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
