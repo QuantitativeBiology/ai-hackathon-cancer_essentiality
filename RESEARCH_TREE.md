@@ -230,7 +230,9 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     (NRAS hotspot; X-buffered RPS4X, EIF1AX; NAA10). Permuted control −0.004.
   - [x] R2 elastic net (150 genes): −0.030 vs ridge on the same genes, at about 45 s per gene.
   - [x] R4 TrPLet-like (500 genes): nested −0.038; non-nested optimism +0.018.
-  - [ ] R4 top-k extension beyond 200 (grid edge), for a fair comparison
+  - [x] R4 top-k extension (k ≤ 2000): ΔP1 −0.0196 vs ridge on the same 500 genes, with choices again at the edge.
+    R4 improves monotonically toward ridge as it keeps more features, so feature selection buys nothing over
+    shrinkage here. Not extended further.
   - [x] Published-comparable block (loosely comparable): m1_E_resB0 mean Spearman 0.284 on DeepDEP genes and
     0.303 on LEAP genes; 4,362 genes with pooled r ≥ 0.2.
   - [ ] M5 stacking of finalists
