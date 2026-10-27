@@ -15,11 +15,11 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 - **Controls and checks:**
   - The permuted-input control missed both pre-stated bounds (max weight 0.041 > 0.01;
     P1 −0.005). The bounds were mis-specified; two post-hoc seeds show the weights are
-    chance-level (D21b).
+    chance-level (D23b).
   - Independent leakage review: no leak.
 - **λ diagnostic (D20c):** LOO-MSE −0.0011; grouped inner-CV r picks the same variable-gene λ
   (−0.00005). The small-λ bias is not present on real data; closed.
-- **Pending PI decision:** confirm m5_avg as the G4 headline (D21a).
+- **Pending PI decision:** confirm m5_avg as the G4 headline (D23a).
 
 ### 2026-10-26 — M3: first model rung (G2) done
 - **Result:** the kernel-ridge rung (G2) more than doubles the lineage-mean baseline's per-gene skill, but it is not
@@ -261,7 +261,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - Disclosure: per-gene CV r values already exist in results/runs/*/per_gene.csv.gz. Their aggregate means were
     seen, but the distribution was not examined before these thresholds were set.
 
-- D21 (G3 close-out; docs/g3_m5_results.md). Proposed; (a) awaits PI confirmation:
+- D23 (G3 close-out; docs/g3_m5_results.md). Proposed; (a) awaits PI confirmation:
   - **(a) Selection:** under the pre-registered rule (configs/runs/m5_stack.json), the M5 rung is
     represented by the plain average `m5_avg`, because m5_stack did not beat it by > 1 SE.
     `m5_avg` replaces m1_E_resB0 on dev CV: ΔP1 +0.0094 > δ, SE 0.0002. The test set is still
@@ -355,7 +355,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [ ] Per-gene predictability tiers frozen, confidence score in outputs, characterisation (D22)
   - [!] M5 (docs/g3_m5_results.md): plain average m5_avg ΔP1 +0.0094 (SE 0.0002, 5/5) clears δ;
     stacking m5_stack +0.0099 does not beat the average (+0.0005, SE 0.0008). Mechanism: M2/M3
-    corrections over-scaled about 2× (post hoc). Control weight 0.041 (chance-level; D21b). PI to confirm (D21a).
+    corrections over-scaled about 2× (post hoc). Control weight 0.041 (chance-level; D23b). PI to confirm (D23a).
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
   - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.
