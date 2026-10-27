@@ -1,0 +1,940 @@
+{
+ "run_id": "20261026-231523_g3_m4pre_ridgepc_28e954a8",
+ "config": {
+  "features": [],
+  "grid": {},
+  "reference_baselines": {
+   "B0": {},
+   "B1": {
+    "grid": {
+     "kappa": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20,
+      50,
+      100,
+      200,
+      500,
+      1000,
+      10000
+     ]
+    }
+   }
+  },
+  "inner_folds": 5,
+  "min_obs": 40,
+  "inner_min_obs": 30,
+  "threads": 6,
+  "requires_gate": "G1",
+  "cache_reference": true,
+  "name": "g3_m4pre_ridgepc",
+  "model": "M4pre_RidgePC",
+  "params": {
+   "n_pc": 256,
+   "whiten_grid": [
+    false,
+    true
+   ],
+   "split_seed": 20261026
+  },
+  "prereg": "G3 M4 pre-check (pre-registered, docs/g3_nonlinear_results.md section 1): run with --folds 0 only. GO for M4 iff the mean over model seeds 0-4 of the MLP's fold-0 P1 (variable genes) is greater than M4pre_RidgePC's fold-0 P1 (same PCs, targets and inner split). Otherwise M4 is dropped."
+ },
+ "config_hash": "28e954a87b617fac2be9d8ad9aa71d5a88bb601336b182785f42a5c31564364e",
+ "git_commit": "0e2e8a48667b55903130dca4670a16457ac4e464",
+ "dirty_tree": 0,
+ "splits_sha256": "d543cba139b4ae6651c2453d61ec447867d35a4295d4046833fcaf0b017e41f0",
+ "eval_genes_sha256": "5a5b7c2ae1153973f257b8823ecc254014e607bd6356e1ac77a4efa43c787f64",
+ "gene_classes_sha256": "3f9d61aeee004d0817b222a8a7abb89ae7df4e4dd49ef1cc15da98e1378eb6dc",
+ "tree_clean": 1,
+ "roles_used": "dev:1022",
+ "n_train_ids": 814,
+ "threads": 6,
+ "seed": 20261026,
+ "n_lines": 208,
+ "fold_scheme": "cv",
+ "fold_names": null,
+ "excluded_from_training": [],
+ "n_eval_genes": 17915,
+ "neg_mapping": {
+  "file": "NEGv1.txt",
+  "n_neg": 927,
+  "n_mapped": 924,
+  "by": {
+   "hgnc_id": 922,
+   "symbol": 0,
+   "prev_alias": 3,
+   "unmapped": 2
+  },
+  "unmapped": [
+   "PRAMEF3",
+   "SPHAR"
+  ],
+  "entrez_disagreements_with_file": 1
+ },
+ "chosen_params": {
+  "0": {},
+  "ref_B0": {
+   "0": {}
+  },
+  "ref_B1": {
+   "0": {
+    "kappa": 10
+   }
+  }
+ },
+ "inner_cv": {
+  "0": []
+ },
+ "model_report": {
+  "0": {
+   "chosen": {
+    "whiten": false,
+    "rel_lam": 0.03162277660168379
+   },
+   "inner_P1": 0.2912,
+   "grid": [
+    {
+     "whiten": false,
+     "rel_lam": 0.0001,
+     "inner_P1": 0.26635
+    },
+    {
+     "whiten": false,
+     "rel_lam": 0.00031622776601683794,
+     "inner_P1": 0.26815
+    },
+    {
+     "whiten": false,
+     "rel_lam": 0.001,
+     "inner_P1": 0.27171
+    },
+    {
+     "whiten": false,
+     "rel_lam": 0.0031622776601683794,
+     "inner_P1": 0.27856
+    },
+    {
+     "whiten": false,
+     "rel_lam": 0.01,
+     "inner_P1": 0.28786
+    },
+    {
+     "whiten": false,
+     "rel_lam": 0.03162277660168379,
+     "inner_P1": 0.2912
+    },
+    {
+     "whiten": false,
+     "rel_lam": 0.1,
+     "inner_P1": 0.28044
+    },
+    {
+     "whiten": false,
+     "rel_lam": 0.31622776601683794,
+     "inner_P1": 0.25964
+    },
+    {
+     "whiten": false,
+     "rel_lam": 1.0,
+     "inner_P1": 0.23965
+    },
+    {
+     "whiten": false,
+     "rel_lam": 3.1622776601683795,
+     "inner_P1": 0.22695
+    },
+    {
+     "whiten": false,
+     "rel_lam": 10.0,
+     "inner_P1": 0.22119
+    },
+    {
+     "whiten": false,
+     "rel_lam": 31.622776601683793,
+     "inner_P1": 0.21909
+    },
+    {
+     "whiten": false,
+     "rel_lam": 100.0,
+     "inner_P1": 0.21839
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.0001,
+     "inner_P1": 0.26445
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.00031622776601683794,
+     "inner_P1": 0.26465
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.001,
+     "inner_P1": 0.26493
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.0031622776601683794,
+     "inner_P1": 0.26536
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.01,
+     "inner_P1": 0.26605
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.03162277660168379,
+     "inner_P1": 0.26694
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.1,
+     "inner_P1": 0.26772
+    },
+    {
+     "whiten": true,
+     "rel_lam": 0.31622776601683794,
+     "inner_P1": 0.26829
+    },
+    {
+     "whiten": true,
+     "rel_lam": 1.0,
+     "inner_P1": 0.26864
+    },
+    {
+     "whiten": true,
+     "rel_lam": 3.1622776601683795,
+     "inner_P1": 0.2688
+    },
+    {
+     "whiten": true,
+     "rel_lam": 10.0,
+     "inner_P1": 0.26886
+    },
+    {
+     "whiten": true,
+     "rel_lam": 31.622776601683793,
+     "inner_P1": 0.26888
+    },
+    {
+     "whiten": true,
+     "rel_lam": 100.0,
+     "inner_P1": 0.26888
+    }
+   ],
+   "n_pc": 256,
+   "n_inner_train": 655,
+   "n_inner_val": 159,
+   "fit_s": 39.8
+  }
+ },
+ "fit_s_per_fold": {
+  "0": 39.87603599997237
+ },
+ "predict_s_per_fold": {
+  "0": 0.5630196999991313
+ },
+ "fit_s": 39.87603599997237,
+ "predict_s": 0.5630196999991313,
+ "peak_rss_mb": 2551.1484375,
+ "rss_method": "psutil.peak_wset",
+ "headline": {
+  "P1_all": 0.1530839460613516,
+  "P1_all_sd": NaN,
+  "P1_median_all": 0.13932350300053953,
+  "P1_median_all_sd": NaN,
+  "n_r_gt_0.3_all": 2018.0,
+  "n_r_gt_0.3_all_sd": NaN,
+  "n_genes_all": 17915.0,
+  "n_genes_all_sd": NaN,
+  "dP1_vs_B0_all": 0.1530839460613516,
+  "dP1_vs_B0_all_sd": NaN,
+  "frac_beat_B0_all": 0.9224113871057773,
+  "frac_beat_B0_all_sd": NaN,
+  "dP1_vs_B1_all": 0.06084580873946046,
+  "dP1_vs_B1_all_sd": NaN,
+  "frac_beat_B1_all": 0.7548423109126431,
+  "frac_beat_B1_all_sd": NaN,
+  "P1_variable": 0.3068388587597694,
+  "P1_variable_sd": NaN,
+  "P1_median_variable": 0.30362628071606496,
+  "P1_median_variable_sd": NaN,
+  "n_r_gt_0.3_variable": 1084.0,
+  "n_r_gt_0.3_variable_sd": NaN,
+  "n_genes_variable": 2118.0,
+  "n_genes_variable_sd": NaN,
+  "dP1_vs_B0_variable": 0.3068388587597694,
+  "dP1_vs_B0_variable_sd": NaN,
+  "frac_beat_B0_variable": 0.9933899905571294,
+  "frac_beat_B0_variable_sd": NaN,
+  "dP1_vs_B1_variable": 0.1252465291082027,
+  "dP1_vs_B1_variable_sd": NaN,
+  "frac_beat_B1_variable": 0.9442870632672332,
+  "frac_beat_B1_variable_sd": NaN,
+  "P1_selective": 0.28769407827664945,
+  "P1_selective_sd": NaN,
+  "P1_median_selective": 0.28097262744793106,
+  "P1_median_selective_sd": NaN,
+  "n_r_gt_0.3_selective": 1148.0,
+  "n_r_gt_0.3_selective_sd": NaN,
+  "n_genes_selective": 2572.0,
+  "n_genes_selective_sd": NaN,
+  "dP1_vs_B0_selective": 0.28769407827664945,
+  "dP1_vs_B0_selective_sd": NaN,
+  "frac_beat_B0_selective": 0.994945567651633,
+  "frac_beat_B0_selective_sd": NaN,
+  "dP1_vs_B1_selective": 0.11690900432388152,
+  "dP1_vs_B1_selective_sd": NaN,
+  "frac_beat_B1_selective": 0.9253499222395023,
+  "frac_beat_B1_selective_sd": NaN,
+  "P1_rare_selective": 0.17282958929429357,
+  "P1_rare_selective_sd": NaN,
+  "P1_median_rare_selective": 0.16414532129498607,
+  "P1_median_rare_selective_sd": NaN,
+  "n_r_gt_0.3_rare_selective": 387.0,
+  "n_r_gt_0.3_rare_selective_sd": NaN,
+  "n_genes_rare_selective": 2991.0,
+  "n_genes_rare_selective_sd": NaN,
+  "dP1_vs_B0_rare_selective": 0.17282958929429357,
+  "dP1_vs_B0_rare_selective_sd": NaN,
+  "frac_beat_B0_rare_selective": 0.9458375125376128,
+  "frac_beat_B0_rare_selective_sd": NaN,
+  "dP1_vs_B1_rare_selective": 0.07111842523710128,
+  "dP1_vs_B1_rare_selective_sd": NaN,
+  "frac_beat_B1_rare_selective": 0.7953861584754263,
+  "frac_beat_B1_rare_selective_sd": NaN,
+  "P1_common_essential": 0.2524277888035511,
+  "P1_common_essential_sd": NaN,
+  "P1_median_common_essential": 0.24922560885481365,
+  "P1_median_common_essential_sd": NaN,
+  "n_r_gt_0.3_common_essential": 270.0,
+  "n_r_gt_0.3_common_essential_sd": NaN,
+  "n_genes_common_essential": 839.0,
+  "n_genes_common_essential_sd": NaN,
+  "dP1_vs_B0_common_essential": 0.2524277888035511,
+  "dP1_vs_B0_common_essential_sd": NaN,
+  "frac_beat_B0_common_essential": 0.9928486293206198,
+  "frac_beat_B0_common_essential_sd": NaN,
+  "dP1_vs_B1_common_essential": 0.11143557019103789,
+  "dP1_vs_B1_common_essential_sd": NaN,
+  "frac_beat_B1_common_essential": 0.9272943980929678,
+  "frac_beat_B1_common_essential_sd": NaN,
+  "P1_nonessential": 0.1090968203626248,
+  "P1_nonessential_sd": NaN,
+  "P1_median_nonessential": 0.11068164719560074,
+  "P1_median_nonessential_sd": NaN,
+  "n_r_gt_0.3_nonessential": 18.0,
+  "n_r_gt_0.3_nonessential_sd": NaN,
+  "n_genes_nonessential": 804.0,
+  "n_genes_nonessential_sd": NaN,
+  "dP1_vs_B0_nonessential": 0.1090968203626248,
+  "dP1_vs_B0_nonessential_sd": NaN,
+  "frac_beat_B0_nonessential": 0.8718905472636815,
+  "frac_beat_B0_nonessential_sd": NaN,
+  "dP1_vs_B1_nonessential": 0.043111848082420134,
+  "dP1_vs_B1_nonessential_sd": NaN,
+  "frac_beat_B1_nonessential": 0.695273631840796,
+  "frac_beat_B1_nonessential_sd": NaN,
+  "P2a": 0.9157292040798505,
+  "P2a_sd": NaN,
+  "dP2a_vs_B0": 0.009485051385552735,
+  "dP2a_vs_B0_sd": NaN,
+  "dP2a_vs_B1": 0.005915383358597507,
+  "dP2a_vs_B1_sd": NaN,
+  "P2b_nap_prev05": 0.18892956483342355,
+  "P2b_nap_prev05_sd": NaN,
+  "P2b_auroc_prev05": 0.6634407486144553,
+  "P2b_auroc_prev05_sd": NaN,
+  "P2b_n_prev05": 1754.0,
+  "P2b_n_prev05_sd": NaN
+ },
+ "summary": {
+  "all": {
+   "P1": 0.1530839460613516,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.1530839460613516
+   ],
+   "P1_median": 0.13932350300053953,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.13932350300053953
+   ],
+   "n_r_gt_0.3": 2018.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    2018.0
+   ],
+   "n_genes": 17915.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    17915.0
+   ],
+   "P1_spearman": 0.14572491634909093,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.14572491634909093
+   ],
+   "P2a": 0.9157292040798505,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.9157292040798505
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.18740745344922066,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.18740745344922066
+   ],
+   "P2b_auroc": 0.6540073149133699,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.6540073149133699
+   ],
+   "P2b_n": 5437.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    5437.0
+   ],
+   "P2b_nap_prev05": 0.13665977938465856,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.13665977938465856
+   ],
+   "P2b_auroc_prev05": 0.6518363180469667,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.6518363180469667
+   ],
+   "P2b_n_prev05": 4313.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    4313.0
+   ],
+   "dP1_vs_B0": 0.1530839460613516,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.1530839460613516
+   ],
+   "frac_beat_B0": 0.9224113871057773,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.9224113871057773
+   ],
+   "dP2a_vs_B0": 0.009485051385552735,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.009485051385552735
+   ],
+   "dP1_vs_B1": 0.06084580873946046,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    0.06084580873946046
+   ],
+   "frac_beat_B1": 0.7548423109126431,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.7548423109126431
+   ],
+   "dP2a_vs_B1": 0.005915383358597507,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    0.005915383358597507
+   ]
+  },
+  "variable": {
+   "P1": 0.3068388587597694,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.3068388587597694
+   ],
+   "P1_median": 0.30362628071606496,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.30362628071606496
+   ],
+   "n_r_gt_0.3": 1084.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    1084.0
+   ],
+   "n_genes": 2118.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    2118.0
+   ],
+   "P1_spearman": 0.282692891882157,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.282692891882157
+   ],
+   "P2a": 0.9700532356651569,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.9700532356651569
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.357123680317625,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.357123680317625
+   ],
+   "P2b_auroc": 0.6849429143410871,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.6849429143410871
+   ],
+   "P2b_n": 1583.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    1583.0
+   ],
+   "P2b_nap_prev05": 0.2882218347986931,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.2882218347986931
+   ],
+   "P2b_auroc_prev05": 0.7103505013633475,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.7103505013633475
+   ],
+   "P2b_n_prev05": 602.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    602.0
+   ],
+   "dP1_vs_B0": 0.3068388587597694,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.3068388587597694
+   ],
+   "frac_beat_B0": 0.9933899905571294,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.9933899905571294
+   ],
+   "dP2a_vs_B0": 0.00548799613940909,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.00548799613940909
+   ],
+   "dP1_vs_B1": 0.1252465291082027,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    0.1252465291082027
+   ],
+   "frac_beat_B1": 0.9442870632672332,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.9442870632672332
+   ],
+   "dP2a_vs_B1": 0.0033777477932747757,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    0.0033777477932747757
+   ]
+  },
+  "selective": {
+   "P1": 0.28769407827664945,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.28769407827664945
+   ],
+   "P1_median": 0.28097262744793106,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.28097262744793106
+   ],
+   "n_r_gt_0.3": 1148.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    1148.0
+   ],
+   "n_genes": 2572.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    2572.0
+   ],
+   "P1_spearman": 0.27104472047966227,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.27104472047966227
+   ],
+   "P2a": 0.812440145774572,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.812440145774572
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.24434626090109562,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.24434626090109562
+   ],
+   "P2b_auroc": 0.6609755830457981,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.6609755830457981
+   ],
+   "P2b_n": 2569.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    2569.0
+   ],
+   "P2b_nap_prev05": 0.18892956483342355,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.18892956483342355
+   ],
+   "P2b_auroc_prev05": 0.6634407486144553,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.6634407486144553
+   ],
+   "P2b_n_prev05": 1754.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    1754.0
+   ],
+   "dP1_vs_B0": 0.28769407827664945,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.28769407827664945
+   ],
+   "frac_beat_B0": 0.994945567651633,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.994945567651633
+   ],
+   "dP2a_vs_B0": 0.029333605809783912,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.029333605809783912
+   ],
+   "dP1_vs_B1": 0.11690900432388152,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    0.11690900432388152
+   ],
+   "frac_beat_B1": 0.9253499222395023,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.9253499222395023
+   ],
+   "dP2a_vs_B1": 0.018157262952860936,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    0.018157262952860936
+   ]
+  },
+  "rare_selective": {
+   "P1": 0.17282958929429357,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.17282958929429357
+   ],
+   "P1_median": 0.16414532129498607,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.16414532129498607
+   ],
+   "n_r_gt_0.3": 387.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    387.0
+   ],
+   "n_genes": 2991.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    2991.0
+   ],
+   "P1_spearman": 0.15373583058315207,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.15373583058315207
+   ],
+   "P2a": 0.07256930781297498,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.07256930781297498
+   ],
+   "P2a_n_lines": 207.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    207.0
+   ],
+   "P2b_nap": 0.10721018775150012,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.10721018775150012
+   ],
+   "P2b_auroc": 0.6517537657988,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.6517537657988
+   ],
+   "P2b_n": 2168.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    2168.0
+   ],
+   "P2b_nap_prev05": 0.10721018775150012,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.10721018775150012
+   ],
+   "P2b_auroc_prev05": 0.6517537657988,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.6517537657988
+   ],
+   "P2b_n_prev05": 2168.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    2168.0
+   ],
+   "dP1_vs_B0": 0.17282958929429357,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.17282958929429357
+   ],
+   "frac_beat_B0": 0.9458375125376128,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.9458375125376128
+   ],
+   "dP2a_vs_B0": 0.03847280965847626,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.03847280965847626
+   ],
+   "dP1_vs_B1": 0.07111842523710128,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    0.07111842523710128
+   ],
+   "frac_beat_B1": 0.7953861584754263,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.7953861584754263
+   ],
+   "dP2a_vs_B1": 0.01857134328376708,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    0.01857134328376708
+   ]
+  },
+  "common_essential": {
+   "P1": 0.2524277888035511,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.2524277888035511
+   ],
+   "P1_median": 0.24922560885481365,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.24922560885481365
+   ],
+   "n_r_gt_0.3": 270.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    270.0
+   ],
+   "n_genes": 839.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    839.0
+   ],
+   "P1_spearman": 0.22913427754394652,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.22913427754394652
+   ],
+   "P2a": 0.9960785401665266,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.9960785401665266
+   ],
+   "P2a_n_lines": 191.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    191.0
+   ],
+   "P2b_nap": 0.4309954963763449,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.4309954963763449
+   ],
+   "P2b_auroc": 0.679924050720144,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.679924050720144
+   ],
+   "P2b_n": 309.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    309.0
+   ],
+   "P2b_nap_prev05": NaN,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    null
+   ],
+   "P2b_auroc_prev05": NaN,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    null
+   ],
+   "P2b_n_prev05": 0.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    0.0
+   ],
+   "dP1_vs_B0": 0.2524277888035511,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.2524277888035511
+   ],
+   "frac_beat_B0": 0.9928486293206198,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.9928486293206198
+   ],
+   "dP2a_vs_B0": 0.001290727383077417,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.001290727383077417
+   ],
+   "dP1_vs_B1": 0.11143557019103789,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    0.11143557019103789
+   ],
+   "frac_beat_B1": 0.9272943980929678,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.9272943980929678
+   ],
+   "dP2a_vs_B1": 0.000736410786142733,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    0.000736410786142733
+   ]
+  },
+  "nonessential": {
+   "P1": 0.1090968203626248,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.1090968203626248
+   ],
+   "P1_median": 0.11068164719560074,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.11068164719560074
+   ],
+   "n_r_gt_0.3": 18.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    18.0
+   ],
+   "n_genes": 804.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    804.0
+   ],
+   "P1_spearman": 0.10903014092462021,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.10903014092462021
+   ],
+   "P2a": 0.6072827033610662,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.6072827033610662
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.0990876491563872,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.0990876491563872
+   ],
+   "P2b_auroc": 0.6035679664632997,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.6035679664632997
+   ],
+   "P2b_n": 113.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    113.0
+   ],
+   "P2b_nap_prev05": 0.08901505479136937,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.08901505479136937
+   ],
+   "P2b_auroc_prev05": 0.6016445126964148,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.6016445126964148
+   ],
+   "P2b_n_prev05": 110.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    110.0
+   ],
+   "dP1_vs_B0": 0.1090968203626248,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.1090968203626248
+   ],
+   "frac_beat_B0": 0.8718905472636815,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.8718905472636815
+   ],
+   "dP2a_vs_B0": 0.00965460542704001,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.00965460542704001
+   ],
+   "dP1_vs_B1": 0.043111848082420134,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    0.043111848082420134
+   ],
+   "frac_beat_B1": 0.695273631840796,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.695273631840796
+   ],
+   "dP2a_vs_B1": 0.0063979561065494826,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    0.0063979561065494826
+   ]
+  }
+ }
+}

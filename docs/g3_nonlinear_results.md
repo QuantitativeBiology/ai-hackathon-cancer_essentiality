@@ -1,8 +1,12 @@
 # G3 nonlinear track — M4 pre-check / M4, M3 LightGBM, R2/R4, published-comparable block
 
-Status: **pre-registration** (written and committed before any run of this track). Results are
-appended below the pre-registration; the pre-registered text is not edited afterwards (changes are
-logged in "Deviations").
+Status: **complete** (2026-10-27). The pre-registration below was committed before any run of
+this track and is not edited; changes are logged in "Deviations"; results follow.
+
+**Outcome:** M4 NO-GO (MLP loses to ridge on the same PCs); M3 NO-GO (ΔP1 +0.0018, SE 0.0002,
+5/5 folds, < δ; un-nested sensitivity +0.0043); R2 elastic net −0.030 and R4 top-k −0.038 vs
+m1_E_resB0 on the same random genes (R4 non-nested optimism +0.018). `m1_E_resB0` remains the
+headline model.
 
 Current best (D17): `m1_E_resB0`, run 20261026-222117, dev-CV P1 (variable genes) 0.3081.
 Selection rule (DESIGN §4): a more complex model replaces it only if the paired fold-wise ΔP1
@@ -226,3 +230,138 @@ Same 500 genes, per-fold means then averaged:
   oracle also picks k=200 most often. k=200 is the grid edge, so R4 with larger k might close part
   of the gap (TrPLet used larger sets); not run (time box), noted as a limitation.
 - P1 all / P2b of these runs are not meaningful (non-modelled genes get the training mean).
+
+### R7. M3 sensitivity: the originally pre-registered (un-nested) early stopping, and controls
+After D-G3-1 the un-nested config `g3_m3` was re-run unchanged (20261027-060743; the killed row
+20261026-235648 has no numbers) as a **sensitivity analysis**, decided after the nested result was
+known. It is reported, not selected on.
+
+| run | ΔP1 vs m1_E_resB0 (SE; folds) | P1 variable | genes without correction | median rounds |
+|---|---|---|---|---|
+| `g3_m3n` (nested ES; the M3 of record) | +0.0018 (0.0002; 5/5) | 0.3099 | 28% | 4 |
+| `g3_m3` (un-nested ES; sensitivity) | **+0.0043 (0.0001; 5/5)** | 0.3124 | 69% | 0 |
+| `g3_m3n_perm` (control: pool rows permuted among training lines, no M1 feature) | −0.0042 (0.0001; 0/5) | 0.3039 | 45% | 1 |
+| `g3_m3_perm` (same control, un-nested ES) | −0.0037 (0.0001; 0/5) | 0.3044 | — | — |
+
+- Both versions stay **below δ = 0.005**, so the M3 decision (NO-GO) does not depend on the
+  early-stopping variant.
+- The un-nested variant scores higher because its per-gene gate is stricter: 69% of genes get no
+  trees at all, versus 28% with nested ES. The permuted controls show what weak corrections cost
+  when there is no signal (−0.004), so the nested gate admits too many small, noisy corrections.
+  The reviewer's toy prediction ("un-nested is pessimistic") holds for the inner criterion but not
+  for outer P1. A stricter gate (e.g. a minimum validation-MSE improvement) is the obvious next
+  idea, but it would be chosen after seeing these results, and the ceiling suggested here
+  (about +0.004 to +0.005) is at δ at best.
+- Controls pass: with no line information the trees cannot help (ΔP1 < 0 in every fold).
+
+### R8. Published-comparable block (**loosely comparable**; not used for selection)
+DeepDEP 1,298 genes: 1,286 in our evaluable set; LEAP 1,539: 1,538. Per-fold = metric within each
+held-out fold (~204 lines), averaged over folds (D3); pooled = all 1,022 out-of-fold dev
+predictions at once. Full-coverage runs only (subset runs predict the training mean elsewhere).
+
+| model | Spearman DeepDEP (per-fold / pooled) | Spearman LEAP (per-fold / pooled) | genes r ≥ 0.2 of 17,915 (per-fold / pooled) | Shi count r > 0.2 (per-fold of 4,028 eligible / pooled of 9,028) |
+|---|---|---|---|---|
+| B1 lineage mean | 0.173 / 0.160 | 0.178 / 0.165 | 2,203 / 1,207 | 1,235 / 1,112 |
+| B2 kNN | 0.233 / 0.229 | 0.245 / 0.240 | 3,858 / 2,828 | 2,010 / 2,467 |
+| R1 ridge | 0.282 / 0.278 | 0.301 / 0.297 | 5,511 / 4,367 | 2,630 / 3,583 |
+| **m1_E_resB0** | 0.284 / 0.280 | 0.303 / 0.300 | 5,507 / 4,362 | 2,631 / 3,578 |
+| M3 nested (`g3_m3n`) | 0.285 / 0.281 | 0.304 / 0.301 | 5,482 / 4,333 | 2,619 / 3,561 |
+| M3 un-nested (`g3_m3`) | 0.286 / 0.283 | 0.306 / 0.302 | 5,505 / 4,366 | 2,630 / 3,584 |
+
+Subset-only re-runs (compared with m1_E_resB0 on the same genes; see R5/R6): R2 mean Spearman
+0.260 vs 0.294 (150 genes); R4 nested 0.249 and non-nested 0.265 vs 0.292 (500 genes).
+
+How loosely comparable:
+- Published numbers: DeepDEP mean per-gene ρ 0.16–0.18 (ridge 0.276 in Chang & Zhang's
+  re-analysis) on 2018 CERES with 278 lines; LEAP PS-LASSO 0.321 (23Q4, 1,019 lines, 10 × 80/20
+  splits; its README asks for CRISPRGeneDependency, so its target is probably the dependency
+  probability, not gene effect); TrPLet 6,283 of 16,845 genes at r ≥ 0.2 (23Q2, non-nested
+  best-of-60); Shi 1,966 of 7,260 (1Q21 CERES, genes with ≥ 5 dependent lines over all data).
+- Our per-fold counts at n ≈ 204 lines are inflated by sampling noise (a gene with true r ≈ 0.1
+  often crosses 0.2); the pooled counts (n = 1,022) are the closer analogue of the published
+  pooled-OOF counts. Ours are patient-grouped, lineage-stratified, Chronos 26Q3, without
+  non-nested selection.
+- Reading: the linear expression model sits near LEAP's best on LEAP's genes (0.30 vs 0.32) and well
+  above DeepDEP's published deep model on DeepDEP's genes, consistent with Chang & Zhang. Our
+  TrPLet-style pooled count (4,362) is below TrPLet's 6,283; R6 shows that non-nested best-of-N
+  selection alone adds about +0.018 r per gene.
+
+### R9. Summary table (all G3 runs; generated by `scripts/g3_report.py`)
+P1 = mean per-gene Pearson r on dev-wide variable genes, per fold then averaged (± fold SD); Δ is
+paired by fold against m1_E_resB0 on the same genes (SE = SD/√n folds); fit+pred = sum over folds
+of fit and predict seconds on a shared machine (indicative). `results/g3_nonlinear_summary.json`
+holds the same numbers.
+
+| run | run id | genes | folds | P1 var ± SD | ΔP1 vs m1_E_resB0 ± SE (folds better) | P1 all | P2b nAP | P2b AUROC | fit+pred s | replaces |
+|---|---|---|---|---|---|---|---|---|---|---|
+| b1 | 20261026-220921 | all variable | 5 | 0.1837 ± 0.0131 | -0.1244 ± 0.0048 (0/5) | 0.0928 | 0.0867 | 0.5941 | 105 | no |
+| b2 | 20261026-221456 | all variable | 5 | 0.2527 ± 0.0087 | -0.0554 ± 0.0023 (0/5) | 0.1205 | 0.1524 | 0.6279 | 129 | no |
+| r1_E | 20261026-223037 | all variable | 5 | 0.3073 ± 0.0050 | -0.0008 ± 0.0008 (1/5) | 0.1546 | 0.1898 | 0.6603 | 360 | no |
+| m1_E_resB0 | 20261026-222117 | all variable | 5 | 0.3081 ± 0.0047 | +0.0000 ± 0.0000 (0/5) | 0.1547 | 0.1908 | 0.6607 | 331 | no |
+| g3_m4pre_ridgepc | 20261026-231523 | all variable | 1 | 0.3068 ± — | -0.0061 ± — (0/1) | 0.1531 | 0.1889 | 0.6634 | 40 | no |
+| g3_m4pre_mlp_s0 | 20261026-231657 | all variable | 1 | 0.3025 ± — | -0.0105 ± — (0/1) | 0.1581 | 0.1832 | 0.6581 | 275 | no |
+| g3_m4pre_mlp_s1 | 20261026-232221 | all variable | 1 | 0.3028 ± — | -0.0102 ± — (0/1) | 0.1616 | 0.1836 | 0.6590 | 269 | no |
+| g3_m4pre_mlp_s2 | 20261026-232818 | all variable | 1 | 0.3033 ± — | -0.0097 ± — (0/1) | 0.1617 | 0.1823 | 0.6585 | 349 | no |
+| g3_m4pre_mlp_s3 | 20261026-233541 | all variable | 1 | 0.3017 ± — | -0.0113 ± — (0/1) | 0.1597 | 0.1809 | 0.6574 | 317 | no |
+| g3_m4pre_mlp_s4 | 20261026-234238 | all variable | 1 | 0.3038 ± — | -0.0092 ± — (0/1) | 0.1611 | 0.1836 | 0.6592 | 335 | no |
+| g3_m3_probe | 20261026-234919 | subset100 | 1 | 0.3417 ± — | +0.0073 ± — (1/1) | 0.1550 † | 0.1939 † | 0.6668 † | 372 | no |
+| g3_m3n | 20261027-014824 | all variable | 5 | 0.3099 ± 0.0046 | +0.0018 ± 0.0002 (5/5) | 0.1549 | 0.1931 | 0.6614 | 2087 | no |
+| g3_m3n_perm | 20261027-055023 | all variable | 5 | 0.3039 ± 0.0045 | -0.0042 ± 0.0001 (0/5) | 0.1542 | 0.1895 | 0.6599 | 793 | no |
+| g3_m3 | 20261027-060743 | all variable | 5 | 0.3124 ± 0.0046 | +0.0043 ± 0.0001 (5/5) | 0.1552 | 0.1936 | 0.6618 | 772 | no |
+| g3_m3_perm | 20261027-062459 | all variable | 5 | 0.3044 ± 0.0045 | -0.0037 ± 0.0001 (0/5) | 0.1543 | 0.1898 | 0.6601 | 793 | no |
+| g3_r2_sub150 | 20261027-022710 | subset150 | 5 | 0.2967 ± 0.0095 | -0.0303 ± 0.0014 (0/5) | 0.0025 † | 0.0082 † | 0.5062 † | 7485 | no |
+| g3_r4_probe | 20261027-004320 | subset30 | 1 | 0.3239 ± — | -0.0328 ± — (0/1) | 0.0005 † | 0.0021 † | 0.5014 † | 60 | no |
+| g3_r4_sub500 | 20261027-043531 | subset500 | 5 | 0.2800 ± 0.0065 | -0.0382 ± 0.0016 (0/5) | 0.0078 † | 0.0216 † | 0.5152 † | 2973 | no |
+| g3_r4_oracle_sub500 (leaky) | 20261027-052843 | subset500 | 5 | 0.2981 ± 0.0065 | -0.0201 ± 0.0014 (0/5) | 0.0083 † | 0.0228 † | 0.5159 † | 1101 | no |
+
+† subset run: P1 all and P2b cover every gene, most of them passed through (M3: M1; R2/R4: training mean); ΔP1 and 'replaces' refer to the subset genes only.
+
+### R10. Runtimes (indicative; shared machine, 6 of 12 cores) and versions
+| run | wall-clock | notes |
+|---|---|---|
+| M4 pre-check, ridge on PCs | 1.5 min (fold 0) | 6 BLAS threads |
+| M4 pre-check, MLP | 4.5–5.8 min per seed (fold 0) | torch 6 threads; 4 grid points with early stopping + refit |
+| M3 `g3_m3n` | 39 min (5 folds) | about 8 min per fold for 10 uncached inner M1 fits; trees about 47 s per fold for ~2,170 genes |
+| M3 `g3_m3`, both controls | 13–17 min each | inner M1 OOF cached |
+| R2 `g3_r2_sub150` | 2 h 08 min | 150 genes; about 45 s per gene per process |
+| R4 `g3_r4_sub500` / oracle | 53 / 22 min | 500 genes |
+| (reference) m1_E_resB0 | about 6 min | registry, 6 threads |
+
+Peak RSS: M3 4.2–4.3 GB (above the DESIGN §10 guide of 4 GB per stage); others ≤ 2.6 GB.
+Versions: Python 3.13.1, numpy 2.1.3, scipy 1.15.2, pandas 2.2.3, scikit-learn 1.5.2, torch
+2.6.0+cpu, lightgbm 4.7.0, threadpoolctl 3.6.0. py-spy 0.4.2 was installed (user site) to
+diagnose a stalled run.
+
+Provenance: every G3 row has `tree_clean = 0` (the other track's untracked/modified files;
+accepted for G3). `dirty_tree = 1` for MLP seeds 0–2 (an uncommitted refactor of a
+`g3_common.py` helper the MLP does not use); all other G3 rows have `dirty_tree = 0`.
+Killed/failed rows, none with numbers: `g3_m3` 20261026-235648 (D-G3-1), `g3_m3n`
+20261027-004513 (main-process bottleneck in building tree inputs; fixed in 3910d77),
+`g3_r2_probe` 20261027-000958 (time box), `g3_r4_probe` 20261027-003100 (queue re-plan).
+
+## Interpretation and go/no-go
+- **M4 (neural): NO-GO** at the pre-registered pre-check. An MLP on 256 training-fold PCs loses to
+  ridge on the same PCs (fold-0 P1 0.3028 vs 0.3068; all 5 seeds lose), and ridge on PCs is itself
+  0.006 below the full kernel. M4 was not built.
+- **M3 (LightGBM on m1_E_resB0 residuals): NO-GO.** The gain is real but small: +0.0018 (nested,
+  the M3 of record) or +0.0043 (un-nested sensitivity), 5/5 folds, both below δ = 0.005. It sits in
+  a few threshold-type dependencies (NRAS hotspot; X/Y- or paralog-buffered genes such as RPS4X,
+  EIF1AX, FAM50A, NAA10). Permuted controls are negative.
+- **Published methods:** elastic net (R2) −0.030 and TrPLet-like top-k (R4) −0.038 vs m1_E_resB0
+  on the same random genes. R4's non-nested selection inflates P1 by +0.018 and still trails ridge
+  by 0.020. Dense multi-output ridge on expression remains the best model; nothing in the nonlinear
+  track replaces `m1_E_resB0`.
+- This agrees with the literature (linear models match or beat deep and tree models on held-out
+  lines). The residual nonlinear signal is concentrated in a few genes. If it is wanted, a targeted
+  per-gene stage for paralog/sex-chromosome and hotspot genes (cf. the M2 priors) is a cheaper route
+  than a general rung.
+
+## Open issues for the PI
+1. M3 early-stopping variant: the nested fix (D-G3-1, decided before results) gave the lower
+   number; the un-nested original gives +0.0043. Neither changes the decision, but if M5 stacking
+   is pursued, the un-nested M3 is the better ingredient, and choosing it now would be post hoc.
+2. R2 ran on 150 genes, not the pre-declared 500 (D-G3-3), because exact elastic net on ~18k
+   features costs about 45 s per gene. R4's k grid hit its upper edge (k = 200).
+3. LEAP's published target is probably the dependency probability, not gene effect; the LEAP
+   comparison is loose.
+4. M3 peak memory (4.2 GB) exceeds the 4 GB per-stage guide.
