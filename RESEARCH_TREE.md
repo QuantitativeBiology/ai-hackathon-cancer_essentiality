@@ -172,6 +172,28 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - R4's top-k choices pile up at the grid edge (k = 200). A k extension is queued so the prior-method comparison is
     fair; until then R4's gap is reported as an upper bound.
   - M3 peaked at 4.2 GB, above the 4 GB guide in §10. Logged, not a blocker.
+- D20 (G3 kernel track; docs/g3_kernel_results.md):
+  - **(a) Selection:** no M1b or M2 candidate clears δ. The best is M2 + paralogs at +0.0034. Under tuned weights,
+    genomics (C, M, H, F, Meta) carries real but tiny signal: at most +0.0015, 5/5, Holm p < 0.01. D15's condition
+    is met, so the finding stands as "genomics adds no selectable gain over expression". It is not "no signal".
+  - **(b) Control misses accepted as interpreted.** Both are in the conservative direction or informative:
+    - within-lineage permutation gives P1 0.127, below the expected band;
+    - lineage × library permutation leaves 0.071 within-lineage P1, so library groups explain within-lineage
+      variation.
+    - The lineage × library P1 column (headline 0.199) is reported next to the headline as the strictest
+      decomposition.
+  - **(c) λ criterion:** a declared diagnostic is added for M5/G3 close-out. The headline is re-fitted with
+    leave-one-out MSE and with grouped inner-CV r instead of leave-one-out r. If one beats the headline by > δ,
+    it is treated like D14 (dev-CV model selection; test still blind). Otherwise it is reported as robustness only.
+  - **(d) Erratum, EC lines:** DESIGN §3/§7.5 and configs/transfer_criteria.json say "7 germ-cell/EC dev lines".
+    Only 4 are dev lines (NCCIT, NTERA-2 cl.D1, PA-1, SUSA): GCT27 is test, and 1411H and SCH are unscreened.
+    - The frozen criteria file is not edited (tag `freeze-transfer`). This erratum fixes the wording only.
+    - The H3 no-EC variant is defined operationally as "trained without the EC dev lines", which is 4.
+    - No threshold or label changes.
+  - **(e) Prediction recorded before any set-B access:** T will probably fail H3 (hPSC-specific dependencies),
+    because POU5F1 and PRDM14 are not predicted in EC lines even with them in training (−0.10 vs −0.88 observed).
+    This is stated now so a failed H3 cannot be explained away later.
+  - **(f) Caches:** keep cache/m2_inner and cache/runs until M5 and G4 finish; delete after G4.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -247,7 +269,8 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     shrinkage here. Not extended further.
   - [x] Published-comparable block (loosely comparable): m1_E_resB0 mean Spearman 0.284 on DeepDEP genes and
     0.303 on LEAP genes; 4,362 genes with pooled r ≥ 0.2.
-  - [ ] M5 stacking of finalists
+  - [ ] λ-criterion diagnostic on the headline: LOO-MSE and grouped inner-CV r (D20c)
+  - [ ] M5 stacking (inputs: m1_E_resB0, m2n_E_paralogs, g3_m3n nested); plain averaging is the baseline
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
   - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.

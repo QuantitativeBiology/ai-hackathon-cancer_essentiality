@@ -89,6 +89,8 @@ Entrez is the master ID, mapped via HGNC. Coverage is reported for every externa
 - **Secondary splits on dev:**
   - Leave-one-lineage-out.
   - Leave-out of the 7 germ-cell/embryonal-carcinoma lines (EC-capability test for hPSC transfer).
+    *Erratum (RESEARCH_TREE D20d): only 4 of these are dev lines (NCCIT, NTERA-2 cl.D1, PA-1, SUSA); the
+    leave-out uses those 4. Criteria unchanged.*
 - **Gene classes (§4):** for *evaluation reporting* everywhere (CV, test, set A, set B), one list computed from all
   1022 dev lines is committed as `configs/gene_classes.csv` before any model is compared.
   - It is identical for every model, so it favours none, and fold differences never reflect class membership.
@@ -326,7 +328,7 @@ reported:
   - **H2, isogenic TP53 counterfactual:** the RPE1 TP53-WT vs TP53-null delta (Brown 2019; Bowden 2020 if obtained)
     against the model's delta with the TP53 feature flipped. Batch-cancelling.
   - **H3, pluripotency:** POU5F1/LIN28A-type dependencies in hPSC.
-    - Tested with the model trained with and without the 7 germ-cell/EC lines.
+    - Tested with the model trained with and without the 7 germ-cell/EC lines (erratum D20d: the 4 EC dev lines).
     - If they are predicted only when the EC lines are present, the claim is "narrow EC transfer".
   - **H4, haematopoietic positives:** GATA3/MYB/RUNX1/IKZF1 dependency in the primary CD8+ T-cell screen
     (Shifrut 2018).
