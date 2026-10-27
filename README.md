@@ -101,7 +101,8 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 6. **Predict for new lines:** `python scripts/predict.py --expression my_lines.csv --out predictions.csv`.
    - The output gives each gene's predicted effect, confidence, tier and an applicability-domain distance.
    - For non-DepMap profiles, add `--harmonise quantile`.
-   - It currently serves the expression-only M1. Support for the headline M5 is planned.
+   - It serves the headline m5_avg by default (`--model m1_E_resB0` for the expression-only model). Only
+     expression is read, so m5_avg's genomic inputs are diploid wild type (DESIGN §2); a warning says so.
 7. **Test set:** `src/essml/guard.py` refuses test and external-screen targets unless the run's config hash is listed in a committed `configs/finalists.json` and `ESSML_UNBLIND=1` is set. Each access is logged in `results/test_access_log.csv`.
 
 ## Data and licensing

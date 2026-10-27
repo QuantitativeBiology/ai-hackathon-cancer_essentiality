@@ -94,7 +94,8 @@ def test_main_end_to_end_on_toy_model(tmp_path, monkeypatch):
     monkeypatch.setitem(PD.SUPPORTED, "m1_E_resB0", {"config": None, "table": _table(Y, tmp_path / "pg.csv")})
     X.loc[[held]].rename(columns=lambda c: f"G{c} ({c})").to_csv(tmp_path / "in.csv")
     out = tmp_path / "o" / "pred.csv"
-    long = PD.main(["--expression", str(tmp_path / "in.csv"), "--out", str(out), "--exclude-lines", held])
+    long = PD.main(["--expression", str(tmp_path / "in.csv"), "--out", str(out), "--exclude-lines", held,
+                    "--model", "m1_E_resB0"])
     res = pd.read_csv(out, dtype={"entrez": str})
     assert calls["fit"] == 1 and len(res) == Y.shape[1] == len(long)
     assert {"sample", "predicted_effect", "confidence", "tier", "ad_distance", "ad_percentile_vs_dev"} <= set(res.columns)
@@ -106,17 +107,21 @@ def test_main_end_to_end_on_toy_model(tmp_path, monkeypatch):
     assert meta["predictable_genes_sha256"] == PD.PR.sha256_file(tmp_path / "pg.csv")
 
 
-def test_m5_avg_not_supported_yet(tmp_path):
-    with pytest.raises(SystemExit, match="m5_avg"):
-        PD.main(["--expression", "x.csv", "--out", str(tmp_path / "o.csv"), "--model", "m5_avg"])
+def test_m5_avg_is_the_default_model_with_the_primary_tiers():
+    ap_default = PD.DEFAULT_MODEL
+    assert ap_default == "m5_avg" and PD.SUPPORTED["m5_avg"]["table"].name == "predictable_genes.csv"
+    assert PD.SUPPORTED["m1_E_resB0"]["table"].name == "predictable_genes_m1.csv"
+    assert "diploid wild type" in PD.NO_GENOMICS_WARNING and "D24" in PD.NO_GENOMICS_WARNING
 
 
-def test_mutation_note_only_for_expression_only_model():
+def test_mutation_notes_per_model():
     long = pd.DataFrame({"symbol": ["NRAS", "KRAS", "BRAF", "PIK3CA", "SOX10"]})
     n = PD.add_notes(long, "m1_E_resB0")["note"].tolist()
     assert n[:4] == [PD.MUTATION_NOTE] * 4 and n[4] == ""
-    assert (PD.add_notes(long, "m5_avg")["note"] == "").all()
     assert PD.MUTATION_NOTE == "mutation-driven dependency; expression-only model underpredicts; use m5_avg"
+    n5 = PD.add_notes(long, "m5_avg")["note"].tolist()             # no genomic input supplied: flagged too
+    assert n5[:4] == [PD.NO_GENOMICS_NOTE] * 4 and n5[4] == ""
+    assert (PD.add_notes(long, "m5_avg", genomics_given=True)["note"] == "").all()
 
 
 def test_fit_model_refuses_non_dev_lines():

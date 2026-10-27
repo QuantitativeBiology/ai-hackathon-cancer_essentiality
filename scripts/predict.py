@@ -14,13 +14,20 @@ the training mean by the model's feature code. External (non-DepMap) profiles sh
 DepMap dev profile). TPM must be computed over all genes before subsetting (DESIGN §7.3; see
 essml.expr_harmonise for count / FPKM conversion).
 
-Model: ``m1_E_resB0`` (expression-only kernel ridge, B0 residual; an additional G4 finalist). It is fitted on
-the DepMap dev lines (minus ``--exclude-lines``) with the launcher's sentinel, or loaded from
-cache/models/<tag>/ if it was persisted earlier with ``--save-models``; ``--run-id`` instead averages a CV
-run's persisted fold models (scripts/run.py --save-models) via essml.modelstore.predict_new.
-TODO(m5_avg): the G4 headline m5_avg averages m1_E_resB0, M2 (paralog priors) and M3 (LightGBM on residuals);
-M2/M3 need gene-level features built from the new line's expression and a nested fit protocol, which this
-script does not implement yet. Until then predictions come from m1_E_resB0 (dev-CV P1 0.308 vs 0.3175).
+Models (``--model``):
+- ``m5_avg`` (default; the G4 headline, D23f): the plain average of m1_E_resB0, M2 (per-gene paralog stage,
+  nested local lambda) and M3 (LightGBM on M1 residuals, nested early stopping), each refitted on the dev
+  lines exactly as in CV (essml.models.m5_stack.StackM5.predict_from_blocks). Only expression is read from the
+  input, so M2/M3's genomic inputs (copy number, damaging / hotspot mutations, fusions) are absent = diploid
+  wild type and metadata (lineage, sex, age) unknown: the DESIGN §2 convention used for every external cell
+  (and for model T, §5). A warning says so: mutation-driven dependencies (D24) then rest on expression alone.
+  Fitting takes several minutes (three models); ``--save-models`` keeps the fitted inputs for next time.
+  Tiers: configs/predictable_genes.csv (primary).
+- ``m1_E_resB0`` (expression-only kernel ridge, B0 residual; an additional G4 finalist; about 1.5 min).
+  Tiers: configs/predictable_genes_m1.csv (secondary).
+Either model is fitted on the DepMap dev lines (minus ``--exclude-lines``) with the launcher's sentinel, or
+loaded from cache/models/<tag>/ if it was persisted earlier with ``--save-models``; ``--run-id`` instead
+averages a CV run's persisted fold models (scripts/run.py --save-models) via essml.modelstore.predict_new.
 
 Output (``--out``, csv or parquet): one row per (sample, gene): sample, entrez, symbol, predicted_effect,
 confidence, tier, ad_distance, ad_percentile_vs_dev, nearest_lineage, note. ``note`` flags NRAS / KRAS / BRAF /
@@ -58,8 +65,17 @@ from essml import expr_harmonise as XH  # noqa: E402
 from essml import guard, modelstore  # noqa: E402
 from essml import predictability as PR  # noqa: E402
 
-SUPPORTED = {"m1_E_resB0": {"config": ROOT / "configs" / "runs" / "m1_E_resB0.json",
+SUPPORTED = {"m5_avg": {"config": ROOT / "configs" / "runs" / "m5_avg.json",
+                        "table": ROOT / "configs" / "predictable_genes.csv"},
+             "m1_E_resB0": {"config": ROOT / "configs" / "runs" / "m1_E_resB0.json",
                             "table": ROOT / "configs" / "predictable_genes_m1.csv"}}
+DEFAULT_MODEL = "m5_avg"
+GENOMIC_INPUT_MODELS = {"m5_avg"}  # read genomics when available; here only expression is supplied (DESIGN §2)
+NO_GENOMICS_NOTE = "mutation-driven dependency; no mutation / copy-number input (diploid wild type assumed); relies on expression"
+NO_GENOMICS_WARNING = ("WARNING: m5_avg reads copy number, mutations, hotspots, fusions and metadata when it has them; this "
+                       "script supplies expression only, so they are set to diploid wild type / unknown (DESIGN §2 "
+                       "convention). Mutation-driven dependencies (D24: NRAS, KRAS, BRAF, PIK3CA hotspot addiction) then "
+                       "rely on expression alone and are likely underpredicted (see the 'note' column).")
 # PI note (D24, docs/mutation_dependencies.md): the expression-only model misses RAS/RAF/PI3K hotspot addiction
 # within lineages (NRAS AUPRC 0.21 for m1_E_resB0 vs 0.63 for m5_avg). Reporting only; tiers are unaffected.
 MUTATION_NOTE_GENES = {"NRAS", "KRAS", "BRAF", "PIK3CA"}
@@ -132,6 +148,11 @@ def train_tag(model_name, cfg, train_ids):
     return f"predict_{model_name}_{h[:12]}"
 
 
+def _keep_inputs():
+    from essml.models.m5_stack import StackM5
+    StackM5.KEEP_INPUTS = True  # M5 input refits serve every sample of the run
+
+
 def fit_model(model_name, train_ids, log=print):
     """Fit on dev lines ``train_ids`` with the launcher's guarded fit (sentinel + FIT_LOG); dev targets via guard."""
     import run as RUN
@@ -149,6 +170,9 @@ def fit_model(model_name, train_ids, log=print):
     t0 = time.perf_counter()
     model = RUN.guarded_fit(RUN.MODELS[cfg["model"]](**cfg.get("params", {})), sent, "predict", Y,
                             sp["OncotreeLineage"].astype(str), None, sp["PatientID"].astype(str))
+    if cfg["model"] == "M5":  # average mode stores the data; its three inputs are refitted on the dev lines here
+        _keep_inputs()
+        model.fitted_inputs()
     log(f"fitted {model_name} on {len(Y)} dev lines in {time.perf_counter() - t0:.0f} s")
     return model, cfg
 
@@ -159,6 +183,7 @@ def get_models(model_name, train_ids, save=False, model_dir=modelstore.MODEL_DIR
     tag = train_tag(model_name, cfg, train_ids)
     if (Path(model_dir) / tag / "fold0.pkl").exists():
         log(f"loading persisted model cache/models/{tag}")
+        _keep_inputs()
         return modelstore.load_fold_models(tag, model_dir), tag
     model, _ = fit_model(model_name, train_ids, log)
     if save:
@@ -171,9 +196,16 @@ def get_models(model_name, train_ids, save=False, model_dir=modelstore.MODEL_DIR
 
 
 # ============================================================================ prediction
-def add_notes(long: pd.DataFrame, model_name: str) -> pd.DataFrame:
-    """``note`` column: flags mutation-driven dependencies for expression-only models (D24; not a tier change)."""
-    note = np.where(long["symbol"].isin(MUTATION_NOTE_GENES) & (model_name in EXPRESSION_ONLY_MODELS), MUTATION_NOTE, "")
+def add_notes(long: pd.DataFrame, model_name: str, genomics_given: bool = False) -> pd.DataFrame:
+    """``note`` column: flags mutation-driven dependencies (D24; not a tier change) for expression-only models, and
+    for m5_avg when no genomic input was supplied (always, in this script)."""
+    flagged = long["symbol"].isin(MUTATION_NOTE_GENES)
+    if model_name in EXPRESSION_ONLY_MODELS:
+        note = np.where(flagged, MUTATION_NOTE, "")
+    elif model_name in GENOMIC_INPUT_MODELS and not genomics_given:
+        note = np.where(flagged, NO_GENOMICS_NOTE, "")
+    else:
+        note = np.full(len(long), "", dtype=object)
     return long.assign(note=note)
 
 
@@ -184,6 +216,8 @@ def predict_table(expr: pd.DataFrame, models, table: pd.DataFrame, x_builder=Non
     X = x_builder(expr.set_axis(ids, axis=0))
     preds = [m.predict(ids, lineage=None, X=X) for _, m, _ in models]
     wide = sum(preds) / len(preds)
+    if not np.isfinite(wide.to_numpy()).all():
+        raise ValueError("non-finite predictions (check the input expression)")
     wide.index = expr.index
     wide.index.name = "sample"
     long = PR.annotate_long(wide.rename_axis("ModelID"), table).rename(columns={"ModelID": "sample"})
@@ -196,7 +230,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--expression", required=True)
     ap.add_argument("--out", required=True, help=".csv or .parquet")
-    ap.add_argument("--model", default="m1_E_resB0", choices=sorted(SUPPORTED) + ["m5_avg"])
+    ap.add_argument("--model", default=DEFAULT_MODEL, choices=sorted(SUPPORTED))
     ap.add_argument("--harmonise", default="none", choices=["none", "quantile"])
     ap.add_argument("--genes-in-rows", action="store_true")
     ap.add_argument("--exclude-lines", default="", help="comma-separated dev ModelIDs left out of training")
@@ -206,8 +240,6 @@ def main(argv=None):
     ap.add_argument("--no-ad", action="store_true")
     ap.add_argument("--threads", type=int, default=4)
     a = ap.parse_args(argv)
-    if a.model == "m5_avg":
-        raise SystemExit("m5_avg is not supported by predict.py yet (TODO in the module docstring); use m1_E_resB0")
     try:
         from threadpoolctl import threadpool_limits
         threadpool_limits(a.threads)
@@ -228,7 +260,9 @@ def main(argv=None):
     table = PR.load_table(table_path)
     if a.model in EXPRESSION_ONLY_MODELS:
         print(f"WARNING: {a.model} is expression-only and underpredicts mutation-driven dependencies "
-              f"({', '.join(sorted(MUTATION_NOTE_GENES))}; see the 'note' column); m5_avg is not yet supported here.")
+              f"({', '.join(sorted(MUTATION_NOTE_GENES))}; see the 'note' column); use --model m5_avg (default).")
+    if a.model in GENOMIC_INPUT_MODELS:
+        print(NO_GENOMICS_WARNING)
     if a.run_id:
         wide = modelstore.predict_new(a.run_id, [f"input::{s}" for s in expr.index],
                                       X=X_BUILDER(expr_h.set_axis([f"input::{s}" for s in expr.index], axis=0)),
@@ -241,14 +275,16 @@ def main(argv=None):
     else:
         models, tag = get_models(a.model, train_ids, a.save_models)
         long = predict_table(expr_h, models, table, ad=ad)
-    long = add_notes(long, a.model)
+    long = add_notes(long, a.model, genomics_given=False)
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     if out.suffix == ".parquet":
         long.to_parquet(out)
     else:
         long.to_csv(out, index=False)
-    meta = {"model": a.model, "model_tag": tag, "n_training_lines": int(len(train_ids)), "excluded_lines": excl,
+    meta = {"model": a.model, "model_tag": tag,
+            "genomic_inputs": ("none supplied: diploid wild type / unknown metadata (DESIGN §2 convention)"
+                               if a.model in GENOMIC_INPUT_MODELS else "not used by this model"), "n_training_lines": int(len(train_ids)), "excluded_lines": excl,
             "harmonise": a.harmonise, "input_gene_fraction_recognised": cov, "model_genes_present": n_cov,
             "predictable_genes": str(table_path), "predictable_genes_sha256": PR.sha256_file(table_path),
             "applicability": None if ad is None else ad.reset_index().to_dict(orient="records")}

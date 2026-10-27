@@ -5,7 +5,8 @@ not change the headline metric (P1 on variable genes), the selection rule, δ, t
 the metrics.
 
 The tier source is the G4 headline `m5_avg` (CV run 20261027-161041; D23f). The expression-only `m1_E_resB0`
-(run 20261026-222117) is kept as a secondary table. That is the model `scripts/predict.py` serves.
+(run 20261026-222117) is kept as a secondary table. `scripts/predict.py` serves m5_avg by default (primary
+tiers) and m1_E_resB0 on request (its own secondary tiers).
 
 Methods were declared in `configs/predictability.json`, and the literature list in `configs/biomarker_pairs.csv`,
 both committed in 278f156 before any tier was computed. Every number below is from the committed outputs:
@@ -300,8 +301,13 @@ python scripts/predict.py --expression my_lines.csv --out preds.csv [--harmonise
 
 - **Input:** log2(TPM+1) on DepMap protein-coding genes; columns are Entrez IDs or "SYMBOL (ENTREZ)".
   External profiles should use `--harmonise quantile` (the frozen D9 choice).
-- **Model:** `m1_E_resB0`, fitted on the dev lines (about 90 s at 4 threads), or loaded if persisted with
-  `--save-models`. `--run-id` averages a CV run's persisted fold models.
+- **Model:** `--model m5_avg` (default; tiers configs/predictable_genes.csv) or `--model m1_E_resB0` (tiers
+  configs/predictable_genes_m1.csv). Either is fitted on the dev lines (m1_E_resB0 about 90 s at 4 threads; m5_avg
+  refits its three inputs, see results/timing/refit_full_dev.json), or loaded if persisted with `--save-models`.
+  `--run-id` averages a CV run's persisted fold models.
+- **Missing genomics (m5_avg):** only expression is read, so M2/M3's copy-number, mutation, hotspot and fusion
+  inputs are diploid wild type and metadata unknown (DESIGN §2 convention). A warning says so, and `note` flags
+  NRAS/KRAS/BRAF/PIK3CA: mutation-driven dependencies (D24) then rely on expression alone.
 - **Output:** sample, entrez, symbol, predicted_effect, confidence, tier (from `configs/predictable_genes_m1.csv`),
   the applicability-domain distance (mean 1 − r to the 10 nearest dev lines on the top-5,000 variable genes) and
   its percentile among dev lines, nearest_lineage, and note.
@@ -309,7 +315,7 @@ python scripts/predict.py --expression my_lines.csv --out preds.csv [--harmonise
   underpredicts; use m5_avg", with a one-line warning (D24). The tiers are unchanged.
 - **Not produced:**
   - P(effect < −0.5): no calibrated probability exists in the code.
-  - m5_avg predictions: TODO, because M2/M3 need gene-level features and the nested protocol.
+  - Genomic inputs for m5_avg (expression only; see "Missing genomics").
 - **Smoke test** (`results/predictability/predict_smoke_A375.json`): A375 (ACH-000219, a dev line) was held out of
   training and predicted from its own DepMap expression.
   - Applicability-domain distance 0.152, at the 10th percentile of dev lines; 9 of the 10 nearest lines are
