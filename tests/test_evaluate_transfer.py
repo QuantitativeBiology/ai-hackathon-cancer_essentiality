@@ -174,7 +174,7 @@ def test_b2_external_profile_fills_unmeasured_genes_with_training_mean():
     assert Xe.loc[pid, m.feat_[0]] == pytest.approx(m.xm_[0])
     assert np.isfinite(m.predict([pid], X=Xe).to_numpy()).all()
     with pytest.raises(NotImplementedError):
-        ETR.real_x_builder(HC.Finalist("M5", "m5", "x", "1" * 64, {"model": "M5"}), m, "state:x", row, "WT")
+        ETR.real_x_builder(HC.Finalist("M3", "m3", "x", "1" * 64, {"model": "M3"}), m, "state:x", row, "WT")
 
 
 def test_resume_after_crash_inside_a_part_marks_it_spent(g6):
@@ -209,3 +209,14 @@ def test_prediction_table_carries_confidence_and_tier(g6):
         ref = pd.read_csv(w["paths"].predictable_genes, dtype={"entrez": str}).set_index("entrez")["tier"]
         assert (t["tier"].to_numpy() == ref.reindex(t["entrez"]).fillna("not_evaluable").to_numpy()).all()
         assert not ({"observed", "final", "raw"} & set(t.columns))
+
+
+def test_m5_builder_external_profile_gets_expression_only_and_depmap_lines_go_native():
+    """D23f: the headline m5_avg on external profiles = expression block only (genomics absent -> DESIGN §2
+    diploid wild type); DepMap lines (set A, 'line:<id>') are predicted natively from their own features."""
+    f = HC.Finalist("headline", "m5_avg", "x", "2" * 64, {"model": "M5"})
+    row = pd.Series([1.0, 2.0], index=["7157", "4193"])
+    pid, X = ETR.real_x_builder(f, None, "state:DepMap_RPE1", row, "WT")
+    assert set(X) == {"E"} and list(X["E"].columns) == ["7157", "4193"] and X["E"].index[0] == pid
+    pid2, X2 = ETR.real_x_builder(f, None, "line:ACH-002462", row, "WT")
+    assert pid2 == "ACH-002462" and X2 is None

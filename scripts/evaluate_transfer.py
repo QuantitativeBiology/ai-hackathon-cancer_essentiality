@@ -86,7 +86,7 @@ STATS = {  # key -> (question, label, comparator, frac_max); as scripts/transfer
 }
 PRIMARY = {"Q3a": "Q3a_primary", "Q3b": "Q3b_primary"}
 SECONDARY_MODELS = ("headline", "B2")
-SUPPORTED_X_MODELS = {"M1", "M1b", "R1", "T", "B2"}   # real_x_builder can feed external profiles to these
+SUPPORTED_X_MODELS = {"M1", "M1b", "R1", "T", "B2", "M5"}   # real_x_builder can feed external profiles to these
 CV_REPRO_TOL = 1e-3                                    # refit fold models vs the registered CV run (OOF preds)
 SELF_CHECK_TOL = 1e-4
 # criteria inputs changed after the transfer freeze for a logged reason (reported in preflight; PI to confirm)
@@ -179,9 +179,17 @@ def cv_reproduction(f, oof, paths):
 
 
 def real_x_builder(f, model, profile_id, expr_row: pd.Series, tp53):
-    """X for one external/DepMap profile: kernel ridge -> raw blocks {'E', 'status'}; B2 -> 'expression:' frame."""
+    """X for one external/DepMap profile: kernel ridge -> raw blocks {'E', 'status'}; B2 -> 'expression:' frame;
+    M5 (the headline m5_avg, D23f) -> a DepMap line ('line:<id>', set A) is predicted natively from its own cache
+    features; an external profile gets its expression block only, so M2/M3's genomic inputs (CN, mutation,
+    hotspot, fusion) are absent = diploid wild type and meta (lineage, sex, age) unknown: DESIGN §2 "Convention"
+    and §5 model T ("CN and mutation are set to the 'diploid WT' convention"), applied as for T (D23f)."""
     pid = f"profile::{profile_id}::{tp53}"
     row = expr_row.astype(np.float64)
+    if f.cfg["model"] == "M5":
+        if str(profile_id).startswith("line:"):
+            return str(profile_id)[5:], None
+        return pid, {"E": pd.DataFrame([row.to_numpy()], index=[pid], columns=row.index.astype(str))}
     if f.cfg["model"] not in SUPPORTED_X_MODELS:
         raise NotImplementedError(f"{f.name}: model {f.cfg['model']} cannot take external profiles here")
     if f.cfg["model"] == "B2":
@@ -1041,15 +1049,36 @@ def strip_private(o):
     return o
 
 
+def m5_blocks_for(line) -> dict:
+    """Every raw block an M5 input reads for a DepMap line, taken from the cache (self-check only)."""
+    from essml.io import load_matrix
+    from essml.models.g3_common import load_blocks
+    blocks = {b: v.loc[[line]] for b, v in load_blocks(["E", "C", "M", "H", "meta"]).items()}
+    for key, name in (("_expression", "expression"), ("_cn", "cn"), ("_damaging", "damaging")):
+        mat = load_matrix(name)
+        blocks[key] = mat.loc[[line]] if line in mat.index else mat.iloc[:0]
+    return blocks
+
+
 def self_check(bank, fin, roles, crit, log=print):
     """Before any access (real builder only): (1) the external-profile path must reproduce each model's native
     prediction for a dev line (its own DepMap expression and status); (2) every declared expression input and
     swap profile must give finite, non-constant predictions for every role that is scored on it."""
-    line = str(bank.pop.folds.index[0])
-    out = {"line": line, "native_vs_builder_max_abs_diff": {}, "profiles": {}}
+    out = {"native_vs_builder_max_abs_diff": {}, "profiles": {}}
     for role in roles:
         f = fin[role]
         k, m, meta = bank.get(role)[0]
+        line = str(bank.pop.folds.index[bank.pop.folds == k][0])  # held out of this fold model (M5 requires it)
+        out.setdefault("line", {})[f.name] = line
+        if f.cfg["model"] == "M5":  # external path = predict_from_blocks; with ALL the line's own blocks it must
+            native = m.predict([line], lineage=None, X=None).iloc[0]   # equal the native (cache-feature) prediction
+            built = m.predict_from_blocks([line], m5_blocks_for(line)).iloc[0]
+            native.index, built.index = native.index.astype(str), built.index.astype(str)
+            d = float(np.abs(native.to_numpy(np.float64) - built.to_numpy(np.float64)).max())
+            out["native_vs_builder_max_abs_diff"][f.name] = d
+            if not d <= SELF_CHECK_TOL:
+                raise RuntimeError(f"self-check: {f.name} block path differs from native prediction ({d:.3g})")
+            continue
         if f.cfg["model"] == "B2":
             native = m.predict([line], X=HC.default_feature_loader(["expression"], [line])).iloc[0]
         else:
@@ -1117,6 +1146,8 @@ def run_g6(finalists_path, paths: HC.Paths, dry=False, stage="all", threads=4, s
            n_boot=None, log=print, resume=False, rehearsal=True):
     stamp = dt.datetime.now()
     t0 = dt.datetime.now()
+    from essml.models.m5_stack import StackM5
+    StackM5.KEEP_INPUTS = True  # a fold model's input refits serve every profile it predicts (headline m5_avg)
     rel = paths.rel(finalists_path)
     fin = HC.load_finalists(finalists_path, paths.root)
     crit = json.loads(Path(paths.criteria).read_text(encoding="utf-8"))
