@@ -151,3 +151,30 @@ Fold 0 only (`--folds 0`, registry status `partial_folds`), 6 threads, torch 2.6
 - R4 timing probe `g3_r4_probe` (run 20261027-004320, fold 0, 29 modelled genes): 55 s at 6
   processes ≈ 1.9 s per gene → full ≈ 5.6 h > 2 h → **pre-declared 500-gene subset**
   (`g3_r4_sub500`, nested) and the leaky non-nested run on the same genes (`g3_r4_oracle_sub500`).
+
+### R4. M3 LightGBM on m1_E_resB0 residuals → **NO-GO (does not replace m1_E_resB0)**
+Run `g3_m3n` 20261027-014824 (nested early stopping, D-G3-1), all training-fold variable genes
+(2,143–2,179 modelled per fold), 5 folds, 6 processes × 1 thread for the trees, 6 BLAS threads
+for the M1 base. LightGBM 4.7.0.
+
+| class / metric | M3 (g3_m3n) | ΔM3 − m1_E_resB0 (SE; folds better) |
+|---|---|---|
+| P1 variable (selection) | 0.3099 ± 0.0046 | **+0.0018 (0.0002; 5/5)** |
+| P1 selective | 0.2907 | +0.0026 (0.0001; 5/5) |
+| P1 all | 0.1549 | +0.0002 (0.0000) |
+| P1 rare-selective | 0.1725 | +0.0001 |
+| P1 non-essential (NEGv1) | 0.1142 | +0.0001 |
+| P2b nAP (selective, prev ≤ 0.5) | 0.1931 | +0.0023 (0.0002) |
+| P2b AUROC | 0.6614 | +0.0007 (0.0001) |
+
+- Selection rule: ΔP1 = +0.0018 > 1 SE (0.0002) but **< δ = 0.005** → M3 does not replace
+  m1_E_resB0. The gain is real (5/5 folds) but small: per gene-fold the change is ±0.04 (5–95%),
+  improved in 37% of gene-folds, unchanged (no trees) in 28% of genes; median 4 boosting rounds.
+  The largest per-gene gains (r +0.2 to +0.47) are in a handful of genes (e.g. Entrez 4893 NRAS,
+  9130, 131118, 474170, 1964).
+- Runtime: 2,087 s fit+predict for 5 folds (wall ≈ 39 min, including 3 folds whose inner M1 OOF
+  was not cached: ≈ 500 s each for 10 M1 fits); the trees themselves take ≈ 47 s per fold for
+  ~2,170 genes. Peak RSS 4.2 GB (above the DESIGN §10 per-stage guide of 4 GB).
+- Interpretation: once expression is used linearly, the residual nonlinearity that boosted
+  trees on screened E/C/M/H/lineage features can find is worth ~0.002 P1 — consistent with the
+  literature (RF ≈ EN). Not worth the extra rung under the pre-registered δ.
