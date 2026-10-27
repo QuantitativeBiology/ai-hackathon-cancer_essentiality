@@ -4,6 +4,31 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-27 — M4: model ladder closed (G3)
+- **Headline:** the dev-CV headline is the plain average of three models, `m5_avg`:
+  - ridge on expression (M1);
+  - its per-gene paralog stage (M2);
+  - LightGBM on its residuals (M3).
+- **Numbers:** P1 0.3175, against 0.3081 for ridge alone, 0.253 for B2 and 0.184 for B1. P2b 0.196. Within-lineage ×
+  library P1 0.211.
+- **What didn't pass on its own:**
+  - the neural model failed its pre-check;
+  - LightGBM, the per-gene stage and tuned genomics weights each stayed below δ;
+  - learned stacking did not beat plain averaging.
+- **Why averaging wins:** it acts as shrinkage of over-scaled M2/M3 corrections.
+- **Published methods:** elastic net and TrPLet-like re-runs lose to ridge by 0.02–0.03 on the same genes.
+- **Generalisation:** across lineages, ridge reaches 0.203 on held-out whole lineages and beats B2 in 18/18.
+- **Pre-registered and recorded before any test access:**
+  - the G4/G6 scripts (dry-run on dev only);
+  - a per-gene predictability diagnostic (D22);
+  - two expectations: T likely fails H3; "fails" is likely unreachable for transfer (D20e, D21e).
+
+Next:
+- freeze the predictable-gene tiers;
+- make m5_avg applicable in G4/G6;
+- commit finalists.json and run the one-time test evaluation (G4) with independent reproduction;
+- then transfer (G6) and REPORT.md.
+
 ### 2026-10-27 — G3 close-out: M5 and the λ-criterion diagnostic (docs/g3_m5_results.md)
 - **Result:** the pre-declared plain average of m1_E_resB0, m2n_E_paralogs and g3_m3n (`m5_avg`)
   clears the selection rule: ΔP1 +0.0094 (SE 0.0002, NB 0.0003, 5/5) vs m1_E_resB0, P1 variable
@@ -19,7 +44,7 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
   - Independent leakage review: no leak.
 - **λ diagnostic (D20c):** LOO-MSE −0.0011; grouped inner-CV r picks the same variable-gene λ
   (−0.00005). The small-λ bias is not present on real data; closed.
-- **Pending PI decision:** confirm m5_avg as the G4 headline (D23a).
+- **PI decision:** m5_avg confirmed as the G4 headline; m1_E_resB0 carried as an additional finalist (D23f).
 
 ### 2026-10-26 — M3: first model rung (G2) done
 - **Result:** the kernel-ridge rung (G2) more than doubles the lineage-mean baseline's per-gene skill, but it is not
@@ -261,7 +286,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - Disclosure: per-gene CV r values already exist in results/runs/*/per_gene.csv.gz. Their aggregate means were
     seen, but the distribution was not examined before these thresholds were set.
 
-- D23 (G3 close-out; docs/g3_m5_results.md). Proposed; (a) awaits PI confirmation:
+- D23 (G3 close-out; docs/g3_m5_results.md). Confirmed by PI (D23f):
   - **(a) Selection:** under the pre-registered rule (configs/runs/m5_stack.json), the M5 rung is
     represented by the plain average `m5_avg`, because m5_stack did not beat it by > 1 SE.
     `m5_avg` replaces m1_E_resB0 on dev CV: ΔP1 +0.0094 > δ, SE 0.0002. The test set is still
@@ -274,6 +299,22 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - **(d) Deviation D-M5-1:** M2 inner fits used the non-nested local λ, declared before running.
   - **(e) Post-hoc finding, not used:** M2/M3 corrections are over-scaled about 2×. Re-specifying
     them with nested-CV shrinkage would need a new pre-registration.
+  - **(f) PI decisions:**
+    - (a) is confirmed. The rule was fixed before the runs: plain averaging is M5's baseline, and the simpler of
+      stacking and averaging represents the rung. So `m5_avg` is the G4 headline.
+    - Keeping m1_E_resB0 as headline would itself be a post-hoc override of the rule.
+    - Selection caveat, stated plainly: M2 and M3 were each below δ, and their average passes. The test set decides
+      whether this survives.
+    - m1_E_resB0 is carried as an additional finalist. It is the simplest strong model (expression only, about
+      1 min refit) and users may prefer it.
+    - Finalists: headline m5_avg; m1_E_resB0; T (transfer); T no-EC (H3); baselines B0, B1 and B2.
+    - (b) is accepted: the bound was mis-set before the run, and the weights are chance-level. This is disclosed.
+    - (c) is closed.
+    - (e): no re-specification. The model ladder stops here: further dev-CV tuning has diminishing returns and
+      adds forking paths before the one-time test. Shrinkage of the M2/M3 corrections goes into REPORT follow-ups.
+    - The transfer criteria name "full = headline model" as a secondary, so G6 must be able to apply m5_avg to
+      external profiles: M3/M2 inputs use the "diploid WT" convention for absent modalities, as for T. This
+      integration is queued after the predictability work, to avoid file collisions.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -320,7 +361,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     every G2 run had a dirty tree, so finalists need a re-run on the clean tagged tree.
   - [!] Non-essential genes P1 0.110 (B1 0.068). Not line offsets (centring keeps 99%). It is library- and
     lineage-linked; within-library P1 0.279 (D16).
-- [ ] G3 model ladder continued
+- [x] G3 model ladder (closed; headline m5_avg, D23)
   - [x] Re-run m1_E_resB0, r1_E, t_E_status and m1_E on frozen evaluation code (run IDs above, under G0)
   - [x] Report columns (scripts/g3_kernel_report.py; docs/g3_kernel_results.md): within-library and
     within-lineage P1 (reviewer definitions; reproduce the review exactly), within lineage × library P1, NB SE

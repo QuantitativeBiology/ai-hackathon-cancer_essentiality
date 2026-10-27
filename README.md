@@ -27,7 +27,8 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | G0/G1 Evaluation code and baselines | done | Frozen metrics, test-set guard, run registry; tag `freeze-eval` |
 | G5 Transfer data | done | 16 non-transformed screens acquired and harmonised (QC failures excluded); transfer criteria pre-registered (tag `freeze-transfer`) |
 | G2 First models and modality ablation | done | Ridge-type models beat both baselines; [docs/g2_results.md](docs/g2_results.md) |
-| G3 Model ladder | in progress | LightGBM, neural net, per-gene stage and genomics weighting all fall short of the selection rule; stacking (M5) running |
+| G3 Model ladder | done | Headline: plain average of ridge, its paralog per-gene stage and LightGBM (M5); [docs/g3_m5_results.md](docs/g3_m5_results.md) |
+| Per-gene predictability | in progress | Pre-registered tiers and a per-gene confidence score (DESIGN §4); frozen before the test |
 | G4 Freeze finalists, one-time test evaluation | planned | |
 | G6 Apply to non-transformed cells | planned | |
 | G7 REPORT.md | planned | |
@@ -40,23 +41,25 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 - P2b is the per-gene normalised average precision for essentiality (effect < −0.5).
 - Fit time is summed over the 5 folds at 6 threads. The machine was shared with other jobs, so treat it as indicative.
 
-| Model | P1 variable ± fold SD | ΔP1 vs best | P2b nAP | Fit time (5 folds) |
+| Model | P1 variable ± fold SD | ΔP1 vs ridge (M1) | P2b nAP | Fit time (5 folds) |
 |---|---|---|---|---|
 | B0 per-gene mean | 0 (by construction) | −0.308 | 0 | <1 s |
 | B1 per-gene lineage mean (shrunk) | 0.184 ± 0.013 | −0.124 | 0.087 | ~2 min |
 | B2 expression kNN | 0.253 ± 0.009 | −0.055 | 0.152 | ~2 min |
 | R1 published-style ridge (raw target) | 0.307 ± 0.005 | −0.001 | 0.190 | ~6 min |
-| **M1 kernel ridge on expression, gene-mean residual (current best)** | **0.308 ± 0.005** | — | **0.191** | **~5.5 min** |
+| M1 kernel ridge on expression, gene-mean residual | 0.308 ± 0.005 | — | 0.191 | ~5.5 min |
 | M1b + copy number, mutations etc. (tuned weights) | 0.310 | +0.0015 | 0.193 | ~26 min |
 | M2 + per-gene paralog stage | 0.3115 | +0.0034 | 0.195 | ~15 min |
 | M3 LightGBM on M1 residuals | 0.310 | +0.0018 | 0.193 | ~35 min |
+| M5 learned stacking of M1, M2, M3 | 0.318 ± 0.004 | +0.0099 | 0.196 | ~3.7 h |
+| **M5 plain average of M1, M2, M3 (headline)** | **0.3175 ± 0.005** | **+0.0094** | **0.196** | **sum of its three inputs, ~1 h** |
 
-**How the best model was chosen:** a more complex model replaces a simpler one only if it gains more than 0.005 in P1 and more than 1 SE. So far nothing has replaced M1.
+**How the best model was chosen:** a more complex model replaces a simpler one only if it gains more than 0.005 in P1 and more than 1 SE. M2, M3 and the genomics weights each fall short. Their plain average with M1 clears it (+0.0094; better in all 5 folds), and learned stacking adds nothing over plain averaging. The simpler expression-only M1 is kept as a second finalist.
 
-**Robustness of the best model:**
-- Computed within library group, P1 is 0.279.
-- Computed within lineage × library cells, it is 0.199.
-- On held-out whole lineages it is 0.203, and it beats B2 in 18 of 18 lineages.
+**Robustness:**
+- Within library group, P1 is 0.289 for the headline M5 average and 0.279 for M1.
+- Within lineage × library cells, it is 0.211 for M5 and 0.199 for M1.
+- On held-out whole lineages, M1 scores 0.203 and beats B2 in 18 of 18 lineages. M5 was not run on this split.
 
 **Other published methods,** run on the same genes as the best model:
 - an elastic net is 0.030 below it;
