@@ -93,7 +93,8 @@ def main(argv=None):
     ratio = test_train_ratio(folds)
     head_pf = runs[HEADLINE][1]
     rows, within, preds = [], {}, {}
-    for n in [x for x in NAMES if x in runs]:
+    order = [HEADLINE] + [x for x in NAMES if x in runs and x != HEADLINE]  # headline first (deltas)
+    for n in order:
         s, pf = runs[n]
         sm = s["summary"]
         p1v = fold_vals(pf, "variable", "P1")
@@ -121,6 +122,7 @@ def main(argv=None):
                 row[f"d_{k}"] = dw["mean"]
                 row[f"d_{k}_se"] = dw["se"]
         rows.append(row)
+    rows.sort(key=lambda r: NAMES.index(r["name"]))
     tab = {r["name"]: r for r in rows}
 
     # ---- M5 vs plain average, and the rung representative
