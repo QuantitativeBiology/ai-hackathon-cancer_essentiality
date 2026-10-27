@@ -28,6 +28,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | G5 Transfer data | done | 16 non-transformed screens acquired and harmonised (QC failures excluded); transfer criteria pre-registered (tag `freeze-transfer`) |
 | G2 First models and modality ablation | done | Ridge-type models beat both baselines; [docs/g2_results.md](docs/g2_results.md) |
 | G3 Model ladder | done | Headline: plain average of ridge, its paralog per-gene stage and LightGBM (M5); [docs/g3_m5_results.md](docs/g3_m5_results.md) |
+| Mutation-driven dependencies | done | Expression alone misses RAS/RAF hotspot addiction; the headline recovers most of it through LightGBM ([docs/mutation_dependencies.md](docs/mutation_dependencies.md)) |
 | Per-gene predictability | in progress | Pre-registered tiers and a per-gene confidence score (DESIGN §4); frozen before the test |
 | G4 Freeze finalists, one-time test evaluation | planned | |
 | G6 Apply to non-transformed cells | planned | |

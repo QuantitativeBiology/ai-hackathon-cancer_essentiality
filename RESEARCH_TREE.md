@@ -331,6 +331,15 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - Expression misses RAS/RAF hotspot addiction within lineages. The headline m5_avg, through M3, recovers most
       of it (NRAS AUPRC 0.21 → 0.63). Amplification, p53-axis and loss pairs are already carried by expression.
     - An independent review reproduced every number and found no leakage.
+  - **PI decisions:**
+    - "Not met" is accepted. Building the variant anyway would override the rule after the fact.
+    - Wording clarified: both conditions must hold for the same comparator. Pooled across comparators, the outcome
+      is the same (only NRAS qualifies).
+    - REPORT and the predict.py output will flag the RAS/RAF within-lineage blind spot of the expression-only
+      finalist m1_E_resB0. For mutation-driven dependencies, users should use m5_avg.
+    - VPS4A/VPS4B: both directions are published synthetic lethalities (Neggers 2020: 18q/VPS4B loss → VPS4A;
+      16q/VPS4A loss → VPS4B). The two files list different directions, which is not an error. Both are too rare
+      here to test (1 and 4 lines).
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -378,7 +387,11 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [!] Non-essential genes P1 0.110 (B1 0.068). Not line offsets (centring keeps 99%). It is library- and
     lineage-linked; within-library P1 0.279 (D16).
 - [x] G3 model ladder (closed; headline m5_avg, D23)
-  - [ ] Mutation-driven dependency diagnostic, expression vs expression+genomics on addiction/paralog pairs (D24)
+  - [x] Mutation-driven dependency diagnostic (D24; docs/mutation_dependencies.md). The rule is not met (1/3 pairs),
+    so there is no targeted variant.
+    - [!] Expression misses RAS/RAF hotspot addiction within lineages: NRAS AUPRC 0.21 E-only vs 0.66 for M3.
+    - m5_avg recovers most of this through M3. Amplification and p53-axis dependencies are carried by own-gene
+      expression.
   - [x] Re-run m1_E_resB0, r1_E, t_E_status and m1_E on frozen evaluation code (run IDs above, under G0)
   - [x] Report columns (scripts/g3_kernel_report.py; docs/g3_kernel_results.md): within-library and
     within-lineage P1 (reviewer definitions; reproduce the review exactly), within lineage × library P1, NB SE

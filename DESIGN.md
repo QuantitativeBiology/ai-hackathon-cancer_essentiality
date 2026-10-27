@@ -227,7 +227,8 @@ This section does not change P1, the selection rule or δ. It uses dev CV only.
 
 All metrics are fold-wise and paired.
 
-**"Genomics clearly helps"** holds if both conditions are met:
+**"Genomics clearly helps"** holds if both conditions are met for the same comparator (wording clarified
+post hoc in D24; the outcome is unchanged):
 1. over eligible pairs, the mean paired ΔAUPRC (m1bt_full or g3_m3n minus m1_E_resB0) has a fold-paired 95% CI
    excluding 0;
 2. at least 3 pairs individually gain ΔAUPRC ≥ 0.10 in ≥ 4 of 5 folds.
