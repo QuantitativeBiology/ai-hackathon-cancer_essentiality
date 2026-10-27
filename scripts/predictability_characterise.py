@@ -236,6 +236,8 @@ def enrichment(fg: set, bg: set, sets: dict, lo=10, hi=500) -> pd.DataFrame:
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--table", default=str(ROOT / "configs" / "predictable_genes.csv"))
+    ap.add_argument("--secondary-table", default=str(ROOT / "configs" / "predictable_genes_m1.csv"),
+                    help="secondary tier table reported next to the frozen one in the biomarker table ('' = none)")
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--skip-anchors", action="store_true")
     a = ap.parse_args(argv)
@@ -312,6 +314,8 @@ def main(argv=None):
     ev = tier.isin(TIERS3)
     res = {"generated": dt.datetime.now().isoformat(timespec="seconds"), "git_commit": git_head(),
            "table": Path(a.table).relative_to(ROOT).as_posix(), "table_sha256": PR.sha256_file(a.table),
+           "tier_source_run_id": sorted(set(tab["source_run_id"].dropna())),
+           "secondary_table": (Path(a.secondary_table).relative_to(ROOT).as_posix() if a.secondary_table else None),
            "population": cfg["population"], "comparisons_method": cfg["comparisons"], "reliability_info": rel_info,
            "n_per_tier": tier.value_counts().to_dict(), "continuous": {}, "binary": {}}
     cont = ["effect_sd", "effect_mean", "effect_frac_below_-0.5", "own_expr_r", "own_expr_abs_r",
@@ -345,6 +349,10 @@ def main(argv=None):
     bp = bp.join(props[["tier", "mean_r", "confidence", "effect_sd", "effect_frac_below_-0.5", "own_expr_r"]],
                  on="dependency_entrez")
     bp = bp.join(tab[[f"r_fold{k}" for k in range(5)] + ["min_r"]], on="dependency_entrez")
+    if a.secondary_table:
+        t2 = PR.load_table(a.secondary_table)
+        sfx = "_" + Path(a.secondary_table).stem.split("_")[-1]
+        bp = bp.join(t2[["tier", "mean_r"]].add_suffix(sfx + "_secondary"), on="dependency_entrez")
     bp.to_csv(OUT / "biomarker_pairs.csv", index=False, lineterminator="\n")
     res["biomarker_pairs"] = {
         "file": "results/predictability/biomarker_pairs.csv",

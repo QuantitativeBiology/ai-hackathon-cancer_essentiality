@@ -1,0 +1,13 @@
+{
+ "what": "scripts/predict.py smoke test on one dev line's DepMap expression (A375, ACH-000219, dev fold 4) with that line held out of training (--exclude-lines ACH-000219); model m1_E_resB0 fitted on the other 1021 dev lines (92 s, 4 threads); tiers from configs/predictable_genes_m1.csv",
+ "command": "python scripts/predict.py --expression <A375 E row, DepMap 'SYMBOL (ENTREZ)' headers> --out pred_A375.csv --exclude-lines ACH-000219 --threads 4",
+ "rows": 18434,
+ "model_genes_present": "19218/19218",
+ "applicability": {"ad_distance": 0.1522, "ad_percentile_vs_dev": 10.2, "nearest_lineage": "Skin (9 of 10 nearest)"},
+ "corr_with_cv_oof_prediction_fold4_model": 0.9965,
+ "per_line_r_vs_observed_all_genes": 0.9634,
+ "deviation_corr_from_gene_mean_by_tier": {"high": 0.644, "medium": 0.411, "low": 0.231},
+ "examples": {"BRAF": {"pred": -0.749, "obs": -1.354, "tier": "high"}, "SOX10": {"pred": -1.307, "obs": -1.817, "tier": "high"},
+              "MITF": {"pred": -0.087, "obs": -0.004, "tier": "high"}, "KRAS": {"pred": -0.559, "obs": -0.538, "tier": "high"}},
+ "note": "observed values read through essml.guard for a dev line only; one line, descriptive"
+}
