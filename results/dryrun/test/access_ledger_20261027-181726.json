@@ -1,0 +1,68 @@
+[
+ {
+  "timestamp": "2026-10-27T18:32:29",
+  "finalist": "m1_E_resB0",
+  "role": "headline",
+  "config_hash": "91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4",
+  "scope": "test-standin:dev-fold0",
+  "n_ids": 208,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ },
+ {
+  "timestamp": "2026-10-27T18:37:17",
+  "finalist": "t_E_status",
+  "role": "T",
+  "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+  "scope": "test-standin:dev-fold0",
+  "n_ids": 208,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ },
+ {
+  "timestamp": "2026-10-27T18:41:51",
+  "finalist": "t_E_status_noEC",
+  "role": "H3_noEC",
+  "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
+  "scope": "test-standin:dev-fold0",
+  "n_ids": 208,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ },
+ {
+  "timestamp": "2026-10-27T18:45:57",
+  "finalist": "b1",
+  "role": "B1",
+  "config_hash": "0e2a7a27931baea8a604ae29c759de57c31ea3ccfdbbe43218f9116f6c774a0d",
+  "scope": "test-standin:dev-fold0",
+  "n_ids": 208,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ },
+ {
+  "timestamp": "2026-10-27T18:48:58",
+  "finalist": "b2",
+  "role": "B2",
+  "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
+  "scope": "test-standin:dev-fold0",
+  "n_ids": 208,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ },
+ {
+  "timestamp": "2026-10-27T18:52:52",
+  "finalist": "b0",
+  "role": "B0",
+  "config_hash": "831b9415fbf1b09d4876aa13173dbea90b8b764975d020fcd4a376bb999672d2",
+  "scope": "test-standin:dev-fold0",
+  "n_ids": 208,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ }
+]

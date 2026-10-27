@@ -2,21 +2,29 @@
  "gate": "G4",
  "dry_run": true,
  "population": "dry-run: dev fold 0 stands in for the test set; training = other dev folds",
- "timestamp": "2026-10-27T14:06:04",
- "git_commit": "209a5bdda07cd9341acdab785af3b281b1b22fd3",
+ "timestamp": "2026-10-27T18:17:26",
+ "git_commit": "e944b9861ca98f646c7e1338046ec345c78b1638",
  "finalists_file": "configs/finalists.example.json",
  "preflight": {
   "tree_clean": {
    "pass": false,
    "dirty": [
-    " M results/registry.csv",
-    "?? docs/g3_m5_results.md",
-    "?? results/dryrun/transfer/access_ledger_all.json",
-    "?? results/dryrun/transfer/preflight_all.json",
-    "?? results/dryrun/transfer/setA/summary.json",
-    "?? results/dryrun/transfer/setB/RPE1.json",
-    "?? results/dryrun/transfer/setB/hPSC.json",
-    "?? results/g3_m5_summary.json"
+    " M RESEARCH_TREE.md",
+    " M results/dryrun/test/b0/per_gene.csv.gz",
+    " D results/dryrun/test/b0/summary.json",
+    " M results/dryrun/test/b1/per_gene.csv.gz",
+    " D results/dryrun/test/b1/summary.json",
+    " M results/dryrun/test/b2/per_gene.csv.gz",
+    " D results/dryrun/test/b2/summary.json",
+    " M results/dryrun/test/m1_E_resB0/per_gene.csv.gz",
+    " D results/dryrun/test/m1_E_resB0/summary.json",
+    " M results/dryrun/test/predictions_manifest.json",
+    " M results/dryrun/test/registry_record.csv",
+    " M results/dryrun/test/summary.json",
+    " M results/dryrun/test/t_E_status/per_gene.csv.gz",
+    " D results/dryrun/test/t_E_status/summary.json",
+    " M results/dryrun/test/t_E_status_noEC/per_gene.csv.gz",
+    " D results/dryrun/test/t_E_status_noEC/summary.json"
    ]
   },
   "finalists_committed": {
@@ -29,6 +37,32 @@
   "frozen_hashes": {
    "pass": true,
    "changed": []
+  },
+  "predictable_genes_committed": {
+   "pass": true,
+   "file": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+   "tracked": true,
+   "modified": false,
+   "sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd",
+   "problems": [],
+   "source_run_id": [
+    "20261027-161041_m5_avg_6dbebcf4"
+   ],
+   "threshold_high_mean_r": [
+    0.3
+   ],
+   "tier_counts": {
+    "low": 10010,
+    "medium": 6210,
+    "high": 1695,
+    "not_evaluable": 519
+   },
+   "table_role": [
+    "dry_run"
+   ],
+   "folds_used": [
+    "1;2;3;4"
+   ]
   },
   "noEC_excludes_4_EC_dev_lines": {
    "pass": true,
@@ -58,9 +92,14 @@
  "n_boot": 2000,
  "min_obs": 50,
  "library_groups_reproduced": true,
+ "predictable_genes": {
+  "file": "results/dryrun/predictability/predictable_genes_excl_fold0.csv",
+  "sha256": "51438e34fb34f3a1cddcd415d5085b0b49275e4bf596b4de9d19840322d6aadd",
+  "note": "dry run: tiers computed from dev-CV folds 1-4 only (scripts/predictability_tiers.py --exclude-folds 0), so the stand-in lines' own (fold-0) CV results are not used; the fold 1-4 models did train on fold-0 lines"
+ },
  "accesses": [
   {
-   "timestamp": "2026-10-27T14:24:25",
+   "timestamp": "2026-10-27T18:32:29",
    "finalist": "m1_E_resB0",
    "role": "headline",
    "config_hash": "91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4",
@@ -71,7 +110,7 @@
    "log_commit": null
   },
   {
-   "timestamp": "2026-10-27T14:31:02",
+   "timestamp": "2026-10-27T18:37:17",
    "finalist": "t_E_status",
    "role": "T",
    "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
@@ -82,7 +121,7 @@
    "log_commit": null
   },
   {
-   "timestamp": "2026-10-27T14:38:11",
+   "timestamp": "2026-10-27T18:41:51",
    "finalist": "t_E_status_noEC",
    "role": "H3_noEC",
    "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
@@ -93,7 +132,7 @@
    "log_commit": null
   },
   {
-   "timestamp": "2026-10-27T14:44:13",
+   "timestamp": "2026-10-27T18:45:57",
    "finalist": "b1",
    "role": "B1",
    "config_hash": "0e2a7a27931baea8a604ae29c759de57c31ea3ccfdbbe43218f9116f6c774a0d",
@@ -104,7 +143,7 @@
    "log_commit": null
   },
   {
-   "timestamp": "2026-10-27T14:48:45",
+   "timestamp": "2026-10-27T18:48:58",
    "finalist": "b2",
    "role": "B2",
    "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
@@ -115,7 +154,7 @@
    "log_commit": null
   },
   {
-   "timestamp": "2026-10-27T14:53:45",
+   "timestamp": "2026-10-27T18:52:52",
    "finalist": "b0",
    "role": "B0",
    "config_hash": "831b9415fbf1b09d4876aa13173dbea90b8b764975d020fcd4a376bb999672d2",
@@ -133,10 +172,10 @@
    "role": "headline",
    "config_hash": "91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4",
    "status": "complete",
-   "fit_s": 108.83483040006831,
-   "predict_s": 1.2610089000081643,
+   "fit_s": 56.56839660019614,
+   "predict_s": 0.7464715999085456,
    "threads": 4,
-   "peak_rss_mb": 1870.10546875,
+   "peak_rss_mb": 1877.63671875,
    "n_train_ids": 814,
    "P1_variable": 0.3129483366944004,
    "P1_variable_ci": [
@@ -186,6 +225,17 @@
     0.2038054904578906
    ],
    "P2b_auroc_prev05": 0.6667564085089936,
+   "P1_high": 0.3787398365210087,
+   "P2b_nap_prev05_high": 0.29869316850927186,
+   "P1_medium": 0.1942939479689491,
+   "P2b_nap_prev05_medium": 0.1404618253899894,
+   "P1_low": 0.09262865560039128,
+   "P2b_nap_prev05_low": 0.07672917814727738,
+   "spearman_dev_mean_r_vs_r": 0.6983522073537327,
+   "spearman_dev_mean_r_vs_r_ci": [
+    0.6692689072973148,
+    0.7274355074101506
+   ],
    "P1_within_library": 0.28257670883804786,
    "P1_within_lineage": 0.25262760016456237,
    "P1_within_lin_lib": 0.21409302939046032
@@ -195,10 +245,10 @@
    "role": "T",
    "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
    "status": "complete",
-   "fit_s": 104.90667420008685,
-   "predict_s": 1.3126069999998435,
+   "fit_s": 55.02945109992288,
+   "predict_s": 0.7540661001112312,
    "threads": 4,
-   "peak_rss_mb": 2014.96484375,
+   "peak_rss_mb": 1878.9375,
    "n_train_ids": 814,
    "P1_variable": 0.3124362682246268,
    "P1_variable_ci": [
@@ -248,6 +298,17 @@
     0.2026151718248927
    ],
    "P2b_auroc_prev05": 0.6651833976742054,
+   "P1_high": 0.37754579337974664,
+   "P2b_nap_prev05_high": 0.2972103582545707,
+   "P1_medium": 0.1924103020891771,
+   "P2b_nap_prev05_medium": 0.13866526039548316,
+   "P1_low": 0.09054377285021285,
+   "P2b_nap_prev05_low": 0.07696652338238023,
+   "spearman_dev_mean_r_vs_r": 0.6973839544691443,
+   "spearman_dev_mean_r_vs_r_ci": [
+    0.6686355625172948,
+    0.7261323464209937
+   ],
    "P1_within_library": 0.2819975850863585,
    "P1_within_lineage": 0.2526855963088888,
    "P1_within_lin_lib": 0.21462509316828401
@@ -257,10 +318,10 @@
    "role": "H3_noEC",
    "config_hash": "fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f",
    "status": "complete",
-   "fit_s": 92.77245719998609,
-   "predict_s": 1.2363923999946564,
+   "fit_s": 54.4571869999636,
+   "predict_s": 0.7259090999141335,
    "threads": 4,
-   "peak_rss_mb": 1872.44140625,
+   "peak_rss_mb": 1872.2578125,
    "n_train_ids": 812,
    "P1_variable": 0.31208468573060455,
    "P1_variable_ci": [
@@ -310,6 +371,17 @@
     0.2025285865207961
    ],
    "P2b_auroc_prev05": 0.6651444592263405,
+   "P1_high": 0.3773002224865757,
+   "P2b_nap_prev05_high": 0.2974401080314583,
+   "P1_medium": 0.19244200835422848,
+   "P2b_nap_prev05_medium": 0.13825590956421743,
+   "P1_low": 0.09061471025096042,
+   "P2b_nap_prev05_low": 0.07726479257854706,
+   "spearman_dev_mean_r_vs_r": 0.6970935046448115,
+   "spearman_dev_mean_r_vs_r_ci": [
+    0.6682855300420465,
+    0.7259014792475764
+   ],
    "P1_within_library": 0.28162890850783723,
    "P1_within_lineage": 0.25242909985837625,
    "P1_within_lin_lib": 0.21431199395065922
@@ -319,10 +391,10 @@
    "role": "B0",
    "config_hash": "831b9415fbf1b09d4876aa13173dbea90b8b764975d020fcd4a376bb999672d2",
    "status": "complete",
-   "fit_s": 0.22356509999372065,
-   "predict_s": 0.016837599920108914,
+   "fit_s": 0.11049009999260306,
+   "predict_s": 0.012987600173801184,
    "threads": 4,
-   "peak_rss_mb": 647.1171875,
+   "peak_rss_mb": 971.859375,
    "n_train_ids": 814,
    "P1_variable": 0.0,
    "P1_variable_ci": [
@@ -368,6 +440,17 @@
     0.0
    ],
    "P2b_auroc_prev05": 0.5,
+   "P1_high": 0.0,
+   "P2b_nap_prev05_high": 0.0,
+   "P1_medium": 0.0,
+   "P2b_nap_prev05_medium": 0.0,
+   "P1_low": 0.0,
+   "P2b_nap_prev05_low": 0.0,
+   "spearman_dev_mean_r_vs_r": null,
+   "spearman_dev_mean_r_vs_r_ci": [
+    null,
+    null
+   ],
    "P1_within_library": 0.0,
    "P1_within_lineage": 0.0,
    "P1_within_lin_lib": 0.0
@@ -377,10 +460,10 @@
    "role": "B1",
    "config_hash": "0e2a7a27931baea8a604ae29c759de57c31ea3ccfdbbe43218f9116f6c774a0d",
    "status": "complete",
-   "fit_s": 37.62148900004104,
-   "predict_s": 0.024642900098115206,
+   "fit_s": 22.135519800009206,
+   "predict_s": 0.012874600011855364,
    "threads": 4,
-   "peak_rss_mb": 942.4375,
+   "peak_rss_mb": 1005.796875,
    "n_train_ids": 814,
    "P1_variable": 0.1815923307168419,
    "P1_variable_ci": [
@@ -426,6 +509,17 @@
     0.09602036681755143
    ],
    "P2b_auroc_prev05": 0.5955995591190771,
+   "P1_high": 0.23017455491250158,
+   "P2b_nap_prev05_high": 0.13635712377463857,
+   "P1_medium": 0.10965458364632286,
+   "P2b_nap_prev05_medium": 0.06178092933098398,
+   "P1_low": 0.05807646313964879,
+   "P2b_nap_prev05_low": 0.03444457256001222,
+   "spearman_dev_mean_r_vs_r": 0.4714787618009762,
+   "spearman_dev_mean_r_vs_r_ci": [
+    0.432101423092148,
+    0.5108561005098043
+   ],
    "P1_within_library": 0.1685417286313931,
    "P1_within_lineage": 0.0,
    "P1_within_lin_lib": 0.0
@@ -435,10 +529,10 @@
    "role": "B2",
    "config_hash": "289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f",
    "status": "complete",
-   "fit_s": 47.99426960002165,
-   "predict_s": 0.9502124999416992,
+   "fit_s": 27.53590530017391,
+   "predict_s": 0.6812045997940004,
    "threads": 4,
-   "peak_rss_mb": 1111.95703125,
+   "peak_rss_mb": 1197.640625,
    "n_train_ids": 814,
    "P1_variable": 0.25625915293924917,
    "P1_variable_ci": [
@@ -484,6 +578,17 @@
     0.1653654628982352
    ],
    "P2b_auroc_prev05": 0.6309457962523881,
+   "P1_high": 0.32087403294725486,
+   "P2b_nap_prev05_high": 0.24659239875359545,
+   "P1_medium": 0.15561882988384543,
+   "P2b_nap_prev05_medium": 0.10860232334545689,
+   "P1_low": 0.07232189490412758,
+   "P2b_nap_prev05_low": 0.05801815146888901,
+   "spearman_dev_mean_r_vs_r": 0.6124794042920852,
+   "spearman_dev_mean_r_vs_r_ci": [
+    0.5838414569113207,
+    0.6411173516728498
+   ],
    "P1_within_library": 0.22655970058568073,
    "P1_within_lineage": 0.18674242445629297,
    "P1_within_lin_lib": 0.14287434798239526

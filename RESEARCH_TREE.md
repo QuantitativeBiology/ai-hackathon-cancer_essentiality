@@ -285,6 +285,24 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - This is a diagnostic only: headline P1, the selection rule and δ are unchanged.
   - Disclosure: per-gene CV r values already exist in results/runs/*/per_gene.csv.gz. Their aggregate means were
     seen, but the distribution was not examined before these thresholds were set.
+  - **(a) Implemented (docs/predictability.md).** Methods were declared in configs/predictability.json and the
+    literature list in configs/biomarker_pairs.csv (commit 278f156) before any tier was computed.
+  - **(b) Re-freeze after D23f.** The tiers were first computed, committed and seen for m1_E_resB0 (2410d36),
+    together with their characterisation (d50ec9c). When G3 closed with m5_avg as the headline, the source run was
+    switched to m5_avg (4897899), as DESIGN §4 prescribes ("the G4 headline model"). Thresholds, rules and the null
+    were unchanged. configs/predictable_genes.csv now holds the m5_avg tiers: high 1632, medium 6198, low 10085,
+    not evaluable 519. The permuted control has 0 high genes, so the escalation was not triggered (T_high 0.30).
+    The m1_E_resB0 table is kept as configs/predictable_genes_m1.csv (table_role secondary). It is the tier table
+    for predict.py, which serves m1_E_resB0.
+  - **(c) Post-hoc amendment (independent review).** The committed biomarker column `headline_input` describes the
+    expression-only m1_E_resB0. For m5_avg it is wrong, because M3 screens C/M/H/meta features on variable genes.
+    The column is now reported as `m1_E_resB0_input`, beside a mechanically derived `m5_avg_input`. The pair list
+    is unchanged.
+  - **(d) G4 precondition.** evaluate_test.py refuses to start unless configs/predictable_genes.csv is committed,
+    unmodified, table_role primary, built from all 5 folds and, when finalists.json names the headline's
+    cv_run_id, built from that run. Its sha256 goes into every output.
+  - **(e) Null control (disclosure).** DESIGN fixes ctl_resB0_permuted, an expression-permuted M1 path, as the null.
+    It does not reproduce M3's genomic inputs; an m5-matched expression null does not exist.
 
 - D23 (G3 close-out; docs/g3_m5_results.md). Confirmed by PI (D23f):
   - **(a) Selection:** under the pre-registered rule (configs/runs/m5_stack.json), the M5 rung is
@@ -423,7 +441,8 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] λ-criterion diagnostic (D20c): LOO-MSE −0.0011 (more shrinkage, worse at every SD decile);
     grouped inner-CV r = same variable-gene λ (−0.00005). No small-λ bias on real data; LOO r kept.
   - [x] G4/G6 scripts built and dry-run on dev only (fold 0 reproduces CV exactly; 249 tests); D21
-  - [ ] Per-gene predictability tiers frozen, confidence score in outputs, characterisation (D22)
+  - [x] Per-gene predictability tiers frozen (m5_avg; m1 secondary), confidence score in outputs, characterisation,
+    predict.py, per-tier G4 reporting with a dev-only dry run (D22; docs/predictability.md)
   - [!] M5 (docs/g3_m5_results.md): plain average m5_avg ΔP1 +0.0094 (SE 0.0002, 5/5) clears δ;
     stacking m5_stack +0.0099 does not beat the average (+0.0005, SE 0.0008). Mechanism: M2/M3
     corrections over-scaled about 2× (post hoc). Control weight 0.041 (chance-level; D23b). PI to confirm (D23a).
