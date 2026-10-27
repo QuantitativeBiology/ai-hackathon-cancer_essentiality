@@ -1,12 +1,22 @@
 {
- "_comment": "EXAMPLE ONLY - NOT configs/finalists.json. Committing configs/finalists.json (same schema) is the PI's G4 act (DESIGN §4/§9): the guard releases test / set-A / set-B targets only to config_hash values listed in a COMMITTED configs/finalists.json. scripts/evaluate_test.py and scripts/evaluate_transfer.py read: headline, T, H3_noEC and baselines.B0/B1/B2, each with name, config (path), config_hash (sha256 of json.dumps(config, sort_keys=True), scripts/run.py) and optional cv_run_id (the clean freeze-eval CV run, used for reproduction checks). At most 2 finalists beyond the headline plus baselines (DESIGN §4): here T and H3_noEC.",
+ "_comment": "EXAMPLE ONLY - NOT configs/finalists.json. Committing configs/finalists.json (same schema) is the PI's G4 act (DESIGN §4/§9): the guard releases test / set-A / set-B targets only to config_hash values listed in a COMMITTED configs/finalists.json. Finalists per D23f: headline m5_avg; additional m1_E_resB0; T (transfer); T no-EC (H3); baselines B0, B1, B2. scripts/evaluate_test.py and scripts/evaluate_transfer.py read headline, additional (list), T, H3_noEC and baselines.B0/B1/B2, each with name, config (path), config_hash (sha256 of json.dumps(config, sort_keys=True), scripts/run.py), cv_run_id (the registered dev-CV run: reproduction checks and tier provenance) and optional own_predictable_genes (a secondary per-gene tier table of that finalist, D22f).",
  "headline": {
-  "name": "m1_E_resB0",
-  "config": "configs/runs/m1_E_resB0.json",
-  "config_hash": "91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4",
-  "cv_run_id": "20261026-222117_m1_E_resB0_91e52f9d",
-  "note": "current best (D17/D20a); the PI names the headline after M5 (G3 close-out)"
+  "name": "m5_avg",
+  "config": "configs/runs/m5_avg.json",
+  "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+  "cv_run_id": "20261027-161041_m5_avg_6dbebcf4",
+  "note": "G4 headline (D23f): plain average of m1_E_resB0, m2n_E_paralogs and g3_m3n; its dev-CV tiers are configs/predictable_genes.csv (primary, all finalists)"
  },
+ "additional": [
+  {
+   "name": "m1_E_resB0",
+   "config": "configs/runs/m1_E_resB0.json",
+   "config_hash": "91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4",
+   "cv_run_id": "20261026-222117_m1_E_resB0_91e52f9d",
+   "own_predictable_genes": "configs/predictable_genes_m1.csv",
+   "note": "additional finalist (D23f): expression-only kernel ridge; also reported on its own tiers (secondary, D22f)"
+  }
+ ],
  "T": {
   "name": "t_E_status",
   "config": "configs/runs/t_E_status.json",

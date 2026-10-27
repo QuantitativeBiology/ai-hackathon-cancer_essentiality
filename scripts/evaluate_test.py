@@ -96,6 +96,7 @@ MIN_OBS_CV = 40
 DRY_TIER = ROOT / "results" / "dryrun" / "predictability" / "predictable_genes_excl_fold0.csv"
 DRY_TIER_NOTE = ("dry run: tiers computed from dev-CV folds 1-4 only (scripts/predictability_tiers.py --exclude-folds 0), so "
                  "the stand-in lines' own (fold-0) CV results are not used; the fold 1-4 models did train on fold-0 lines")
+DRY_OWN_TIER = ROOT / "results" / "dryrun" / "predictability" / "predictable_genes_{name}_excl_fold0.csv"
 MIN_STRATUM_LINES = 20  # DESIGN §4: within-lineage r for lineages with >= 20 held-out lines
 B1_KAPPA = 10           # transfer_criteria.json models.B1_nearest (set-A reference comparator)
 
@@ -145,6 +146,15 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
     bad = HC.frozen_ok(paths)
     checks["frozen_hashes"] = {"pass": not bad, "changed": bad}
     checks["predictable_genes_committed"] = predictable_check(paths, fin["headline"].cv_run_id, dry)
+    for f in fin.values():  # D22f: secondary own-table per-tier reporting (e.g. m1_E_resB0)
+        if f.own_predictable_genes:
+            checks[f"own_predictable_genes_{f.name}"] = own_table_check(paths, f, dry)
+    existing = existing_outputs(paths, fin)
+    checks["no_existing_results_without_resume"] = {"pass": resume or not existing, "existing": existing[:30]}
+    if existing and not resume:  # D22f: never skip a finalist silently; dry runs too
+        raise SystemExit("G4 refused to start: results already exist in "
+                         f"{paths.rel(paths.out_dir)}:\n  " + "\n  ".join(existing[:30])
+                         + "\nRe-run with --resume to continue that run, or move these files away for a new run.")
     HC.check_noec_matches_T(fin["H3_noEC"], fin["T"])
     checks["noEC_excludes_4_EC_dev_lines"] = {"pass": True, "lines": HC.EC_DEV}
     done = completed(paths, fin)
@@ -214,6 +224,56 @@ def predictable_check(paths, headline_cv_run_id="", dry=False, dry_fold=0) -> di
     return out
 
 
+def existing_outputs(paths, fin) -> list:
+    """Evaluation outputs of an earlier run in the output directory (a non-resume run must not reuse them)."""
+    d = Path(paths.out_dir)
+    out = [paths.rel(d / f.name / "summary.json") for f in fin.values() if (d / f.name / "summary.json").exists()]
+    if (d / "predictions_manifest.json").exists():
+        out.append(paths.rel(d / "predictions_manifest.json"))
+    out += [paths.rel(q) for q in sorted(d.glob("access_ledger_*.json"))]
+    return out
+
+
+def own_table_path(paths, f, dry):
+    return Path(str(DRY_OWN_TIER).format(name=f.name)) if dry else Path(paths.root) / f.own_predictable_genes
+
+
+def own_table_check(paths, f, dry) -> dict:
+    """D22f: a finalist's own (secondary) tier table must be committed and unmodified, built from all 5 folds of
+    that finalist's CV run (dry run: a table without the stand-in fold 0)."""
+    p = own_table_path(paths, f, dry)
+    rel = paths.rel(p)
+    out = {"file": rel, "problems": [], "sha256": HC.sha256_file(p) if p.exists() else None}
+    if not p.exists():
+        out["problems"].append("missing")
+        out["pass"] = False
+        return out
+    if not dry:
+        tracked = HC.is_tracked(paths.root, rel)
+        modified = bool(HC._git(["status", "--porcelain", "--", rel], paths.root).stdout.strip()) if tracked else None
+        if not tracked:
+            out["problems"].append("not tracked in git")
+        if modified:
+            out["problems"].append("modified since the last commit")
+    t = PR.load_table(p)
+    roles = sorted(set(t["table_role"].dropna().astype(str))) if "table_role" in t else []
+    folds = sorted(set(t["folds_used"].dropna().astype(str))) if "folds_used" in t else []
+    srcs = sorted(set(t["source_run_id"].dropna().astype(str)))
+    out.update(table_role=roles, folds_used=folds, source_run_id=srcs)
+    if dry:
+        if any("0" in x.split(";") for x in folds) or not folds:
+            out["problems"].append(f"dry-run own tiers must exclude fold 0: {folds}")
+    else:
+        if not roles or not all(r.startswith("secondary") for r in roles):
+            out["problems"].append(f"own table must be a secondary table, got {roles}")
+        if folds != ["0;1;2;3;4"]:
+            out["problems"].append(f"own tiers must use all 5 folds, got {folds}")
+    if f.cv_run_id and srcs != [f.cv_run_id]:
+        out["problems"].append(f"own tier source {srcs} != {f.name} cv_run_id {f.cv_run_id}")
+    out["pass"] = not out["problems"]
+    return out
+
+
 def completed(paths, fin):
     out = set()
     for f in fin.values():
@@ -228,7 +288,16 @@ def phase_a_one(f: HC.Finalist, paths: HC.Paths, dry: bool, threads: int, featur
     pop = HC.population(paths, dry)
     pred_path, _ = finalist_paths(paths, f)
     t0 = time.perf_counter()
-    r = HC.refit_predict(f, pop, paths, feature_loader)
+    # M5: a genuine refit. Its own caches are off and the inputs' caches (M1 inner OOF of M2/M3) are redirected to
+    # a new empty directory, so nothing computed by earlier code or runs is reused; its time is reported.
+    extra = None
+    if f.cfg["model"] == "M5":
+        from essml.models import m2_local, m5_stack
+        fresh = Path(paths.pred_dir).parent / f"fresh_cache_{_now().replace(':', '')}"
+        m2_local.INNER_CACHE, m5_stack.INNER_CACHE, m5_stack.OUTER_CACHE = (fresh / "m2_inner", fresh / "m5_inner",
+                                                                          fresh / "m5_outer")
+        extra = {"cache": False}
+    r = HC.refit_predict(f, pop, paths, feature_loader, params_extra=extra)
     pred = r["pred"]
     if not np.isfinite(pred.to_numpy()).all():
         raise ValueError(f"{f.name}: non-finite predictions")
@@ -236,6 +305,10 @@ def phase_a_one(f: HC.Finalist, paths: HC.Paths, dry: bool, threads: int, featur
     pred.astype(np.float32).to_parquet(pred_path)
     entry = {"file": paths.rel(pred_path), "sha256": HC.sha256_file(pred_path), "n_lines": int(pred.shape[0]),
              "n_genes": int(pred.shape[1]), "fit_s": r["fit_s"], "predict_s": r["predict_s"],
+             "refit_s": r["fit_s"] + r["predict_s"],
+             "refit_note": ("M5 average: inputs refitted on the training lines inside predict (refit_s = fit + predict;"
+                            " all model caches fresh)"
+                            if f.cfg["model"] == "M5" else "fit_s = tuning + fit"),
              "n_train_ids": r["n_train_ids"], "chosen_params": r["chosen"], "threads": threads,
              "train_ids_sha256": HC.hashlib.sha256(",".join(sorted(r["train_ids"])).encode()).hexdigest(),
              "excluded_from_training": list(map(str, f.cfg.get("exclude_from_training", []))),
@@ -433,7 +506,8 @@ def step_per_tier(ctx, f, pred, truth, refs):
     evalg = (pg["n_obs"] >= ctx["min_obs"]).to_numpy()
     r = pg["r"].to_numpy(np.float64)
     nap, auc, prev = (pg[c].to_numpy(np.float64) for c in ("nap", "auroc", "prev"))
-    out = {"predictable_genes": {"file": ctx["paths"].rel(ctx["paths"].predictable_genes), "sha256": ctx["pg_sha"]},
+    out = {"predictable_genes": {"file": ctx["paths"].rel(ctx.get("pg_file", ctx["paths"].predictable_genes)),
+                                 "sha256": ctx["pg_sha"]},
            "tier_source_run_id": sorted(set(tab["source_run_id"].dropna()))[:3],
            "threshold_high_mean_r": sorted(set(tab["threshold_high_mean_r"].dropna().astype(float))),
            "definition": step_per_tier.__doc__.split("\n", 1)[1].strip(),
@@ -461,7 +535,7 @@ def step_per_tier(ctx, f, pred, truth, refs):
     R = heldout.weighted_pearson_class_means(P, T, W, masks, ctx["min_obs"])
     RB = {}
     for b, d in refs.items():
-        key = ("p1_tier", b)
+        key = ("p1_tier", ctx["pg_sha"], b)  # baseline replicates depend on the tier table's masks
         if key not in ctx["boot_cache"]:
             ctx["boot_cache"][key] = heldout.weighted_pearson_class_means(
                 d.loc[truth.index, genes].to_numpy(np.float64), T, W, masks, ctx["min_obs"])
@@ -502,6 +576,22 @@ def step_per_tier(ctx, f, pred, truth, refs):
     return out
 
 
+def step_per_tier_own_table(ctx, f, pred, truth, refs):
+    """SECONDARY (D22f): the same per-tier report against the finalist's own frozen tier table (m1_E_resB0:
+    configs/predictable_genes_m1.csv), from the same single prediction (no extra access). The primary per-tier
+    report of every finalist uses the headline's tiers (configs/predictable_genes.csv)."""
+    if not f.own_predictable_genes:
+        return None
+    p = own_table_path(ctx["paths"], f, ctx["dry"])
+    sha = HC.sha256_file(p)
+    want = (ctx.get("own_table_sha") or {}).get(f.name)
+    if want and sha != want:
+        raise RuntimeError(f"{ctx['paths'].rel(p)} changed after the preflight")
+    res = step_per_tier(dict(ctx, pg_table=PR.load_table(p), pg_sha=sha, pg_file=p), f, pred, truth, refs)
+    res["label"] = "secondary: the finalist's own dev-CV tiers (not the shared primary partition)"
+    return res
+
+
 def step_setA_reference(ctx, f, pred, truth, refs):
     """transfer_criteria.json set_A.tier_A1.ranking: per cancer-test line, the Q3a/Q3b primary statistics of
     model T (Q3a vs B0; Q3b vs B1 of the line's own lineage, kappa 10, all training lines); U = eval genes
@@ -534,6 +624,7 @@ def step_setA_reference(ctx, f, pred, truth, refs):
 
 
 STEPS = [("core", step_core), ("bootstrap", step_bootstrap), ("per_tier", step_per_tier),
+         ("per_tier_own_table", step_per_tier_own_table),
          ("p2_sensitivity_thr_-1", step_p2_sensitivity),
          ("within_group", step_within),
          ("strata", step_strata), ("published_comparable", step_published), ("setA_reference", step_setA_reference)]
@@ -663,6 +754,7 @@ def phase_b(fin, paths, pop, man, n_boot, dry, log=print, min_obs=MIN_OBS_TEST, 
     preds = {f.name: load_pred(Path(paths.root, man[f.name]["file"]), man[f.name]["sha256"]) for f in fin.values()}
     preds_role = {f.role: preds[f.name] for f in fin.values()}
     ctx = build_context(fin, paths, pop, man, n_boot, min_obs, dry)
+    ctx["own_table_sha"] = paths.extra.get("own_table_sha") or {}
     ctx["preds"] = preds_role
     if rehearsal and len(completed(paths, fin)) < len(fin):
         rehearse(fin, preds_role, ctx, pop, paths, log)
@@ -674,7 +766,7 @@ def phase_b(fin, paths, pop, man, n_boot, dry, log=print, min_obs=MIN_OBS_TEST, 
     ledger.rows = prior
     done = completed(paths, fin)
     results, previous = {}, None
-    for role in HC.ROLE_ORDER:
+    for role in HC.access_order(fin):
         f = fin[role]
         if f.name in done:
             log(f"{f.name}: complete (resume), not accessed again")
@@ -769,7 +861,9 @@ def run_g4(finalists_path, paths: HC.Paths, dry=False, threads=4, n_boot=2000, i
     rel = paths.rel(finalists_path)
     fin = HC.load_finalists(finalists_path, paths.root)
     checks = preflight(fin, paths, dry, rel, resume)
-    paths = paths.with_(extra={**paths.extra, "predictable_genes_sha256": checks["predictable_genes_committed"]["sha256"]})
+    paths = paths.with_(extra={**paths.extra, "predictable_genes_sha256": checks["predictable_genes_committed"]["sha256"],
+                               "own_table_sha": {f.name: checks[f"own_predictable_genes_{f.name}"]["sha256"]
+                                                 for f in fin.values() if f.own_predictable_genes}})
     Path(paths.out_dir).mkdir(parents=True, exist_ok=True)
     tag = f"{stamp:%Y%m%d-%H%M%S}"
     HC.write_json(Path(paths.out_dir) / f"preflight_{tag}.json", HC.clean_floats(checks))

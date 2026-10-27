@@ -18,6 +18,8 @@ from essml import guard, heldout
 from essml import metrics as M
 from essml.evaluate import evaluate
 
+N_FIN = 7  # toy finalists: headline, one additional, T, T no-EC, B0, B1, B2 (D23f layout)
+
 
 # ============================================================================ resampling layer == frozen metrics
 def _dup(A, w):
@@ -171,16 +173,16 @@ def test_one_access_per_finalist(g4):
     w, s = g4
     log = _log(w)
     fin = HC.load_finalists(w["finalists"], w["repo"])
-    assert len(log) == 6 and (log["granted"] == "True").all() and (log["scope"] == "test").all()
+    assert len(log) == N_FIN and (log["granted"] == "True").all() and (log["scope"] == "test").all()
     assert sorted(log["config_hash"]) == sorted(f.config_hash for f in fin.values())
-    assert s["n_accesses_granted"] == 6
+    assert s["n_accesses_granted"] == N_FIN
     assert all(r["status"] == "complete" for r in s["table"])
 
 
 def test_access_log_committed_after_each_access_and_tree_clean(g4):
     w, _ = g4
     msgs = TH.git(w["repo"], "log", "--format=%s").stdout.splitlines()
-    assert sum(m.startswith("G4/G6 access log") for m in msgs) == 6
+    assert sum(m.startswith("G4/G6 access log") for m in msgs) == N_FIN
     st = TH.git(w["repo"], "status", "--porcelain", "--untracked-files=no").stdout.strip()
     assert st == ""                                      # outputs are untracked; nothing tracked was modified
 
@@ -313,11 +315,41 @@ def test_dry_run_reads_the_folds_1_to_4_tier_table():
 
 
 def test_second_run_refused_without_new_access(g4):
+    """D22f bug: a non-resume run with existing results must refuse (naming the files), never skip silently."""
     w, _ = g4
     n0 = len(_log(w))
-    with pytest.raises(SystemExit, match="guard_would_grant"):
+    with pytest.raises(SystemExit, match="already exist") as e:
         _run(w)
+    msg = str(e.value)
+    assert "results/test/toy_m1/summary.json" in msg and "--resume" in msg
+    assert "results/test/predictions_manifest.json" in msg
     assert len(_log(w)) == n0
+
+
+def test_refusal_names_a_single_leftover_file(tmp_path, monkeypatch):
+    monkeypatch.setenv("ESSML_UNBLIND", "1")
+    w = TH.make_world(tmp_path, n_genes=200, n_dev=60, n_test=20)
+    d = w["paths"].out_dir / "toy_b1"
+    d.mkdir(parents=True)
+    (d / "summary.json").write_text(json.dumps({"status": "complete"}))
+    with pytest.raises(SystemExit, match="results/test/toy_b1/summary.json"):
+        _run(w)
+    assert len(_log(w)) == 0 and not (w["paths"].out_dir / "predictions_manifest.json").exists()
+
+
+def test_additional_finalist_own_table_is_secondary_and_costs_no_access(g4):
+    w, s = g4
+    fin = HC.load_finalists(w["finalists"], w["repo"])
+    assert HC.access_order(fin)[:2] == ["headline", "add_toy_r1"]
+    add = json.loads((w["paths"].out_dir / "toy_r1" / "summary.json").read_text())
+    own, prim = add["per_tier_own_table"], add["per_tier"]
+    assert own["label"].startswith("secondary") and own["predictable_genes"]["file"] == "configs/predictable_genes_add.csv"
+    assert prim["predictable_genes"]["file"] == "configs/predictable_genes.csv"
+    assert own["tiers"]["high"]["P1"] != prim["tiers"]["high"]["P1"]            # a different gene partition
+    hl = json.loads((w["paths"].out_dir / "toy_m1" / "summary.json").read_text())
+    assert "per_tier_own_table" not in hl and "per_tier" in hl
+    assert (_log(w)["config_hash"] == fin["add_toy_r1"].config_hash).sum() == 1   # one access, both tables
+    assert s["preflight"]["own_predictable_genes_toy_r1"]["pass"]
 
 
 def test_resume_after_complete_run_accesses_nothing(g4):
@@ -368,7 +400,7 @@ def test_crash_after_access_needs_no_second_access(tmp_path, monkeypatch):
     assert st["T"] == "core_failed" and st["headline"] == "complete_with_errors"
     hl = json.loads((w["paths"].out_dir / "toy_m1" / "summary.json").read_text())
     assert "core" in hl and "bootstrap" in hl and "late" in hl["errors"]   # earlier results kept
-    assert (_log(w)["granted"] == "True").sum() == 6
+    assert (_log(w)["granted"] == "True").sum() == N_FIN
     # resume (after the PI commits the outputs): predictions reused, complete finalists skipped, T's spent
     # access is not retried and does not block the others
     TH.git(w["repo"], "add", "-A")
@@ -377,7 +409,7 @@ def test_crash_after_access_needs_no_second_access(tmp_path, monkeypatch):
     st2 = {r["role"]: r["status"] for r in s2["table"]}
     assert st2["T"] == "access_spent_incomplete" and st2["headline"] == "complete_with_errors"
     assert s2["preflight"]["spent_incomplete"]["finalists"] == ["toy_t"]
-    assert (_log(w)["granted"] == "True").sum() == 6 and len(_log(w)) == 6
+    assert (_log(w)["granted"] == "True").sum() == N_FIN and len(_log(w)) == N_FIN
 
 
 def test_ledger_refuses_second_request_before_guard(tmp_path, monkeypatch):
@@ -421,7 +453,9 @@ def test_example_finalists_file_matches_configs():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     fin = HC.load_finalists(root / "configs" / "finalists.example.json", root)
-    assert fin["headline"].name == "m1_E_resB0" and fin["T"].name == "t_E_status"
+    assert fin["headline"].name == "m5_avg" and fin["T"].name == "t_E_status"            # D23f finalists
+    assert fin["add_m1_E_resB0"].own_predictable_genes == "configs/predictable_genes_m1.csv"
+    assert HC.access_order(fin) == ["headline", "add_m1_E_resB0", "T", "H3_noEC", "B1", "B2", "B0"]
     assert HC.check_noec_matches_T(fin["H3_noEC"], fin["T"])
 
 

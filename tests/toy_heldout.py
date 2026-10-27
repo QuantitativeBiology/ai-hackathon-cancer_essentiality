@@ -113,12 +113,17 @@ def make_world(tmp_path, seed=0, n_dev=160, n_test=60, n_genes=N_GENES, signal=1
                         "threshold_high_mean_r": 0.3, "folds_used": "0;1;2;3;4", "table_role": "primary"})
     pgt.loc[pgt["tier"] == "not_evaluable", ["mean_r", "min_r", "sd_r", "confidence"]] = np.nan
     pgt.to_csv(repo / "configs" / "predictable_genes.csv", index=False)
+    # the additional finalist's own secondary tier table (D22f), shifted so its partition differs
+    own = pgt.assign(tier=np.roll(pgt["tier"].to_numpy(), 7), source_run_id="toy_cv_add",
+                     table_role="secondary (toy additional finalist)")
+    own.to_csv(repo / "configs" / "predictable_genes_add.csv", index=False)
 
     kappa = {"grid": {"kappa": [0, 10, 100]}}
     base = {"reference_baselines": {"B0": {}, "B1": kappa}, "inner_folds": 3, "min_obs": 20, "inner_min_obs": 10,
             "threads": 2, "requires_gate": "G0"}
     cfgs = {
         "headline": {"name": "toy_m1", "model": "M1", "features": ["toyE"], "params": {"residual": "B0"}, "grid": {}},
+        "additional": {"name": "toy_r1", "model": "R1", "features": ["toyE"], "params": {}, "grid": {}},
         "T": {"name": "toy_t", "model": "T", "features": ["toyE"], "params": {}, "grid": {}},
         "H3_noEC": {"name": "toy_t_noEC", "model": "T", "features": ["toyE"], "params": {}, "grid": {},
                     "exclude_from_training": list(EC)},
@@ -143,7 +148,8 @@ def make_world(tmp_path, seed=0, n_dev=160, n_test=60, n_genes=N_GENES, signal=1
     (repo / "cache" / "runs" / "toy_cv_t").mkdir(parents=True)
     cv["pred"].astype(np.float32).to_parquet(repo / "cache" / "runs" / "toy_cv_t" / "pred.parquet")
     fin["T"]["cv_run_id"] = "toy_cv_t"
-    finalists = {"headline": fin["headline"], "T": fin["T"], "H3_noEC": fin["H3_noEC"],
+    fin["additional"].update(cv_run_id="toy_cv_add", own_predictable_genes="configs/predictable_genes_add.csv")
+    finalists = {"headline": fin["headline"], "additional": [fin["additional"]], "T": fin["T"], "H3_noEC": fin["H3_noEC"],
                  "baselines": {b: fin[b] for b in ("B0", "B1", "B2")}}
     (repo / "configs" / "finalists.json").write_text(json.dumps(finalists, indent=1))
     git(repo, "init", "-q")

@@ -36,6 +36,13 @@ THREAD_VARS = ["OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "NU
                "VECLIB_MAXIMUM_THREADS"]
 EC_DEV = ["ACH-001578", "ACH-002291", "ACH-001374", "ACH-001668"]  # D20d: the 4 EC dev lines
 ROLE_ORDER = ["headline", "T", "H3_noEC", "B1", "B2", "B0"]  # access order (most important first)
+ADDITIONAL_PREFIX = "add_"  # role of an additional finalist (D23f: m1_E_resB0) = add_<name>
+
+
+def access_order(fin: dict) -> list:
+    """headline, additional finalists (file order), T, H3 no-EC, B1, B2, B0."""
+    adds = [r for r in fin if r.startswith(ADDITIONAL_PREFIX)]
+    return ["headline"] + adds + [r for r in ROLE_ORDER if r != "headline" and r in fin]
 
 
 def set_threads_early(argv, default=4):
@@ -110,6 +117,7 @@ class Finalist:
     config_hash: str
     cfg: dict
     cv_run_id: str = ""
+    own_predictable_genes: str = ""   # optional secondary tier table of this finalist (D22f: m1_E_resB0)
 
     @property
     def tag(self):
@@ -126,6 +134,11 @@ def load_finalists(path, root=ROOT) -> dict:
     raw = {"headline": d.get("headline"), "T": d.get("T"), "H3_noEC": d.get("H3_noEC")}
     for b in ("B0", "B1", "B2"):
         raw[b] = (d.get("baselines") or {}).get(b)
+    adds = d.get("additional") or []
+    if not isinstance(adds, list):
+        raise ValueError("'additional' must be a list of finalist entries")
+    for e in adds:
+        raw[ADDITIONAL_PREFIX + str(e.get("name"))] = e
     missing = [k for k, v in raw.items() if not v]
     if missing:
         raise ValueError(f"finalists file lacks {missing}")
@@ -140,7 +153,8 @@ def load_finalists(path, root=ROOT) -> dict:
             raise ValueError(f"finalist {role} ({e['name']}): config hash {h} != recorded {e['config_hash']}")
         if cfg.get("name") != e["name"]:
             raise ValueError(f"finalist {role}: name {e['name']} != config name {cfg.get('name')}")
-        out[role] = Finalist(role, e["name"], e["config"], h, cfg, e.get("cv_run_id", ""))
+        out[role] = Finalist(role, e["name"], e["config"], h, cfg, e.get("cv_run_id", ""),
+                             e.get("own_predictable_genes", ""))
     if len({f.config_hash for f in out.values()}) != len(out):
         raise ValueError("finalists must have distinct config hashes (one access each)")
     for b in ("B0", "B1", "B2"):
@@ -370,14 +384,21 @@ def _check_fit_log(start, paths: Paths):
     return len(ids)
 
 
-def refit_predict(f: Finalist, pop: Population, paths: Paths, feature_loader=None, predict_ids=None):
+def refit_predict(f: Finalist, pop: Population, paths: Paths, feature_loader=None, predict_ids=None,
+                  params_extra=None):
     """Tune + fit ``f`` on pop.train_ids (minus exclusions) and predict ``predict_ids`` (default held-out).
 
     Same protocol as one outer fold of scripts/run.py (inner grouped tuning, sentinel). Seed =
     split_seed (+0). Returns dict(model, pred, chosen, fit_s, predict_s, n_train_ids).
+    M5 (m5_avg): ``fit`` only stores the training data (average mode); its inputs (M1, M2 with nested local
+    lambda, M3 with nested early stopping, exactly as in CV) are refitted on the training lines inside
+    ``predict``, so the refit time is fit_s + predict_s. ``params_extra`` (not part of the config hash) only
+    switches execution options such as M5's prediction cache (``{"cache": False}``: a genuine refit).
     """
     feature_loader = feature_loader or default_feature_loader
     cfg = f.cfg
+    if params_extra:
+        cfg = dict(cfg, params={**cfg.get("params", {}), **params_extra})
     eval_genes, neg, seed = _common(paths)
     excl = pd.Index(map(str, cfg.get("exclude_from_training", [])))
     tr = pop.train_ids[~pop.train_ids.isin(excl)]
@@ -390,6 +411,11 @@ def refit_predict(f: Finalist, pop: Population, paths: Paths, feature_loader=Non
         cfg["model"], cfg.get("params", {}), cfg.get("grid", {}), Y_tr, ho, pop.lineage, X, pop.patient,
         sent, eval_genes, neg, cfg.get("inner_folds", 5), seed, cfg.get("inner_min_obs", 30))
     n_train = _check_fit_log(n0, paths)
+    for e in getattr(model, "input_fit_log_", None) or []:  # M5: its input refits happen inside predict
+        RUN.FIT_LOG.append({"tag": f"m5_input:{e['input']}", "outer_fold": "refit", "ids": e["ids"]})
+        bad = set(e["ids"]) & set(map(str, ho.union(excl)))
+        if bad or (guard.roles_of(e["ids"], paths.splits) != "dev").any():
+            raise RUN.LeakageError(f"M5 input {e['input']} was fitted on held-out / non-dev lines")
     return {"model": model, "pred": pred, "chosen": best, "fit_s": t_fit, "predict_s": t_pred,
             "n_train_ids": n_train, "train_ids": tr}
 
