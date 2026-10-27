@@ -194,6 +194,26 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     because POU5F1 and PRDM14 are not predicted in EC lines even with them in training (−0.10 vs −0.88 observed).
     This is stated now so a failed H3 cannot be explained away later.
   - **(f) Caches:** keep cache/m2_inner and cache/runs until M5 and G4 finish; delete after G4.
+- D21 (pre-G4, held-out evaluation scripts; scripts/evaluate_test.py, evaluate_transfer.py; proposed, PI to
+  confirm). All choices were made on toy data and a dev-only dry run (dev fold 0 standing in for the test set),
+  before any test, set-A or set-B access.
+  - **(a) Access-log protocol:** results/test_access_log.csv is tracked, and the guard appends a row on each access.
+    So the scripts commit that file alone before every further access and at the end. Otherwise the second
+    finalist would be refused with "dirty tree". The alternative is to untrack the log.
+  - **(b) P2b CI method:** resampled per-gene AP is biased upward, because a duplicated positive line credits its own
+    copy. On the dev dry run, nAP was +0.017 and the percentile CI excluded the point. The P2b CI is therefore
+    point ± 1.96 × bootstrap SE, with the percentile interval and the bias also reported. P1, P2a and AUROC are not
+    affected. The frozen transfer bootstrap has the same, much smaller effect (estimated at a few thousandths) on Q3a AP. It is
+    disclosed as boot_mean_minus_point in the G6 output, and the frozen code is unchanged.
+  - **(c) Post-freeze change acknowledged:** scripts/transfer_criteria.py differs from its freeze-transfer hash. In
+    commit 8a613f0 only the read path changed (guard.load_harmonised); computations are unchanged (independent
+    review). G6 accepts exactly the pinned content (sha256 87ecfaf5…, LF-normalised).
+  - **(d) Unguarded read, logged:** while restricting the anchor readers, GSE156284 (Mair 2019 counts, which include
+    the hESC set-B arms next to the HAP1 anchor) was loaded once to list its column names. No values were inspected
+    or used. The G6 anchor reader now parses only anchor columns.
+  - **(e) Dry-run observation:** with the real anchor screens, no library-matched anchor has positive T skill (all
+    lower CIs ≤ 0 on dev-fold stand-in models). If this holds at G6, the anchor gate is not informative and
+    "fails" is unreachable. Verdicts would then be transfers or inconclusive only.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
