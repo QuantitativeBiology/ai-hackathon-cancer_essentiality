@@ -180,3 +180,25 @@ for the M1 base. LightGBM 4.7.0.
 - Interpretation: once expression is used linearly, the residual nonlinearity that boosted
   trees on screened E/C/M/H/lineage features can find is worth ~0.002 P1 — consistent with the
   literature (RF ≈ EN). Not worth the extra rung under the pre-registered δ.
+
+### R5. R2 Shi-style elastic net (published-method re-run; not a selection candidate)
+Run `g3_r2_sub150` 20261027-022710: first 150 genes of the pre-declared random variable subset
+(D-G3-3), all 5 folds, exact coordinate descent (sklearn 1.5.2 `ElasticNetCV`, l1_ratio 0.5,
+20 penalties to 0.05 × max, 3 patient-grouped inner folds), ~18.1k standardised E features.
+Wall 2 h 08 min (fit+predict 7,485 s) at 6 processes — the 2 h box was met only by cutting to
+150 genes.
+
+Same 150 genes (dev-wide variable, evaluable in every fold), per-fold means then averaged:
+
+| model | P1 | ΔP1 vs m1_E_resB0 (SE; folds) | mean Spearman | genes r ≥ 0.2 (per fold) |
+|---|---|---|---|---|
+| m1_E_resB0 | 0.3270 | — | 0.2944 | 122.4 |
+| R1 (ridge) | 0.3263 | −0.0007 (0.0007) | 0.2931 | 123.2 |
+| **R2 elastic net** | **0.2967** | **−0.0303 (0.0014; 0/5)** | 0.2600 | 105.4 |
+| B2 (kNN) | 0.2726 | −0.0545 | 0.2411 | 101.2 |
+| B1 (lineage mean) | 0.2040 | −0.1230 | 0.1818 | 72.6 |
+
+- Elastic net keeps a median of ~50 features per gene and loses 0.030 P1 to dense multi-output
+  ridge (better on only 30% of gene-folds). This matches the literature's "ridge ≥ sparse linear"
+  on held-out lines, and it is ~1,000× more expensive per gene than the kernel ridge.
+- P1 all / P2b of this run are not meaningful (all other genes are predicted by the training mean).
