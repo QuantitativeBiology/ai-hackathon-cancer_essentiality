@@ -122,6 +122,17 @@ def make_world(tmp_path, seed=0, n_dev=160, n_test=60, n_genes=N_GENES, signal=1
         p = repo / "configs" / "runs" / f"{c['name']}.json"
         p.write_text(json.dumps(c, indent=1))
         fin[role] = {"name": c["name"], "config": f"configs/runs/{c['name']}.json", "config_hash": HC.config_hash(c)}
+    # a registered toy CV run of T (independent run_cv), so G4's fold-model reproduction check has a reference
+    cfg_t = {k: v for k, v in json.loads((repo / "configs" / "runs" / "toy_t.json").read_text()).items()
+             if k != "reference_baselines"}
+    sp_dev = splits.set_index("ModelID").loc[dev]
+    neg, _ = genesets.load_hart_neg()
+    cv = HC.RUN.run_cv(Ydf.loc[dev].astype(np.float64), sp_dev["cv_fold"].astype(int), sp_dev["PatientID"].astype(str),
+                       sp_dev["OncotreeLineage"].astype(str), feat.loc[dev].add_prefix("toyE:"), cfg_t,
+                       pd.Index(genes), neg, 20261026, log=lambda *_: None)
+    (repo / "cache" / "runs" / "toy_cv_t").mkdir(parents=True)
+    cv["pred"].astype(np.float32).to_parquet(repo / "cache" / "runs" / "toy_cv_t" / "pred.parquet")
+    fin["T"]["cv_run_id"] = "toy_cv_t"
     finalists = {"headline": fin["headline"], "T": fin["T"], "H3_noEC": fin["H3_noEC"],
                  "baselines": {b: fin[b] for b in ("B0", "B1", "B2")}}
     (repo / "configs" / "finalists.json").write_text(json.dumps(finalists, indent=1))

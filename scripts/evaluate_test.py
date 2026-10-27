@@ -147,7 +147,9 @@ def preflight(fin: dict, paths: HC.Paths, dry: bool, finalists_rel: str, resume=
     if not dry:
         failed = [k for k, v in checks.items() if not v["pass"]]
         if failed:
-            raise SystemExit(f"G4 refused to start: {failed}\n{json.dumps(checks, indent=1)}")
+            hint = ("\nIf only results/test_access_log.csv is modified (a crash after an access), commit that file "
+                    "alone and re-run with --resume.") if "tree_clean" in failed else ""
+            raise SystemExit(f"G4 refused to start: {failed}\n{json.dumps(checks, indent=1)}{hint}")
     return checks
 
 
@@ -187,6 +189,11 @@ def phase_a_one(f: HC.Finalist, paths: HC.Paths, dry: bool, threads: int, featur
             p.astype(np.float32).to_parquet(fpath)
             entry["fold_preds"][str(k)] = {"file": paths.rel(fpath), "sha256": HC.sha256_file(fpath)}
         entry["fold_models"] = {"tag": info["tag"], "source": info["source"]}
+        if not dry:  # D7 models behind every G6 verdict: must reproduce the registered CV run (before any access)
+            rep = HC.cv_reproduction(f, HC.fold_models_oof(models, f, pop, feature_loader), paths)
+            entry["fold_models"]["cv_reproduction"] = rep
+            if not rep["ok"]:
+                raise SystemExit(f"{f.name}: fold models do not reproduce CV run {f.cv_run_id}: {rep}")
     rss, how = HC.peak_rss()
     entry.update(peak_rss_mb=rss, rss_method=how, total_s=time.perf_counter() - t0)
     write_manifest_entry(paths, f.name, entry)
@@ -490,7 +497,7 @@ def phase_b(fin, paths, pop, man, n_boot, dry, log=print, min_obs=MIN_OBS_TEST, 
         rehearse(fin, preds_role, ctx, pop, paths, log)
     # per-run file names: outputs committed by an earlier (crashed) run are never modified before an access
     prior = []
-    for q in sorted(Path(paths.out_dir).glob("access_ledger_*.json")):
+    for q in ([] if dry else sorted(Path(paths.out_dir).glob("access_ledger_*.json"))):  # dry runs repeatable
         prior += json.loads(q.read_text())
     ledger = HC.AccessLedger(Path(paths.out_dir) / f"access_ledger_{run_tag}.json")
     ledger.rows = prior

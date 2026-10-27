@@ -20,7 +20,7 @@ Tag convention (an HTML comment immediately before the number; invisible when re
 * The number must be on the same line as its tag. Rounding is judged at the printed precision
   ("0.3" for 0.3081 passes: it is correctly rounded); print the precision the claim needs.
 * Every run id cited anywhere in the file (YYYYMMDD-HHMMSS_<name>_<hash8>) must exist in
-  results/registry.csv with status ok (or complete); a run flagged leaky=1 may be cited only on a
+  results/registry.csv with status ok (or complete; an empty status fails); a run flagged leaky=1 may be cited only on a
   line that also says "leaky".
 * ``--strict`` (use at G7): also fail on every untagged decimal number or percentage in prose
   (outside code blocks; bare integers such as years and counts are not checked).
@@ -164,7 +164,7 @@ def check(report: Path, root: Path = ROOT, registry: Path | None = None, strict=
         msg = None
         if row is None:
             msg = "run id not in results/registry.csv"
-        elif str(row.get("status") or "ok") not in ("ok", "complete"):
+        elif str(row.get("status") or "") not in ("ok", "complete"):
             msg = f"cited run has status {row.get('status')}"
         elif str(row.get("leaky") or "0") == "1" and "leaky" not in lines[ln - 1].lower():
             msg = "cited run is leaky=1 but the line does not say so"
@@ -176,7 +176,7 @@ def check(report: Path, root: Path = ROOT, registry: Path | None = None, strict=
         clean = RUN_ID.sub(lambda m: " " * len(m.group(0)), clean)
         for m in UNTAGGED.finditer(clean):
             rows.append({"line": line_of(m.start()), "key": "(untagged)", "printed": m.group(0), "ok": False,
-                         "msg": "untagged number with >= 2 decimals (--strict)"})
+                         "msg": "untagged decimal number or percentage (--strict)"})
     return rows
 
 

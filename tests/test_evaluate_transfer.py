@@ -175,3 +175,22 @@ def test_b2_external_profile_fills_unmeasured_genes_with_training_mean():
     assert np.isfinite(m.predict([pid], X=Xe).to_numpy()).all()
     with pytest.raises(NotImplementedError):
         ETR.real_x_builder(HC.Finalist("M5", "m5", "x", "1" * 64, {"model": "M5"}), m, "state:x", row, "WT")
+
+
+def test_resume_after_crash_inside_a_part_marks_it_spent(g6):
+    """Simulate a crash after hPSC's screens were accessed but before its results were written: on resume the
+    part is marked access_spent_incomplete (no second access); completed parts are not re-accessed."""
+    w, tw, _, _, _ = g6
+    d = w["repo"] / "results" / "transfer" / "setB"
+    for f in ("hPSC.json", "hPSC_secondary.json", "bgI_secondary.json"):
+        (d / f).unlink()
+    TH.git(w["repo"], "add", "-A")                   # the PI commits what the crashed run left (as instructed)
+    TH.git(w["repo"], "commit", "-q", "-m", "partial G6 set B")
+    n0 = len(_log(w))
+    s = _run(w, tw, "B", resume=True)
+    assert len(_log(w)) == n0                                   # nothing accessed again
+    assert json.loads((d / "hPSC.json").read_text())["status"] == "access_spent_incomplete"
+    assert s["setB"]["verdicts"]["hPSC"]["Q3a"]["verdict"] == "inconclusive"
+    assert s["setB"]["verdicts"]["RPE1"]["Q3a"]["verdict"] == "transfers"   # reloaded, not recomputed
+    assert sorted(map(tuple, s["preflight"]["spent_incomplete_parts"]["parts"])) == [
+        ("B", "hPSC"), ("Bsec", "bgI"), ("Bsec", "hPSC")]

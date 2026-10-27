@@ -207,6 +207,8 @@ def commit_access_log(paths: Paths, message: str) -> str | None:
     if not is_tracked(paths.root, rel):
         return None
     st = _git(["status", "--porcelain", "--untracked-files=no"], paths.root).stdout.splitlines()
+    if not any(l.strip() and l[3:].strip() == rel for l in st):
+        return git_head(paths.root)  # the log is unchanged: nothing to commit
     other = [l for l in st if l.strip() and l[3:].strip() != rel]
     if other:
         raise RuntimeError(f"tracked files other than the access log are modified: {other}")
@@ -430,6 +432,38 @@ def load_or_fit_fold_models(f: Finalist, pop: Population, paths: Paths, dry: boo
     mp.write_text(json.dumps(meta))
     info = {"source": "fitted", "tag": tag, "fit_s": res["fit_s"], "oof_pred": res["pred"]}
     return modelstore.load_fold_models(tag, paths.model_dir, tl), info
+
+
+CV_REPRO_TOL = 1e-3
+
+
+def fold_models_oof(models, f: Finalist, pop: Population, feature_loader=None) -> pd.DataFrame:
+    """Each fold model predicts its own held-out fold (pop.folds == k): the run's out-of-fold predictions."""
+    feature_loader = feature_loader or default_feature_loader
+    parts = []
+    for k, m, _ in models:
+        ids = pd.Index(pop.folds.index[pop.folds == k])
+        X = feature_loader(f.cfg.get("features", []), ids)
+        lin = pop.lineage.reindex(ids)
+        parts.append(m.predict(ids, lineage=lin, X=X.loc[ids] if isinstance(X, pd.DataFrame) else X))
+    return pd.concat(parts)
+
+
+def cv_reproduction(f: Finalist, oof: pd.DataFrame, paths: Paths) -> dict:
+    """Fold models' OOF predictions vs the registered CV run's cache/runs/<cv_run_id>/pred.parquet."""
+    if not f.cv_run_id:
+        return {"status": "no cv_run_id in finalists file", "ok": False}
+    p = Path(paths.cv_cache) / f.cv_run_id / "pred.parquet"
+    if not p.exists():
+        return {"cv_run_id": f.cv_run_id, "status": "cached CV predictions not found", "ok": False}
+    P = pd.read_parquet(p)
+    P.columns = P.columns.astype(str)
+    o = oof.copy()
+    o.columns = o.columns.astype(str)
+    ids, g = o.index.intersection(P.index), o.columns.intersection(P.columns)
+    d = float(np.abs(o.loc[ids, g].to_numpy(np.float64) - P.loc[ids, g].to_numpy(np.float64)).max())
+    return {"cv_run_id": f.cv_run_id, "n_lines": int(len(ids)), "n_genes": int(len(g)), "max_abs_diff": d,
+            "ok": bool(len(ids) == len(oof) and d <= CV_REPRO_TOL)}
 
 
 def predict_folds(models, ids, lineage, X) -> dict:

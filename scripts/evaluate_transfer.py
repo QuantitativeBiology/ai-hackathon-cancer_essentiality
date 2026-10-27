@@ -88,9 +88,10 @@ SUPPORTED_X_MODELS = {"M1", "M1b", "R1", "T", "B2"}   # real_x_builder can feed 
 CV_REPRO_TOL = 1e-3                                    # refit fold models vs the registered CV run (OOF preds)
 SELF_CHECK_TOL = 1e-4
 # criteria inputs changed after the transfer freeze for a logged reason (reported in preflight; PI to confirm)
-KNOWN_POST_FREEZE = {"scripts/transfer_criteria.py": "commit 8a613f0: the replicate-ceiling read was routed through "
-                                                     "guard.load_harmonised (logged G0 provenance item); computations "
-                                                     "unchanged"}
+KNOWN_POST_FREEZE = {  # path -> (pinned sha256 of the accepted post-freeze content, LF-normalised; reason)
+    "scripts/transfer_criteria.py": ("87ecfaf528432b2cd15fb953d0d2486d3878c682ecaca8d235c5f48eb91762a4",
+                                     "commit 8a613f0: the replicate-ceiling read was routed through guard.load_harmonised "
+                                     "(G0 provenance item); computations unchanged (independent review)")}
 NEG_CONTROL_SYMBOLS = {"oncogene_addiction": ["KRAS", "BRAF", "CTNNB1"],
                        "cn_null": ["SMARCA2", "ARID1B", "STAG1", "ME2", "ME3", "ENO1"]}
 
@@ -140,8 +141,9 @@ class ModelBank:
                                                       log=self.log)
             self.models[role] = models
             self.info[role] = {k: v for k, v in info.items() if k != "oof_pred"}
-            if "oof_pred" in info and not self.dry:  # dry-run fold models train on other lines than CV
-                self.info[role]["cv_reproduction"] = cv_reproduction(f, info["oof_pred"], self.paths)
+            if not self.dry and self.x_builder is real_x_builder:  # dry-run models train on other lines than CV
+                oof = HC.fold_models_oof(models, f, self.pop, self.feature_loader)
+                self.info[role]["cv_reproduction"] = HC.cv_reproduction(f, oof, self.paths)
         return self.models[role]
 
     def predict(self, role, profile_id, tp53="WT", models=None) -> dict:
@@ -317,9 +319,18 @@ def comparator(W: World, spec, key, b0=None, b1n=None):
     return W.comp[spec["B1_nearest_column"]] if b1n is None else b1n
 
 
+def skill_boot(*a, **kw):
+    """TR.skill_bootstrap with the replicates kept (for the bias disclosure in skill_summary)."""
+    return TR.skill_bootstrap(*a, keep_boot=True, **kw)
+
+
 def skill_summary(res):
     keep = ("point", "ci_lo", "ci_hi", "se", "n_boot_valid", "n_entries_valid", "entries_invalid")
     out = {k: res.get(k) for k in keep}
+    b = np.asarray(res.get("boot", []), np.float64)
+    if b.size and np.isfinite(b).any() and res.get("point") is not None and np.isfinite(res["point"]):
+        # resampled (weighted) AP credits duplicated genes' own copies: disclosed, the frozen CI is unchanged
+        out["boot_mean_minus_point"] = float(np.nanmean(b) - res["point"])
     out["per_study"] = {k: r6(v) for k, v in res.get("per_study", {}).items()}
     out["per_entry"] = {k: r6(v) for k, v in res.get("per_entry", {}).items()}
     out["model_abs_per_entry"] = {k: r6(v) for k, v in res.get("model_abs_per_entry", {}).items()}
@@ -361,7 +372,7 @@ def anchor_results(bank, spec, W: World, anchors: dict, key, log=print):
         plan = TR.BootstrapPlan([aid], U, TR.paralog_blocks(U, W.pairs), W.n_boot, W.seed)
         ev = {aid: make_evals([ent], key, W, plan)[aid]}
         pred = bank.predict("T", f"line:{depmap_id}", "depmap", models)
-        res = TR.skill_bootstrap(ev, {aid: pred}, {aid: b0 if STATS[key][2] == "B0" else b1}, plan)
+        res = skill_boot(ev, {aid: pred}, {aid: b0 if STATS[key][2] == "B0" else b1}, plan)
         out[aid] = dict(skill_summary(res), depmap_id=depmap_id, oof_folds=[k for k, _, _ in models],
                         n_universe=int(len(U)))
     return out
@@ -393,9 +404,9 @@ def evaluate_background(bg, spec, W: World, bank: ModelBank, obs: Observed, fin,
     for key in STATS:
         evals = make_evals(eligible, key, W, plan)
         cvec = comparator(W, spec, key)
-        res = TR.skill_bootstrap(evals, preds_T, {n: cvec for n in evals}, plan)
+        res = skill_boot(evals, preds_T, {n: cvec for n in evals}, plan)
         s = {"T": skill_summary(res), "verdict_bearing": key in PRIMARY.values()}
-        s["T_ensemble"] = skill_summary(TR.skill_bootstrap(evals, {n: ens(p) for n, p in preds_T.items()},
+        s["T_ensemble"] = skill_summary(skill_boot(evals, {n: ens(p) for n, p in preds_T.items()},
                                                            {n: cvec for n in evals}, plan))
         rc = spec.get("replicate_ceiling", {}).get(key)
         if frozen_ceiling:  # real run: the frozen ceiling (never recomputed after the transfer freeze)
@@ -427,7 +438,7 @@ def evaluate_background(bg, spec, W: World, bank: ModelBank, obs: Observed, fin,
         for label, profs in spec.get("expression_swap_profiles", {}).items():
             for pid in profs:
                 sp = entry_preds(bank, "T", spec, eligible, profile_override=pid)
-                r = TR.skill_bootstrap(evals, sp, {n: cvec for n in evals}, plan)
+                r = skill_boot(evals, sp, {n: cvec for n in evals}, plan)
                 sw[f"{label}|{pid}"] = skill_summary(r)
         stats[key]["swap"] = sw
         stats[key]["matched_minus_swap_point"] = {k: (stats[key]["T"]["point"] - v["point"])
@@ -459,7 +470,7 @@ def evaluate_background(bg, spec, W: World, bank: ModelBank, obs: Observed, fin,
             for key in PRIMARY.values():
                 ev2 = make_evals(eligible, key, W, plan,
                                  universe=lambda e: TR.gene_universe(e.observed, W.eval_genes, W.excl | W.ceg_all))
-                r = TR.skill_bootstrap(ev2, preds_T, {n: comparator(W, spec, key) for n in ev2}, plan)
+                r = skill_boot(ev2, preds_T, {n: comparator(W, spec, key) for n in ev2}, plan)
                 sec[f"{key}_without_CEGv2"] = skill_summary(r)
         sec["deviation_corr_T_ensemble"] = deviation_corrs(eligible, preds_T, W)
         sec["lost_gained_essentials"] = lost_gained(eligible, preds_T, W)
@@ -485,7 +496,7 @@ def secondary_models(bg, spec, W: World, bank, obs: Observed, fin, log=print):
             p2 = entry_preds(bank, role, spec, el2)
             for key in PRIMARY.values():
                 ev2 = make_evals(el2, key, W, plan)
-                r = TR.skill_bootstrap(ev2, p2, {n: comparator(W, spec, key) for n in ev2}, plan)
+                r = skill_boot(ev2, p2, {n: comparator(W, spec, key) for n in ev2}, plan)
                 out[f"{key}_{role}"] = skill_summary(r)
             out[f"deviation_corr_{role}"] = deviation_corrs(el2, p2, W)
         except Exception as e:  # noqa: BLE001
@@ -592,11 +603,20 @@ def neg_controls(r, W: World):
     return nc
 
 
+DONE_STATUS = ("complete", "complete_with_errors", "access_spent_incomplete")
+
+
 def _done(path):
-    return Path(path).exists() and json.loads(Path(path).read_text()).get("status") in ("complete", "complete_with_errors")
+    return Path(path).exists() and json.loads(Path(path).read_text()).get("status") in DONE_STATUS
 
 
-def stage_b(crit, W, bank, obs, fin, anchors, h2_arms, out_dir, frozen_ceiling, secondary, resume=False, log=print):
+def spent_record(what):
+    return {"status": "access_spent_incomplete", "errors": {},
+            "note": f"{what}: screens were accessed by a crashed run and cannot be re-accessed (guard); PI decision"}
+
+
+def stage_b(crit, W, bank, obs, fin, anchors, h2_arms, out_dir, frozen_ceiling, secondary, resume=False, log=print,
+            spent=frozenset()):
     """Set B. Access order: per background (RPE1, hPSC, others) the primary T screens, then the
     background's hypothesis screens (RPE1: Bowden with T; hPSC: Mair with the no-EC variant); each
     background's verdicts and hypotheses are written before the next background is accessed. Secondary
@@ -610,6 +630,12 @@ def stage_b(crit, W, bank, obs, fin, anchors, h2_arms, out_dir, frozen_ceiling, 
         if resume and _done(p):
             res[bg] = json.loads(p.read_text())
             log(f"set B {bg}: complete (resume), not accessed again")
+            continue
+        if ("B", bg) in spent:
+            res[bg] = dict(spent_record(f"set B {bg}"), plan={"matches_frozen_plan": None}, statistics={},
+                           verdicts={q: {"verdict": TR.INCONCLUSIVE, "reasons": ["access spent, results lost"]}
+                                     for q in PRIMARY})
+            HC.write_json(p, res[bg])
             continue
         log(f"set B background {bg} ...")
         r = evaluate_background(bg, crit["backgrounds"][bg], W, bank, obs, fin, anchors, frozen_ceiling, log=log)
@@ -631,6 +657,10 @@ def stage_b(crit, W, bank, obs, fin, anchors, h2_arms, out_dir, frozen_ceiling, 
             p = d / f"{bg}_secondary.json"
             if resume and _done(p):
                 sec[bg] = json.loads(p.read_text())
+                continue
+            if ("Bsec", bg) in spent:
+                sec[bg] = spent_record(f"set B {bg} secondary")
+                HC.write_json(p, sec[bg])
                 continue
             log(f"set B {bg}: secondary models ...")
             s2 = secondary_models(bg, crit["backgrounds"][bg], W, bank, obs, fin, log)
@@ -655,8 +685,7 @@ def stage_b(crit, W, bank, obs, fin, anchors, h2_arms, out_dir, frozen_ceiling, 
                                       for k, v in res[bg]["statistics"].items()} for bg in order},
           "errors": {bg: res[bg].get("errors") for bg in order if res[bg].get("errors")}}
     sb["status"] = "complete" if not sb["errors"] else "complete_with_errors"
-    HC.write_json(d / "summary.json", HC.clean_floats(sb))
-    return sb
+    return sb  # written by the caller after the final access-log commit
 
 
 # ============================================================================ set A
@@ -680,7 +709,7 @@ def evaluate_set_a(crit, W: World, bank: ModelBank, obs: Observed, fin, test_ref
             ev = {ln: make_evals([ent], key, W, plan, universe=lambda e, U=U: U)[ln]}
             pred = bank.predict("T", f"line:{ln}", "WT")
             cvec = W.comp["B0"] if STATS[key][2] == "B0" else W.comp[b1_col]
-            r = TR.skill_bootstrap(ev, {ln: pred}, {ln: cvec}, plan)
+            r = skill_boot(ev, {ln: pred}, {ln: cvec}, plan)
             rows[ln] = dict(skill_summary(r), n_universe=int(len(U)))
         dist = None if test_ref is None else test_ref[f"{q}_fold"].to_numpy(np.float64)
         desc = TR.set_a_descriptive({k: {"point": v["point"] if v["point"] is not None else np.nan,
@@ -709,7 +738,7 @@ def evaluate_set_a(crit, W: World, bank: ModelBank, obs: Observed, fin, test_ref
                     ent = TR.Entry(name=ln, study=ln, observed=o, tp53="WT")
                     ev = {ln: make_evals([ent], key, W, plan, universe=lambda e, U=U: U)[ln]}
                     cvec = W.comp["B0"] if STATS[key][2] == "B0" else W.comp[b1_col]
-                    rows[ln] = skill_summary(TR.skill_bootstrap(ev, {ln: bank.predict("headline", f"line:{ln}", "WT")},
+                    rows[ln] = skill_summary(skill_boot(ev, {ln: bank.predict("headline", f"line:{ln}", "WT")},
                                                                 {ln: cvec}, plan))
                 sec[key] = rows
             out["secondary_headline"] = sec
@@ -775,11 +804,16 @@ def real_anchor_profiles(crit, paths) -> dict:
     if (roles != "dev").any():
         raise guard.BlindingError(f"anchor lines must be dev lines: {roles[roles != 'dev'].to_dict()}")
     _restricted_anchor_tables(HS, entries, list(want), paths.root)
+    rep_tab = pd.read_csv(paths.root / "results" / "harmonisation" / "anchor_scoring_report.csv").set_index("id")
     sym = HS.SymbolMap()
     out = {}
     for aid, mid in want.items():
         raw, _ = HS.raw_arm_scores(entries[aid], sym)
         ms, mn = H.affine_params(raw, cs["scaling_set"], cs["neg_scaling"])
+        r = rep_tab.loc[aid] if aid in rep_tab.index else None
+        if r is None or abs(ms - r["m_scaling"]) > 1e-6 or abs(mn - r["m_neg"]) > 1e-6 or len(raw) != int(r["n_genes"]):
+            raise RuntimeError(f"anchor {aid}: recomputed scoring differs from results/harmonisation/"
+                               f"anchor_scoring_report.csv ({ms}, {mn}, {len(raw)})")
         out[aid] = (H.affine_apply(raw, ms, mn).astype(np.float64), mid)
     return out
 
@@ -881,7 +915,10 @@ def preflight(fin, crit, paths, dry, stage, finalists_rel, secondary, h2_arms, r
         if not fp.exists():
             missing.append(f)
         elif HC.sha256_lf(fp) != h and HC.sha256_file(fp) != h:
-            (known.__setitem__(f, KNOWN_POST_FREEZE[f]) if f in KNOWN_POST_FREEZE else changed.append(f))
+            if f in KNOWN_POST_FREEZE and HC.sha256_lf(fp) == KNOWN_POST_FREEZE[f][0]:
+                known[f] = KNOWN_POST_FREEZE[f][1]
+            else:
+                changed.append(f)
     checks["criteria_inputs_unchanged"] = {"pass": not missing and not changed, "missing": missing, "changed": changed,
                                            "known_post_freeze_changes": known}
     HC.check_noec_matches_T(fin["H3_noEC"], fin["T"])
@@ -895,20 +932,26 @@ def preflight(fin, crit, paths, dry, stage, finalists_rel, secondary, h2_arms, r
         checks["setA_test_reference_present"] = {"pass": test_ref is not None and Path(test_ref).exists(),
                                                  "file": None if test_ref is None else paths.rel(test_ref)}
     done = done_parts(crit, paths.out_dir) if resume else set()
-    planned = planned_accesses(crit, stage, secondary, h2_arms, done)
-    grant = {}
-    for role, scope in planned:
+    planned = planned_accesses(crit, stage, secondary, h2_arms, done, with_parts=True)
+    grant, spent = {}, set()
+    for role, scope, part in planned:
         f = fin[role]
         ok, reason = guard.unblinding_check(f.config_hash, scope, paths.root, paths.access_log)
+        if resume and reason == "finalist already accessed this scope":
+            spent.add(part)  # a crash inside this part: its screens cannot be re-accessed (PI decision)
         grant[f"{f.name}|{scope}"] = reason
-    checks["guard_would_grant"] = {"pass": all(v == "ok" for v in grant.values()), "n_planned": len(planned),
+    rest = {k: v for (role, scope, part), (k, v) in zip(planned, grant.items()) if part not in spent}
+    checks["guard_would_grant"] = {"pass": all(v == "ok" for v in rest.values()), "n_planned": len(rest),
                                    "skipped_complete_parts": sorted(map(list, done)), "per_access": grant}
+    checks["spent_incomplete_parts"] = {"pass": True, "parts": sorted(map(list, spent))}
     if stage == "B":
         checks["setA_done_first"] = {"pass": _done(Path(paths.out_dir) / "setA" / "summary.json")}
     if not dry:
         failed = [k for k, v in checks.items() if not v["pass"]]
         if failed:
-            raise SystemExit(f"G6 refused to start: {failed}\n{json.dumps(checks, indent=1)[:4000]}")
+            hint = ("\nIf only results/test_access_log.csv is modified (a crash after an access), commit that file "
+                    "alone and re-run with --resume.") if "tree_clean" in failed else ""
+            raise SystemExit(f"G6 refused to start: {failed}\n{json.dumps(checks, indent=1)[:4000]}{hint}")
     return checks
 
 
@@ -923,30 +966,38 @@ def verdict_arms(crit):
     return arms
 
 
-def planned_accesses(crit, stage, secondary, h2_arms, done=frozenset()):
-    """(role, scope) of every target access a stage will make, in access order; completed parts excluded."""
+def planned_accesses(crit, stage, secondary, h2_arms, done=frozenset(), with_parts=False):
+    """(role, scope) of every target access a stage will make, in access order; completed parts excluded.
+    with_parts=True returns (role, scope, part) with part ("A",) / ("B", bg) / ("Bsec", bg)."""
+    out = planned_parts(crit, stage, secondary, h2_arms, done)
+    return out if with_parts else [(r, sc) for r, sc, _ in out]
+
+
+def planned_parts(crit, stage, secondary, h2_arms, done):
     out = []
     if stage in ("A", "all") and ("A",) not in done:
-        out.append(("T", "setA:A1"))
+        out.append(("T", "setA:A1", ("A",)))
         if secondary:
-            out.append(("headline", "setA:A1"))
+            out.append(("headline", "setA:A1", ("A",)))
     if stage in ("B", "all"):
         bgs = [b for b, sp in crit["backgrounds"].items() if sp.get("verdict_eligible")]
         order = sorted(bgs, key=lambda b: (b != "RPE1", b != "hPSC", b))
         for bg in order:
             if ("B", bg) in done:
                 continue
-            out += [("T", f"setB:{a}") for a in verdict_arms({"backgrounds": {bg: crit["backgrounds"][bg]}})]
+            pt = ("B", bg)
+            out += [("T", f"setB:{a}", pt) for a in verdict_arms({"backgrounds": {bg: crit["backgrounds"][bg]}})]
             if bg == "RPE1":
-                out += [("T", f"setB:{a}") for a in (h2_arms.get("bowden_wt"), h2_arms.get("bowden_ko")) if a]
+                out += [("T", f"setB:{a}", pt) for a in (h2_arms.get("bowden_wt"), h2_arms.get("bowden_ko")) if a]
             if bg == "hPSC":
                 st, tp = h2_arms["mair_entry"].split(":")
-                out += [("H3_noEC", f"setB:{a}") for a in crit["backgrounds"]["hPSC"]["studies"][st]["entries"][tp]["arms"]]
+                out += [("H3_noEC", f"setB:{a}", pt)
+                        for a in crit["backgrounds"]["hPSC"]["studies"][st]["entries"][tp]["arms"]]
         if secondary:
             for bg in order:
                 if ("Bsec", bg) not in done:
                     arms = verdict_arms({"backgrounds": {bg: crit["backgrounds"][bg]}})
-                    out += [(r, f"setB:{a}") for r in SECONDARY_MODELS for a in arms]
+                    out += [(r, f"setB:{a}", ("Bsec", bg)) for r in SECONDARY_MODELS for a in arms]
     return out
 
 
@@ -1079,9 +1130,8 @@ def run_g6(finalists_path, paths: HC.Paths, dry=False, stage="all", threads=4, s
     for role in roles:
         bank.get(role)
     summary["models"] = bank.info
-    bad = {r: i["cv_reproduction"] for r, i in bank.info.items()
-           if isinstance(i.get("cv_reproduction"), dict) and "max_abs_diff" in i["cv_reproduction"]
-           and not i["cv_reproduction"]["max_abs_diff"] <= CV_REPRO_TOL}
+    bad = {r: i.get("cv_reproduction") for r, i in bank.info.items()
+           if x_builder is None and not (i.get("cv_reproduction") or {}).get("ok")}
     if bad and not dry:
         raise SystemExit(f"refit fold models do not reproduce the registered CV runs: {bad}")
     if x_builder is None:
@@ -1105,7 +1155,9 @@ def run_g6(finalists_path, paths: HC.Paths, dry=False, stage="all", threads=4, s
         rehearse(crit, W, bank, fin, paths, stage, secondary, h2_arms, b1_setA, anchors, log)
     obs = Observed(paths, ledger, dry, standin, log)
 
-    if stage in ("A", "all"):
+    if stage in ("A", "all") and ["A"] in checks["spent_incomplete_parts"]["parts"]:
+        HC.write_json(out_dir / "setA" / "summary.json", spent_record("set A"))
+    elif stage in ("A", "all") and not (resume and _done(out_dir / "setA" / "summary.json")):
         log("set A (tier A1) ...")
         ref = None
         if tref.exists():
@@ -1118,12 +1170,15 @@ def run_g6(finalists_path, paths: HC.Paths, dry=False, stage="all", threads=4, s
         HC.write_json(out_dir / "setA" / "summary.json", HC.clean_floats(sa))
         summary["setA"] = {k: v["descriptive"] for k, v in sa["statistics"].items()}
     if stage in ("B", "all"):
-        sb = stage_b(crit, W, bank, obs, fin, anchors, h2_arms, out_dir, not dry, secondary, resume, log)
+        sb = stage_b(crit, W, bank, obs, fin, anchors, h2_arms, out_dir, not dry, secondary, resume, log,
+                     spent={tuple(x) for x in checks["spent_incomplete_parts"]["parts"]})
         summary["setB"] = {k: sb[k] for k in ("verdicts", "overall", "ceiling_comparison", "plan_matches_frozen")}
         summary["hypotheses"] = {k: (v.get("result") if isinstance(v, dict) else v) for k, v in sb["hypotheses"].items()
                                  if k in ("H1", "H2", "H3", "H4")}
     if not dry:
         HC.ensure_log_committed(paths, f"G6 access log (end of stage {stage})")
+    if stage in ("B", "all"):
+        HC.write_json(out_dir / "setB" / "summary.json", HC.clean_floats(sb))
     summary["accesses"] = ledger.rows
     summary["n_accesses_granted"] = ledger.n_granted()
     HC.write_json(out_dir / f"summary_{tag}.json", HC.clean_floats(strip_private(summary)))
