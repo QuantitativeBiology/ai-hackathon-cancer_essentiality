@@ -1,0 +1,46 @@
+{
+ "timestamp": "2026-10-27T22:07:56",
+ "machine_note": "12 cores, 16 GB; nothing else running (checked before the run)",
+ "results": [
+  {
+   "model": "m5_avg",
+   "n_train_ids": 1022,
+   "threads": 4,
+   "fit_s": 0.4,
+   "predict_s": 1641.2,
+   "refit_s": 1641.6,
+   "total_s_incl_target_load": 1644.6,
+   "peak_rss_mb": 3323,
+   "rss_method": "psutil.peak_wset",
+   "per_input_s": {
+    "outer_m1_E_resB0": [
+     83.6
+    ],
+    "outer_m2n_E_paralogs": [
+     1384.5
+    ],
+    "outer_g3_m3n": [
+     172.9
+    ]
+   },
+   "predicted_line": "ACH-000133",
+   "finite_prediction": true,
+   "note": "M5 average: fit stores the data; the three inputs are refitted inside predict (refit_s). M3 uses n_jobs=[6] worker processes (config)."
+  },
+  {
+   "model": "m1_E_resB0",
+   "n_train_ids": 1022,
+   "threads": 4,
+   "fit_s": 119.3,
+   "predict_s": 0.1,
+   "refit_s": 119.4,
+   "total_s_incl_target_load": 122.6,
+   "peak_rss_mb": 2225,
+   "rss_method": "psutil.peak_wset",
+   "per_input_s": null,
+   "predicted_line": "ACH-000133",
+   "finite_prediction": true,
+   "note": "fit_s includes the model's internal tuning (LOO lambda)"
+  }
+ ]
+}
