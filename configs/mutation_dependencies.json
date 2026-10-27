@@ -1,0 +1,44 @@
+{
+ "_comment": "Declared operational choices for the mutation-driven dependency diagnostic (DESIGN.md §4 'Mutation-driven dependencies', RESEARCH_TREE D24). Committed with configs/oncogene_pairs.csv BEFORE any pair-level metric is computed. Diagnostic only: P1, delta, the selection rule, gene classes, labels and the frozen metrics are unchanged. Dev CV only (configs/splits.csv cv_fold).",
+ "pair_file": "configs/oncogene_pairs.csv",
+ "status": {
+  "source": "raw cached matrices (essml.io.load_matrix: hotspot, damaging, cn); thresholds from src/essml/features.py (AMP_THR = 2.0, DEEP_DEL_THR = priors.DEEP_DEL_THR = 0.25)",
+  "hotspot": "hotspot matrix value > 0 (features.hotspot_binary)",
+  "damaging": "damaging-mutation dosage > 0 (block M)",
+  "amp": "relative CN > 2.0",
+  "deep_del": "relative CN < 0.25",
+  "TP53-WT": "'mutant' = TP53 wild type = no TP53 damaging and no TP53 hotspot (features.build_composites TP53_mut == 0)",
+  "combined": "'a|b' is positive if any component is positive",
+  "missing": "NaN CN of one gene in a CN-profiled line = diploid (project convention). A line without the modality a component needs (55 dev lines have no CN profile) has that component unknown: status = 1 if another known component is positive, else unknown. Unknown-status lines are excluded from the mutant/WT strata and the biomarker AUROC; they stay in all-line metrics; the biomarker-only reference gives them the training-fold gene mean.",
+  "eligible": ">= 5 biomarker-positive dev lines; others are reported as 'too few' and excluded from pooled statistics"
+ },
+ "models": ["m1_E_resB0", "m1bt_full", "g3_m3n", "m5_avg", "b1"],
+ "runs": "latest registry row with status ok per name; out-of-fold predictions cache/runs/<run_id>/pred.parquet",
+ "reference": "m1_E_resB0",
+ "comparators": ["m1bt_full", "g3_m3n"],
+ "biomarker_only": "per outer fold and gene: mean effect of the observed TRAINING-fold lines per status (mutant / WT, known status only), applied to held-out lines by their status; unknown status or an empty training stratum -> training-fold gene mean",
+ "metric_params": {
+  "min_obs_all": 40,
+  "min_obs_stratum": 5,
+  "min_pos": 3,
+  "min_neg": 3,
+  "min_auroc": 3
+ },
+ "metrics": "per pair x model x outer fold on the fold's held-out dev lines with observed effect: r (frozen metrics.per_gene_pearson; all lines min_obs 40 as P1, strata min_obs 5); AP and nAP for effect < -0.5 (frozen metrics.per_gene_ap_norm, >= 3 positives and >= 3 negatives) over all lines, mutant and WT lines; biomarker AUROC = AUROC of -prediction for mutant vs WT among dependent (effect < -0.5) known-status lines, >= 3 of each. A fold that misses a minimum is undefined (NaN) for that metric. Deltas are paired by fold (same lines).",
+ "rule": {
+  "gain": 0.10,
+  "min_folds": 4,
+  "min_pairs": 3,
+  "_operational": "Per comparator (m1bt_full, g3_m3n) vs m1_E_resB0, on all-line AP (AUPRC, effect < -0.5). Condition 1: per fold, the mean over eligible pairs whose all-line AP is defined in all 5 folds of AP(comparator) - AP(m1_E_resB0); t-based 95% CI over the 5 fold values (df 4, as scripts/g2_report.paired); holds if the lower bound > 0. Condition 2: >= 3 eligible pairs with delta AP >= 0.10 in >= 4 of 5 folds (an undefined fold counts as no gain). 'Genomics clearly helps' holds if one comparator meets both conditions."
+ },
+ "pooled_reporting": "Pooled deltas (same construction as condition 1) are also reported for m5_avg, b1 and biomarker_only vs m1_E_resB0, and for nAP, r_all, AP within mutant lines, r within mutant lines and the biomarker AUROC (descriptive).",
+ "mechanism": "Descriptive, pooled out-of-fold over dev lines: correlation of each model's prediction with the dependency gene's own expression, with the biomarker gene's expression, and with biomarker status; lineage eta^2 of the prediction; within-lineage r of prediction vs observed. Discussed for the 4 eligible pairs with the highest mean all-line r under m1_E_resB0, plus any pair that meets the gain criterion.",
+ "figure_pairs": ["KRAS_hotspot", "NRAS_hotspot", "MTAP_PRMT5", "SMARCA4_SMARCA2"],
+ "figure_models": ["m1_E_resB0", "g3_m3n"],
+ "disclosures": [
+  "D24: G3 already noted that M3's per-gene gains include NRAS (hotspot addiction), so one pair's direction was hinted before this diagnostic.",
+  "While mapping genes, configs/gene_classes.csv (committed, dev-wide) was seen: ENO2 has 0 dev lines < -0.5, ARID1B and SMARCA2 are rare-selective (not variable, so M2/M3 pass the M1 prediction through for them). ENO1_ENO2 is ineligible anyway (1 mutant line).",
+  "configs/biomarker_pairs.csv (predictability work, D22) lists VPS4A loss -> VPS4B; the DESIGN §4 pair set (VPS4B loss -> VPS4A) governs here."
+ ],
+ "follow_up": "Only if the rule is met: one targeted M2 variant (own-genomic local features) is pre-registered in a separate committed config and docs paragraph before it runs (DESIGN §4)."
+}

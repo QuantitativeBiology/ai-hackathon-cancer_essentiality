@@ -1,0 +1,20 @@
+pair_id,group,dependency_gene,dependency_entrez,biomarker_gene,biomarker_entrez,biomarker_type,threshold,amp_thr,deep_del_thr,n_mutant_dev,n_wt_dev,n_unknown_dev,eligible
+BRAF_hotspot,oncogene,BRAF,673,BRAF,673,hotspot,hotspot matrix > 0,,,72,950,0,True
+KRAS_hotspot,oncogene,KRAS,3845,KRAS,3845,hotspot,hotspot matrix > 0,,,167,855,0,True
+NRAS_hotspot,oncogene,NRAS,4893,NRAS,4893,hotspot,hotspot matrix > 0,,,52,970,0,True
+PIK3CA_hotspot,oncogene,PIK3CA,5290,PIK3CA,5290,hotspot,hotspot matrix > 0,,,103,919,0,True
+EGFR_hotspot_amp,oncogene,EGFR,1956,EGFR,1956,hotspot|amp,hotspot matrix > 0 or relative CN > 2.0,2.0,,72,896,54,True
+ERBB2_amp,oncogene,ERBB2,2064,ERBB2,2064,amp,relative CN > 2.0,2.0,,41,926,55,True
+CTNNB1_hotspot,oncogene,CTNNB1,1499,CTNNB1,1499,hotspot,hotspot matrix > 0,,,31,991,0,True
+CCND1_amp,oncogene,CCND1,595,CCND1,595,amp,relative CN > 2.0,2.0,,96,871,55,True
+MDM2_TP53WT,oncogene,MDM2,4193,TP53,7157,TP53-WT,no TP53 damaging and no TP53 hotspot (mutant = TP53 wild type),,,337,685,0,True
+MYC_amp,oncogene,MYC,4609,MYC,4609,amp,relative CN > 2.0,2.0,,173,794,55,True
+ARID1A_ARID1B,paralog,ARID1B,57492,ARID1A,8289,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,116,854,52,True
+SMARCA4_SMARCA2,paralog,SMARCA2,6595,SMARCA4,6597,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,50,917,55,True
+STAG2_STAG1,paralog,STAG1,10274,STAG2,10735,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,22,946,54,True
+ENO1_ENO2,paralog,ENO2,2026,ENO1,2023,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,1,966,55,False
+VPS4B_VPS4A,paralog,VPS4A,27183,VPS4B,9525,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,4,963,55,False
+MTAP_PRMT5,paralog,PRMT5,10419,MTAP,4507,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,180,787,55,True
+MTAP_MAT2A,paralog,MAT2A,4144,MTAP,4507,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,180,787,55,True
+EP300_CREBBP,paralog,CREBBP,1387,EP300,2033,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,66,908,48,True
+CREBBP_EP300,paralog,EP300,2033,CREBBP,1387,damaging|deep_del,damaging dosage > 0 or relative CN < 0.25,,0.25,57,911,54,True
