@@ -365,3 +365,31 @@ Killed/failed rows, none with numbers: `g3_m3` 20261026-235648 (D-G3-1), `g3_m3n
 3. LEAP's published target is probably the dependency probability, not gene effect; the LEAP
    comparison is loose.
 4. M3 peak memory (4.2 GB) exceeds the 4 GB per-stage guide.
+
+## Addendum (D19): R4 with the top-k grid extended beyond 200
+Queued by the PI in RESEARCH_TREE D19 because the nested R4 choices piled up at k = 200. Configs
+were committed before running (15d4ea3): k ∈ {200, 500, 1000, 2000} × {ridge (LOO α), RBF-SVR},
+nested per-gene choice by inner 3-fold patient-grouped CV, the same pre-declared 500-gene subset,
+6 processes, time box 3 h. Pre-declared rule: the timing probe `g3_r4k_probe` (20261027-082540,
+fold 0, 29 genes, 114 s) projected about 2.8 h ≤ 3 h, so the full grid ran (the fallback
+k ∈ {200, 500, 1000} was not needed).
+
+Run `g3_r4k_sub500` 20261027-082851: wall **2 h 39 min** (per-fold gene fits 1,500–2,600 s;
+fit+predict 9,364 s), peak RSS 1.9 GB.
+
+| model (same 500 genes) | P1 ± fold SD | ΔP1 vs m1_E_resB0 (SE; folds better) | mean Spearman | genes r ≥ 0.2 (per fold) |
+|---|---|---|---|---|
+| m1_E_resB0 | 0.3182 ± 0.0054 | — | 0.2915 | 410.0 |
+| **R4, k ∈ {200…2000}** | **0.2987 ± 0.0054** | **−0.0196 (0.0008; 0/5)** | 0.2724 | 378.4 |
+| R4, k ∈ {5…200} (R6) | 0.2800 ± 0.0065 | −0.0382 (0.0016; 0/5) | 0.2487 | 353.8 |
+
+- Extending the grid gains +0.0186 (SE 0.0009, 5/5 folds) over the k ≤ 200 grid but still loses
+  0.020 to multi-output ridge on all features. That is about the same as the leaky best-of-12
+  result with k ≤ 200 (−0.020).
+- Chosen k (2,460 gene-folds): **k = 2000 47.8%**, 1000 17.8%, 500 13.9%, 200 20.4%. Learner: SVR
+  53.5%, ridge 46.5%. The most frequent single choice is SVR k = 2000 (36.3%), then ridge k = 200
+  (16.4%).
+- The choice still piles up at the new upper edge. Together with the monotone gain from k ≤ 200 to
+  k ≤ 2000, this says that per-gene feature selection mostly hurts: the more features kept, the
+  closer R4 gets to dense ridge on all ~18k genes (R1 / m1_E_resB0), which remains best. A further
+  extension would converge towards R1, so it is not worth running.

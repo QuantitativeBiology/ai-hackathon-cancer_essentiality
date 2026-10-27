@@ -1,0 +1,825 @@
+{
+ "run_id": "20261027-082540_g3_r4k_probe_47473448",
+ "config": {
+  "features": [],
+  "grid": {},
+  "reference_baselines": {
+   "B0": {},
+   "B1": {
+    "grid": {
+     "kappa": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20,
+      50,
+      100,
+      200,
+      500,
+      1000,
+      10000
+     ]
+    }
+   }
+  },
+  "inner_folds": 5,
+  "min_obs": 40,
+  "inner_min_obs": 30,
+  "threads": 6,
+  "requires_gate": "G1",
+  "cache_reference": true,
+  "name": "g3_r4k_probe",
+  "model": "R4",
+  "params": {
+   "ks": [
+    200,
+    500,
+    1000,
+    2000
+   ],
+   "ridge_alphas": [
+    0.1,
+    1.0,
+    10.0,
+    100.0,
+    1000.0
+   ],
+   "inner_folds": 3,
+   "split_seed": 20261026,
+   "n_jobs": 6,
+   "nested": true,
+   "gene_subset": "configs/g3_variable_subset500.csv",
+   "subset_first_n": 30
+  },
+  "prereg": "R4 with the top-k grid extended beyond 200 (RESEARCH_TREE D19): k in {200, 500, 1000, 2000} x {ridge, RBF-SVR}, nested per-gene choice by inner 3-fold grouped CV, pre-declared 500-gene subset. Time box 3 h, 6 processes. Rule: the probe g3_r4k_probe (fold 0, first 30 subset genes) is timed first; if the projected 5-fold wall time of g3_r4k_sub500 exceeds 3 h, run g3_r4k3_sub500 (k in {200, 500, 1000}) instead."
+ },
+ "config_hash": "474734480d379cacd7be8bba79daea5ecd57571ef49f7cff2933c289a9fa775d",
+ "git_commit": "15d4ea3ceb51a764b203412a83ce4e4a7db70fd3",
+ "dirty_tree": 0,
+ "splits_sha256": "d543cba139b4ae6651c2453d61ec447867d35a4295d4046833fcaf0b017e41f0",
+ "eval_genes_sha256": "5a5b7c2ae1153973f257b8823ecc254014e607bd6356e1ac77a4efa43c787f64",
+ "gene_classes_sha256": "3f9d61aeee004d0817b222a8a7abb89ae7df4e4dd49ef1cc15da98e1378eb6dc",
+ "tree_clean": 0,
+ "roles_used": "dev:1022",
+ "n_train_ids": 814,
+ "threads": 6,
+ "seed": 20261026,
+ "n_lines": 208,
+ "fold_scheme": "cv",
+ "fold_names": null,
+ "excluded_from_training": [],
+ "n_eval_genes": 17915,
+ "neg_mapping": {
+  "file": "NEGv1.txt",
+  "n_neg": 927,
+  "n_mapped": 924,
+  "by": {
+   "hgnc_id": 922,
+   "symbol": 0,
+   "prev_alias": 3,
+   "unmapped": 2
+  },
+  "unmapped": [
+   "PRAMEF3",
+   "SPHAR"
+  ],
+  "entrez_disagreements_with_file": 1
+ },
+ "chosen_params": {
+  "0": {},
+  "ref_B0": {
+   "0": {}
+  },
+  "ref_B1": {
+   "0": {
+    "kappa": 10
+   }
+  }
+ },
+ "inner_cv": {
+  "0": []
+ },
+ "model_report": {
+  "0": {
+   "nested": true,
+   "choice_counts": {
+    "svr_k2000": 10,
+    "ridge_k500": 5,
+    "ridge_k1000": 4,
+    "ridge_k200": 4,
+    "svr_k500": 3,
+    "svr_k200": 3
+   },
+   "n_model_genes": 29,
+   "prep_s": 6.2,
+   "genes_s": 113.9,
+   "n_features": 18131
+  }
+ },
+ "fit_s_per_fold": {
+  "0": 6.244625400053337
+ },
+ "predict_s_per_fold": {
+  "0": 113.88145640003495
+ },
+ "fit_s": 6.244625400053337,
+ "predict_s": 113.88145640003495,
+ "peak_rss_mb": 1473.73046875,
+ "rss_method": "psutil.peak_wset",
+ "headline": {
+  "P1_all": 0.0005528489901617642,
+  "P1_all_sd": NaN,
+  "P1_median_all": 0.0,
+  "P1_median_all_sd": NaN,
+  "n_r_gt_0.3_all": 17.0,
+  "n_r_gt_0.3_all_sd": NaN,
+  "n_genes_all": 17915.0,
+  "n_genes_all_sd": NaN,
+  "dP1_vs_B0_all": 0.0005528489901617642,
+  "dP1_vs_B0_all_sd": NaN,
+  "frac_beat_B0_all": 0.0016187552330449344,
+  "frac_beat_B0_all_sd": NaN,
+  "dP1_vs_B1_all": -0.09168528833172934,
+  "dP1_vs_B1_all_sd": NaN,
+  "frac_beat_B1_all": 0.15930784259000838,
+  "frac_beat_B1_all_sd": NaN,
+  "P1_variable": 0.004676246297803591,
+  "P1_variable_sd": NaN,
+  "P1_median_variable": 0.0,
+  "P1_median_variable_sd": NaN,
+  "n_r_gt_0.3_variable": 17.0,
+  "n_r_gt_0.3_variable_sd": NaN,
+  "n_genes_variable": 2118.0,
+  "n_genes_variable_sd": NaN,
+  "dP1_vs_B0_variable": 0.004676246297803591,
+  "dP1_vs_B0_variable_sd": NaN,
+  "frac_beat_B0_variable": 0.013692162417374882,
+  "frac_beat_B0_variable_sd": NaN,
+  "dP1_vs_B1_variable": -0.17691608335376305,
+  "dP1_vs_B1_variable_sd": NaN,
+  "frac_beat_B1_variable": 0.054296506137865914,
+  "frac_beat_B1_variable_sd": NaN,
+  "P1_selective": 0.0025467914914424996,
+  "P1_selective_sd": NaN,
+  "P1_median_selective": 0.0,
+  "P1_median_selective_sd": NaN,
+  "n_r_gt_0.3_selective": 12.0,
+  "n_r_gt_0.3_selective_sd": NaN,
+  "n_genes_selective": 2572.0,
+  "n_genes_selective_sd": NaN,
+  "dP1_vs_B0_selective": 0.0025467914914424996,
+  "dP1_vs_B0_selective_sd": NaN,
+  "frac_beat_B0_selective": 0.006220839813374806,
+  "frac_beat_B0_selective_sd": NaN,
+  "dP1_vs_B1_selective": -0.1682382824613254,
+  "dP1_vs_B1_selective_sd": NaN,
+  "frac_beat_B1_selective": 0.05015552099533437,
+  "frac_beat_B1_selective_sd": NaN,
+  "P1_rare_selective": 0.0,
+  "P1_rare_selective_sd": NaN,
+  "P1_median_rare_selective": 0.0,
+  "P1_median_rare_selective_sd": NaN,
+  "n_r_gt_0.3_rare_selective": 0.0,
+  "n_r_gt_0.3_rare_selective_sd": NaN,
+  "n_genes_rare_selective": 2991.0,
+  "n_genes_rare_selective_sd": NaN,
+  "dP1_vs_B0_rare_selective": 0.0,
+  "dP1_vs_B0_rare_selective_sd": NaN,
+  "frac_beat_B0_rare_selective": 0.0,
+  "frac_beat_B0_rare_selective_sd": NaN,
+  "dP1_vs_B1_rare_selective": -0.10171116405719227,
+  "dP1_vs_B1_rare_selective_sd": NaN,
+  "frac_beat_B1_rare_selective": 0.14008692744901372,
+  "frac_beat_B1_rare_selective_sd": NaN,
+  "P1_common_essential": 0.003997547011630391,
+  "P1_common_essential_sd": NaN,
+  "P1_median_common_essential": 0.0,
+  "P1_median_common_essential_sd": NaN,
+  "n_r_gt_0.3_common_essential": 5.0,
+  "n_r_gt_0.3_common_essential_sd": NaN,
+  "n_genes_common_essential": 839.0,
+  "n_genes_common_essential_sd": NaN,
+  "dP1_vs_B0_common_essential": 0.003997547011630391,
+  "dP1_vs_B0_common_essential_sd": NaN,
+  "frac_beat_B0_common_essential": 0.015494636471990465,
+  "frac_beat_B0_common_essential_sd": NaN,
+  "dP1_vs_B1_common_essential": -0.1369946716008828,
+  "dP1_vs_B1_common_essential_sd": NaN,
+  "frac_beat_B1_common_essential": 0.08581644815256258,
+  "frac_beat_B1_common_essential_sd": NaN,
+  "P1_nonessential": 0.0,
+  "P1_nonessential_sd": NaN,
+  "P1_median_nonessential": 0.0,
+  "P1_median_nonessential_sd": NaN,
+  "n_r_gt_0.3_nonessential": 0.0,
+  "n_r_gt_0.3_nonessential_sd": NaN,
+  "n_genes_nonessential": 804.0,
+  "n_genes_nonessential_sd": NaN,
+  "dP1_vs_B0_nonessential": 0.0,
+  "dP1_vs_B0_nonessential_sd": NaN,
+  "frac_beat_B0_nonessential": 0.0,
+  "frac_beat_B0_nonessential_sd": NaN,
+  "dP1_vs_B1_nonessential": -0.06598497228020467,
+  "dP1_vs_B1_nonessential_sd": NaN,
+  "frac_beat_B1_nonessential": 0.19527363184079602,
+  "frac_beat_B1_nonessential_sd": NaN,
+  "P2a": 0.9063656054042155,
+  "P2a_sd": NaN,
+  "dP2a_vs_B0": 0.00012145270991763802,
+  "dP2a_vs_B0_sd": NaN,
+  "dP2a_vs_B1": -0.003448215317037591,
+  "dP2a_vs_B1_sd": NaN,
+  "P2b_nap_prev05": 0.0021389044771410706,
+  "P2b_nap_prev05_sd": NaN,
+  "P2b_auroc_prev05": 0.501418431166652,
+  "P2b_auroc_prev05_sd": NaN,
+  "P2b_n_prev05": 1754.0,
+  "P2b_n_prev05_sd": NaN
+ },
+ "summary": {
+  "all": {
+   "P1": 0.0005528489901617642,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.0005528489901617642
+   ],
+   "P1_median": 0.0,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.0
+   ],
+   "n_r_gt_0.3": 17.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    17.0
+   ],
+   "n_genes": 17915.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    17915.0
+   ],
+   "P1_spearman": 0.0004920579807328892,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.0004920579807328892
+   ],
+   "P2a": 0.9063656054042155,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.9063656054042155
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.0019442687210175585,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.0019442687210175585
+   ],
+   "P2b_auroc": 0.5009858078254963,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.5009858078254963
+   ],
+   "P2b_n": 5437.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    5437.0
+   ],
+   "P2b_nap_prev05": 0.0008698442969871174,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.0008698442969871174
+   ],
+   "P2b_auroc_prev05": 0.500576844021866,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.500576844021866
+   ],
+   "P2b_n_prev05": 4313.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    4313.0
+   ],
+   "dP1_vs_B0": 0.0005528489901617642,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.0005528489901617642
+   ],
+   "frac_beat_B0": 0.0016187552330449344,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.0016187552330449344
+   ],
+   "dP2a_vs_B0": 0.00012145270991763802,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.00012145270991763802
+   ],
+   "dP1_vs_B1": -0.09168528833172934,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    -0.09168528833172934
+   ],
+   "frac_beat_B1": 0.15930784259000838,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.15930784259000838
+   ],
+   "dP2a_vs_B1": -0.003448215317037591,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    -0.003448215317037591
+   ]
+  },
+  "variable": {
+   "P1": 0.004676246297803591,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.004676246297803591
+   ],
+   "P1_median": 0.0,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.0
+   ],
+   "n_r_gt_0.3": 17.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    17.0
+   ],
+   "n_genes": 2118.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    2118.0
+   ],
+   "P1_spearman": 0.004162048500863885,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.004162048500863885
+   ],
+   "P2a": 0.9646806945896331,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.9646806945896331
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.006677819984947861,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.006677819984947861
+   ],
+   "P2b_auroc": 0.5033858731189027,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.5033858731189027
+   ],
+   "P2b_n": 1583.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    1583.0
+   ],
+   "P2b_nap_prev05": 0.006231957562965843,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.006231957562965843
+   ],
+   "P2b_auroc_prev05": 0.5041327712064909,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.5041327712064909
+   ],
+   "P2b_n_prev05": 602.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    602.0
+   ],
+   "dP1_vs_B0": 0.004676246297803591,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.004676246297803591
+   ],
+   "frac_beat_B0": 0.013692162417374882,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.013692162417374882
+   ],
+   "dP2a_vs_B0": 0.00011545506388520844,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.00011545506388520844
+   ],
+   "dP1_vs_B1": -0.17691608335376305,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    -0.17691608335376305
+   ],
+   "frac_beat_B1": 0.054296506137865914,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.054296506137865914
+   ],
+   "dP2a_vs_B1": -0.001994793282249107,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    -0.001994793282249107
+   ]
+  },
+  "selective": {
+   "P1": 0.0025467914914424996,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.0025467914914424996
+   ],
+   "P1_median": 0.0,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.0
+   ],
+   "n_r_gt_0.3": 12.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    12.0
+   ],
+   "n_genes": 2572.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    2572.0
+   ],
+   "P1_spearman": 0.0022281181533168252,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.0022281181533168252
+   ],
+   "P2a": 0.7836367487981342,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.7836367487981342
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.0024319277841297515,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.0024319277841297515
+   ],
+   "P2b_auroc": 0.5013849121206334,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.5013849121206334
+   ],
+   "P2b_n": 2569.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    2569.0
+   ],
+   "P2b_nap_prev05": 0.0021389044771410706,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.0021389044771410706
+   ],
+   "P2b_auroc_prev05": 0.501418431166652,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.501418431166652
+   ],
+   "P2b_n_prev05": 1754.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    1754.0
+   ],
+   "dP1_vs_B0": 0.0025467914914424996,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.0025467914914424996
+   ],
+   "frac_beat_B0": 0.006220839813374806,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.006220839813374806
+   ],
+   "dP2a_vs_B0": 0.0005302088333462296,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.0005302088333462296
+   ],
+   "dP1_vs_B1": -0.1682382824613254,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    -0.1682382824613254
+   ],
+   "frac_beat_B1": 0.05015552099533437,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.05015552099533437
+   ],
+   "dP2a_vs_B1": -0.010646134023576746,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    -0.010646134023576746
+   ]
+  },
+  "rare_selective": {
+   "P1": 0.0,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.0
+   ],
+   "P1_median": 0.0,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.0
+   ],
+   "n_r_gt_0.3": 0.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    0.0
+   ],
+   "n_genes": 2991.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    2991.0
+   ],
+   "P1_spearman": 0.0,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.0
+   ],
+   "P2a": 0.03409649815449873,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.03409649815449873
+   ],
+   "P2a_n_lines": 207.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    207.0
+   ],
+   "P2b_nap": 0.0,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.0
+   ],
+   "P2b_auroc": 0.5,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.5
+   ],
+   "P2b_n": 2168.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    2168.0
+   ],
+   "P2b_nap_prev05": 0.0,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.0
+   ],
+   "P2b_auroc_prev05": 0.5,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.5
+   ],
+   "P2b_n_prev05": 2168.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    2168.0
+   ],
+   "dP1_vs_B0": 0.0,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.0
+   ],
+   "frac_beat_B0": 0.0,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.0
+   ],
+   "dP2a_vs_B0": 0.0,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.0
+   ],
+   "dP1_vs_B1": -0.10171116405719227,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    -0.10171116405719227
+   ],
+   "frac_beat_B1": 0.14008692744901372,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.14008692744901372
+   ],
+   "dP2a_vs_B1": -0.019901466374709187,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    -0.019901466374709187
+   ]
+  },
+  "common_essential": {
+   "P1": 0.003997547011630391,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.003997547011630391
+   ],
+   "P1_median": 0.0,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.0
+   ],
+   "n_r_gt_0.3": 5.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    5.0
+   ],
+   "n_genes": 839.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    839.0
+   ],
+   "P1_spearman": 0.0036763990876029014,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.0036763990876029014
+   ],
+   "P2a": 0.9948289288399477,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.9948289288399477
+   ],
+   "P2a_n_lines": 191.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    191.0
+   ],
+   "P2b_nap": 0.013991477536385546,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.013991477536385546
+   ],
+   "P2b_auroc": 0.5058317084443875,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.5058317084443875
+   ],
+   "P2b_n": 309.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    309.0
+   ],
+   "P2b_nap_prev05": NaN,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    null
+   ],
+   "P2b_auroc_prev05": NaN,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    null
+   ],
+   "P2b_n_prev05": 0.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    0.0
+   ],
+   "dP1_vs_B0": 0.003997547011630391,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.003997547011630391
+   ],
+   "frac_beat_B0": 0.015494636471990465,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.015494636471990465
+   ],
+   "dP2a_vs_B0": 4.111605649839773e-05,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    4.111605649839773e-05
+   ],
+   "dP1_vs_B1": -0.1369946716008828,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    -0.1369946716008828
+   ],
+   "frac_beat_B1": 0.08581644815256258,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.08581644815256258
+   ],
+   "dP2a_vs_B1": -0.0005132005404362863,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    -0.0005132005404362863
+   ]
+  },
+  "nonessential": {
+   "P1": 0.0,
+   "P1_sd": NaN,
+   "P1_folds": [
+    0.0
+   ],
+   "P1_median": 0.0,
+   "P1_median_sd": NaN,
+   "P1_median_folds": [
+    0.0
+   ],
+   "n_r_gt_0.3": 0.0,
+   "n_r_gt_0.3_sd": NaN,
+   "n_r_gt_0.3_folds": [
+    0.0
+   ],
+   "n_genes": 804.0,
+   "n_genes_sd": NaN,
+   "n_genes_folds": [
+    804.0
+   ],
+   "P1_spearman": 0.0,
+   "P1_spearman_sd": NaN,
+   "P1_spearman_folds": [
+    0.0
+   ],
+   "P2a": 0.597628097934026,
+   "P2a_sd": NaN,
+   "P2a_folds": [
+    0.597628097934026
+   ],
+   "P2a_n_lines": 208.0,
+   "P2a_n_lines_sd": NaN,
+   "P2a_n_lines_folds": [
+    208.0
+   ],
+   "P2b_nap": 0.0,
+   "P2b_nap_sd": NaN,
+   "P2b_nap_folds": [
+    0.0
+   ],
+   "P2b_auroc": 0.5,
+   "P2b_auroc_sd": NaN,
+   "P2b_auroc_folds": [
+    0.5
+   ],
+   "P2b_n": 113.0,
+   "P2b_n_sd": NaN,
+   "P2b_n_folds": [
+    113.0
+   ],
+   "P2b_nap_prev05": 0.0,
+   "P2b_nap_prev05_sd": NaN,
+   "P2b_nap_prev05_folds": [
+    0.0
+   ],
+   "P2b_auroc_prev05": 0.5,
+   "P2b_auroc_prev05_sd": NaN,
+   "P2b_auroc_prev05_folds": [
+    0.5
+   ],
+   "P2b_n_prev05": 110.0,
+   "P2b_n_prev05_sd": NaN,
+   "P2b_n_prev05_folds": [
+    110.0
+   ],
+   "dP1_vs_B0": 0.0,
+   "dP1_vs_B0_sd": NaN,
+   "dP1_vs_B0_folds": [
+    0.0
+   ],
+   "frac_beat_B0": 0.0,
+   "frac_beat_B0_sd": NaN,
+   "frac_beat_B0_folds": [
+    0.0
+   ],
+   "dP2a_vs_B0": 0.0,
+   "dP2a_vs_B0_sd": NaN,
+   "dP2a_vs_B0_folds": [
+    0.0
+   ],
+   "dP1_vs_B1": -0.06598497228020467,
+   "dP1_vs_B1_sd": NaN,
+   "dP1_vs_B1_folds": [
+    -0.06598497228020467
+   ],
+   "frac_beat_B1": 0.19527363184079602,
+   "frac_beat_B1_sd": NaN,
+   "frac_beat_B1_folds": [
+    0.19527363184079602
+   ],
+   "dP2a_vs_B1": -0.0032566493204905255,
+   "dP2a_vs_B1_sd": NaN,
+   "dP2a_vs_B1_folds": [
+    -0.0032566493204905255
+   ]
+  }
+ }
+}
