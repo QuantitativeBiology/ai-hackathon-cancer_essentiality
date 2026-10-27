@@ -1,0 +1,53 @@
+{
+ "what": "scripts/predict.py --model m5_avg smoke test on one dev line (A375, ACH-000219, dev fold 4) held out of training (--exclude-lines); m5_avg inputs refitted on the other 1021 dev lines; expression only (genomics absent = diploid wild type, DESIGN \u00a72); tiers configs/predictable_genes.csv",
+ "wall_s": 2283.8,
+ "rows": 18434,
+ "finite": true,
+ "warning_printed": true,
+ "corr_with_cv_oof_prediction_fold4_model_with_genomics": 0.9969,
+ "per_line_r_vs_observed": 0.9637,
+ "cv_oof_per_line_r_vs_observed": 0.9587,
+ "deviation_corr_from_gene_mean_by_tier": {
+  "high": 0.651,
+  "medium": 0.405,
+  "low": 0.228
+ },
+ "examples": {
+  "BRAF": {
+   "pred_expression_only": -0.653,
+   "cv_oof_with_genomics": -0.911,
+   "obs": -1.354,
+   "tier": "high",
+   "note": "mutation-driven dependency; no mutation / copy-number input (diploid wild type assumed); relies on expression"
+  },
+  "SOX10": {
+   "pred_expression_only": -1.472,
+   "cv_oof_with_genomics": -1.486,
+   "obs": -1.817,
+   "tier": "high",
+   "note": ""
+  },
+  "MITF": {
+   "pred_expression_only": -0.087,
+   "cv_oof_with_genomics": -0.115,
+   "obs": -0.004,
+   "tier": "high",
+   "note": ""
+  },
+  "NRAS": {
+   "pred_expression_only": -0.32,
+   "cv_oof_with_genomics": -0.357,
+   "obs": -0.049,
+   "tier": "high",
+   "note": "mutation-driven dependency; no mutation / copy-number input (diploid wild type assumed); relies on expression"
+  },
+  "KRAS": {
+   "pred_expression_only": -0.509,
+   "cv_oof_with_genomics": -0.554,
+   "obs": -0.538,
+   "tier": "high",
+   "note": "mutation-driven dependency; no mutation / copy-number input (diploid wild type assumed); relies on expression"
+  }
+ },
+ "note": "observed values read through essml.guard for a dev line only; one line, descriptive. The CV OOF prediction used A375's genomics (BRAF V600E etc.); the predict.py run had expression only."
+}

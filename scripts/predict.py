@@ -73,7 +73,7 @@ DEFAULT_MODEL = "m5_avg"
 GENOMIC_INPUT_MODELS = {"m5_avg"}  # read genomics when available; here only expression is supplied (DESIGN §2)
 NO_GENOMICS_NOTE = "mutation-driven dependency; no mutation / copy-number input (diploid wild type assumed); relies on expression"
 NO_GENOMICS_WARNING = ("WARNING: m5_avg reads copy number, mutations, hotspots, fusions and metadata when it has them; this "
-                       "script supplies expression only, so they are set to diploid wild type / unknown (DESIGN §2 "
+                       "script supplies expression only, so they are set to diploid wild type / unknown (DESIGN section 2 "
                        "convention). Mutation-driven dependencies (D24: NRAS, KRAS, BRAF, PIK3CA hotspot addiction) then "
                        "rely on expression alone and are likely underpredicted (see the 'note' column).")
 # PI note (D24, docs/mutation_dependencies.md): the expression-only model misses RAS/RAF/PI3K hotspot addiction
