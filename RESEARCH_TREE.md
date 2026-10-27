@@ -158,6 +158,20 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - kernel track: M1b weight tuning, M2 fix, report columns and controls, secondary splits, no-EC variant;
     - nonlinear track: M4 pre-check and M4, M3, R2/R4 and the published-comparable block.
   - Runtimes during G3 are indicative only. Finalists are re-timed alone at G4 (lesson 14).
+- D19 (G3 nonlinear track; docs/g3_nonlinear_results.md):
+  - M4 is dropped at its pre-registered pre-check: an MLP on PCs scored 0.3028 against ridge on the same PCs at
+    0.3068, losing on all 5 seeds.
+  - M3 is no-go. The version of record has nested early stopping (deviation D-G3-1, decided before any result):
+    ΔP1 +0.0018 (SE 0.0002) < δ.
+  - The un-nested sensitivity run (+0.0043) is not used anywhere. Its training-row features came from models that
+    saw the validation targets. If M5 needs an M3 ingredient, nested M3 is the only admissible one; choosing the
+    other would be post hoc.
+  - R2 deviation D-G3-3 is accepted. The pre-declared 500-gene fallback projected to about 25 h, so the elastic net
+    ran on the first 150 genes of the same pre-declared random subset. R2 is a comparator, not a candidate, and the
+    150 genes were fixed by the earlier random draw, not by results.
+  - R4's top-k choices pile up at the grid edge (k = 200). A k extension is queued so the prior-method comparison is
+    fair; until then R4's gap is reported as an upper bound.
+  - M3 peaked at 4.2 GB, above the 4 GB guide in §10. Logged, not a blocker.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -211,8 +225,14 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [ ] Move check_solver tests (p>n, LOO with offset, held-out feature perturbation) into tests/
   - [ ] M1b block-weight tuning (B0 residual); C and E+C first
   - [ ] M2 on the D14 base, with pass-through for non-variable genes and nested local-λ CV
-  - [ ] M3 LightGBM go/no-go; M4 factorised neural go/no-go (pre-check, 1-day time box each)
-  - [ ] R2 elastic net, R4 TrPLet-like (nested + non-nested); published-comparable block
+  - [-] M4: the pre-check MLP lost to ridge on PCs (0.3028 vs 0.3068, 5/5 seeds). Dropped (D19).
+  - [-] M3 LightGBM on m1_E_resB0 residuals, nested: ΔP1 +0.0018 ± 0.0002 (< δ). No-go. Gains are threshold genes
+    (NRAS hotspot; X-buffered RPS4X, EIF1AX; NAA10). Permuted control −0.004.
+  - [x] R2 elastic net (150 genes): −0.030 vs ridge on the same genes, at about 45 s per gene.
+  - [x] R4 TrPLet-like (500 genes): nested −0.038; non-nested optimism +0.018.
+  - [ ] R4 top-k extension beyond 200 (grid edge), for a fair comparison
+  - [x] Published-comparable block (loosely comparable): m1_E_resB0 mean Spearman 0.284 on DeepDEP genes and
+    0.303 on LEAP genes; 4,362 genes with pooled r ≥ 0.2.
   - [ ] M5 stacking of finalists
   - [ ] Leave-one-lineage-out; no-EC variant for H3
 - [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
