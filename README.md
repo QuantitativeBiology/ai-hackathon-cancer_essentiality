@@ -17,7 +17,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 
 ## Status
 
-**In progress.** The test set is still blinded. All numbers below are from development cross-validation (CV), not the test set. Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
+**In progress.** The cancer test set has now been opened once (G4). Test numbers appear only in the table directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
 
 | Milestone | State | Outcome |
 |---|---|---|
@@ -30,9 +30,23 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | G3 Model ladder | done | Headline: plain average of ridge, its paralog per-gene stage and LightGBM (M5); [docs/g3_m5_results.md](docs/g3_m5_results.md) |
 | Mutation-driven dependencies | done | Expression alone misses RAS/RAF hotspot addiction; the headline recovers most of it through LightGBM ([docs/mutation_dependencies.md](docs/mutation_dependencies.md)) |
 | Per-gene predictability | done | Frozen tiers from the headline model: 1,632 high, 6,198 medium and 10,085 low genes, plus 519 not evaluable (1,054 / 921 / 143 / 41 of the variable genes). Every prediction ships with a confidence score and its tier ([docs/predictability.md](docs/predictability.md)) |
-| G4 Freeze finalists, one-time test evaluation | planned | |
+| G4 Freeze finalists, one-time test evaluation | done (independent reproduction running) | Finalists frozen (tag `freeze-finalists`); one access each on 255 test lines; headline test P1 0.319 (see below) |
 | G6 Apply to non-transformed cells | planned | |
 | G7 REPORT.md | planned | |
+
+## Test set (G4, opened once; independent reproduction pending)
+
+255 held-out cancer lines, grouped by patient and stratified by lineage. Every model was refit on all 1022 dev lines and accessed the test set once. Brackets give 95% patient-bootstrap CIs.
+
+| Model | P1 variable | ΔP1 vs B1 | ΔP1 vs B2 | P2b nAP |
+|---|---|---|---|---|
+| B1 lineage mean | 0.166 [0.151, 0.181] | — | −0.083 | 0.075 |
+| B2 expression kNN | 0.249 [0.231, 0.266] | +0.083 | — | 0.140 |
+| M1 expression ridge | 0.310 [0.295, 0.324] | +0.144 | +0.061 | 0.180 |
+| T transfer model (expression + TP53/RB1) | 0.311 [0.296, 0.325] | +0.145 | +0.062 | 0.180 |
+| **M5 average (headline)** | **0.319 [0.304, 0.333]** | **+0.153 [0.138, 0.170]** | **+0.070 [0.062, 0.078]** | **0.184** |
+
+Headline P1 by frozen per-gene tier: high 0.383, medium 0.196, low 0.106. Test refit time on 4 threads: 29 min for the headline, 1.4 min for M1.
 
 ## Results so far (dev CV only, not the test set)
 
