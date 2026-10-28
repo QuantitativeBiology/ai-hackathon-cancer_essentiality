@@ -4,6 +4,23 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-28 — M5: one-time test evaluation (G4) done and independently reproduced
+- **Run:** finalists frozen at 84efb5c (tag freeze-finalists), then one test access per finalist on 255 lines.
+  Every model was refit on all 1022 dev lines.
+- **Headline m5_avg:** test P1 (variable) 0.3194 [0.304, 0.333], against 0.3175 in dev CV.
+  - Gain over B1 +0.153 [0.138, 0.170]; gain over B2 +0.070 [0.062, 0.078].
+  - P2b nAP 0.184. Per tier, P1 is 0.383 (high), 0.196 (medium) and 0.106 (low).
+- **Other finalists (test P1):** m1_E_resB0 0.3101, T 0.3108, T no-EC 0.3110, B1 0.1662, B2 0.2491.
+- **Paired headline vs m1 (reviewer, diagnostic):** +0.0093 [0.0085, 0.0100]. CV gave +0.0094, so the gain
+  replicates, though it stays small.
+- **Independent review (reviews/g4_review):**
+  - Its own code reproduces all 298 numbers within 2.1e-8.
+  - No leakage, blinding or protocol violation. Dev and test populations are comparable (lineage χ² p 0.18).
+  - Eight minor findings; see D26.
+- **Runtime:** full refit on 4 threads, m5_avg 29 min and m1_E_resB0 1.4 min. Prediction for new lines is under
+  1 s after fitting.
+- **Next:** G6 transfer stage A, then stage B; then G7 REPORT.md.
+
 ### 2026-10-27 — M4: model ladder closed (G3)
 - **Headline:** the dev-CV headline is the plain average of three models, `m5_avg`:
   - ridge on expression (M1);
@@ -391,6 +408,26 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     since). The dry-run reproduction confirms that the frozen code gives the registered predictions.
   - **(g) Gate.** scripts/gate.py G3 added and passed (results/gates/G3.json). Next: commit configs/finalists.json
     (the D23 finalists, identical to finalists.example.json), then the one-time G4.
+- D26 (G4 outcome and review, 2026-10-28). G4 ran once, and the gate passed (results/gates/G4.json, added to
+  scripts/gate.py). An independent reviewer reproduced every number (reviews/g4_review/REPORT.md).
+  - **Process.** The harness refused the reviewer subagent's file write, so the PI transcribed its REPORT.md
+    verbatim from its hand-back. Its scripts, outputs and access-log row are its own.
+  - **Post-G4 reproduction read.** The reviewer read the test targets directly from the raw file after
+    unblinding, which DESIGN §9 requires for an independent reproduction. It was logged by hand
+    (access_type independent_reproduction_read) and changes no model or decision.
+  - **PI response to the minor findings:**
+    1. REPORT quotes the Spearman(dev mean_r, test r) CI as approximate. Duplicate-line resampling biases ρ down,
+       as in D21b.
+    2. The M5 sentinel covers only the outer refits. The code path was reviewed clean; this is listed as a
+       limitation, not re-run.
+    3. Mask-only eval-gene counts were pre-registered (DESIGN §9). Disclosed.
+    4. The DEEP_DEL_THR feature threshold comes from all lines' features, not targets. Disclosed.
+    5. The joint Chronos fit over dev and test lines stays in the limitations.
+    6. REPORT quotes absolute P1 next to every ΔP1. The test gain over B1 exceeds CV mainly because B1 scores
+       lower on test.
+    7. The m5_avg gain is confined to variable genes, where M2 and M3 act. On the other genes m5_avg equals m1,
+       so REPORT will say so.
+    8. The static direct-read test does not scan reviews/. Accepted; the read is logged.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -474,6 +511,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] λ-criterion diagnostic (D20c): LOO-MSE −0.0011 (more shrinkage, worse at every SD decile);
     grouped inner-CV r = same variable-gene λ (−0.00005). No small-λ bias on real data; LOO r kept.
   - [x] G4/G6 scripts built and dry-run on dev only (fold 0 reproduces CV exactly; 249 tests); D21
+  - [x] G4 one-time test evaluation: m5_avg test P1 0.3194 (B1 0.166, B2 0.249), independently reproduced (D26)
   - [x] G3 gate passed (D25): m5_avg wired into G4/G6/predict.py; dry run reproduces CV fold 0 for all finalists
   - [x] Per-gene predictability tiers frozen (m5_avg; m1 secondary), confidence score in outputs, characterisation,
     predict.py, per-tier G4 reporting with a dev-only dry run (D22; docs/predictability.md)

@@ -1,0 +1,48 @@
+{
+ "gate": "G4",
+ "pass": true,
+ "checks": [
+  {
+   "check": "real run (not dry), finalists file is configs/finalists.json",
+   "dry_run": false,
+   "finalists_file": "configs/finalists.json",
+   "pass": true
+  },
+  {
+   "check": "exactly one granted test access per finalist config_hash",
+   "n_granted": 7,
+   "pass": true
+  },
+  {
+   "check": "every finalist's results complete",
+   "status": {
+    "m5_avg": "complete",
+    "t_E_status": "complete",
+    "t_E_status_noEC": "complete",
+    "b0": "complete",
+    "b1": "complete",
+    "b2": "complete",
+    "m1_E_resB0": "complete"
+   },
+   "pass": true
+  },
+  {
+   "check": "the access log has exactly one granted test-target row per finalist config_hash",
+   "n": 7,
+   "pass": true
+  },
+  {
+   "check": "independent reproduction (own metric code): every compared number within 1e-4",
+   "n_compared": 298,
+   "max_abs_diff": 2.09288e-08,
+   "pass": true
+  },
+  {
+   "check": "independent review verdict: no critical or major finding",
+   "pass": true
+  }
+ ],
+ "commit": "fc2295ecc9f019d4eaee70560079ffe79c839c18",
+ "dirty_tree": 0,
+ "timestamp": "2026-10-28T01:48:36"
+}
