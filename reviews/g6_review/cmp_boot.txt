@@ -1,0 +1,378 @@
+selftest [0.0, 1.3877787807814457e-17]
+RPE1 plan n_genes                                                               16839          16839    0.00e+00
+RPE1 plan n_blocks                                                              10645          10645    0.00e+00
+RPE1 brown2019:WT consensus SSMD                                             -2.33477        -2.3348    2.79e-05
+RPE1 brown2019:WT median NEG eval                                           -0.015023         -0.015   -2.30e-05
+RPE1 brown2019:WT median CEG eval                                             -1.4665        -1.4665   -4.45e-06
+RPE1 brown2019:null consensus SSMD                                            -1.9299        -1.9299    1.16e-07
+RPE1 brown2019:null median NEG eval                                        0.00794866         0.0079    4.87e-05
+RPE1 brown2019:null median CEG eval                                          -1.60278        -1.6028    2.38e-05
+RPE1 haapaniemi2018:null consensus SSMD                                      -1.22751        -1.2275   -1.02e-05
+RPE1 haapaniemi2018:null median NEG eval                                    -0.105372        -0.1054    2.83e-05
+RPE1 haapaniemi2018:null median CEG eval                                     -1.41488        -1.4149    1.83e-05
+RPE1 hart2015:WT consensus SSMD                                              -1.80522        -1.8052   -1.86e-05
+RPE1 hart2015:WT median NEG eval                                            0.0120407          0.012    4.07e-05
+RPE1 hart2015:WT median CEG eval                                             -2.02809        -2.0281    9.05e-06
+RPE1 olivieri2020:null consensus SSMD                                        -1.92337        -1.9234    3.15e-05
+RPE1 olivieri2020:null median NEG eval                                     0.00835151         0.0084   -4.85e-05
+RPE1 olivieri2020:null median CEG eval                                       -1.48695        -1.4869   -4.69e-05
+RPE1 Q3a_primary T point                                                    0.0320714      0.0320714   -2.78e-17
+RPE1 Q3a_primary T_ensemble point                                           0.0327212      0.0327212   -1.39e-17
+RPE1 Q3a_primary entry brown2019:WT                                         0.0403094       0.040309    4.32e-07
+RPE1 Q3a_primary entry brown2019:null                                       0.0325083       0.032508    3.09e-07
+RPE1 Q3a_primary entry haapaniemi2018:null                                  0.0179264       0.017926    3.86e-07
+RPE1 Q3a_primary entry hart2015:WT                                          0.0361341       0.036134    6.43e-08
+RPE1 Q3a_primary entry olivieri2020:null                                    0.0378162       0.037816    2.16e-07
+RPE1 Q3a_primary absT brown2019:WT                                           0.744928       0.744928    2.25e-07
+RPE1 Q3a_primary absT brown2019:null                                         0.669825       0.669825    2.54e-07
+RPE1 Q3a_primary absT haapaniemi2018:null                                    0.436129       0.436129    3.81e-07
+RPE1 Q3a_primary absT hart2015:WT                                             0.60831        0.60831   -3.84e-07
+RPE1 Q3a_primary absT olivieri2020:null                                       0.80056        0.80056   -3.16e-07
+RPE1 Q3a_primary absComp brown2019:WT                                        0.704619       0.704619   -2.07e-07
+RPE1 Q3a_primary absComp brown2019:null                                      0.637317       0.637317   -5.48e-08
+RPE1 Q3a_primary absComp haapaniemi2018:null                                 0.418203       0.418203   -5.36e-09
+RPE1 Q3a_primary absComp hart2015:WT                                         0.572176       0.572176   -4.49e-07
+RPE1 Q3a_primary absComp olivieri2020:null                                   0.762743       0.762743    4.68e-07
+RPE1 Q3a_primary ceiling point                                              0.0307238         0.0307    2.38e-05
+RPE1 Q3a_primary ceiling entry brown2019:WT                                 0.0158847         0.0159   -1.53e-05
+RPE1 Q3a_primary ceiling entry brown2019:null                               0.0460214          0.046    2.14e-05
+RPE1 Q3a_primary ceiling entry haapaniemi2018:null                          0.0383062         0.0383    6.21e-06
+RPE1 Q3a_primary ceiling entry hart2015:WT                                 0.00648117         0.0065   -1.88e-05
+RPE1 Q3a_primary ceiling entry olivieri2020:null                            0.0471546         0.0472   -4.54e-05
+RPE1 Q3a_primary ci_lo                                                      0.0223049      0.0223049   -2.78e-17
+RPE1 Q3a_primary ci_hi                                                       0.040069       0.040069   -1.67e-16
+RPE1 Q3a_primary se                                                        0.00464761     0.00464761    8.67e-19
+RPE1 Q3a_primary swap state:H1_iCas9_MEF point                             -0.0108925     -0.0108925   -2.78e-17
+RPE1 Q3a_primary swap state:H1_iCas9_MEF ci_lo                             -0.0192309     -0.0192309    8.33e-17
+RPE1 Q3a_primary swap state:H1_iCas9_MEF ci_hi                            -0.00374636    -0.00374636    7.98e-17
+RPE1 Q3a_primary swap state:H1_iCas9_laminin point                         -0.0161458     -0.0161458   -4.16e-17
+RPE1 Q3a_primary swap state:H1_iCas9_laminin ci_lo                          -0.025118      -0.025118   -8.33e-17
+RPE1 Q3a_primary swap state:H1_iCas9_laminin ci_hi                        -0.00831443    -0.00831443    2.43e-17
+RPE1 Q3a_effect_label T point                                               0.0311483      0.0311483   -2.78e-17
+RPE1 Q3a_effect_label T_ensemble point                                      0.0317138      0.0317138    1.39e-17
+RPE1 Q3a_effect_label entry brown2019:WT                                    0.0387736       0.038774   -3.91e-07
+RPE1 Q3a_effect_label entry brown2019:null                                   0.034609       0.034609    1.55e-08
+RPE1 Q3a_effect_label entry haapaniemi2018:null                             0.0111082       0.011108    2.21e-07
+RPE1 Q3a_effect_label entry hart2015:WT                                     0.0274648       0.027465   -2.47e-07
+RPE1 Q3a_effect_label entry olivieri2020:null                                0.049329       0.049329   -3.35e-08
+RPE1 Q3a_effect_label absT brown2019:WT                                      0.734512       0.734512    1.21e-07
+RPE1 Q3a_effect_label absT brown2019:null                                    0.681973       0.681973    1.51e-07
+RPE1 Q3a_effect_label absT haapaniemi2018:null                               0.503186       0.503186    3.24e-07
+RPE1 Q3a_effect_label absT hart2015:WT                                       0.562951       0.562951   -4.61e-08
+RPE1 Q3a_effect_label absT olivieri2020:null                                 0.842549       0.842549    1.67e-07
+RPE1 Q3a_effect_label absComp brown2019:WT                                   0.695739       0.695739   -4.87e-07
+RPE1 Q3a_effect_label absComp brown2019:null                                 0.647364       0.647364    1.35e-07
+RPE1 Q3a_effect_label absComp haapaniemi2018:null                            0.492078       0.492078    1.02e-07
+RPE1 Q3a_effect_label absComp hart2015:WT                                    0.535486       0.535486    2.01e-07
+RPE1 Q3a_effect_label absComp olivieri2020:null                               0.79322        0.79322    2.00e-07
+RPE1 Q3a_effect_label ceiling point                                         0.0362189         0.0362    1.89e-05
+RPE1 Q3a_effect_label ceiling entry brown2019:WT                           0.00668214         0.0067   -1.79e-05
+RPE1 Q3a_effect_label ceiling entry brown2019:null                          0.0484936         0.0485   -6.39e-06
+RPE1 Q3a_effect_label ceiling entry haapaniemi2018:null                     0.0288743         0.0289   -2.57e-05
+RPE1 Q3a_effect_label ceiling entry hart2015:WT                            0.00394699         0.0039    4.70e-05
+RPE1 Q3a_effect_label ceiling entry olivieri2020:null                       0.0844662         0.0845   -3.38e-05
+RPE1 Q3b_primary T point                                                    0.0290901      0.0290901    0.00e+00
+RPE1 Q3b_primary T_ensemble point                                           0.0292038      0.0292038    0.00e+00
+RPE1 Q3b_primary entry brown2019:WT                                         0.0215098        0.02151   -1.76e-07
+RPE1 Q3b_primary entry brown2019:null                                       0.0435233       0.043523    3.16e-07
+RPE1 Q3b_primary entry haapaniemi2018:null                                  0.0224027       0.022403   -3.12e-07
+RPE1 Q3b_primary entry hart2015:WT                                          0.0118172       0.011817    1.68e-07
+RPE1 Q3b_primary entry olivieri2020:null                                    0.0496241       0.049624    6.02e-08
+RPE1 Q3b_primary absT brown2019:WT                                           0.622337       0.622337    1.25e-07
+RPE1 Q3b_primary absT brown2019:null                                         0.570725       0.570725    3.89e-07
+RPE1 Q3b_primary absT haapaniemi2018:null                                    0.217026       0.217026    4.31e-08
+RPE1 Q3b_primary absT hart2015:WT                                            0.380825       0.380825   -2.79e-08
+RPE1 Q3b_primary absT olivieri2020:null                                      0.872932       0.872932    3.31e-07
+RPE1 Q3b_primary absComp brown2019:WT                                        0.600827       0.600827    3.01e-07
+RPE1 Q3b_primary absComp brown2019:null                                      0.527202       0.527202    7.25e-08
+RPE1 Q3b_primary absComp haapaniemi2018:null                                 0.194623       0.194623    3.55e-07
+RPE1 Q3b_primary absComp hart2015:WT                                         0.369008       0.369008   -1.96e-07
+RPE1 Q3b_primary absComp olivieri2020:null                                   0.823308       0.823308    2.71e-07
+RPE1 Q3b_primary ceiling point                                             0.00191616         0.0019    1.62e-05
+RPE1 Q3b_primary ceiling entry brown2019:WT                                 -0.089969          -0.09    3.10e-05
+RPE1 Q3b_primary ceiling entry brown2019:null                             -0.00388601        -0.0039    1.40e-05
+RPE1 Q3b_primary ceiling entry haapaniemi2018:null                          0.0674881         0.0675   -1.19e-05
+RPE1 Q3b_primary ceiling entry hart2015:WT                                  -0.103122        -0.1031   -2.15e-05
+RPE1 Q3b_primary ceiling entry olivieri2020:null                            0.0902256         0.0902    2.56e-05
+RPE1 Q3b_primary ci_lo                                                    -0.00274552    -0.00274552   -2.60e-18
+RPE1 Q3b_primary ci_hi                                                      0.0605502      0.0605502    0.00e+00
+RPE1 Q3b_primary se                                                          0.015795       0.015795    0.00e+00
+RPE1 Q3b_primary swap state:H1_iCas9_MEF point                             -0.0207262     -0.0207262    0.00e+00
+RPE1 Q3b_primary swap state:H1_iCas9_MEF ci_lo                             -0.0747579     -0.0747579    0.00e+00
+RPE1 Q3b_primary swap state:H1_iCas9_MEF ci_hi                              0.0140735      0.0140735    0.00e+00
+RPE1 Q3b_primary swap state:H1_iCas9_laminin point                         -0.0378054     -0.0378054    0.00e+00
+RPE1 Q3b_primary swap state:H1_iCas9_laminin ci_lo                         -0.0928227     -0.0928227   -1.39e-17
+RPE1 Q3b_primary swap state:H1_iCas9_laminin ci_hi                         0.00483556     0.00483556    0.00e+00
+RPE1 Q3b_vs_B0 T point                                                      0.0360316      0.0360316    0.00e+00
+RPE1 Q3b_vs_B0 T_ensemble point                                             0.0361453      0.0361453    0.00e+00
+RPE1 Q3b_vs_B0 entry brown2019:WT                                           0.0432265       0.043226    4.74e-07
+RPE1 Q3b_vs_B0 entry brown2019:null                                         0.0448187       0.044819   -3.47e-07
+RPE1 Q3b_vs_B0 entry haapaniemi2018:null                                    0.0137216       0.013722   -3.53e-07
+RPE1 Q3b_vs_B0 entry hart2015:WT                                            0.0329989       0.032999   -1.15e-07
+RPE1 Q3b_vs_B0 entry olivieri2020:null                                      0.0533835       0.053383    4.59e-07
+RPE1 Q3b_vs_B0 absT brown2019:WT                                             0.622337       0.622337    1.25e-07
+RPE1 Q3b_vs_B0 absT brown2019:null                                           0.570725       0.570725    3.89e-07
+RPE1 Q3b_vs_B0 absT haapaniemi2018:null                                      0.217026       0.217026    4.31e-08
+RPE1 Q3b_vs_B0 absT hart2015:WT                                              0.380825       0.380825   -2.79e-08
+RPE1 Q3b_vs_B0 absT olivieri2020:null                                        0.872932       0.872932    3.31e-07
+RPE1 Q3b_vs_B0 absComp brown2019:WT                                          0.579111       0.579111   -3.49e-07
+RPE1 Q3b_vs_B0 absComp brown2019:null                                        0.525907       0.525907   -2.64e-07
+RPE1 Q3b_vs_B0 absComp haapaniemi2018:null                                   0.203304       0.203304    3.97e-07
+RPE1 Q3b_vs_B0 absComp hart2015:WT                                           0.347826       0.347826    8.70e-08
+RPE1 Q3b_vs_B0 absComp olivieri2020:null                                     0.819549       0.819549   -1.28e-07
+RPE1 Q3b_vs_B0 ceiling point                                               0.00885768         0.0089   -4.23e-05
+RPE1 Q3b_vs_B0 ceiling entry brown2019:WT                                  -0.0682523        -0.0683    4.77e-05
+RPE1 Q3b_vs_B0 ceiling entry brown2019:null                               -0.00259067        -0.0026    9.33e-06
+RPE1 Q3b_vs_B0 ceiling entry haapaniemi2018:null                            0.0588071         0.0588    7.06e-06
+RPE1 Q3b_vs_B0 ceiling entry hart2015:WT                                   -0.0819398        -0.0819   -3.98e-05
+RPE1 Q3b_vs_B0 ceiling entry olivieri2020:null                               0.093985          0.094   -1.50e-05
+RPE1 Q3b_rare_vs_B1n T point                                                0.0549468      0.0549468    0.00e+00
+RPE1 Q3b_rare_vs_B1n T_ensemble point                                       0.0451159      0.0451159    0.00e+00
+RPE1 Q3b_rare_vs_B1n entry brown2019:WT                                     0.0496314       0.049631    4.50e-07
+RPE1 Q3b_rare_vs_B1n entry brown2019:null                                    0.043956       0.043956    4.40e-08
+RPE1 Q3b_rare_vs_B1n entry haapaniemi2018:null                              0.0174614       0.017461    4.31e-07
+RPE1 Q3b_rare_vs_B1n entry hart2015:WT                                      0.0200481       0.020048    1.15e-07
+RPE1 Q3b_rare_vs_B1n entry olivieri2020:null                                 0.135484       0.135484   -1.29e-07
+RPE1 Q3b_rare_vs_B1n absT brown2019:WT                                       0.172482       0.172482   -4.28e-07
+RPE1 Q3b_rare_vs_B1n absT brown2019:null                                     0.145604       0.145604    3.96e-07
+RPE1 Q3b_rare_vs_B1n absT haapaniemi2018:null                               0.0448107       0.044811   -3.41e-07
+RPE1 Q3b_rare_vs_B1n absT hart2015:WT                                        0.134723       0.134723    3.36e-07
+RPE1 Q3b_rare_vs_B1n absT olivieri2020:null                                  0.232258       0.232258    6.45e-08
+RPE1 Q3b_rare_vs_B1n absComp brown2019:WT                                     0.12285        0.12285    1.23e-07
+RPE1 Q3b_rare_vs_B1n absComp brown2019:null                                  0.101648       0.101648    3.52e-07
+RPE1 Q3b_rare_vs_B1n absComp haapaniemi2018:null                            0.0273492       0.027349    2.29e-07
+RPE1 Q3b_rare_vs_B1n absComp hart2015:WT                                     0.114675       0.114675    2.21e-07
+RPE1 Q3b_rare_vs_B1n absComp olivieri2020:null                              0.0967742       0.096774    1.94e-07
+RPE1 Q3b_rare_vs_B1n ceiling point                                           0.251775         0.2518   -2.47e-05
+RPE1 Q3b_rare_vs_B1n ceiling entry brown2019:WT                              0.174447         0.1744    4.72e-05
+RPE1 Q3b_rare_vs_B1n ceiling entry brown2019:null                            0.164835         0.1648    3.52e-05
+RPE1 Q3b_rare_vs_B1n ceiling entry haapaniemi2018:null                       0.123773         0.1238   -2.72e-05
+RPE1 Q3b_rare_vs_B1n ceiling entry hart2015:WT                             0.00400962          0.004    9.62e-06
+RPE1 Q3b_rare_vs_B1n ceiling entry olivieri2020:null                         0.709677         0.7097   -2.26e-05
+hPSC plan n_genes                                                               16270          16270    0.00e+00
+hPSC plan n_blocks                                                              10447          10447    0.00e+00
+hPSC mair2019:WT consensus SSMD                                              -1.46652        -1.4665   -1.67e-05
+hPSC mair2019:WT median NEG eval                                           -0.0757233        -0.0757   -2.33e-05
+hPSC mair2019:WT median CEG eval                                             -1.53437        -1.5344    3.42e-05
+hPSC Q3a_primary T point                                                   0.00893616     0.00893616    5.55e-17
+hPSC Q3a_primary T_ensemble point                                           0.0107971      0.0107971    5.55e-17
+hPSC Q3a_primary entry mair2019:WT                                         0.00893616       0.008936    1.63e-07
+hPSC Q3a_primary absT mair2019:WT                                            0.413771       0.413771    2.71e-07
+hPSC Q3a_primary absComp mair2019:WT                                         0.404835       0.404835    1.08e-07
+hPSC Q3a_primary ceiling point                                             -0.0983858        -0.0984    1.42e-05
+hPSC Q3a_primary ceiling entry mair2019:WT                                 -0.0983858        -0.0984    1.42e-05
+hPSC Q3a_primary ci_lo                                                     0.00397312     0.00397312   -1.10e-16
+hPSC Q3a_primary ci_hi                                                      0.0140254      0.0140254    0.00e+00
+hPSC Q3a_primary se                                                        0.00252609     0.00252609    4.34e-19
+hPSC Q3a_primary swap state:DepMap_RPE1 point                            -0.000319333   -0.000319333   -5.55e-17
+hPSC Q3a_primary swap state:DepMap_RPE1 ci_lo                             -0.00500993    -0.00500993    5.20e-17
+hPSC Q3a_primary swap state:DepMap_RPE1 ci_hi                              0.00414227     0.00414227   -1.08e-16
+hPSC Q3a_effect_label T point                                              0.00302878     0.00302878    0.00e+00
+hPSC Q3a_effect_label T_ensemble point                                     0.00436381     0.00436381    0.00e+00
+hPSC Q3a_effect_label entry mair2019:WT                                    0.00302878       0.003029   -2.15e-07
+hPSC Q3a_effect_label absT mair2019:WT                                       0.513448       0.513448   -2.64e-07
+hPSC Q3a_effect_label absComp mair2019:WT                                    0.510419       0.510419   -4.87e-08
+hPSC Q3a_effect_label ceiling point                                        -0.0409536         -0.041    4.64e-05
+hPSC Q3a_effect_label ceiling entry mair2019:WT                            -0.0409536         -0.041    4.64e-05
+hPSC Q3b_primary T point                                                    0.0079594      0.0079594    0.00e+00
+hPSC Q3b_primary T_ensemble point                                           0.0194979      0.0194979    0.00e+00
+hPSC Q3b_primary entry mair2019:WT                                          0.0079594       0.007959    4.02e-07
+hPSC Q3b_primary absT mair2019:WT                                            0.243536       0.243536    3.25e-07
+hPSC Q3b_primary absComp mair2019:WT                                         0.235577       0.235577   -7.69e-08
+hPSC Q3b_primary ceiling point                                             -0.0649038        -0.0649   -3.85e-06
+hPSC Q3b_primary ceiling entry mair2019:WT                                 -0.0649038        -0.0649   -3.85e-06
+hPSC Q3b_primary ci_lo                                                     -0.0288845     -0.0288845    0.00e+00
+hPSC Q3b_primary ci_hi                                                      0.0375274      0.0375274    0.00e+00
+hPSC Q3b_primary se                                                         0.0171289      0.0171289    0.00e+00
+hPSC Q3b_primary swap state:DepMap_RPE1 point                              -0.0173077     -0.0173077    0.00e+00
+hPSC Q3b_primary swap state:DepMap_RPE1 ci_lo                               -0.034906      -0.034906    0.00e+00
+hPSC Q3b_primary swap state:DepMap_RPE1 ci_hi                               0.0257576      0.0257576    0.00e+00
+hPSC Q3b_vs_B0 T point                                                      0.0162393      0.0162393    0.00e+00
+hPSC Q3b_vs_B0 T_ensemble point                                             0.0277778      0.0277778    0.00e+00
+hPSC Q3b_vs_B0 entry mair2019:WT                                            0.0162393       0.016239    3.16e-07
+hPSC Q3b_vs_B0 absT mair2019:WT                                              0.243536       0.243536    3.25e-07
+hPSC Q3b_vs_B0 absComp mair2019:WT                                           0.227297       0.227297    8.55e-09
+hPSC Q3b_vs_B0 ceiling point                                               -0.0566239        -0.0566   -2.39e-05
+hPSC Q3b_vs_B0 ceiling entry mair2019:WT                                   -0.0566239        -0.0566   -2.39e-05
+hPSC Q3b_rare_vs_B1n T point                                                0.0209651      0.0209651    0.00e+00
+hPSC Q3b_rare_vs_B1n T_ensemble point                                       0.0309484      0.0309484    0.00e+00
+hPSC Q3b_rare_vs_B1n entry mair2019:WT                                      0.0209651       0.020965    5.82e-08
+hPSC Q3b_rare_vs_B1n absT mair2019:WT                                       0.0905158       0.090516   -1.93e-07
+hPSC Q3b_rare_vs_B1n absComp mair2019:WT                                    0.0695507       0.069551   -2.51e-07
+hPSC Q3b_rare_vs_B1n ceiling point                                          0.0339434         0.0339    4.34e-05
+hPSC Q3b_rare_vs_B1n ceiling entry mair2019:WT                              0.0339434         0.0339    4.34e-05
+H1 model delta MDM2                                                         -0.622983      -0.622983    0.00e+00
+H1 obs delta MDM2                                                            -1.61215       -1.61215    0.00e+00
+H1 model delta PPM1D                                                        -0.281179      -0.281179    0.00e+00
+H1 obs delta PPM1D                                                           -1.70376       -1.70376    0.00e+00
+H2 pooled n                                                                        15             15    0.00e+00
+H2 pooled spearman                                                           0.957143       0.957143    0.00e+00
+H2 pooled sign                                                                    0.8            0.8    0.00e+00
+H2 brown n                                                                         14             14    0.00e+00
+H2 brown spearman                                                            0.925275       0.925275    0.00e+00
+H2 brown sign                                                                0.928571       0.928571    0.00e+00
+H2 bowden n                                                                        11             11    0.00e+00
+H2 bowden spearman                                                           0.945455       0.945455    0.00e+00
+H2 bowden sign                                                               0.818182       0.818182    0.00e+00
+H3 n_obs_dep                                                                        4              4    0.00e+00
+H3 n_pred_T                                                                         0              0    0.00e+00
+H3 n_pred_noEC                                                                      0              0    0.00e+00
+H3 T pred 5460                                                                -0.2511      -0.251118    1.80e-05
+H3 noEC pred 5460                                                             -0.0817      -0.081669   -3.10e-05
+H3 T pred 79923                                                                0.1985        0.19854   -4.00e-05
+H3 noEC pred 79923                                                             0.2045       0.204462    3.80e-05
+H3 T pred 6657                                                                -0.1573       -0.15731    1.00e-05
+H3 noEC pred 6657                                                             -0.0952      -0.095189   -1.10e-05
+H3 T pred 79727                                                               -0.0266        -0.0266    0.00e+00
+H3 noEC pred 79727                                                            -0.0908       -0.09084    4.00e-05
+H3 T pred 1789                                                                 0.0595        0.05952   -2.00e-05
+H3 noEC pred 1789                                                              0.0336       0.033561    3.90e-05
+H3 T pred 63978                                                               -0.2176      -0.217579   -2.10e-05
+H3 noEC pred 63978                                                            -0.1018      -0.101796   -4.00e-06
+H3 T pred 7546                                                                -0.0323      -0.032318    1.80e-05
+H3 noEC pred 7546                                                             -0.0302      -0.030178   -2.20e-05
+H3 T pred 54596                                                               -0.0282      -0.028225    2.50e-05
+H3 noEC pred 54596                                                            -0.0059      -0.005858   -4.20e-05
+H3 T pred 55211                                                                0.0659       0.065869    3.10e-05
+H3 noEC pred 55211                                                             0.1061       0.106142   -4.20e-05
+setA Q3a_primary ACH-002462 point                                           0.0353359      0.0353359   -2.22e-16
+setA Q3a_primary ACH-002462 n_U                                                 16741          16741    0.00e+00
+setA Q3a_primary ACH-002462 pct                                               93.3333        93.3333    0.00e+00
+setA Q3a_primary ACH-002462 ci_lo                                           0.0296782      0.0296782   -3.26e-16
+setA Q3a_primary ACH-002462 ci_hi                                           0.0418938      0.0418938    0.00e+00
+setA Q3a_primary ACH-002463 point                                           0.0425549      0.0425549    0.00e+00
+setA Q3a_primary ACH-002463 n_U                                                 16741          16741    0.00e+00
+setA Q3a_primary ACH-002463 pct                                               96.4706        96.4706    0.00e+00
+setA Q3a_primary ACH-002463 ci_lo                                           0.0361938      0.0361938   -1.04e-16
+setA Q3a_primary ACH-002463 ci_hi                                           0.0493545      0.0493545    0.00e+00
+setA Q3a_primary ACH-002464 point                                           0.0180953      0.0180953   -1.11e-16
+setA Q3a_primary ACH-002464 n_U                                                 16741          16741    0.00e+00
+setA Q3a_primary ACH-002464 pct                                               70.9804        70.9804    0.00e+00
+setA Q3a_primary ACH-002464 ci_lo                                           0.0124734      0.0124734   -3.30e-16
+setA Q3a_primary ACH-002464 ci_hi                                           0.0234735      0.0234735   -1.04e-16
+setA Q3a_primary ACH-002465 point                                            0.040026       0.040026   -1.11e-16
+setA Q3a_primary ACH-002465 n_U                                                 16741          16741    0.00e+00
+setA Q3a_primary ACH-002465 pct                                                94.902         94.902    0.00e+00
+setA Q3a_primary ACH-002465 ci_lo                                           0.0340449      0.0340449    1.04e-16
+setA Q3a_primary ACH-002465 ci_hi                                           0.0460815      0.0460815    1.04e-16
+setA Q3a_primary ACH-002467 point                                           0.0368006      0.0368006    1.11e-16
+setA Q3a_primary ACH-002467 n_U                                                 16741          16741    0.00e+00
+setA Q3a_primary ACH-002467 pct                                               93.3333        93.3333    0.00e+00
+setA Q3a_primary ACH-002467 ci_lo                                           0.0314641      0.0314641    1.04e-16
+setA Q3a_primary ACH-002467 ci_hi                                           0.0422978      0.0422978    1.04e-16
+setA Q3a_primary median pct                                                   93.3333        93.3333    0.00e+00
+setA Q3b_primary ACH-002462 point                                           0.0628272      0.0628272    0.00e+00
+setA Q3b_primary ACH-002462 n_U                                                 16741          16741    0.00e+00
+setA Q3b_primary ACH-002462 pct                                               95.6863        95.6863    0.00e+00
+setA Q3b_primary ACH-002462 ci_lo                                           0.0175683      0.0175683   -6.94e-18
+setA Q3b_primary ACH-002462 ci_hi                                           0.0997431      0.0997431    0.00e+00
+setA Q3b_primary ACH-002463 point                                           0.0831354      0.0831354    0.00e+00
+setA Q3b_primary ACH-002463 n_U                                                 16741          16741    0.00e+00
+setA Q3b_primary ACH-002463 pct                                               99.2157        99.2157    0.00e+00
+setA Q3b_primary ACH-002463 ci_lo                                           0.0232723      0.0232723   -6.94e-18
+setA Q3b_primary ACH-002463 ci_hi                                            0.111062       0.111062    0.00e+00
+setA Q3b_primary ACH-002464 point                                           0.0424069      0.0424069    0.00e+00
+setA Q3b_primary ACH-002464 n_U                                                 16741          16741    0.00e+00
+setA Q3b_primary ACH-002464 pct                                               90.9804        90.9804    0.00e+00
+setA Q3b_primary ACH-002464 ci_lo                                          0.00521301     0.00521301   -7.81e-18
+setA Q3b_primary ACH-002464 ci_hi                                           0.0882666      0.0882666    0.00e+00
+setA Q3b_primary ACH-002465 point                                            0.058348       0.058348    0.00e+00
+setA Q3b_primary ACH-002465 n_U                                                 16741          16741    0.00e+00
+setA Q3b_primary ACH-002465 pct                                               95.2941        95.2941    0.00e+00
+setA Q3b_primary ACH-002465 ci_lo                                          0.00914888     0.00914888   -1.56e-17
+setA Q3b_primary ACH-002465 ci_hi                                           0.0905912      0.0905912    0.00e+00
+setA Q3b_primary ACH-002467 point                                           0.0592133      0.0592133    0.00e+00
+setA Q3b_primary ACH-002467 n_U                                                 16741          16741    0.00e+00
+setA Q3b_primary ACH-002467 pct                                               95.2941        95.2941    0.00e+00
+setA Q3b_primary ACH-002467 ci_lo                                          0.00236169     0.00236169   -8.67e-18
+setA Q3b_primary ACH-002467 ci_hi                                           0.0946797      0.0946797    0.00e+00
+setA Q3b_primary median pct                                                   95.2941        95.2941    0.00e+00
+n compared 288 max abs diff 4.866122305393142e-05
+{
+"comparator_recompute_maxabs": {
+"B0": 8.80875461461983e-09,
+"B1_CNS/Brain": 1.9715530985564556e-08,
+"B1_CNS/Brain_n_lines": 102,
+"B1_Eye": 2.6563307553573168e-08,
+"B1_Eye_n_lines": 6,
+"B1_Testis": 2.378744223818785e-08,
+"B1_Testis_n_lines": 3,
+"frac_below_maxdiff": 5.0000000000050004e-06,
+"frac_below_crossing_0.5": 0
+},
+"n_dev_rows": 1022
+}
+{
+"RPE1": {
+"brown2019:WT": {
+"triv_skill": 0.0022729133103387422,
+"frac_U_unexpressed": 0.3815142576204523,
+"T_skill_expressed_only": 0.048973026562498245,
+"n_expressed_only": 10064,
+"T_skill_no_depmap_common_ess": 0.05555499586139223,
+"n_no_depmap_common_ess": 16020,
+"T_skill_no_CEGv2": 0.051367894649989254,
+"n_no_CEGv2": 15944
+},
+"brown2019:null": {
+"triv_skill": 0.000809916418823664,
+"frac_U_unexpressed": 0.38094650459677915,
+"T_skill_expressed_only": 0.04001807434123228,
+"n_expressed_only": 10033,
+"T_skill_no_depmap_common_ess": 0.04360036522345079,
+"n_no_depmap_common_ess": 15957,
+"T_skill_no_CEGv2": 0.04266494471650206,
+"n_no_CEGv2": 15881
+},
+"haapaniemi2018:null": {
+"triv_skill": -0.0026362745931514664,
+"frac_U_unexpressed": 0.3896940418679549,
+"T_skill_expressed_only": 0.024254122089716446,
+"n_expressed_only": 10233,
+"T_skill_no_depmap_common_ess": 0.02347183131857178,
+"n_no_depmap_common_ess": 16510,
+"T_skill_no_CEGv2": 0.02298995842126561,
+"n_no_CEGv2": 16432
+},
+"hart2015:WT": {
+"triv_skill": -0.0015549814590911648,
+"frac_U_unexpressed": 0.37685479597244304,
+"T_skill_expressed_only": 0.04455499528058293,
+"n_expressed_only": 9407,
+"T_skill_no_depmap_common_ess": 0.049987238640431975,
+"n_no_depmap_common_ess": 14886,
+"T_skill_no_CEGv2": 0.048816294668888816,
+"n_no_CEGv2": 14824
+},
+"olivieri2020:null": {
+"triv_skill": 0.005629520361225104,
+"frac_U_unexpressed": 0.3815199361061621,
+"T_skill_expressed_only": 0.047439478913260946,
+"n_expressed_only": 10067,
+"T_skill_no_depmap_common_ess": 0.05069226890091094,
+"n_no_depmap_common_ess": 16025,
+"T_skill_no_CEGv2": 0.04875746529490854,
+"n_no_CEGv2": 15949
+}
+},
+"hPSC": {
+"mair2019:WT": {
+"triv_skill": -0.01944502819887689,
+"frac_U_unexpressed": 0.35568531038721574,
+"T_skill_expressed_only": 0.011178592312782454,
+"n_expressed_only": 10483,
+"T_skill_no_depmap_common_ess": 0.018699013502072925,
+"n_no_depmap_common_ess": 16019,
+"T_skill_no_CEGv2": 0.016554970724580065,
+"n_no_CEGv2": 15943
+}
+}
+}
+{"RPE1": {"brown2019_WT_Durocher_T3": true, "brown2019_WT_PACE002_T30": true, "brown2019_WT_PACE006_T25": true, "brown2019_p53null_TKOv2_T18": true, "haapaniemi2018_null_D28": true, "hart2015_RPE1_T18": true, "olivieri2020_TKOv3_S02": true, "olivieri2020_TKOv3_S04": true, "olivieri2020_TKOv3_S05": true, "olivieri2020_TKOv3_S06": true, "olivieri2020_TKOv3_S07": true, "olivieri2020_TKOv3_S12": true}, "hPSC": {"mair2019_H1_MEF_T8": true, "mair2019_H1_laminin_T12": true}}
+{"mair2019_H1_MEF_T8": false, "mair2019_H1_laminin_T12": false} ['79923', '6657', '79727', '63978'] fail pass pass
+RPE1 Q3a_primary n_pos {'brown2019:WT': 1628, 'brown2019:null': 1621, 'haapaniemi2018:null': 1677, 'hart2015:WT': 1510, 'olivieri2020:null': 1628} n_U {'brown2019:WT': 16272, 'brown2019:null': 16207, 'haapaniemi2018:null': 16767, 'hart2015:WT': 15096, 'olivieri2020:null': 16277}
+RPE1 Q3b_primary n_pos {'brown2019:WT': 967, 'brown2019:null': 772, 'haapaniemi2018:null': 3571, 'hart2015:WT': 1794, 'olivieri2020:null': 266} n_U {'brown2019:WT': 16272, 'brown2019:null': 16207, 'haapaniemi2018:null': 16767, 'hart2015:WT': 15096, 'olivieri2020:null': 16277}
+RPE1 Q3b_rare_vs_B1n n_pos {'brown2019:WT': 407, 'brown2019:null': 364, 'haapaniemi2018:null': 2852, 'hart2015:WT': 1247, 'olivieri2020:null': 31} n_U {'brown2019:WT': 16272, 'brown2019:null': 16207, 'haapaniemi2018:null': 16767, 'hart2015:WT': 15096, 'olivieri2020:null': 16277}
+hPSC Q3a_primary n_pos {'mair2019:WT': 1627} n_U {'mair2019:WT': 16270}
+hPSC Q3b_primary n_pos {'mair2019:WT': 3744} n_U {'mair2019:WT': 16270}
+hPSC Q3b_rare_vs_B1n n_pos {'mair2019:WT': 3005} n_U {'mair2019:WT': 16270}

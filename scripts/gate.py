@@ -7,6 +7,7 @@
     python scripts/gate.py G3     # model ladder closed: headline chosen by the rule, finalists' CV runs,
                                   # frozen tiers, dev-only G4 dry run reproduces CV fold 0
     python scripts/gate.py G4     # one-time test evaluation complete + independent reproduction (DESIGN §9)
+    python scripts/gate.py G6     # transfer stages A and B complete + independent reproduction
 
 G1 requires a passed G0. Checks (DESIGN §12): B0 P1 is exactly 0 in every fold and gene class;
 B1 P1 (variable) > 0 with every fold > 0. B2 is reported, not gated.
@@ -197,9 +198,43 @@ def g4():
     return checks
 
 
+def g6():
+    """DESIGN §12 G6 "apply to set A, then set B; verdicts"; independent reproduction (DESIGN §9)."""
+    g4j = GATES / "G4.json"
+    if not g4j.exists() or not json.loads(g4j.read_text())["pass"]:
+        raise SystemExit("G4 has not passed")
+    tr = ROOT / "results" / "transfer"
+    sa = json.loads((tr / "setA" / "summary.json").read_text())
+    sb = json.loads((tr / "setB" / "summary.json").read_text())
+    rows = [l.split() for l in (ROOT / "reviews" / "g6_review" / "cmp_boot.txt").read_text().splitlines()]
+    diffs = []
+    for r in rows:
+        try:
+            diffs.append(abs(float(r[-1])))
+        except (ValueError, IndexError):
+            pass
+    review = (ROOT / "reviews" / "g6_review" / "REPORT.md").read_text(encoding="utf-8")
+    allowed = {"transfers", "fails", "inconclusive"}
+    verdicts = {q: v["verdict"] for q, v in sb["overall"].items()}
+    checks = [
+        {"check": "set A complete, no errors", "status": sa["status"], "pass": sa["status"] == "complete"
+         and not sa.get("errors")},
+        {"check": "set B complete, no errors, bootstrap plan matches the frozen plan", "status": sb["status"],
+         "plan_matches_frozen": sb["plan_matches_frozen"], "pass": sb["status"] == "complete"
+         and not sb.get("errors") and all(sb["plan_matches_frozen"].values())},
+        {"check": "an overall verdict for each primary question", "verdicts": verdicts,
+         "pass": set(verdicts) == {"Q3a", "Q3b"} and set(verdicts.values()) <= allowed},
+        {"check": "independent reproduction (own code): every compared value within 1e-4",
+         "n_compared": len(diffs), "max_abs_diff": max(diffs), "pass": bool(diffs) and max(diffs) < 1e-4},
+        {"check": "independent review: no critical finding", "pass": "### Critical
+None." in review},
+    ]
+    return checks
+
+
 def main():
     gate = sys.argv[1]
-    checks = {"G0": g0, "G1": g1, "G2": g2, "G3": g3, "G4": g4}[gate]()
+    checks = {"G0": g0, "G1": g1, "G2": g2, "G3": g3, "G4": g4, "G6": g6}[gate]()
     commit, dirty = _git()
     out = {"gate": gate, "pass": all(c["pass"] for c in checks), "checks": checks,
            "commit": commit, "dirty_tree": dirty,
