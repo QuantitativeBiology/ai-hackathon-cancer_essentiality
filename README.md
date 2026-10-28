@@ -1,4 +1,4 @@
-(Human-written text starts)
+*(Human-written text starts)*
 
 This is an exercise in assessing the bioinformatics capabilities of agentic AI. It is part of a hackathon run by the Beltrao Lab at ETH Zurich, to which we (INESC-ID & IST – Universidade de Lisboa) contribute, in which Claude was used to run bioinformatics projects (https://github.com/evocellnet/ai-hackathon/). All results in this project were generated entirely by AI, with minimal human intervention. This repository is not intended to be read as a traditional publication or used as a validated bioinformatics tool.
 
@@ -8,7 +8,8 @@ None of the results have yet been verified by a human. We plan to verify the age
 
 The rest of this repository is entirely AI-generated. It includes the code implementing the predictive model and an AI-written report in the style of a journal article, describing the final method, the path taken to reach it, and benchmarking against other methods.
 
-(Human-written text ends)
+*(Human-written text ends)*
+
 ---
 
 # Predicting CRISPR gene essentiality from molecular profiles (DepMap 26Q3)
