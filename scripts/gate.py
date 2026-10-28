@@ -206,13 +206,10 @@ def g6():
     tr = ROOT / "results" / "transfer"
     sa = json.loads((tr / "setA" / "summary.json").read_text())
     sb = json.loads((tr / "setB" / "summary.json").read_text())
-    rows = [l.split() for l in (ROOT / "reviews" / "g6_review" / "cmp_boot.txt").read_text().splitlines()]
-    diffs = []
-    for r in rows:
-        try:
-            diffs.append(abs(float(r[-1])))
-        except (ValueError, IndexError):
-            pass
+    # the reviewer's compare.py prints "n compared <n> max abs diff <x>" after the comparison rows
+    tail = [l.split() for l in (ROOT / "reviews" / "g6_review" / "cmp_boot.txt").read_text().splitlines()
+            if l.startswith("n compared")][-1]
+    n_compared, maxdiff = int(tail[2]), float(tail[-1])
     review = (ROOT / "reviews" / "g6_review" / "REPORT.md").read_text(encoding="utf-8")
     allowed = {"transfers", "fails", "inconclusive"}
     verdicts = {q: v["verdict"] for q, v in sb["overall"].items()}
@@ -225,7 +222,7 @@ def g6():
         {"check": "an overall verdict for each primary question", "verdicts": verdicts,
          "pass": set(verdicts) == {"Q3a", "Q3b"} and set(verdicts.values()) <= allowed},
         {"check": "independent reproduction (own code): every compared value within 1e-4",
-         "n_compared": len(diffs), "max_abs_diff": max(diffs), "pass": bool(diffs) and max(diffs) < 1e-4},
+         "n_compared": n_compared, "max_abs_diff": maxdiff, "pass": n_compared > 0 and maxdiff < 1e-4},
         {"check": "independent review: no critical finding", "pass": "### Critical\nNone." in review},
     ]
     return checks
