@@ -32,21 +32,31 @@ grouped by patient). The primary metric, P1, is the mean per-gene Pearson correl
 2,118 variable genes. A multi-output kernel ridge regression on expression alone reached dev-CV P1
 <!--n:registry:20261026-222117_m1_E_resB0_91e52f9d#P1_variable-->0.3081, against
 <!--n:registry:20261026-220921_b1_0e2a7a27#P1_variable-->0.184 for the shrunk lineage mean and
-<!--n:registry:20261026-221456_b2_289f5170#P1_variable-->0.253 for an expression nearest-neighbour baseline. Copy
-number, mutations, fusions and metadata carried real but tiny signal under tuned weights, and no model that used
-them cleared the pre-registered selection margin on its own. The selected headline is a plain average of the ridge
-model, a per-gene paralog stage and a LightGBM residual stage (dev-CV P1
+<!--n:registry:20261026-221456_b2_289f5170#P1_variable-->0.253 for an expression nearest-neighbour baseline. Under
+tuned weights, adding copy number and mutations gave real but tiny gains (at most
+<!--n:g3k#m1b_contrasts/5/mean-->+0.0015 for the full set); hotspots and fusions added nothing measurable, and no model
+that used genomics cleared the pre-registered selection margin on its own. The selected headline is a plain average
+of the ridge model, a per-gene paralog stage and a LightGBM residual stage that also reads copy-number, mutation,
+hotspot and lineage features (dev-CV P1
 <!--n:registry:20261027-161041_m5_avg_6dbebcf4#P1_variable-->0.3175). On the test set, opened once, it scored P1
 <!--n:test#table/0/P1_variable-->0.319 (CI <!--n:test#table/0/P1_variable_ci/0-->0.304–<!--n:test#table/0/P1_variable_ci/1-->0.333),
 against <!--n:test#table/6/P1_variable-->0.310 for expression-only ridge: a small paired gain of
 <!--n:g4r#bootstrap/paired_P1_variable_m5_avg_minus_m1_E_resB0/point-->+0.0093 that replicated the dev-CV gain.
-Refitting the headline takes about half an hour on 4 threads; the expression-only ridge takes about two minutes.
-Applied to published screens of non-transformed cells after pre-registered harmonisation, the transfer model ranked
-each screen's most depleted genes slightly better than the DepMap gene mean in RPE1 (ΔAP
-<!--n:rpe#statistics/Q3a_primary/T/point-->0.032) and in one hPSC screen (ΔAP
-<!--n:hpsc#statistics/Q3a_primary/T/point-->0.009). By the pre-registered rule this is "transfers", but the whole
-interval lies below the minimum detectable effect, and "fails" could not be reached. Screen-specific dependencies
-were not detectable with these screens.
+For essentiality AUPRC, the per-line metric P2a is close to its ceiling for the gene mean alone
+(<!--n:test#table/3/P2a-->0.905 against <!--n:test#table/0/P2a-->0.915 for the headline); for selective
+dependencies the headline's normalised AUPRC was <!--n:test#table/0/P2b_nap_prev05-->0.184 against
+<!--n:test#table/4/P2b_nap_prev05-->0.075 for the lineage mean (AUROC <!--n:test#table/0/P2b_auroc_prev05-->0.663).
+Refitting the headline takes about half an hour; the expression-only ridge takes about two minutes.
+<!-- PREDICT-SCRIPT-ABSTRACT -->
+Applied to published screens of non-transformed cells after pre-registered harmonisation, the transfer model T ranked
+each screen's most depleted genes slightly better than the DepMap gene mean (about one twentieth relative) in
+hTERT-RPE1 (ΔAP <!--n:rpe#statistics/Q3a_primary/T/point-->0.032; RPE1 expression taken from DepMap's own profiles)
+and in one embryonic stem cell screen (ΔAP <!--n:hpsc#statistics/Q3a_primary/T/point-->0.009). By the pre-registered
+rule this is "transfers". But the whole interval lies below the minimum detectable effect, an expression
+nearest-neighbour baseline meets the same conditions, and "fails" could not be reached because no transformed anchor
+screen showed positive skill. Screen-specific dependencies were not detectable in the published screens, though they
+were in DepMap's own RPE1 screens. No iPSC, iPSC-derived or primary haematopoietic screen could be evaluated (CRISPRi
+only without an anchor, or failed QC).
 
 ## 1. Introduction
 
@@ -84,19 +94,33 @@ The literature survey (LITERATURE.md and `docs/lit/`) found the following; we ci
 
 ### Questions
 The design (DESIGN.md, frozen at version 3 after three review rounds by agent reviewers covering prior work,
-statistics, data, algorithms and compute, AI-agent failure modes, biology, and an external PI) fixed three
+statistics, data, algorithms and compute, AI-agent failure modes, biology, and an "external PI"; all of these
+reviewers, like the project's "PI" mentioned below, were AI agents) fixed three
 questions:
 - **Q1.** How well can a never-screened cancer line's gene-effect profile be predicted, and which feature types
   matter (modality ablation)?
 - **Q2.** How much better is that than the per-gene mean (B0) and the per-gene lineage mean (B1), and at what
   runtime?
-- **Q3.** Does the model transfer to non-transformed cells? Asked separately for core-essential genes (**Q3a**) and
+- **Q3.** Does the model transfer to non-transformed cells? Asked separately for the screen's most depleted genes, as
+  a proxy for core-essential transfer (**Q3a**), and
   for context-specific dependencies (**Q3b**), and answered only after screen and expression batch effects were
   harmonised and the decision rule was committed.
 
 The user later added two diagnostics: per-gene predictability tiers with a confidence score (decision D22), and a
 check of whether an expression-first model misses mutation-driven dependencies (D24). Decision numbers (D0–D28)
-refer to the decision log in RESEARCH_TREE.md; Appendix B indexes them.
+refer to the decision log in RESEARCH_TREE.md; Appendix B indexes them. Deviations from the design recorded during
+the model ladder carry ids of the form D-G3-n and D-M5-n.
+
+**Gates.** The work ran through pre-declared gates, each with checks that had to pass before the next step: G0
+evaluation code and test-set guard; G1 baselines; G2 first models and modality ablation; G3 model ladder closed; G4
+one-time test-set evaluation; G5 acquisition and harmonisation of non-transformed screens; G6 transfer evaluation;
+G7 this report.
+
+**Terms.** hTERT-RPE1 (RPE1): telomerase-immortalised retinal pigment epithelium, the most screened non-transformed
+human line. hPSC: human pluripotent stem cells (embryonic or induced). HAP1: a near-haploid cancer line used as a
+screen anchor. TKOv1/v2/v3 and Brunello: genome-wide CRISPR knockout guide libraries. ORCS: the BioGRID Open
+Repository of CRISPR Screens. AUROC: area under the receiver operating characteristic curve. TPM: transcripts per
+million.
 
 ## 2. Results
 
@@ -106,7 +130,8 @@ refer to the decision log in RESEARCH_TREE.md; Appendix B indexes them.
 so this is recorded as assumption D0). CRISPRGeneEffect covers 1,361 models and 18,434 genes. The population for
 modelling was the 1,277 screened models with expression, excluding the "Non-Cancerous" models and their patients.
 Missing gene effects are structured by screening library (49 NaN patterns, four major line groups); they were never
-imputed, and every model was fitted exactly on the observed rows of each pattern.
+imputed. Models were fitted on the observed rows of each pattern; near-identical patterns were merged and genes in
+very small patterns fell back to B1 (Methods).
 
 **Locked split (D1).** Before any modelling we drew a test set of 255 lines (one fifth), grouped by PatientID so
 that no patient spans roles (104 screened lines share patients), and stratified by lineage (`configs/splits.csv`,
@@ -153,7 +178,8 @@ The first rung, M1, is a multi-output kernel ridge regression on standardised ex
 single kernel by a weighted sum of per-modality kernels: expression (E), copy number (C), damaging mutations (M),
 hotspot mutations (H), fusions (F), metadata (Meta) and derived genotype composites.
 
-**Under default block weights every added modality hurt** (dev CV, paired ΔP1 against E-only M1;
+**Under default block weights every added modality hurt** (dev CV, paired ΔP1 against E-only M1 with the pre-D14
+B1-residual target, dev-CV P1 <!--n:registry:20261026-225039_m1_E_e66eff5f#P1_variable-->0.2997;
 `docs/g2_results.md`):
 
 | Contrast (dev CV) | ΔP1 | SE | Folds better |
@@ -194,19 +220,20 @@ transfer model T (expression plus TP53/RB1 status flags, no lineage;
 <!--n:registry:20261026-224125_t_E_status_24b46e2a#P1_variable-->0.3082). At this point our best model was, in
 substance, ridge regression on expression.
 
-**Is the skill real?** P1 on Hart's non-essential genes was not zero, which prompted a check for line-level
-artefacts. Centring each line's predictions removed almost none of the skill (D16), so the skill is not a predicted
+**Is the skill real?** P1 on Hart's non-essential genes was not zero (about one third of variable-gene P1 for B1, B2
+and M1 alike, D16), which points to technical structure in P1 and prompted a check for line-level artefacts. Centring each line's predictions removed almost none of the skill (D16), so the skill is not a predicted
 line offset. We added three diagnostic columns, recomputing P1 after centring truth and prediction within library
 group, within lineage, and within lineage × library cells. For `m1_E_resB0` these were
 <!--n:g3k#runs/5/within_library-->0.279, <!--n:g3k#runs/5/within_lineage-->0.245 and
 <!--n:g3k#runs/5/within_lin_lib-->0.199 (dev CV), against <!--n:g3k#runs/1/within_lineage-->0.177 within lineage
-for B2. Stricter negative controls were consistent: a global shuffle on the B0 path gave P1
-<!--n:g3k#controls/0/P1_var-->0.0026; expression permuted within lineage left within-lineage P1 at
-<!--n:g3k#controls/1/within_lineage-->−0.0040. One control missed its expectation in an informative direction:
-expression permuted within lineage × library cells still gave within-lineage P1
-<!--n:g3k#controls/2/within_lineage-->0.071, so library group explains part of within-lineage variation. The
-headline keeps substantial skill within lineage × library cells, where that control scores
-<!--n:g3k#controls/2/within_lin_lib-->−0.0065.
+for B2. Stricter negative controls (D17, D20b): a global shuffle on the B0 path gave P1
+<!--n:g3k#controls/0/P1_var-->0.0026, as expected. Two of the three stricter controls missed a pre-stated
+expectation. Expression permuted within lineage removed within-lineage skill (within-lineage P1
+<!--n:g3k#controls/1/within_lineage-->−0.0040), but its overall P1, <!--n:g3k#controls/1/P1_var-->0.127, fell below
+the pre-stated band around B1 (the conservative direction). Expression permuted within lineage × library cells still
+gave within-lineage P1 <!--n:g3k#controls/2/within_lineage-->0.071, above its bound, so library group explains part
+of within-lineage variation. Within lineage × library cells that control scores
+<!--n:g3k#controls/2/within_lin_lib-->−0.0065, while `m1_E_resB0` keeps <!--n:g3k#runs/5/within_lin_lib-->0.199.
 
 ### The model ladder (G3)
 
@@ -225,7 +252,7 @@ runtime section below.
 | M1b | tuned weights, all modalities | <!--n:registry:20261027-002223_m1bt_full_48508032#P1_variable-->0.3096 | <!--n:g3k#selection_log/5/dP1-->+0.0015 (<!--n:g3k#selection_log/5/se-->0.0002) | <!--n:registry:20261027-002223_m1bt_full_48508032#P2b_nap_prev05-->0.193 | below δ |
 | M2 | + per-gene stage, paralogs | <!--n:registry:20261027-044450_m2n_E_paralogs_62ce1575#P1_variable-->0.3115 | <!--n:g3k#selection_log/7/dP1-->+0.0034 (<!--n:g3k#selection_log/7/se-->0.0004) | <!--n:registry:20261027-044450_m2n_E_paralogs_62ce1575#P2b_nap_prev05-->0.195 | below δ |
 | M3 | LightGBM on M1 residuals | <!--n:registry:20261027-014824_g3_m3n_601e3f5e#P1_variable-->0.3099 | <!--n:g3n#main/11/dP1-->+0.0018 (<!--n:g3n#main/11/dP1_se-->0.0002) | <!--n:registry:20261027-014824_g3_m3n_601e3f5e#P2b_nap_prev05-->0.193 | below δ |
-| M4 | neural, pre-check (fold 0 only) | <!--n:g3n#main/5/P1_var-->0.3025 (seed 0) | — | — | dropped at pre-check |
+| M4 | neural, pre-check (fold 0 only) | <!--n:g3n#main/5/P1_var-->0.3025 (seed 0; fold-0 M1: <!--n:g3n#main/4/base_P1_var-->0.3129) | — | — | dropped at pre-check |
 | M5 | NNLS stacking of M1, M2, M3 | <!--n:registry:20261027-122954_m5_stack_bf84c59d#P1_variable-->0.3180 | <!--n:g3m#runs/5/dP1_head-->+0.0099 (<!--n:g3m#runs/5/dP1_head_se-->0.0007) | <!--n:registry:20261027-122954_m5_stack_bf84c59d#P2b_nap_prev05-->0.196 | no better than average |
 | **M5** | **plain average of M1, M2, M3** | **<!--n:registry:20261027-161041_m5_avg_6dbebcf4#P1_variable-->0.3175** | **<!--n:g3m#selection_log/0/dP1-->+0.0094 (<!--n:g3m#selection_log/0/se-->0.0002)** | **<!--n:registry:20261027-161041_m5_avg_6dbebcf4#P2b_nap_prev05-->0.196** | **headline** |
 
@@ -235,10 +262,13 @@ expression of physical-interaction partners. After a pass-through fix for non-va
 the local penalty, paralogs gave the largest gain (<!--n:g3k#selection_log/7/dP1-->+0.0034), partners less
 (<!--n:g3k#selection_log/8/dP1-->+0.0025). The paralog gain was larger within lineage × library cells
 (<!--n:g3m#runs/2/d_within_lin_lib-->+0.010), so it adds line-specific information, but it did not clear δ on P1.
+The M2 used in the headline is the paralog variant (`m2n_E_paralogs`): the gene's own expression, copy number and
+mutation status plus its paralogs, without partners.
 
 **M3, LightGBM (D18, D19).** One gradient-boosted tree model per training-fold variable gene, fitted on M1's
 residuals (DESIGN had specified M2's residuals; because M2 had not cleared δ, D18 fitted M3 on the current best rung)
-with inner-fold feature screening from expression, copy number, mutations, hotspots and lineage. An independent
+with inner-fold feature screening from expression, copy number, mutations, hotspots and the whole metadata block
+(including lineage). An independent
 leakage review found that the original early-stopping split used out-of-fold M1 features that had seen the
 validation rows; the nested fix (decided before any full result) gives the version of record,
 <!--n:g3n#main/11/dP1-->+0.0018. The un-nested original, re-run as a sensitivity analysis, gave
@@ -287,10 +317,10 @@ predictions equal the mean of the three registered inputs.
 - **R4**, TrPLet-like top-k feature selection with ridge or RBF-kernel support vector regression, nested per-gene
   choice: on the 500-gene subset <!--n:g3n#main/17/P1_var-->0.2800 against
   <!--n:g3n#main/17/base_P1_var-->0.3182 (ΔP1 <!--n:g3n#main/17/dP1-->−0.0382). The non-nested, best-of-12 variant
-  (flagged leaky, diagnostic only) narrowed the gap to <!--n:g3n#main/18/dP1-->−0.0201, so non-nested selection
-  alone inflated P1 by about half the gap. Extending k to 2,000 brought nested R4 to about the same distance from
-  ridge as the leaky run, with choices again piling up at the largest k: per-gene feature selection approaches
-  dense ridge as it keeps more features, and buys nothing over shrinkage.
+  (flagged leaky, diagnostic only) narrowed the gap to <!--n:g3n#main/18/dP1-->−0.0201 on the original grid (k up
+  to 200). Extending k to 2,000 brought nested R4 to about the same distance from ridge as the leaky run, with
+  choices again piling up at the largest k, so the nested gap on the original grid was an upper bound (D19): per-gene
+  feature selection approaches dense ridge as it keeps more features, and buys nothing over shrinkage.
 - **R3** (DepMap-style random forest) was deferred under the compute plan and not run.
 
 **Generalisation across lineages (dev CV).** Leaving out each of the 18 dev lineages with at least 20 lines,
@@ -315,7 +345,8 @@ pair-level number was computed, we committed 19 biomarker–dependency pairs (10
 collateral losses), the metrics, and a rule: genomics "clearly helps" if, for the same comparator, (1) the pooled
 fold-paired ΔAUPRC against expression-only M1 has a CI excluding 0, and (2) at least 3 pairs each gain at least
 `0.10` in at least 4 of 5 folds. If met, one targeted model would be pre-registered. Seventeen pairs had at least 5
-biomarker-positive dev lines. Dev CV only.
+biomarker-positive dev lines. Dev CV only. Disclosure: the G3 results had already hinted at the direction for NRAS
+before this rule was written (D24).
 
 | Comparator vs `m1_E_resB0` (dev CV) | Pooled ΔAUPRC [CI] | Pairs passing condition 2 | Rule met |
 |---|---|---|---|
@@ -324,9 +355,13 @@ biomarker-positive dev lines. Dev CV only.
 | headline `m5_avg` (descriptive) | <!--n:mut#pooled_vs_ref/m5_avg/ap_all/mean-->+0.068 [<!--n:mut#pooled_vs_ref/m5_avg/ap_all/ci95/0-->0.051, <!--n:mut#pooled_vs_ref/m5_avg/ap_all/ci95/1-->0.086] | — | — |
 
 The rule was not met, so no targeted model was built. The pattern is specific:
-- **Expression already carries amplification, p53-axis and most paralog-loss dependencies,** because the mutation
-  changes the expression of the gene or its pathway (amplified ERBB2, CCND1, MYC; MDM2 mRNA reads out TP53
-  status).
+- **Expression already carries amplification and p53-axis dependencies,** because the alteration changes the
+  expression of the gene or its pathway (amplified ERBB2, CCND1, MYC; MDM2 mRNA reads out TP53 status). For paralog
+  and collateral-loss pairs, explicit genomic status added nothing over expression, but neither predicted them well:
+  E-only AUPRC was <!--n:mut#per_pair/ARID1A_ARID1B/m1_E_resB0/ap_all/mean-->0.180 for ARID1B,
+  <!--n:mut#per_pair/EP300_CREBBP/m1_E_resB0/ap_all/mean-->0.305 for CREBBP after EP300 loss, and
+  <!--n:mut#per_pair/STAG2_STAG1/m1_E_resB0/ap_all/mean-->0.338 for STAG1. This AUPRC is not prevalence-normalised,
+  so the near-1 values of the MTAP pairs reflect that PRMT5 and MAT2A are dependencies in most lines.
 - **The blind spot is RAS/RAF hotspot addiction within a lineage.** A point mutation in NRAS leaves its mRNA
   unchanged. NRAS-dependency AUPRC was <!--n:mut#per_pair/NRAS_hotspot/m1_E_resB0/ap_all/mean-->0.212 for
   expression-only M1, against <!--n:mut#per_pair/NRAS_hotspot/g3_m3n/ap_all/mean-->0.657 for LightGBM, which sees
@@ -336,8 +371,10 @@ The rule was not met, so no targeted model was built. The pattern is specific:
   <!--n:mut#per_pair/BRAF_hotspot/m1_E_resB0/ap_all/mean-->0.558 → <!--n:mut#per_pair/BRAF_hotspot/m5_avg/ap_all/mean-->0.661;
   KRAS <!--n:mut#per_pair/KRAS_hotspot/m1_E_resB0/ap_all/mean-->0.756 → <!--n:mut#per_pair/KRAS_hotspot/m5_avg/ap_all/mean-->0.805.
 
-`scripts/predict.py` flags NRAS, KRAS, BRAF and PIK3CA predictions as mutation-driven and warns that, when only
-expression is supplied, `m5_avg`'s genomic inputs default to diploid wild type (§4). An independent reviewer
+`scripts/predict.py` accepts expression only. It flags NRAS, KRAS, BRAF and PIK3CA predictions as mutation-driven,
+so the recovery shown above is not available through the script (§4; Future work).
+<!-- PREDICT-SCRIPT-MUT -->
+An independent reviewer
 recomputed every fold metric and the rule with its own code. Figure:
 [docs/figures/mutation_dependencies.png](docs/figures/mutation_dependencies.png).
 
@@ -363,10 +400,11 @@ fold SD) and its tier. The tiers were frozen to `configs/predictable_genes.csv` 
   variable genes share no pathway.
 - **Literature biomarker pairs:** of 43 committed pairs, 33 dependency genes are high tier, 7 medium and 3 low (ALK,
   ME3, AR: rare dependencies whose fold correlations are unstable).
-- **Does the confidence score transfer to unseen lines?** On the test set (G4), dev mean r and test r correlated
-  across genes with Spearman <!--n:t5#per_tier/spearman_dev_mean_r_vs_heldout_r/evaluable/point-->0.65 (all
-  evaluable genes) and <!--n:t5#per_tier/spearman_dev_mean_r_vs_heldout_r/variable/point-->0.82 (variable genes).
-  The CI is approximate (§4).
+- **Does the dev-CV mean r, on which the confidence score is built, carry over to unseen lines?** On the test set
+  (G4), dev mean r and test r correlated across genes with Spearman
+  <!--n:t5#per_tier/spearman_dev_mean_r_vs_heldout_r/evaluable/point-->0.65 (all evaluable genes; approximate CI
+  <!--n:t5#per_tier/spearman_dev_mean_r_vs_heldout_r/evaluable/ci_lo-->0.622–<!--n:t5#per_tier/spearman_dev_mean_r_vs_heldout_r/evaluable/ci_hi-->0.673,
+  §4) and <!--n:t5#per_tier/spearman_dev_mean_r_vs_heldout_r/variable/point-->0.82 (variable genes).
 
 Figures: [mean-r distribution](docs/figures/predictability_mean_r_hist.png) and
 [tiers](docs/figures/predictability_tiers_scatter.png); details in `docs/predictability.md`.
@@ -391,8 +429,8 @@ committed, and then each finalist's test targets were released once (7 logged ac
 
 ![Test-set P1 per finalist and by frozen tier](docs/figures/report_test_p1.png)
 
-*Figure 1. G4 test set. (A) P1 on variable genes with patient-bootstrap CIs. (B) P1 by frozen predictability tier
-(tiers fixed from dev CV before the test was opened). Made from results/test/summary.json.*
+*Figure 1. G4 test set. (A) P1 on variable genes with patient-bootstrap CIs. (B) P1 over all evaluable genes of
+each frozen predictability tier (tiers fixed from dev CV before the test was opened). Made from results/test/summary.json.*
 
 Main findings on the test set:
 - **The headline replicated its dev-CV value** (test P1 <!--n:test#table/0/P1_variable-->0.3194 vs dev-CV
@@ -411,11 +449,13 @@ Main findings on the test set:
   <!--n:test#table/0/P1_variable-->0.319, vs dev-CV <!--n:registry:20261027-161041_m5_avg_6dbebcf4#dP1_vs_B1_variable-->+0.134
   at P1 <!--n:registry:20261027-161041_m5_avg_6dbebcf4#P1_variable-->0.3175), mainly because B1 scored lower on the
   test lines (<!--n:test#table/4/P1_variable-->0.166 vs <!--n:registry:20261026-220921_b1_0e2a7a27#P1_variable-->0.184).
+  Test-set models were also refit on all 1,022 dev lines, against about 818 training lines per CV fold.
 - **Skill beyond lineage and library** (test): within library <!--n:test#table/0/P1_within_library-->0.303, within
   lineage <!--n:test#table/0/P1_within_lineage-->0.270, within lineage × library
   <!--n:test#table/0/P1_within_lin_lib-->0.225.
 - **T and T without EC lines matched M1** on cancer lines, so the transfer model is not a weaker cancer model.
-- **By tier** (test, headline): P1 <!--n:test#table/0/P1_high-->0.383 (high), <!--n:test#table/0/P1_medium-->0.196
+- **By tier** (test, headline; P1 here is over all evaluable genes in each tier, not only variable genes): P1
+  <!--n:test#table/0/P1_high-->0.383 (high), <!--n:test#table/0/P1_medium-->0.196
   (medium), <!--n:test#table/0/P1_low-->0.106 (low); P2b nAP <!--n:test#table/0/P2b_nap_prev05_high-->0.285,
   <!--n:test#table/0/P2b_nap_prev05_medium-->0.133 and <!--n:test#table/0/P2b_nap_prev05_low-->0.079. The tiers
   separate genes on unseen lines as intended.
@@ -445,15 +485,27 @@ counts), 8 anchor screen sets of DepMap dev lines screened by external labs, and
 - **QC:** screens failing the control-gene separation threshold were excluded (Haapaniemi RPE1 TP53-WT; Shifrut
   primary CD8+ T cells). The CRISPRi screens were planned as a descriptive stratum only; it was never run (see
   Limitations).
-- **Expression:** external RNA-seq was converted to DepMap's TPM convention and quantile-normalised to DepMap dev
-  (D9, a recorded override of a tied rule).
+- **Expression:** external RNA-seq was converted to DepMap's TPM convention (transcripts per million) and
+  quantile-normalised to DepMap dev (D9, a recorded override of a tied rule). This step applies to the hPSC input
+  only. The RPE1 input for T was DepMap's own expression of its RPE1 sublines (mean of the six RPE1-ss profiles), so
+  the RPE1 result tests transfer across screens, not across expression batches.
+- **Other feature types:** external cells received expression (plus T's TP53/RB1 flags) only. The task asked for the
+  same feature types "where data permits". T uses no genomic block by design, and the headline's secondary was
+  specified with genomics at diploid wild type for all external cells (DESIGN §5; D25d). Whether DepMap's own
+  genomic profiles of the RPE1 sublines could have been supplied instead was not examined.
 
 **Pre-registered decision rule (D13, `configs/transfer_criteria.json`).** The study is the unit; uncertainty comes
 from a hierarchical bootstrap over studies and paralog-family gene blocks. The minimum detectable effect (MDE) is twice
 the bootstrap SE of the replicate ceiling, where the ceiling is the skill of independent same-background screens used
 as predictors.
 - **Q3a**: difference in AP (ΔAP) between T and the DepMap gene mean for each screen's top decile of depleted genes
-  (a scale-free label).
+  (a scale-free label). Q3a is not a test of core-essential genes as such: the scaling halves of the core-essential
+  lists are removed from its gene universe because they fix the affine scale, and it measures whether T re-ranks the
+  screen's most depleted genes beyond the cancer gene mean. Whether core essentials stay essential is shown more
+  directly by the comparator: the DepMap gene mean alone reaches AP
+  <!--n:rpe#statistics/Q3a_primary/T/comparator_abs_per_entry/haapaniemi2018:null-->0.42 to
+  <!--n:rpe#statistics/Q3a_primary/T/comparator_abs_per_entry/olivieri2020:null-->0.76 per RPE1 screen and
+  <!--n:hpsc#statistics/Q3a_primary/T/comparator_abs_per_entry/mair2019:WT-->0.405 in hPSC.
 - **Q3b**: difference in recall, at a fixed false-positive rate on held-out non-essential genes, of screen-specific
   dependencies (depleted in the screen but dependent in at most half of cancer dev lines), against B1 with a frozen
   nearest DepMap lineage.
@@ -463,12 +515,18 @@ as predictors.
   showing positive skill (the anchor gate). Otherwise **"inconclusive"**. An expression-swap control caps the verdict
   at inconclusive if another background's expression gives skill as well.
 
-**Set A: DepMap's own non-cancerous lines (no screen batch).** For the five RPE1-derived lines (tier A1), Q3a skill
-over B0 was <!--n:sa#statistics/Q3a_primary/per_line/ACH-002464/point-->0.018 to
+**Set A: DepMap's own non-cancerous lines (no screen batch; descriptive).** For the five RPE1-derived lines (tier
+A1), Q3a skill over B0 was <!--n:sa#statistics/Q3a_primary/per_line/ACH-002464/point-->0.018 to
 <!--n:sa#statistics/Q3a_primary/per_line/ACH-002463/point-->0.043, every CI above 0, at a median
-<!--n:sa#statistics/Q3a_primary/descriptive/median_test_percentile-->93rd percentile of the cancer test lines. All
-five lines showed functional p53 (TP53 knockout enriches, MDM2 knockout depletes). On DepMap's own screens, RPE1
-is predicted as well as a cancer line. Only tier A1 was evaluated (D21f).
+<!--n:sa#statistics/Q3a_primary/descriptive/median_test_percentile-->93rd percentile of the cancer test lines. Q3b
+skill (recall of screen-specific dependencies over B1) was also positive in all five lines,
+<!--n:sa#statistics/Q3b_primary/per_line/ACH-002464/point-->0.042 to
+<!--n:sa#statistics/Q3b_primary/per_line/ACH-002463/point-->0.083, every CI above 0, at a median
+<!--n:sa#statistics/Q3b_primary/descriptive/median_test_percentile-->95th percentile. All five lines showed
+functional p53 (TP53 knockout enriches, MDM2 knockout depletes). On DepMap's own screens, RPE1 is predicted at least
+as well as a typical cancer test line, for core and context-specific dependencies alike. Set A has no verdict, its
+targets come from DepMap's joint Chronos fit with the dev lines, and it shares its expression input with set-B RPE1
+(§4). Only tier A1 was evaluated (D21f).
 
 **Set B: published screens.**
 
@@ -488,8 +546,9 @@ replicate ceiling. Every CI lies below its MDE. Made from results/transfer/setB/
 
 **How strong is "transfers"?** Following the independent reviewer's recommended wording (reviews/g6_review §4):
 
-> In RPE1, T ranks the most depleted genes better than the DepMap gene mean in each of 4 studies (ΔAP
-> <!--n:rpe#statistics/Q3a_primary/T/point-->0.032, CI <!--n:rpe#statistics/Q3a_primary/T/ci_lo-->0.022–<!--n:rpe#statistics/Q3a_primary/T/ci_hi-->0.040).
+> In RPE1, T ranks the top decile of depleted genes better than the DepMap gene mean in each of 4 studies (ΔAP
+> <!--n:rpe#statistics/Q3a_primary/T/point-->0.032, CI <!--n:rpe#statistics/Q3a_primary/T/ci_lo-->0.022–<!--n:rpe#statistics/Q3a_primary/T/ci_hi-->0.040;
+> about one twentieth relative).
 > This matches cross-study RPE1 agreement (ceiling <!--n:rpe#statistics/Q3a_primary/ceiling/ceiling_skill-->0.031)
 > and is specific to the RPE1 expression input. In the single hPSC screen (Mair 2019) the gain is
 > <!--n:hpsc#statistics/Q3a_primary/T/point-->0.009 (<!--n:hpsc#statistics/Q3a_primary/T/ci_lo-->0.004–<!--n:hpsc#statistics/Q3a_primary/T/ci_hi-->0.014;
@@ -520,23 +579,34 @@ Supporting detail:
   question cells the statistical "fails" condition held (upper CI below the MDE). **Counterfactual:** had any
   anchor been positive, Q3a would have been "inconclusive (both conditions met)" in both backgrounds and Q3b would
   have been "fails" in both.
+- **A simple baseline meets the same conditions.** The expression nearest-neighbour baseline B2 also has its lower
+  CI above 0 against the gene mean: RPE1 <!--n:sb#secondary/RPE1/Q3a_primary_B2/point-->0.023
+  [<!--n:sb#secondary/RPE1/Q3a_primary_B2/ci_lo-->0.016, <!--n:sb#secondary/RPE1/Q3a_primary_B2/ci_hi-->0.030], above
+  half the RPE1 ceiling; hPSC <!--n:sb#secondary/hPSC/Q3a_primary_B2/point-->0.004
+  [<!--n:sb#secondary/hPSC/Q3a_primary_B2/ci_lo-->0.0002, <!--n:sb#secondary/hPSC/Q3a_primary_B2/ci_hi-->0.008]. So
+  "transfers" does not show that T beats generic expression similarity; T minus B2 was not pre-registered or tested.
+  Conversely, on external screens of four cancer lines (the anchors), T showed no skill over the gene mean, so this
+  external-screen test has little demonstrated sensitivity.
 - **The ceiling is low.** In RPE1 the ceiling's bootstrap SE was
   <!--n:tc#backgrounds/RPE1/replicate_ceiling/Q3a_primary/bootstrap_se-->0.051 with study-level resampling, against
   <!--n:tc#backgrounds/RPE1/replicate_ceiling/Q3a_primary/sensitivity_fixed_pool/bootstrap_se-->0.010 with fixed
   pools: variability between studies is as large as any cell-type-specific signal. T's RPE1 skill was
   <!--n:rpe#statistics/Q3a_primary/skill_over_ceiling-->1.04 times the ceiling, which says more about the low
-  ceiling than about the model.
+  ceiling than about the model. The MDE reflects this between-study variance: with fixed study pools it would be
+  <!--n:tc#backgrounds/RPE1/replicate_ceiling/Q3a_primary/sensitivity_fixed_pool/MDE-->0.020, and the RPE1 interval
+  would not lie below it.
 
 **Q3b, context-specific dependencies: not detectable with these screens.** Context-specific gains were below the
 MDE, and the anchors could not certify the pipeline's sensitivity. This is not "fails" and not a trend toward
-transfer. The positive sets of the two noisiest screens were inflated (3,744 of 16,270 genes in Mair, 3,571 of
+transfer. In set A, without screen batch, context-specific skill was detectable. The positive sets of the two noisiest screens were inflated (3,744 of 16,270 genes in Mair, 3,571 of
 16,767 in Haapaniemi, against 266 in Olivieri), so Q3b there largely scored noise below the label threshold.
 
 **Secondary hypotheses.**
 - **H1 and H2 pass, as TP53-feature checks.** Flipping T's TP53 flag at fixed expression predicted stronger MDM2 and
   PPM1D dependency in TP53-WT cells (model Δ <!--n:sb#hypotheses/H1/model_delta/MDM2-->−0.62 and
   <!--n:sb#hypotheses/H1/model_delta/PPM1D-->−0.28; observed <!--n:sb#hypotheses/H1/observed_delta/MDM2-->−1.61 and
-  <!--n:sb#hypotheses/H1/observed_delta/PPM1D-->−1.70). The isogenic RPE1 TP53 WT vs null differences correlated
+  <!--n:sb#hypotheses/H1/observed_delta/PPM1D-->−1.70). The isogenic RPE1 TP53 WT vs null differences (Brown 2019;
+  Bowden 2020, ref. 14) correlated
   with the model's flag-flip differences (Spearman <!--n:sb#hypotheses/H2/spearman-->0.96 over 15 genes). These show
   that the TP53 feature reproduces isogenic p53 effects; they are not evidence of expression-based transfer.
 - **H3 fails, as forecast before access (D20e).** Four pluripotency genes were depleted in Mair's hESC screen
@@ -553,7 +623,10 @@ transfer. The positive sets of the two noisiest screens were inflated (3,744 of 
 
 **Headline model on RPE1 (secondary).** `m5_avg` receives expression only for external cells (genomics at diploid
 wild type; unlike T it does not see TP53 status). Its RPE1 Q3a skill was
-<!--n:sb#secondary/RPE1/Q3a_primary_headline/point-->0.029, and its deviation correlation (predicted vs observed
+<!--n:sb#secondary/RPE1/Q3a_primary_headline/point-->0.029 (CI
+<!--n:sb#secondary/RPE1/Q3a_primary_headline/ci_lo-->0.020–<!--n:sb#secondary/RPE1/Q3a_primary_headline/ci_hi-->0.037),
+not above T (<!--n:rpe#statistics/Q3a_primary/T/point-->0.032) and only slightly above B2
+(<!--n:sb#secondary/RPE1/Q3a_primary_B2/point-->0.023). Its deviation correlation (predicted vs observed
 departures from the gene mean on selective genes) was <!--n:sb#secondary/RPE1/deviation_corr_headline/haapaniemi2018:null/r-->0.23
 to <!--n:sb#secondary/RPE1/deviation_corr_headline/brown2019:WT/r-->0.43 per screen.
 
@@ -568,8 +641,9 @@ other agents' jobs, so CV fit times are indicative only (LESSONS rule 14); the t
 
 **Table 4. Runtime and accuracy.** CV columns: sum over 5 folds of fit time (including inner tuning) from
 `results/registry.csv`, at the thread count shown, on the shared machine. "Quiet refit": full refit on all 1,022 dev
-lines, 4 threads, cold caches, nothing else running (`results/timing/refit_full_dev.json`). "G4 refit": the same
-refit during the test evaluation (registry G4 rows, 4 threads).
+lines, 4 threads (the M3 stage of `m5_avg` used 6 worker processes, per its config), cold caches, nothing else
+running (`results/timing/refit_full_dev.json`). "G4 refit": the same refit during the test evaluation (registry G4
+rows, same settings).
 
 | Model | Dev-CV P1 | CV fit, s (threads) | Quiet refit, s | G4 refit, s | Test P1 (G4) |
 |---|---|---|---|---|---|
@@ -595,7 +669,8 @@ the quiet refit. R2 and R4 do their per-gene fitting inside the predict step, so
 ![Accuracy vs compute](docs/figures/report_runtime_accuracy.png)
 
 *Figure 3. Dev-CV P1 against summed fit + predict time (log scale) from the registry; shared machine, indicative.
-M5 average plotted at the sum of its three inputs.*
+M5 average plotted at the sum of its three inputs; this understates M2's cost, because the registered M2 run reused
+cached inner fits (see the footnote to Table 4).*
 
 Reading: everything past ridge costs several to forty times more compute for gains of hundredths of P1 or less.
 Once fitted, prediction is fast: the M1 refit predicted all 255 test lines in
@@ -605,8 +680,10 @@ Once fitted, prediction is fast: the M1 refit predicted all 255 test lines in
 ## 3. Discussion
 
 **What works.** A linear model on expression predicts held-out cancer lines' gene effects well beyond lineage: on the
-test set it nearly doubles the lineage-mean baseline's P1 and beats expression nearest neighbours on most genes, and
-the skill survives centring within lineage and library. The predictability tiers work as a user-facing confidence
+test set it nearly doubles the lineage-mean baseline's P1 and beats expression nearest neighbours by
+<!--n:test#table/0/dP1_vs_B2_variable-->+0.070 P1, and the skill survives centring within lineage and library. For
+essentiality ranking the picture is more modest: per-line AUPRC (P2a) is mostly the gene mean, and selective
+dependencies are predicted only modestly (P2b nAP <!--n:test#table/0/P2b_nap_prev05-->0.184). The predictability tiers work as a user-facing confidence
 signal: genes in the high tier, fixed before the test set was opened, scored more than three times the P1 of
 low-tier genes on unseen lines. The headline average adds a small, replicated gain concentrated in variable genes and
 in the RAS/RAF hotspot dependencies that expression cannot see.
@@ -633,13 +710,15 @@ files; the numbers are in LITERATURE.md.
 
 | Quantity (loosely comparable) | Ours, dev CV (`m1_E_resB0`) | Ours, test (headline) | Published (LITERATURE.md) |
 |---|---|---|---|
-| Mean per-gene Spearman, DeepDEP's 1,298 genes | <!--n:g3n#published/3/rho_deepdep_1298-->0.284 | <!--n:t5#published_comparable/rho_deepdep_1298-->0.293 | DeepDEP well below ours; Chang & Zhang's ridge close to ours |
+| Mean per-gene Spearman, DeepDEP's 1,298 genes | <!--n:g3n#published/3/rho_deepdep_1298-->0.284 | <!--n:t5#published_comparable/rho_deepdep_1298-->0.293 | DeepDEP well below ours; Chang & Zhang's ridge close to ours; TrPLet (Pearson, non-nested best-of-60) above ours |
 | Mean per-gene Spearman, LEAP's 1,539 genes | <!--n:g3n#published/3/rho_leap_1539-->0.303 | <!--n:t5#published_comparable/rho_leap_1539-->0.309 | LEAP's best slightly above ours |
-| Genes with r of at least `0.2` (pooled out-of-fold, of 17,915) | 4,362 | — | TrPLet 6,283 of 16,845 (non-nested best-of-60) |
+| Genes with r of at least `0.2`, of 17,915 | <!--n:g3n#published/3/pooled_n_r_ge_0.2-->4,362 pooled out-of-fold; <!--n:g3n#published/3/n_r_ge_0.2-->5,507 as fold mean | <!--n:t5#published_comparable/n_r_ge_0.2-->5,648 | TrPLet 6,283 of 16,845 (non-nested best-of-60) |
 
-Our numbers sit near LEAP's best on its genes and well above DeepDEP's published deep model on its genes, consistent
-with Chang & Zhang. Our TrPLet-style count is lower than TrPLet's; our R4 experiment shows that non-nested selection
-alone accounts for a substantial part of such gaps. Two aspects of our evaluation are stricter than most published
+Our numbers sit slightly below LEAP's best on its genes, below TrPLet's optimistically selected models on DeepDEP's
+genes, and well above DeepDEP's published deep model, consistent with Chang & Zhang. Our count of genes with r of at
+least `0.2` depends on how it is computed (pooled, fold mean, or test set) and approaches TrPLet's, on a different
+release and gene universe. R4 shows that non-nested best-of-12 selection inflates mean P1; it does not measure how
+much of a gene-count gap such selection explains. Two aspects of our evaluation are stricter than most published
 ones: patient-grouped splits and per-fold correlation (which removes the pooled-correlation artefact). What we add is
 the explicit shrunk lineage-mean baseline (a large fraction of naive "skill" is lineage), selective-gene AUPRC, a
 per-gene confidence that transfers to unseen lines, and a pre-registered, harmonised transfer test.
@@ -665,6 +744,14 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
 - **Library group as proxy.** Within-lineage skill is partly explained by library group (the lineage × library control in the ablation section), which may be
   screen-technical.
 
+**Predictability tiers**
+- **Tiers seen for another model first (D22b).** The tiers were first computed, seen and characterised for
+  `m1_E_resB0`, then switched to `m5_avg` when it became the headline, with thresholds and rules unchanged.
+- **Null covers the M1 path only (D22e).** The permutation null is an expression-permuted M1 path; it does not
+  reproduce M3's genomic inputs, so it calibrates chance correlation rather than the headline exactly.
+- **Anchor reads before G6 (D22f).** The characterisation read 23 external anchor screens of dev lines (guard-logged)
+  for screen-agreement statistics before the transfer evaluation; no model predictions were scored on them.
+
 **Model selection**
 - **Headline from averaging sub-threshold rungs (D23f).** M2 and M3 each failed δ; only their average passed. The
   test set confirmed the gain, but it is small (<!--n:g4r#bootstrap/paired_P1_variable_m5_avg_minus_m1_E_resB0/point-->+0.0093
@@ -689,7 +776,10 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
   Quote it as approximate.
 - **P2b CI method (D21b).** Resampled per-gene AP is biased upward, so the P2b CI is a normal-approximation interval
   from the bootstrap SE. The same, much smaller bias affects the transfer bootstrap's Q3a AP and is reported in the
-  outputs.
+  outputs. For Q3b recall the bootstrap bias is not small: the bootstrap mean minus the point estimate reaches
+  <!--n:sa#statistics/Q3b_primary/per_line/ACH-002463/boot_mean_minus_point-->−0.017 in set A and
+  <!--n:rpe#anchor_gate/Q3b_primary/anchors/A_mair2019_HAP1_T18/boot_mean_minus_point-->−0.016 for the HAP1 anchor, so
+  Q3b percentile CIs are shifted downward.
 
 **Transfer**
 - **"Fails" was unreachable (D21e, D27).** No library-matched transformed anchor had positive skill, which the
@@ -731,10 +821,14 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
 - **Stale status fields (D28).** The `_status` fields of the frozen criteria and harmonisation configs still read
   PRE-FREEZE or DRAFT. They are frozen files and were left unchanged; the freeze is established by the tag.
 
-**Users of the expression-only model**
-- **RAS/RAF blind spot (D24).** `m1_E_resB0` cannot distinguish hotspot-mutant from wild-type lines within a lineage
-  (NRAS AUPRC <!--n:mut#per_pair/NRAS_hotspot/m1_E_resB0/ap_all/mean-->0.212). Use `m5_avg` with genomic inputs
-  for mutation-driven dependencies.
+**Users of the prediction script**
+- **RAS/RAF blind spot (D24).** The expression-only `m1_E_resB0` cannot distinguish hotspot-mutant from wild-type
+  lines within a lineage (NRAS AUPRC <!--n:mut#per_pair/NRAS_hotspot/m1_E_resB0/ap_all/mean-->0.212). In dev CV,
+  `m5_avg` recovers most of this (NRAS AUPRC <!--n:mut#per_pair/NRAS_hotspot/m5_avg/ap_all/mean-->0.631) only
+  because its LightGBM component reads hotspot calls. `scripts/predict.py` accepts expression only and sets every
+  genomic input to diploid wild type and metadata to unknown, so the released tool keeps this blind spot with either
+  model. The G4 test numbers describe the models with their real genomic inputs, not the expression-only use.
+<!-- PREDICT-SCRIPT-LIMIT -->
 
 **Runtime**
 - **Shared-machine timings.** CV runtimes were measured while other agents' jobs ran, at 6 or 12 threads, and varied
@@ -747,8 +841,17 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
   transcribed their reports. Their scripts and outputs are their own.
 - **Independent reproduction reads after unblinding** were logged by hand; the static check for direct target reads
   does not scan `reviews/` (D26 item 8).
-- **Registry provenance.** Early G2 runs had dirty trees; the finalists were re-run on the clean tagged tree with
-  identical numbers. Several G3 rows have `tree_clean = 0` because the parallel track's files were untracked.
+- **Registry provenance.** Early G2 runs had dirty trees; the G2 models were re-run on the clean tagged tree with
+  identical numbers. Several G3 rows have `tree_clean = 0` because the parallel track's files were untracked; this
+  includes the headline's dev-CV row (`20261027-161041_m5_avg_6dbebcf4`) and its M2 and M3 inputs. The headline's
+  provenance therefore rests on the dev-only dry run, in which the frozen G4 code reproduced its fold-0 predictions
+  from fresh caches (D25b).
+- **Review items implemented only in part (`reviews/implementation_check.md`), among others:** the full model with
+  copy number, mutations and fusions neutralised was never run in dev CV (R1-PI-5; see "Users of the prediction
+  script"); no scale-aware skill (1 − SSE/SSE_B0) was computed, so the report gives no absolute-error accuracy for
+  predicted effects (R1-ST-2); the ablation "helps" tests are Holm-corrected fold-paired t-tests, not the declared
+  patient bootstrap with a |Δ| > δ condition (R1-ST-8); and §10 of `docs/harmonisation_validation.md`, cited as G5
+  evidence, still shows the pre-D13 draft rules, unmarked (TF-F16).
 - **Scope ledger and implementation check were not kept (D28). This is a process failure.** DESIGN §9 required a
   running scope ledger and an implementation check of accepted review items at G0 and at G4. Neither was done. Both
   were built retrospectively at G7 from the record (`results/scope_ledger.csv`, `reviews/implementation_check.md`,
@@ -798,11 +901,12 @@ criterion (at most 25 eigendecompositions). T: expression plus TP53/RB1 status f
 
 **M2** (`src/essml/models/m2_local.py`). Per training-fold variable gene, a ridge on the inner out-of-fold M1
 prediction plus gene-level features (own expression, not-expressed indicator, CN, deep deletion, mutation; paralog
-expression, minimum, deep deletion and mutation; partner mean expression). Local λ by nested CV; other genes pass M1
-through.
+expression, minimum, deep deletion and mutation; partner mean expression in the partners variant only, which is not
+part of the headline). Local λ by nested CV; other genes pass M1 through.
 
 **M3** (`src/essml/models/lgbm.py`). LightGBM per training-fold variable gene on M1's residuals; per-gene top-k
-feature screening by absolute correlation from E, C, M, H and lineage plus the gene's own M1 prediction, recomputed
+feature screening by absolute correlation from E, C, M, H and the metadata block (including lineage) plus the
+gene's own M1 prediction, recomputed
 inside the early-stopping split; nested early stopping (D-G3-1); 6 processes × 1 thread.
 
 **M4 pre-check** (`src/essml/models/factorised.py`). 256 training-fold PCs; arm A ridge, arm B MLP (256 → 512 → G,
@@ -861,8 +965,8 @@ distance to the nearest dev lines, nearest lineage and a mutation note.
   report resolves there.
 - **Tags:** `freeze-eval` (evaluation code), `freeze-transfer` (harmonisation and transfer criteria),
   `freeze-finalists` (finalists, before test access).
-- **Gates:** `scripts/gate.py` writes `results/gates/G0.json`–`G6.json`; each gate's checks ran before the
-  irreversible step.
+- **Gates:** `scripts/gate.py` writes `results/gates/G0.json`–`G4.json` and `G6.json` (there is no G5 file; §4);
+  each gate's checks ran before the irreversible step.
 - **Independent reviews:** `reviews/redteam_g0/` (evaluation code), `reviews/g2_review/` (G2 leakage and
   reproduction), `reviews/g4_review/` (test set), `reviews/g6_review/` (transfer), plus design review rounds
   `reviews/round1_*`–`round3_*`.
@@ -886,8 +990,9 @@ distance to the nearest dev lines, nearest lineage and a mutation note.
    screens, and a run of `m5_avg` on the leave-one-lineage-out split.
 7. **Calibrated dependency probabilities.** The tool outputs effects and confidences but no calibrated
    probability of effect below the label threshold.
-8. The remaining DepMap modalities (methylation, mass-spectrometry proteomics, metabolomics, signatures) need a
-   manual portal download and were not tested.
+8. The remaining DepMap modalities (methylation, DepMap's own mass-spectrometry proteomics release, metabolomics,
+   signatures) need a manual portal download and were not tested; only the Nusinow 2020 TMT proteomics arm was.
+9. **A dev-CV evaluation of any new expression-only configuration** before it is offered as a default.
 
 ## 8. References
 1. Dempster JM, Krill-Burger JM, McFarland JM, et al. Gene expression has more power for predicting in vitro cancer
