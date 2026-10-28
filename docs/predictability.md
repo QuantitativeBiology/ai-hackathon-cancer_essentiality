@@ -6,7 +6,8 @@ the metrics.
 
 The tier source is the G4 headline `m5_avg` (CV run 20261027-161041; D23f). The expression-only `m1_E_resB0`
 (run 20261026-222117) is kept as a secondary table. `scripts/predict.py` serves m5_avg by default (primary
-tiers) and m1_E_resB0 on request (its own secondary tiers).
+tiers) and m1_E_resB0 on request (its own secondary tiers). predict.py reads expression only, so its m5_avg runs
+without genomics. That use was evaluated only post hoc, in dev CV (§7; docs/predict_expression_only.md).
 
 Methods were declared in `configs/predictability.json`, and the literature list in `configs/biomarker_pairs.csv`,
 both committed in 278f156 before any tier was computed. Every number below is from the committed outputs:
@@ -308,14 +309,26 @@ python scripts/predict.py --expression my_lines.csv --out preds.csv [--harmonise
 - **Missing genomics (m5_avg):** only expression is read, so M2/M3's copy-number, mutation, hotspot and fusion
   inputs are diploid wild type and metadata unknown (DESIGN §2 convention). A warning says so, and `note` flags
   NRAS/KRAS/BRAF/PIK3CA: mutation-driven dependencies (D24) then rely on expression alone.
-- **Output:** sample, entrez, symbol, predicted_effect, confidence, tier (from `configs/predictable_genes_m1.csv`),
-  the applicability-domain distance (mean 1 − r to the 10 nearest dev lines on the top-5,000 variable genes) and
-  its percentile among dev lines, nearest_lineage, and note.
-- **Mutation note:** for NRAS, KRAS, BRAF and PIK3CA, `note` = "mutation-driven dependency; expression-only model
-  underpredicts; use m5_avg", with a one-line warning (D24). The tiers are unchanged.
+- **Evaluation of the default as shipped:** m5_avg with expression only was evaluated only post hoc, in dev CV
+  (G7; docs/predict_expression_only.md, results/predict_expression_only_cv.json). The G4 test number (0.319) used
+  real genomics.
+  - P1 on variable genes is 0.3135, vs 0.3081 for m1_E_resB0 and 0.3175 for m5_avg with genomics.
+  - The paired difference vs m1_E_resB0 is +0.0054 (SE 0.0001).
+  - The PI's rule, fixed before the number was seen, was ΔP1 > δ = 0.005 and > 1 SE. It is met, narrowly, so
+    m5_avg stays the default.
+  - `--model m1_E_resB0` is the evaluated expression-only finalist (test P1 0.310).
+- **Output:** sample, entrez, symbol, predicted_effect, confidence, tier (from the model's own table:
+  `configs/predictable_genes.csv` for m5_avg, `configs/predictable_genes_m1.csv` for m1_E_resB0), the
+  applicability-domain distance (mean 1 − r to the 10 nearest dev lines on the top-5,000 variable genes) and its
+  percentile among dev lines, nearest_lineage, and note.
+- **Mutation note:** for NRAS, KRAS, BRAF and PIK3CA, `note` flags a mutation-driven dependency that is
+  underpredicted by both expression-only configurations, with a one-line warning (D24). In dev CV, NRAS AUPRC is
+  0.21 for m1_E_resB0 and 0.22 for m5_avg without genomics, against 0.63 for m5_avg with genomics. Giving genomics
+  to predict.py is future work. The tiers are unchanged.
 - **Not produced:**
   - P(effect < −0.5): no calibrated probability exists in the code.
-  - Genomic inputs for m5_avg (expression only; see "Missing genomics").
+  - Genomic inputs for m5_avg (expression only; see "Missing genomics" and "Evaluation of the default as
+    shipped").
 - **Smoke test** (`results/predictability/predict_smoke_A375.json`): A375 (ACH-000219, a dev line) was held out of
   training and predicted from its own DepMap expression.
   - Applicability-domain distance 0.152, at the 10th percentile of dev lines; 9 of the 10 nearest lines are
