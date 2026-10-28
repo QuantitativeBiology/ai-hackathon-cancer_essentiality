@@ -1,0 +1,141 @@
+id,kind,stage,reason,n,source
+NOTE: RETROSPECTIVE exclusion log,meta,DESIGN §9,"DESIGN §9 required this log during the project; it was not kept. Built on 2026-10-28 after G4 and G6 from results/harmonisation/exclusions.csv, configs/splits.csv, configs/screen_plan.csv, configs/transfer_criteria.json, docs/data_audit.md, results/data_audit/ and the gene configs. Aggregate counts only; no data values.",,git history of results/exclusions.csv
+X_mair2019_H1_MEF_T12_Oct4high,screen/arm,G5a screen harmonisation,FACS-sorted (Oct4-high) arm: excluded by the DESIGN §7.1 fitness-readout rule,,results/harmonisation/exclusions.csv
+X_yilmaz2020_germlayers,screen/arm,G5a screen harmonisation,"differentiated vs undifferentiated contrast, not a fitness dropout (DESIGN §7.1 fitness-readout rule)",,results/harmonisation/exclusions.csv
+X_ting2018_CD34,screen/arm,G5a screen harmonisation,"CD34+ vs CD34- marker sort, not a fitness readout (DESIGN §7.1); H4-CD34+ inconclusive by declaration",,results/harmonisation/exclusions.csv
+ORCS_94,screen/arm,G5a screen harmonisation,"only the top ~1,000 genes deposited (sanity AUROC 0.48)",,results/harmonisation/exclusions.csv
+ORCS_2089,screen/arm,G5a screen harmonisation,"ELOF1-KO synthetic-lethal differential Z score, not fitness",,results/harmonisation/exclusions.csv
+ORCS_597,screen/arm,G5a screen harmonisation,duplicate of count-level screen yilmaz2018_hpES10_D23,,results/harmonisation/exclusions.csv
+ORCS_2017,screen/arm,G5a screen harmonisation,"immune-selection (PBMC exposure), not fitness",,results/harmonisation/exclusions.csv
+ORCS_28,screen/arm,G5a screen harmonisation,duplicate of count-level screen hart2015_RPE1_T18,,results/harmonisation/exclusions.csv
+ORCS_1487,screen/arm,G5a screen harmonisation,117-gene DUB library: too small,,results/harmonisation/exclusions.csv
+ORCS_1488,screen/arm,G5a screen harmonisation,117-gene DUB library: too small,,results/harmonisation/exclusions.csv
+ORCS_613,screen/arm,G5a screen harmonisation,score direction unknown (p-Value): rank treatment impossible,,results/harmonisation/exclusions.csv
+ORCS_614,screen/arm,G5a screen harmonisation,score direction unknown (p-Value): rank treatment impossible,,results/harmonisation/exclusions.csv
+ORCS_2274,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2275,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2276,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2277,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2278,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2279,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2280,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2281,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2282,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2283,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2284,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+ORCS_2285,screen/arm,G5a screen harmonisation,CRISPRa arms (Tuano 2274-2285) are not loss-of-function,,results/harmonisation/exclusions.csv
+X_tzelepis2016_HL60,screen/arm,G5a screen harmonisation (anchor),HL-60 has no DepMap CRISPR profile,,results/harmonisation/exclusions.csv
+X_wang2017_OCIAML5,screen/arm,G5a screen harmonisation (anchor),not a DepMap screened line in configs/splits.csv,,results/harmonisation/exclusions.csv
+X_wang2017_PL21,screen/arm,G5a screen harmonisation (anchor),not a DepMap screened line in configs/splits.csv,,results/harmonisation/exclusions.csv
+X_wang2017_P31FUJ,screen/arm,G5a screen harmonisation (anchor),TEST line: never used as an anchor (blinding),,results/harmonisation/exclusions.csv
+X_wang2017_SKM1,screen/arm,G5a screen harmonisation (anchor),TEST line: never used as an anchor (blinding),,results/harmonisation/exclusions.csv
+X_wang2015_KBM7,screen/arm,G5a screen harmonisation (anchor),KBM-7 not in DepMap,,results/harmonisation/exclusions.csv
+X_wang2015_Jiyoye,screen/arm,G5a screen harmonisation (anchor),Jiyoye has no unambiguous DepMap ModelID,,results/harmonisation/exclusions.csv
+X_hart2015_GBM,screen/arm,G5a screen harmonisation (anchor),"patient-derived GBM line, not in DepMap",,results/harmonisation/exclusions.csv
+X_hart2015_HeLa,screen/arm,G5a screen harmonisation (anchor),HeLa has no DepMap CRISPR profile,,results/harmonisation/exclusions.csv
+X_hart2015_RPE1_panel,screen/arm,G5a screen harmonisation (anchor),"RPE1 excluded as an anchor (non-transformed; circular, DESIGN §7.2); RPE1 is scored from Hart 2015 counts as a set-B screen",,results/harmonisation/exclusions.csv
+X_bf_anchor_panels,screen/arm,G5a screen harmonisation (anchor),"Bayes-factor-only anchors are rank evidence, not effect sizes: unusable for affine / gene-wise location fitting",,results/harmonisation/exclusions.csv
+X_tzelepis_orcs,screen/arm,G5a screen harmonisation (anchor),"same screens as the Tzelepis count files (MaGeCK score, direction unknown)",,results/harmonisation/exclusions.csv
+X_wang2017_focused,screen/arm,G5a screen harmonisation (anchor),"focused sub-library, different guide set; genome-wide CS (mmc3) used instead",,results/harmonisation/exclusions.csv
+X_doench_A375,screen/arm,G5a screen harmonisation (anchor),sheet has a two-row merged header (lentiCRISPRv2 / lentiGuide arms) without per-guide gene annotation; not parsed,,results/harmonisation/exclusions.csv
+olivieri2020_TKOv2_S08,screen/arm,transfer criteria (D13): verdict population,TKOv2 arm: D13 names the Olivieri TKOv3 NT consensus only,,configs/transfer_criteria.json backgrounds.*.excluded_arms
+olivieri2020_TKOv2_S09,screen/arm,transfer criteria (D13): verdict population,TKOv2 arm: D13 names the Olivieri TKOv3 NT consensus only,,configs/transfer_criteria.json backgrounds.*.excluded_arms
+olivieri2020_TKOv2_S10,screen/arm,transfer criteria (D13): verdict population,TKOv2 arm: D13 names the Olivieri TKOv3 NT consensus only,,configs/transfer_criteria.json backgrounds.*.excluded_arms
+brown2019_WT_PACE002_T18,screen/arm,transfer criteria (D13): verdict population,earlier timepoint of the PACE002 arm (T30 used),,configs/transfer_criteria.json backgrounds.*.excluded_arms
+haapaniemi2018_WT_D28,screen/arm,G5a QC,QC fail (SSMD -0.42),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+bowden2020_WT_D19,screen/arm,transfer criteria (D13): verdict population,focused DDR library: H2 only,,configs/transfer_criteria.json backgrounds.*.excluded_arms
+bowden2020_KO_D19,screen/arm,transfer criteria (D13): verdict population,focused DDR library: H2 only,,configs/transfer_criteria.json backgrounds.*.excluded_arms
+yilmaz2018_hpES10_D23,screen/arm,transfer criteria (D13): verdict population,"predictor-only (no same-pipeline anchor); used in the replicate ceiling, never evaluated",,configs/transfer_criteria.json backgrounds.hPSC.studies
+ihry2019_hPSC_D18,screen/arm,transfer criteria (D13): verdict population,"predictor-only (no same-pipeline anchor); used in the replicate ceiling, never evaluated",,configs/transfer_criteria.json backgrounds.hPSC.studies
+shifrut2018_CD8T_GW,screen/arm,G5a QC,QC fail,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ting2018_CD4T_D6,screen/arm,G6 set B,"primary-T background inconclusive by declaration (focused ~2.5k-gene chip, no anchor or ceiling)",,results/transfer/setB/summary.json declared_backgrounds.primary_T
+tian2021_neuron_CRISPRi,screen/arm,G5a QC,QC fail; CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+tian2019_iPSC_D10_CRISPRi,screen/arm,G6 set B,CRISPRi stratum descriptive only; not verdict-eligible (no KO<->CRISPRi anchor),,configs/screen_plan.csv; results/transfer/setB/summary.json declared_backgrounds
+tian2019_neuron_D28_CRISPRi,screen/arm,G6 set B,CRISPRi stratum descriptive only; not verdict-eligible (no KO<->CRISPRi anchor),,configs/screen_plan.csv; results/transfer/setB/summary.json declared_backgrounds
+drager2022_microglia_CRISPRi,screen/arm,G5a QC,QC fail; CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_572,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_573,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_1030,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_1031,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_799,screen/arm,transfer criteria (D13): verdict population,"rank-only published gene scores (no effect scale, no same-pipeline anchor); not in D13 list",,configs/transfer_criteria.json backgrounds.*.excluded_arms
+ORCS_1791,screen/arm,transfer criteria (D13): verdict population,"rank-only published gene scores (no effect scale, no same-pipeline anchor); not in D13 list",,configs/transfer_criteria.json backgrounds.*.excluded_arms
+ORCS_1792,screen/arm,transfer criteria (D13): verdict population,"rank-only published gene scores (no effect scale, no same-pipeline anchor); not in D13 list",,configs/transfer_criteria.json backgrounds.*.excluded_arms
+ORCS_1932,screen/arm,transfer criteria (D13): verdict population,"rank-only published gene scores (no effect scale, no same-pipeline anchor); not in D13 list",,configs/transfer_criteria.json backgrounds.*.excluded_arms
+ORCS_1933,screen/arm,transfer criteria (D13): verdict population,"rank-only published gene scores (no effect scale, no same-pipeline anchor); not in D13 list",,configs/transfer_criteria.json backgrounds.*.excluded_arms
+ORCS_1934,screen/arm,G5a QC,QC fail,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_1935,screen/arm,G5a QC,QC fail,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2248,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2249,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2250,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2251,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2252,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2253,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2254,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2255,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2256,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2257,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2258,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2259,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2260,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2261,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2262,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2263,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2264,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2265,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail); CRISPRi descriptive stratum,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2266,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2267,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2268,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2269,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2270,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2271,screen/arm,G5a QC,QC not assessable: < 10 evaluation-half CEG/NEG genes in the library (counted as a QC fail),,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2086,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_2087,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_2443,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_1905,screen/arm,G5a QC,QC fail,,results/harmonisation/screen_qc.csv; configs/screen_plan.csv
+ORCS_2485,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+ORCS_2486,screen/arm,G6 set B,not evaluated: no matched expression profile,,configs/screen_plan.csv; configs/transfer_criteria.json backgrounds.other
+background:primary_T,screen/arm,G6 set B (declared before access),inconclusive by declaration: Shifrut 2018 (SSMD -0.81) and Carnevale 2022 ORCS fail QC; Ting 2018 CD4 is a ~2.5k-gene focused chip without anchor or ceiling,,results/transfer/setB/summary.json declared_backgrounds
+background:HMEC,screen/arm,G6 set B (declared before access),not assessable: Tuano 2023 libraries hold < 10 NEGv1 evaluation genes; Sack 2018 score direction unknown,,results/transfer/setB/summary.json declared_backgrounds
+"background:CRISPRi (iPSC, neurons, microglia)",screen/arm,G6 set B (declared before access),descriptive only,,results/transfer/setB/summary.json declared_backgrounds
+background:other,screen/arm,G6 set B (declared before access),not evaluated (no matched expression profile),,results/transfer/setB/summary.json declared_backgrounds
+hypothesis:H4,screen/arm,G6 set B (declared),H4 inconclusive by declaration: primary T-cell screens fail QC,,results/transfer/setB/summary.json hypotheses.H4
+screened cancer models without default-entry expression,line,population / split (D1),not in any population: no default-entry RNA-seq (population = screened models with expression); 1361 screened - 17 Non-Cancerous - 1277 cancer population,67,results/data_audit/overlap.csv; docs/data_audit.md §2; configs/splits.csv; scripts/make_splits.py:33-34
+ACH-002210,line,population / split (D1),"ARH-77: Non-Cancerous screened model without expression, so not in set A (DESIGN §3 lists it in tier A3)",,results/data_audit/noncancerous_screened.csv; configs/splits.csv
+ACH-002247,line,population / split (D1),"IM-9: Non-Cancerous screened model without expression, so not in set A (DESIGN §3 lists it in tier A3)",,results/data_audit/noncancerous_screened.csv; configs/splits.csv
+ACH-000133,line,G6 set A,"Hs 729 (Fibroblast): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-000206,line,G6 set A,"C8166 (Transformed cell line, B lymphoblast): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001310,line,G6 set A,"HA1E (Immortalized Embyonic Kidney Cells): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001422,line,G6 set A,"WPE1-NA22 (Immortalized Epithelial Cells, Prostate): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001453,line,G6 set A,"BPH-1 (Hyperplasia, Prostate): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001520,line,G6 set A,"HG-3 (Transformed cell line, B lymphoblast): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001627,line,G6 set A,"P4E6 (Immortalized Epithelial Cells, Prostate): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001648,line,G6 set A,"Shmac 4 (Immortalized Epithelial Cells, Prostate): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001649,line,G6 set A,"Shmac 5 (Immortalized Epithelial Cells, Prostate): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-003722,line,G6 set A,"HCM-CSHL-0384-D37 (Tubulovillous adenoma): not evaluated, only tier A1 evaluated (D21f)",,configs/transfer_criteria.json set_A; RESEARCH_TREE D21f; configs/splits.csv
+ACH-001578,line,H3 no-EC variant (t_E_status_noEC; b1/b2/m1 noEC),NCCIT: germ-cell/EC dev line excluded from training of the no-EC variants only,,configs/runs/t_E_status_noEC.json; results/transfer/setB/summary.json hypotheses.H3.noEC_excluded_lines
+ACH-002291,line,H3 no-EC variant (t_E_status_noEC; b1/b2/m1 noEC),NTERA-2 cl.D1: germ-cell/EC dev line excluded from training of the no-EC variants only,,configs/runs/t_E_status_noEC.json; results/transfer/setB/summary.json hypotheses.H3.noEC_excluded_lines
+ACH-001374,line,H3 no-EC variant (t_E_status_noEC; b1/b2/m1 noEC),PA-1: germ-cell/EC dev line excluded from training of the no-EC variants only,,configs/runs/t_E_status_noEC.json; results/transfer/setB/summary.json hypotheses.H3.noEC_excluded_lines
+ACH-001668,line,H3 no-EC variant (t_E_status_noEC; b1/b2/m1 noEC),SUSA: germ-cell/EC dev line excluded from training of the no-EC variants only,,configs/runs/t_E_status_noEC.json; results/transfer/setB/summary.json hypotheses.H3.noEC_excluded_lines
+"GCT27, 1411H, SCH",line,H3 no-EC variant (definition),named among DESIGN's '7 EC lines' but not dev lines (GCT27 is a test line; 1411H and SCH unscreened); erratum D20d,3,RESEARCH_TREE D20d
+dev lines without CN data,line,G2 ablation: C common-subset re-evaluation,excluded from the common-subset re-evaluation (C imputed as diploid + absent flag in the main runs),55,results/features_build_report.json blocks.C; docs/g2_results.md
+dev lines without Nusinow proteomics,line,G2 ablation: P arm,P arm restricted to the 253 dev lines with proteomics,769,results/features_build_report.json blocks.P; docs/g2_results.md
+dev lines in lineages with < 20 dev lines,line,G3 leave-one-lineage-out,"lineages not held out or scored (10 lineages: Adrenal Gland, Ampulla of Vater, Cervix, Eye, Liver, Pleura, Prostate, Testis, Thyroid, Vulva/Vagina); their lines stay in every training set",83,configs/splits.csv; docs/g3_kernel_results.md §6
+"HepG2, MCF-7",line,G5a anchors,test lines: never used as screen anchors; expression validation only (DESIGN §7.2),2,DESIGN §7.2; docs/expression_harmonisation.md
+genes outside configs/eval_genes.csv,gene_set,evaluable gene set (DESIGN §4),fewer than 40 observed lines in some dev fold or fewer than 50 observed test lines (mask-only counts); never scored,519,configs/eval_genes.csv; scripts/make_eval_genes.py
+predictability tier 'not_evaluable',gene_set,per-gene predictability tiers (D22),not evaluable in all 5 dev folds; the same genes as those outside eval_genes.csv,519,configs/predictable_genes.csv
+CN genes all-NaN,gene_set,feature build (C block),dropped: CN is NaN for every line,278,results/features_build_report.json C_genes_dropped_all_nan
+fusion rows: self-fusions,gene_set,feature build (F block),"self-fusions dropped (DESIGN §2); count is fusion rows, not genes",5031,results/features_build_report.json fusion_filter
+fusion rows: non-coding partner,gene_set,feature build (F block),fusions with non-coding partners dropped; count is fusion rows,56441,results/features_build_report.json fusion_filter
+expression genes with training SD < 0.1; mutations in < 5 training lines; fusion partners in < 5 training lines,gene_set,feature build (per training fold),dropped inside each fold (DESIGN §2); per-fold counts not recorded,,src/essml/features.py
+CRISPR genes without an expression column,gene_set,feature build (own-gene features),no own-expression feature (kept as targets),69,results/data_audit/gene_overlap.csv
+"scaling-half control genes (CEGv2 + NEGv1 scaling halves, scaling set)",gene_set,set A/B headline metrics (D13 F7),"pinned by the affine step, so excluded from every transfer universe; count within eval genes",1058,configs/control_split.json; configs/transfer_criteria.json population.gene_universe
+eval genes not observed in any RPE1 verdict entry,gene_set,G6 set B (RPE1 universe),"missing from the external screens (outside the union of entry universes), beyond the scaling halves",18,configs/transfer_criteria.json backgrounds.RPE1.bootstrap_plan.n_genes
+eval genes not observed in any hPSC verdict entry,gene_set,G6 set B (hPSC universe),"missing from the external screens (outside the union of entry universes), beyond the scaling halves",587,configs/transfer_criteria.json backgrounds.hPSC.bootstrap_plan.n_genes
+p53/DDR genes,gene_set,G5a gene-wise correction,excluded from gene-wise correction fitting and application (DESIGN §7.2),15,configs/harmonisation_frozen.json p53_ddr_genes; docs/harmonisation_validation.md §1
+USP7,gene,H1,excluded: broadly essential (DESIGN §7.5),,configs/transfer_criteria.json hypotheses.H1.excluded
+TDGF1,gene,H3,"not in DepMap, so unpredictable",,configs/transfer_criteria.json hypotheses.H3.not_in_depmap
+POU5F1,gene,H3,"absent from the Mair 2019 arms, so H3 was tested on 4 genes (D27 m6)",,results/transfer/setB/summary.json hypotheses.H3; RESEARCH_TREE D27
+NEGv1 evaluation-half genes,gene_set,Q3b positives,excluded from Q3b positives (they are the negatives),462,configs/transfer_criteria.json Q3b.primary
+variable eval genes outside the R2 150-gene subset,gene_set,G3 R2 elastic net,not modelled (training mean); time box (D-G3-3),1968,configs/g3_variable_subset500.csv; docs/g3_nonlinear_results.md
+variable eval genes outside the 500-gene subset,gene_set,G3 R4 runs,not modelled (training mean); coverage rule,1618,configs/g3_variable_subset500.csv; docs/g3_nonlinear_results.md
+NaN-pattern groups with < 50 observed training lines,gene_set,M1 fits,"predicted by the offset only (B1, later B0), no ridge; counts per fold not recorded here",,src/essml/models/kernel_ridge.py; DESIGN §5
