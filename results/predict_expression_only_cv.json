@@ -1,0 +1,705 @@
+{
+ "post_hoc": true,
+ "note": "Post-hoc dev-CV diagnostic added at G7 after the REPORT red team (not pre-registered; dev lines only; no test-set or external target read). It scores the configuration scripts/predict.py actually runs: m5_avg trained with genomics (its persisted G6 fold models) applied to held-out dev lines with expression only (genomic inputs absent = diploid wild type, metadata unknown; StackM5.predict_from_blocks with X = {'E': expression}, IDs 'input::<line>'). The G4 test number of m5_avg (0.319) used real genomics. The predict.py default rule (DESIGN section 4: dP1 variable vs m1_E_resB0 > 0.005 and > 1 SE of the paired fold differences) was fixed by the PI before this number was seen.",
+ "git_commit": "fc2f6a841406f0683bd412b5a2b308dbb27131da",
+ "dirty_tree": false,
+ "fold_models": {
+  "tag": "m5_avg_6dbebcf4",
+  "dir": "cache/models/m5_avg_6dbebcf4",
+  "cv_run_id": "20261027-161041_m5_avg_6dbebcf4",
+  "config_hash_file": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+  "config_hash_meta": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+  "config_hash_cv_run": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+  "folds_sha256_meta": "88128f878855e4ae3ae77e13e1c5c261f2e7a036e4b38fa2a6d64316abfe28a6",
+  "folds_sha256_splits": "88128f878855e4ae3ae77e13e1c5c261f2e7a036e4b38fa2a6d64316abfe28a6",
+  "dry": false,
+  "per_fold": {
+   "0": {
+    "n_train": 814,
+    "train_ids_equal_other_folds": true,
+    "fold_pkl_sha256": "ea78a25b885547ab3a279b6941f0b49a27bea98418bac97a86184f8e840f730c"
+   },
+   "1": {
+    "n_train": 820,
+    "train_ids_equal_other_folds": true,
+    "fold_pkl_sha256": "83823975a14eb663844fa96a92e86b6c81473544da73ba18551221ff6f2f429a"
+   },
+   "2": {
+    "n_train": 821,
+    "train_ids_equal_other_folds": true,
+    "fold_pkl_sha256": "5e0eb5ac50d9cc3d046cb4339dcbecf0a882603c1496ebd2d3aa24e7b24f8fe7"
+   },
+   "3": {
+    "n_train": 820,
+    "train_ids_equal_other_folds": true,
+    "fold_pkl_sha256": "ef599c504ce31cc1ca4e795cb4809187df4d6c03440f7ce337f20f6664ba1351"
+   },
+   "4": {
+    "n_train": 813,
+    "train_ids_equal_other_folds": true,
+    "fold_pkl_sha256": "019d357a3848b4deb2c13d566fbae1ae893dec0b9945d2dd326f37ea00cf8d3c"
+   }
+  },
+  "ok": true
+ },
+ "method": {
+  "inputs_refit": "m5_avg (average mode) persists its training data only; each fold model's three inputs (m1_E_resB0, m2n_E_paralogs, g3_m3n) are refitted on that fold's training lines inside the fold model (StackM5.fitted_inputs), as in the CV run, G6 and predict.py; configs and seeds unchanged.",
+  "self_check": "all own raw blocks (E, C, M, H, meta, gene-level expression / CN / damaging) -> predict_from_blocks for every held-out line; must equal the registered OOF cache/runs/20261027-161041_m5_avg_6dbebcf4/pred.parquet within 0.001",
+  "expression_only": "X = {'E': DepMap log2(TPM+1) row}, IDs 'input::<line>', lineage None (= predict.py)",
+  "scoring": "essml.evaluate.evaluate as scripts/run.py (configs/gene_classes.csv dev-wide classes, configs/eval_genes.csv, min_obs 40); paired fold differences scripts/g2_report.paired (SE = sd(ddof=1)/sqrt(5)) vs the registered per_fold.csv of each comparator",
+  "hotspot_auprc": "essml.mutdeps.fold_metrics ap_all (AUPRC of effect < -0.5, all held-out lines), configs/mutation_dependencies.json metric_params, mean over the 5 folds; registered runs recomputed and checked against results/mutation_dependencies.json"
+ },
+ "comparators": {
+  "m1_E_resB0": "20261026-222117_m1_E_resB0_91e52f9d",
+  "m5_avg_with_genomics": "20261027-161041_m5_avg_6dbebcf4"
+ },
+ "self_check": {
+  "0": {
+   "n_lines": 208,
+   "n_genes": 18434,
+   "max_abs_diff_vs_registered_oof": 2.38413408126803e-07,
+   "lines_checked": "all held-out lines of the fold",
+   "tol": 0.001,
+   "input_refit_s": 326.5,
+   "input_fit_ids_n": {
+    "m1_E_resB0": 814,
+    "m2n_E_paralogs": 814,
+    "g3_m3n": 814
+   },
+   "ok": true,
+   "expression_only_vs_own_blocks_mean_abs_diff": 0.0009993042891645694
+  },
+  "1": {
+   "n_lines": 202,
+   "n_genes": 18434,
+   "max_abs_diff_vs_registered_oof": 2.36759026606137e-07,
+   "lines_checked": "all held-out lines of the fold",
+   "tol": 0.001,
+   "input_refit_s": 304.7,
+   "input_fit_ids_n": {
+    "m1_E_resB0": 820,
+    "m2n_E_paralogs": 820,
+    "g3_m3n": 820
+   },
+   "ok": true,
+   "expression_only_vs_own_blocks_mean_abs_diff": 0.0010338377092041246
+  },
+  "2": {
+   "n_lines": 201,
+   "n_genes": 18434,
+   "max_abs_diff_vs_registered_oof": 2.3781619429286138e-07,
+   "lines_checked": "all held-out lines of the fold",
+   "tol": 0.001,
+   "input_refit_s": 314.8,
+   "input_fit_ids_n": {
+    "m1_E_resB0": 821,
+    "m2n_E_paralogs": 821,
+    "g3_m3n": 821
+   },
+   "ok": true,
+   "expression_only_vs_own_blocks_mean_abs_diff": 0.001033213961813854
+  },
+  "3": {
+   "n_lines": 202,
+   "n_genes": 18434,
+   "max_abs_diff_vs_registered_oof": 2.3793875136846054e-07,
+   "lines_checked": "all held-out lines of the fold",
+   "tol": 0.001,
+   "input_refit_s": 305.0,
+   "input_fit_ids_n": {
+    "m1_E_resB0": 820,
+    "m2n_E_paralogs": 820,
+    "g3_m3n": 820
+   },
+   "ok": true,
+   "expression_only_vs_own_blocks_mean_abs_diff": 0.0010084211256239622
+  },
+  "4": {
+   "n_lines": 209,
+   "n_genes": 18434,
+   "max_abs_diff_vs_registered_oof": 2.3789902314774736e-07,
+   "lines_checked": "all held-out lines of the fold",
+   "tol": 0.001,
+   "input_refit_s": 291.5,
+   "input_fit_ids_n": {
+    "m1_E_resB0": 813,
+    "m2n_E_paralogs": 813,
+    "g3_m3n": 813
+   },
+   "ok": true,
+   "expression_only_vs_own_blocks_mean_abs_diff": 0.0010193481948833827
+  }
+ },
+ "evaluate_reproduces_registered_per_fold_max_abs_diff": 4.959544350757739e-07,
+ "P1_by_class": {
+  "variable": {
+   "P1_folds": [
+    0.318551,
+    0.314452,
+    0.309723,
+    0.317002,
+    0.307528
+   ],
+   "P1_mean": 0.31345116316926824,
+   "P2a_mean": 0.9691913577112288,
+   "P2b_nap_prev05_mean": 0.29900349525923275,
+   "P2b_auroc_prev05_mean": 0.7132000813292004,
+   "m1_E_resB0_P1_mean": 0.3080992,
+   "m5_avg_with_genomics_P1_mean": 0.3175278,
+   "delta_P1_vs_m1_E_resB0": {
+    "mean": 0.005351963169268248,
+    "sd": 0.00023074264709624031,
+    "se": 0.00010319124884308756,
+    "t": 51.86450623740812,
+    "p": 8.271698159305065e-07,
+    "ci95": [
+     0.0050654583315186096,
+     0.005638468007017887
+    ],
+    "n_folds_pos": 5,
+    "folds": [
+     0.0056,
+     0.00555,
+     0.00529,
+     0.00503,
+     0.00529
+    ]
+   },
+   "delta_P1_vs_m5_avg_with_genomics": {
+    "mean": -0.004076636830731761,
+    "sd": 0.000312691315636176,
+    "se": 0.00013983980754726647,
+    "t": -29.1521913697846,
+    "p": 8.242657491733912e-06,
+    "ci95": [
+     -0.004464894379908171,
+     -0.003688379281555351
+    ],
+    "n_folds_pos": 0,
+    "folds": [
+     -0.00436,
+     -0.00405,
+     -0.00439,
+     -0.00364,
+     -0.00395
+    ]
+   }
+  },
+  "all": {
+   "P1_folds": [
+    0.155611,
+    0.159604,
+    0.157581,
+    0.153713,
+    0.15018
+   ],
+   "P1_mean": 0.15533790917303625,
+   "P2a_mean": 0.9129284440722362,
+   "P2b_nap_prev05_mean": 0.13542529833783584,
+   "P2b_auroc_prev05_mean": 0.6466241148549421,
+   "m1_E_resB0_P1_mean": 0.154696,
+   "m5_avg_with_genomics_P1_mean": 0.1558264,
+   "delta_P1_vs_m1_E_resB0": {
+    "mean": 0.0006419091730362481,
+    "sd": 2.648626525129688e-05,
+    "se": 1.1845017914398075e-05,
+    "t": 54.192334505124116,
+    "p": 6.940880837789404e-07,
+    "ci95": [
+     0.0006090221310268372,
+     0.0006747962150456589
+    ],
+    "n_folds_pos": 5,
+    "folds": [
+     0.00067,
+     0.00067,
+     0.00063,
+     0.00061,
+     0.00063
+    ]
+   },
+   "delta_P1_vs_m5_avg_with_genomics": {
+    "mean": -0.0004884908269637556,
+    "sd": 3.9045456382251946e-05,
+    "se": 1.746165893664367e-05,
+    "t": -27.975052584416648,
+    "p": 9.713529529733145e-06,
+    "ci95": [
+     -0.0005369721644470333,
+     -0.00044000948948047785
+    ],
+    "n_folds_pos": 0,
+    "folds": [
+     -0.00053,
+     -0.00048,
+     -0.00053,
+     -0.00043,
+     -0.00047
+    ]
+   }
+  },
+  "selective": {
+   "P1_folds": [
+    0.297359,
+    0.294599,
+    0.29043,
+    0.289264,
+    0.287486
+   ],
+   "P1_mean": 0.29182754625930274,
+   "P2a_mean": 0.8117106630738924,
+   "P2b_nap_prev05_mean": 0.19399966318477233,
+   "P2b_auroc_prev05_mean": 0.6624596990213706,
+   "m1_E_resB0_P1_mean": 0.288119,
+   "m5_avg_with_genomics_P1_mean": 0.294188,
+   "delta_P1_vs_m1_E_resB0": {
+    "mean": 0.003708546259302725,
+    "sd": 0.00014052128236888812,
+    "se": 6.284302793245531e-05,
+    "t": 59.01285124721759,
+    "p": 4.937804981836008e-07,
+    "ci95": [
+     0.003534066042003851,
+     0.0038830264766015993
+    ],
+    "n_folds_pos": 5,
+    "folds": [
+     0.00374,
+     0.00386,
+     0.00379,
+     0.00349,
+     0.00366
+    ]
+   },
+   "delta_P1_vs_m5_avg_with_genomics": {
+    "mean": -0.002360453740697266,
+    "sd": 0.0001737453480403489,
+    "se": 7.7701281798516e-05,
+    "t": -30.378568873780765,
+    "p": 6.994411646880674e-06,
+    "ci95": [
+     -0.0025761870842143505,
+     -0.0021447203971801812
+    ],
+    "n_folds_pos": 0,
+    "folds": [
+     -0.00255,
+     -0.00221,
+     -0.00254,
+     -0.0022,
+     -0.0023
+    ]
+   }
+  },
+  "rare_selective": {
+   "P1_folds": [
+    0.175036,
+    0.17746,
+    0.175879,
+    0.169235,
+    0.165169
+   ],
+   "P1_mean": 0.1725557600716792,
+   "P2a_mean": 0.07282244765386273,
+   "P2b_nap_prev05_mean": 0.10418992864215001,
+   "P2b_auroc_prev05_mean": 0.6462344804552689,
+   "m1_E_resB0_P1_mean": 0.172399,
+   "m5_avg_with_genomics_P1_mean": 0.1725966,
+   "delta_P1_vs_m1_E_resB0": {
+    "mean": 0.00015676007167918503,
+    "sd": 6.18088046250157e-05,
+    "se": 2.7641737749907702e-05,
+    "t": 5.671136637554868,
+    "p": 0.004768843128123738,
+    "ci95": [
+     8.001430420429257e-05,
+     0.0002335058391540775
+    ],
+    "n_folds_pos": 5,
+    "folds": [
+     0.00023,
+     0.00016,
+     7e-05,
+     0.00019,
+     0.00013
+    ]
+   },
+   "delta_P1_vs_m5_avg_with_genomics": {
+    "mean": -4.083992832082939e-05,
+    "sd": 2.8582249754707972e-05,
+    "se": 1.2782370680280742e-05,
+    "t": -3.1950198709096123,
+    "p": 0.03305744703660853,
+    "ci95": [
+     -7.632947882891872e-05,
+     -5.3503778127400654e-06
+    ],
+    "n_folds_pos": 0,
+    "folds": [
+     -4e-05,
+     -9e-05,
+     -3e-05,
+     -1e-05,
+     -4e-05
+    ]
+   }
+  },
+  "common_essential": {
+   "P1_folds": [
+    0.255841,
+    0.252109,
+    0.246955,
+    0.262537,
+    0.246241
+   ],
+   "P1_mean": 0.2527368714600557,
+   "P2a_mean": 0.9954689896889551,
+   "P2b_nap_prev05_mean": NaN,
+   "P2b_auroc_prev05_mean": NaN,
+   "m1_E_resB0_P1_mean": 0.2510484,
+   "m5_avg_with_genomics_P1_mean": 0.255697,
+   "delta_P1_vs_m1_E_resB0": {
+    "mean": 0.0016884714600557515,
+    "sd": 0.00020556450280238676,
+    "se": 9.193124040541656e-05,
+    "t": 18.366677667021527,
+    "p": 5.1700455348106195e-05,
+    "ci95": [
+     0.0014332294176173706,
+     0.0019437135024941324
+    ],
+    "n_folds_pos": 5,
+    "folds": [
+     0.00191,
+     0.00172,
+     0.00145,
+     0.00151,
+     0.00186
+    ]
+   },
+   "delta_P1_vs_m5_avg_with_genomics": {
+    "mean": -0.002960128539944268,
+    "sd": 0.0003470783956827155,
+    "se": 0.00015521817725362426,
+    "t": -19.07075957416676,
+    "p": 4.4541017496658784e-05,
+    "ci95": [
+     -0.0033910832884178174,
+     -0.0025291737914707184
+    ],
+    "n_folds_pos": 0,
+    "folds": [
+     -0.00323,
+     -0.00317,
+     -0.0032,
+     -0.00245,
+     -0.00275
+    ]
+   }
+  },
+  "nonessential": {
+   "P1_folds": [
+    0.111225,
+    0.119921,
+    0.12117,
+    0.108641,
+    0.109324
+   ],
+   "P1_mean": 0.11405607063875649,
+   "P2a_mean": 0.5825392906269025,
+   "P2b_nap_prev05_mean": 0.09307111787146634,
+   "P2b_auroc_prev05_mean": 0.6220292899581982,
+   "m1_E_resB0_P1_mean": 0.114056,
+   "m5_avg_with_genomics_P1_mean": 0.11421860000000002,
+   "delta_P1_vs_m1_E_resB0": {
+    "mean": 7.063875648583018e-08,
+    "sd": 2.254164689434772e-05,
+    "se": 1.0080930956111705e-05,
+    "t": 0.007007165984308666,
+    "p": 0.9947446792695879,
+    "ci95": [
+     -2.7918512652447477e-05,
+     2.8059790165419136e-05
+    ],
+    "n_folds_pos": 3,
+    "folds": [
+     0.0,
+     -1e-05,
+     0.0,
+     3e-05,
+     -3e-05
+    ]
+   },
+   "delta_P1_vs_m5_avg_with_genomics": {
+    "mean": -0.0001625293612435158,
+    "sd": 5.352943893324786e-05,
+    "se": 2.3939092850433206e-05,
+    "t": -6.789286555633817,
+    "p": 0.0024576208341026413,
+    "ci95": [
+     -0.0002289949384109767,
+     -9.60637840760549e-05
+    ],
+    "n_folds_pos": 0,
+    "folds": [
+     -0.00016,
+     -8e-05,
+     -0.00023,
+     -0.00015,
+     -0.00019
+    ]
+   }
+  }
+ },
+ "hotspot_auprc": {
+  "NRAS_hotspot": {
+   "m5_avg_expression_only": {
+    "ap_all_mean": 0.21930836524359623,
+    "ap_all_folds": [
+     0.2556,
+     0.15969,
+     0.20576,
+     0.28023,
+     0.19526
+    ],
+    "r_all_mean": 0.29119439585899537,
+    "auroc_bm_mean": 0.8003809523809526,
+    "delta_ap_vs_m1_E_resB0": {
+     "mean": 0.0074199999999999934,
+     "se": 0.0036378455162362207,
+     "ci95": [
+      -0.0026802783770198202,
+      0.017520278377019808
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 5
+    },
+    "delta_ap_vs_m5_avg_with_genomics": {
+     "mean": -0.41192599999999996,
+     "se": 0.04529989984536388,
+     "ci95": [
+      -0.537698685191611,
+      -0.2861533148083889
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 0
+    }
+   },
+   "m1_E_resB0": {
+    "ap_all_mean": 0.21188931718833226,
+    "ap_all_folds": [
+     0.25271,
+     0.1584,
+     0.19431,
+     0.27867,
+     0.17535
+    ],
+    "r_all_mean": 0.28755262746816196,
+    "auroc_bm_mean": 0.8237936507936509
+   },
+   "m5_avg_with_genomics": {
+    "ap_all_mean": 0.6312350414459555,
+    "ap_all_folds": [
+     0.62413,
+     0.62817,
+     0.75408,
+     0.67294,
+     0.47685
+    ],
+    "r_all_mean": 0.6122997481601674,
+    "auroc_bm_mean": 1.0
+   },
+   "dependency_gene": "NRAS",
+   "n_mutant_dev": 52
+  },
+  "KRAS_hotspot": {
+   "m5_avg_expression_only": {
+    "ap_all_mean": 0.766949776063294,
+    "ap_all_folds": [
+     0.74614,
+     0.75948,
+     0.78813,
+     0.75832,
+     0.78268
+    ],
+    "r_all_mean": 0.6066994926883915,
+    "auroc_bm_mean": 0.8487774413130958,
+    "delta_ap_vs_m1_E_resB0": {
+     "mean": 0.010826000000000047,
+     "se": 0.0023633357780899465,
+     "ci95": [
+      0.004264327946983384,
+      0.01738767205301671
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 5
+    },
+    "delta_ap_vs_m5_avg_with_genomics": {
+     "mean": -0.037999999999999944,
+     "se": 0.004079832104388608,
+     "ci95": [
+      -0.04932742987625853,
+      -0.026672570123741357
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 0
+    }
+   },
+   "m1_E_resB0": {
+    "ap_all_mean": 0.7561242736479892,
+    "ap_all_folds": [
+     0.73081,
+     0.74412,
+     0.78555,
+     0.74676,
+     0.77338
+    ],
+    "r_all_mean": 0.5901700408834258,
+    "auroc_bm_mean": 0.8529720406232981
+   },
+   "m5_avg_with_genomics": {
+    "ap_all_mean": 0.8049506637064855,
+    "ap_all_folds": [
+     0.79485,
+     0.79428,
+     0.83483,
+     0.78755,
+     0.81324
+    ],
+    "r_all_mean": 0.7002441176719925,
+    "auroc_bm_mean": 0.9368481426041507
+   },
+   "dependency_gene": "KRAS",
+   "n_mutant_dev": 167
+  },
+  "BRAF_hotspot": {
+   "m5_avg_expression_only": {
+    "ap_all_mean": 0.5537926684236479,
+    "ap_all_folds": [
+     0.44269,
+     0.66448,
+     0.47868,
+     0.47297,
+     0.71014
+    ],
+    "r_all_mean": 0.638392791807157,
+    "auroc_bm_mean": 0.8689821289821289,
+    "delta_ap_vs_m1_E_resB0": {
+     "mean": -0.004140000000000021,
+     "se": 0.0056110649613063755,
+     "ci95": [
+      -0.019718813846765982,
+      0.011438813846765941
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 2
+    },
+    "delta_ap_vs_m5_avg_with_genomics": {
+     "mean": -0.107212,
+     "se": 0.02561294973250834,
+     "ci95": [
+      -0.17832494891450007,
+      -0.03609905108549995
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 0
+    }
+   },
+   "m1_E_resB0": {
+    "ap_all_mean": 0.5579329365993904,
+    "ap_all_folds": [
+     0.45392,
+     0.68154,
+     0.4766,
+     0.45841,
+     0.71919
+    ],
+    "r_all_mean": 0.6279200514759823,
+    "auroc_bm_mean": 0.8637513597513597
+   },
+   "m5_avg_with_genomics": {
+    "ap_all_mean": 0.6610041889339346,
+    "ap_all_folds": [
+     0.54785,
+     0.71782,
+     0.66699,
+     0.60834,
+     0.76402
+    ],
+    "r_all_mean": 0.7076496572255424,
+    "auroc_bm_mean": 0.953824397824398
+   },
+   "dependency_gene": "BRAF",
+   "n_mutant_dev": 72
+  },
+  "PIK3CA_hotspot": {
+   "m5_avg_expression_only": {
+    "ap_all_mean": 0.6030230647346255,
+    "ap_all_folds": [
+     0.63883,
+     0.45172,
+     0.67192,
+     0.61291,
+     0.63975
+    ],
+    "r_all_mean": 0.3895996473633893,
+    "auroc_bm_mean": 0.4479349610991097,
+    "delta_ap_vs_m1_E_resB0": {
+     "mean": 0.005623999999999985,
+     "se": 0.0030823263941380393,
+     "ci95": [
+      -0.002933910029626556,
+      0.014181910029626526
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 4
+    },
+    "delta_ap_vs_m5_avg_with_genomics": {
+     "mean": -0.04426799999999999,
+     "se": 0.007192508880773112,
+     "ci95": [
+      -0.06423760607611419,
+      -0.024298393923885785
+     ],
+     "n_folds": 5,
+     "n_folds_pos": 0
+    }
+   },
+   "m1_E_resB0": {
+    "ap_all_mean": 0.5974034108729553,
+    "ap_all_folds": [
+     0.63762,
+     0.44787,
+     0.67215,
+     0.60677,
+     0.6226
+    ],
+    "r_all_mean": 0.3869158567881634,
+    "auroc_bm_mean": 0.4371588373371539
+   },
+   "m5_avg_with_genomics": {
+    "ap_all_mean": 0.6472941699411294,
+    "ap_all_folds": [
+     0.68124,
+     0.47172,
+     0.71595,
+     0.66348,
+     0.70408
+    ],
+    "r_all_mean": 0.4652186548361281,
+    "auroc_bm_mean": 0.7101287750595313
+   },
+   "dependency_gene": "PIK3CA",
+   "n_mutant_dev": 103
+  }
+ },
+ "default_rule": {
+  "rule": "dP1 variable (m5_avg expression-only - m1_E_resB0) > 0.005 and > 1 SE",
+  "delta": 0.005,
+  "mean": 0.005351963169268248,
+  "se": 0.00010319124884308756,
+  "met": true,
+  "predict_py_default": "m5_avg"
+ },
+ "runtime_s": 2104.0
+}
