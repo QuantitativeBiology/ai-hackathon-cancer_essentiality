@@ -8,6 +8,7 @@
                                   # frozen tiers, dev-only G4 dry run reproduces CV fold 0
     python scripts/gate.py G4     # one-time test evaluation complete + independent reproduction (DESIGN §9)
     python scripts/gate.py G6     # transfer stages A and B complete + independent reproduction
+    python scripts/gate.py G7     # REPORT.md number check (--strict) + red-team review on record
 
 G1 requires a passed G0. Checks (DESIGN §12): B0 P1 is exactly 0 in every fold and gene class;
 B1 P1 (variable) > 0 with every fold > 0. B2 is reported, not gated.
@@ -228,9 +229,32 @@ def g6():
     return checks
 
 
+def g7():
+    """DESIGN §12 G7 "REPORT.md: number check passes; red-team review"."""
+    g6j = GATES / "G6.json"
+    if not g6j.exists() or not json.loads(g6j.read_text())["pass"]:
+        raise SystemExit("G6 has not passed")
+    p = subprocess.run([sys.executable, "scripts/check_report_numbers.py", "REPORT.md", "--strict"],
+                       cwd=ROOT, capture_output=True, text=True)
+    tail = [l for l in p.stdout.strip().splitlines() if l.strip()][-1]
+    report = (ROOT / "REPORT.md").read_text(encoding="utf-8")
+    redteam = ROOT / "reviews" / "report_redteam_g7.md"
+    checks = [
+        {"check": "check_report_numbers.py REPORT.md --strict", "result": tail, "pass": p.returncode == 0},
+        {"check": "no unfilled placeholders in REPORT.md", "pass": "PREDICT-SCRIPT" not in report
+         and "SCOPE LEDGER: to be filled" not in report},
+        {"check": "red-team review of REPORT.md on record", "file": str(redteam.relative_to(ROOT)),
+         "pass": redteam.exists()},
+        {"check": "process artefacts present (scope ledger, exclusions, implementation check)",
+         "pass": all((ROOT / f).exists() for f in ["results/scope_ledger.csv", "results/exclusions.csv",
+                                                   "reviews/implementation_check.md"])},
+    ]
+    return checks
+
+
 def main():
     gate = sys.argv[1]
-    checks = {"G0": g0, "G1": g1, "G2": g2, "G3": g3, "G4": g4, "G6": g6}[gate]()
+    checks = {"G0": g0, "G1": g1, "G2": g2, "G3": g3, "G4": g4, "G6": g6, "G7": g7}[gate]()
     commit, dirty = _git()
     out = {"gate": gate, "pass": all(c["pass"] for c in checks), "checks": checks,
            "commit": commit, "dirty_tree": dirty,

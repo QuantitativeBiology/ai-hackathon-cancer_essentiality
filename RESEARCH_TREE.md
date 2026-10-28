@@ -412,7 +412,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - Wording clarified: both conditions must hold for the same comparator. Pooled across comparators, the outcome
       is the same (only NRAS qualifies).
     - REPORT and the predict.py output will flag the RAS/RAF within-lineage blind spot of the expression-only
-      finalist m1_E_resB0. For mutation-driven dependencies, users should use m5_avg.
+      finalist m1_E_resB0. For mutation-driven dependencies, users should use m5_avg. [Superseded by D29: predict.py takes expression only, so neither model recovers RAS/RAF dependencies through the script.]
     - VPS4A/VPS4B: both directions are published synthetic lethalities (Neggers 2020: 18q/VPS4B loss → VPS4A;
       16q/VPS4A loss → VPS4B). The two files list different directions, which is not an error. Both are too rare
       here to test (1 and 4 lines).
@@ -518,6 +518,35 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - The registry has no training-ID hash.
     - The post-freeze read-path change to harmonise_screens.py (8a613f0) belongs with D21c: it routed reads
       through the guard and left the computations unchanged, as for transfer_criteria.py.
+- D29 (G7 REPORT red team, 2026-10-28). An independent red team of the REPORT draft (957edfb) found 1 critical,
+  10 major and 15 minor items (reviews/report_redteam_g7.md). The numbers held, and every finding concerned wording,
+  disclosure or interpretation. All were applied (1acb991, fc2f6a8 and the commit after).
+  - **Critical: the shipped tool is not the evaluated headline.** predict.py supplies expression only; m5_avg's
+    genomic inputs are set to diploid wild type and its metadata to unknown, a use that had never been evaluated on
+    cancer lines.
+    - **PI response:** a post-hoc, dev-only diagnostic (results/predict_expression_only_cv.json;
+      docs/predict_expression_only.md) scored the persisted fold models on held-out dev folds with expression only.
+      No test or external data were used.
+    - **Default rule, fixed before the number was seen:** keep m5_avg as the default only if it beats m1_E_resB0 by
+      more than δ and 1 SE.
+    - **Result:** P1 0.3135 vs 0.3081 (+0.0054, SE 0.0001, 5/5 folds). The rule is met by a 0.0004 margin, so
+      m5_avg stays the default.
+    - **Cost of dropping genomics:** −0.0041 P1, and NRAS AUPRC falls from 0.631 to 0.219, the m1 level.
+    - **Follow-through:** the predict.py warnings no longer advise m5_avg for mutation-driven dependencies. REPORT
+      states that this configuration has no test-set number.
+  - **Major items, applied:**
+    - two of three stricter controls missed (not one);
+    - the set-A Q3b result (positive in 5/5 lines) was added;
+    - B2 meets the same "transfers" conditions, and the anchors show low sensitivity;
+    - the fixed-pool MDE;
+    - the RPE1 input was DepMap's own expression;
+    - Q3a is not a core-essential test as such;
+    - no iPSC, iPSC-derived or primary haematopoietic screen was evaluated (stated in the abstract);
+    - AUPRC context;
+    - the published comparison was made complete;
+    - the paralog-loss claim was corrected;
+    - missing disclosures were added (tiers seen for m1 first, the null covers the M1 path only, pre-G6 anchor reads,
+      partly implemented review items, headline CV row tree_clean = 0, Q3b bootstrap bias).
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -639,4 +668,4 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
 - [x] 4. Baselines (per-gene mean, per-gene lineage mean): G1 (B0, B1, B2)
 - [x] 5. Models and feature ablation: G2/G3 (headline m5_avg), test G4 (D26)
 - [x] 6. Non-transformed generalisation (assemble screens, harmonise, apply): G5/G6 (D27); CRISPRi stratum not run (D28)
-- [~] 7. REPORT.md: drafted; number check, red team
+- [x] 7. REPORT.md: number check (--strict) passes, red team applied (D29), G7 gate

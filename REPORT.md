@@ -47,7 +47,9 @@ For essentiality AUPRC, the per-line metric P2a is close to its ceiling for the 
 dependencies the headline's normalised AUPRC was <!--n:test#table/0/P2b_nap_prev05-->0.184 against
 <!--n:test#table/4/P2b_nap_prev05-->0.075 for the lineage mean (AUROC <!--n:test#table/0/P2b_auroc_prev05-->0.663).
 Refitting the headline takes about half an hour; the expression-only ridge takes about two minutes.
-<!-- PREDICT-SCRIPT-ABSTRACT -->
+<!--n-src:xo=results/predict_expression_only_cv.json-->The released prediction script supplies expression only; evaluated
+post hoc in dev CV, the headline used that way scored P1 <!--n:xo#P1_by_class/variable/P1_mean-->0.3135, between
+expression-only ridge and the headline with genomics, and lost its RAS/RAF advantage.
 Applied to published screens of non-transformed cells after pre-registered harmonisation, the transfer model T ranked
 each screen's most depleted genes slightly better than the DepMap gene mean (about one twentieth relative) in
 hTERT-RPE1 (ΔAP <!--n:rpe#statistics/Q3a_primary/T/point-->0.032; RPE1 expression taken from DepMap's own profiles)
@@ -373,7 +375,9 @@ The rule was not met, so no targeted model was built. The pattern is specific:
 
 `scripts/predict.py` accepts expression only. It flags NRAS, KRAS, BRAF and PIK3CA predictions as mutation-driven,
 so the recovery shown above is not available through the script (§4; Future work).
-<!-- PREDICT-SCRIPT-MUT -->
+Evaluated post hoc in dev CV the way the script runs it (`results/predict_expression_only_cv.json`), the headline's
+NRAS AUPRC falls to <!--n:xo#hotspot_auprc/NRAS_hotspot/m5_avg_expression_only/ap_all_mean-->0.219, the level of
+expression-only M1.
 An independent reviewer
 recomputed every fold metric and the rule with its own code. Figure:
 [docs/figures/mutation_dependencies.png](docs/figures/mutation_dependencies.png).
@@ -829,7 +833,19 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
   because its LightGBM component reads hotspot calls. `scripts/predict.py` accepts expression only and sets every
   genomic input to diploid wild type and metadata to unknown, so the released tool keeps this blind spot with either
   model. The G4 test numbers describe the models with their real genomic inputs, not the expression-only use.
-<!-- PREDICT-SCRIPT-LIMIT -->
+- **The script's default was evaluated only post hoc, and clears its rule narrowly.** After the red-team review, the
+  expression-only use of `m5_avg` was evaluated in dev CV from the persisted fold models (no test or external data;
+  `docs/predict_expression_only.md`). The rule for keeping it as the default was fixed before the number was seen: beat
+  `m1_E_resB0` by more than δ and 1 SE. It scored P1 <!--n:xo#P1_by_class/variable/P1_mean-->0.3135 against
+  <!--n:xo#P1_by_class/variable/m1_E_resB0_P1_mean-->0.3081 for M1 and
+  <!--n:xo#P1_by_class/variable/m5_avg_with_genomics_P1_mean-->0.3175 with genomics: a gain of
+  <!--n:xo#P1_by_class/variable/delta_P1_vs_m1_E_resB0/mean-->+0.0054 (SE
+  <!--n:xo#P1_by_class/variable/delta_P1_vs_m1_E_resB0/se-->0.0001, 5/5 folds), which clears δ by less than a
+  thousandth, so it stayed the default. Dropping genomics costs
+  <!--n:xo#P1_by_class/variable/delta_P1_vs_m5_avg_with_genomics/mean-->−0.0041, and NRAS AUPRC falls from
+  <!--n:xo#hotspot_auprc/NRAS_hotspot/m5_avg_with_genomics/ap_all_mean-->0.631 to
+  <!--n:xo#hotspot_auprc/NRAS_hotspot/m5_avg_expression_only/ap_all_mean-->0.219. This configuration has no test-set
+  number.
 
 **Runtime**
 - **Shared-machine timings.** CV runtimes were measured while other agents' jobs ran, at 6 or 12 threads, and varied
@@ -937,7 +953,9 @@ single out-of-fold model; D7). Bootstrap: 2,000 resamples, seed 20261026, studie
 
 **Prediction for new lines.** `scripts/predict.py` and `src/essml/modelstore.py`: input log2(TPM+1) expression
 (optionally quantile-harmonised); output per gene the predicted effect, confidence, tier, an applicability-domain
-distance to the nearest dev lines, nearest lineage and a mutation note.
+distance to the nearest dev lines, nearest lineage and a mutation note. Default model `m5_avg`, with genomic inputs
+at diploid wild type and metadata unknown (evaluated post hoc in dev CV only; §4); `--model m1_E_resB0` selects the
+expression-only ridge.
 
 ## 6. Reproducibility
 - **Environment:** `Python 3.13.1`, CPU only; pinned versions in `requirements.txt` and the full freeze in
