@@ -918,3 +918,4 @@ timestamp,caller,access_type,scope,config_hash,n_ids,n_genes,roles,granted,reaso
 2026-10-27T18:13:42,predictability_characterise.py:anchor_agreement:160,anchor_profile,setB:anchor_LOAO_location__A_tzelepis2016_OCIAML3,,1,,external:1,True,DepMap dev-line anchor profile
 2026-10-28T00:54:53,heldout_common.py:guarded_targets:325,targets,test,6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4,255,,test:255,True,ok
 2026-10-28T01:00:30,heldout_common.py:guarded_targets:325,targets,test,91e52f9d5dc623432e507aa2c4922de36b90419802cf7051a71cf1576461eef4,255,,test:255,True,ok
+2026-10-28T01:07:41,heldout_common.py:guarded_targets:325,targets,test,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,255,,test:255,True,ok
