@@ -938,3 +938,4 @@ timestamp,caller,access_type,scope,config_hash,n_ids,n_genes,roles,granted,reaso
 2026-10-28T03:22:15,evaluate_transfer.py:arm:296,targets,setB:olivieri2020_TKOv3_S06,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
 2026-10-28T03:22:16,evaluate_transfer.py:arm:296,targets,setB:olivieri2020_TKOv3_S07,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
 2026-10-28T03:22:17,evaluate_transfer.py:arm:296,targets,setB:olivieri2020_TKOv3_S12,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
+2026-10-28T03:30:04,evaluate_transfer.py:arm:296,targets,setB:bowden2020_WT_D19,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
