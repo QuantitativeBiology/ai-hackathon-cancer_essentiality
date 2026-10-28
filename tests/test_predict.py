@@ -112,13 +112,38 @@ def test_m5_avg_is_the_default_model_with_the_primary_tiers():
     assert ap_default == "m5_avg" and PD.SUPPORTED["m5_avg"]["table"].name == "predictable_genes.csv"
     assert PD.SUPPORTED["m1_E_resB0"]["table"].name == "predictable_genes_m1.csv"
     assert "diploid wild type" in PD.NO_GENOMICS_WARNING and "D24" in PD.NO_GENOMICS_WARNING
+    assert "post hoc" in PD.NO_GENOMICS_WARNING and "0.3135" in PD.NO_GENOMICS_WARNING
+
+
+def test_default_follows_the_pi_rule_on_the_expression_only_dev_cv_result():
+    """PI rule fixed before the number was seen: m5_avg stays the default only if its expression-only dev-CV P1
+    (variable) beats m1_E_resB0 by > delta = 0.005 and > 1 SE of the paired fold differences (DESIGN §4)."""
+    p = PD.ROOT / "results" / "predict_expression_only_cv.json"
+    res = json.loads(p.read_text())
+    d = res["P1_by_class"]["variable"]["delta_P1_vs_m1_E_resB0"]
+    met = d["mean"] > 0.005 and d["mean"] > d["se"]
+    assert res["post_hoc"] is True and res["default_rule"]["met"] == met
+    assert PD.DEFAULT_MODEL == ("m5_avg" if met else "m1_E_resB0") == res["default_rule"]["predict_py_default"]
+    c = PD.EXPRESSION_ONLY_CV                                   # constants quoted in the warning match the result
+    v = res["P1_by_class"]["variable"]
+    assert round(v["P1_mean"], 4) == c["m5_avg_P1_variable"]
+    assert round(v["m1_E_resB0_P1_mean"], 4) == c["m1_E_resB0_P1_variable"]
+    assert round(v["m5_avg_with_genomics_P1_mean"], 4) == c["m5_avg_with_genomics_P1_variable"]
+    assert round(d["mean"], 4) == c["dP1_vs_m1"] and round(d["se"], 4) == c["dP1_vs_m1_se"]
+    nras = res["hotspot_auprc"]["NRAS_hotspot"]
+    assert round(nras["m5_avg_expression_only"]["ap_all_mean"], 2) == c["nras_auprc_m5_avg_expression_only"]
+    assert round(nras["m1_E_resB0"]["ap_all_mean"], 2) == c["nras_auprc_m1_E_resB0"]
+    assert round(nras["m5_avg_with_genomics"]["ap_all_mean"], 2) == c["nras_auprc_m5_avg_with_genomics"]
 
 
 def test_mutation_notes_per_model():
     long = pd.DataFrame({"symbol": ["NRAS", "KRAS", "BRAF", "PIK3CA", "SOX10"]})
     n = PD.add_notes(long, "m1_E_resB0")["note"].tolist()
     assert n[:4] == [PD.MUTATION_NOTE] * 4 and n[4] == ""
-    assert PD.MUTATION_NOTE == "mutation-driven dependency; expression-only model underpredicts; use m5_avg"
+    assert PD.MUTATION_NOTE == "mutation-driven dependency; underpredicted by both expression-only configurations"
+    for text in (PD.MUTATION_NOTE, PD.M1_WARNING, PD.NO_GENOMICS_NOTE, PD.NO_GENOMICS_WARNING):
+        assert "use m5_avg" not in text and "--model m5_avg" not in text   # predict.py takes no genomics
+    assert "both expression-only configurations" in PD.M1_WARNING
     n5 = PD.add_notes(long, "m5_avg")["note"].tolist()             # no genomic input supplied: flagged too
     assert n5[:4] == [PD.NO_GENOMICS_NOTE] * 4 and n5[4] == ""
     assert (PD.add_notes(long, "m5_avg", genomics_given=True)["note"] == "").all()

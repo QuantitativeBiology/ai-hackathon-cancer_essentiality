@@ -23,15 +23,24 @@ Models (``--model``):
   (and for model T, §5). A warning says so: mutation-driven dependencies (D24) then rest on expression alone.
   Fitting takes several minutes (three models); ``--save-models`` keeps the fitted inputs for next time.
   Tiers: configs/predictable_genes.csv (primary).
-- ``m1_E_resB0`` (expression-only kernel ridge, B0 residual; an additional G4 finalist; about 1.5 min).
-  Tiers: configs/predictable_genes_m1.csv (secondary).
+  Evaluation of THIS use (expression only): post hoc, dev CV only (G7, after the REPORT red team;
+  scripts/predict_expression_only_cv.py -> results/predict_expression_only_cv.json, docs/predict_expression_only.md).
+  The G6 fold models applied to their held-out dev lines with expression only give P1 (variable genes) 0.3135,
+  against 0.3081 for m1_E_resB0 (paired fold difference +0.0054, SE 0.0001) and 0.3175 for m5_avg with its real
+  genomic inputs (the G4 test number 0.319 is with real genomics). The default rule, fixed by the PI before the
+  number was seen (DESIGN §4: > delta 0.005 and > 1 SE over m1_E_resB0), is met, narrowly, so m5_avg stays the
+  default. NRAS / KRAS / BRAF / PIK3CA hotspot AUPRC (dev CV) is 0.22 / 0.77 / 0.55 / 0.60 expression-only, about
+  m1_E_resB0's 0.21 / 0.76 / 0.56 / 0.60 and below m5_avg with genomics 0.63 / 0.81 / 0.66 / 0.65.
+- ``m1_E_resB0`` (expression-only kernel ridge, B0 residual; the evaluated expression-only G4 finalist, test P1
+  0.310; about 1.5 min). Tiers: configs/predictable_genes_m1.csv (secondary).
 Either model is fitted on the DepMap dev lines (minus ``--exclude-lines``) with the launcher's sentinel, or
 loaded from cache/models/<tag>/ if it was persisted earlier with ``--save-models``; ``--run-id`` instead
 averages a CV run's persisted fold models (scripts/run.py --save-models) via essml.modelstore.predict_new.
 
 Output (``--out``, csv or parquet): one row per (sample, gene): sample, entrez, symbol, predicted_effect,
 confidence, tier, ad_distance, ad_percentile_vs_dev, nearest_lineage, note. ``note`` flags NRAS / KRAS / BRAF /
-PIK3CA for the expression-only model (mutation-driven dependencies it underpredicts; D24), with a one-line warning. ``confidence`` / ``tier`` come from
+PIK3CA for both models (RAS/RAF/PIK3CA hotspot dependencies, underpredicted by both expression-only configurations;
+D24), with a one-line warning. ``confidence`` / ``tier`` come from
 the dev-CV per-gene predictability table of the model used (m1_E_resB0: configs/predictable_genes_m1.csv,
 the secondary table; the frozen G4 tiers in configs/predictable_genes.csv are those of m5_avg). The
 applicability-domain distance is the mean (1 - Pearson r) to the 10 nearest DepMap dev lines on the top-5000
@@ -71,15 +80,29 @@ SUPPORTED = {"m5_avg": {"config": ROOT / "configs" / "runs" / "m5_avg.json",
                             "table": ROOT / "configs" / "predictable_genes_m1.csv"}}
 DEFAULT_MODEL = "m5_avg"
 GENOMIC_INPUT_MODELS = {"m5_avg"}  # read genomics when available; here only expression is supplied (DESIGN §2)
-NO_GENOMICS_NOTE = "mutation-driven dependency; no mutation / copy-number input (diploid wild type assumed); relies on expression"
+# Post-hoc dev-CV evaluation of m5_avg applied with expression only (results/predict_expression_only_cv.json; G7).
+EXPRESSION_ONLY_CV = {"m5_avg_P1_variable": 0.3135, "m1_E_resB0_P1_variable": 0.3081, "dP1_vs_m1": 0.0054,
+                      "dP1_vs_m1_se": 0.0001, "m5_avg_with_genomics_P1_variable": 0.3175,
+                      "nras_auprc_m5_avg_expression_only": 0.22, "nras_auprc_m1_E_resB0": 0.21,
+                      "nras_auprc_m5_avg_with_genomics": 0.63}
+NO_GENOMICS_NOTE = ("mutation-driven dependency; no mutation / copy-number input (diploid wild type assumed); "
+                    "underpredicted by both expression-only configurations")
 NO_GENOMICS_WARNING = ("WARNING: m5_avg reads copy number, mutations, hotspots, fusions and metadata when it has them; this "
                        "script supplies expression only, so they are set to diploid wild type / unknown (DESIGN section 2 "
-                       "convention). Mutation-driven dependencies (D24: NRAS, KRAS, BRAF, PIK3CA hotspot addiction) then "
-                       "rely on expression alone and are likely underpredicted (see the 'note' column).")
-# PI note (D24, docs/mutation_dependencies.md): the expression-only model misses RAS/RAF/PI3K hotspot addiction
-# within lineages (NRAS AUPRC 0.21 for m1_E_resB0 vs 0.63 for m5_avg). Reporting only; tiers are unaffected.
+                       "convention). This expression-only use was evaluated only post hoc, in dev CV "
+                       "(results/predict_expression_only_cv.json): P1 on variable genes 0.3135, vs 0.3081 for "
+                       "m1_E_resB0 and 0.3175 for m5_avg with its real genomic inputs (the G4 test number 0.319 used real "
+                       "genomics). Mutation-driven dependencies (D24: NRAS, KRAS, BRAF, PIK3CA hotspot addiction) are "
+                       "underpredicted by both expression-only configurations: NRAS AUPRC 0.22 here vs 0.21 for "
+                       "m1_E_resB0 and 0.63 for m5_avg with genomics (see the 'note' column).")
+# PI note (D24, docs/mutation_dependencies.md): expression-only prediction misses RAS/RAF/PI3K hotspot addiction within
+# lineages. With genomics m5_avg recovers most of it (NRAS AUPRC 0.63), but this script supplies no genomics, so both
+# models here are expression-only (NRAS AUPRC 0.21 m1_E_resB0, 0.22 m5_avg). Reporting only; tiers are unaffected.
 MUTATION_NOTE_GENES = {"NRAS", "KRAS", "BRAF", "PIK3CA"}
-MUTATION_NOTE = "mutation-driven dependency; expression-only model underpredicts; use m5_avg"
+MUTATION_NOTE = "mutation-driven dependency; underpredicted by both expression-only configurations"
+M1_WARNING = ("WARNING: m1_E_resB0 is expression-only. RAS/RAF/PIK3CA hotspot dependencies (NRAS, KRAS, BRAF, PIK3CA; "
+              "D24) are underpredicted by both expression-only configurations (this model and m5_avg as run by this "
+              "script, which supplies no genomics); see the 'note' column.")
 EXPRESSION_ONLY_MODELS = {"m1_E_resB0"}
 AD_K = 10
 N_HVG = 5000
@@ -259,8 +282,7 @@ def main(argv=None):
     table_path = a.predictable_genes or (a.run_id and PR.table_for_run(a.run_id)) or SUPPORTED[a.model]["table"]
     table = PR.load_table(table_path)
     if a.model in EXPRESSION_ONLY_MODELS:
-        print(f"WARNING: {a.model} is expression-only and underpredicts mutation-driven dependencies "
-              f"({', '.join(sorted(MUTATION_NOTE_GENES))}; see the 'note' column); use --model m5_avg (default).")
+        print(M1_WARNING)
     if a.model in GENOMIC_INPUT_MODELS:
         print(NO_GENOMICS_WARNING)
     if a.run_id:
@@ -284,7 +306,10 @@ def main(argv=None):
         long.to_csv(out, index=False)
     meta = {"model": a.model, "model_tag": tag,
             "genomic_inputs": ("none supplied: diploid wild type / unknown metadata (DESIGN §2 convention)"
-                               if a.model in GENOMIC_INPUT_MODELS else "not used by this model"), "n_training_lines": int(len(train_ids)), "excluded_lines": excl,
+                               if a.model in GENOMIC_INPUT_MODELS else "not used by this model"),
+            "expression_only_evaluation": ("post hoc, dev CV only: results/predict_expression_only_cv.json"
+                                           if a.model in GENOMIC_INPUT_MODELS else "G4 test set (expression-only model)"),
+            "n_training_lines": int(len(train_ids)), "excluded_lines": excl,
             "harmonise": a.harmonise, "input_gene_fraction_recognised": cov, "model_genes_present": n_cov,
             "predictable_genes": str(table_path), "predictable_genes_sha256": PR.sha256_file(table_path),
             "applicability": None if ad is None else ad.reset_index().to_dict(orient="records")}
