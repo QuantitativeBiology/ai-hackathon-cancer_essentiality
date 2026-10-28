@@ -609,7 +609,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [!] M5 (docs/g3_m5_results.md): plain average m5_avg ΔP1 +0.0094 (SE 0.0002, 5/5) clears δ;
     stacking m5_stack +0.0099 does not beat the average (+0.0005, SE 0.0008). Mechanism: M2/M3
     corrections over-scaled about 2× (post hoc). Control weight 0.041 (chance-level; D23b). PI to confirm (D23a).
-- [~] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics)
+- [x] Features and priors (src/essml/features.py, priors.py; Nusinow proteomics); gene embeddings and CORUM partners never run (D28)
 - [x] 6.0 External screen and expression acquisition (docs/external_screens_inventory.md)
   - 16 non-transformed screens (12 per-guide), 8 anchor sets, 9 expression sources, 36 ORCS non-transformed screens.
   - Control-gene sanity AUROC: ≥0.86 for RPE1/hPSC KO screens. Fails: Haapaniemi RPE1-WT Brunello (0.66) and
@@ -635,8 +635,8 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - at or beyond the edge (94th–100th dev percentile): hESC/iPSC 0.34–0.45 (nearest embryonal carcinoma),
       neurons 0.39–0.40 (neuroblastoma), microglia 0.40–0.44, T cells 0.31–0.48, HSPC 0.35–0.41.
     - Expectation: transfer is most plausible for RPE1/HMEC.
-- [ ] 3. Data pipeline and verification (toy data, controls)
-- [ ] 4. Baselines (per-gene mean, per-gene lineage mean)
-- [ ] 5. Models and feature ablation
-- [ ] 6. Non-transformed generalisation (assemble screens, harmonise, apply)
-- [ ] 7. REPORT.md
+- [x] 3. Data pipeline and verification (toy data, controls): done under G0 (tests, frozen evaluation)
+- [x] 4. Baselines (per-gene mean, per-gene lineage mean): G1 (B0, B1, B2)
+- [x] 5. Models and feature ablation: G2/G3 (headline m5_avg), test G4 (D26)
+- [x] 6. Non-transformed generalisation (assemble screens, harmonise, apply): G5/G6 (D27); CRISPRi stratum not run (D28)
+- [~] 7. REPORT.md: drafted; number check, red team
