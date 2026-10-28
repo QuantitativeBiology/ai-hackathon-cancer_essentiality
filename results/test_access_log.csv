@@ -964,3 +964,4 @@ timestamp,caller,access_type,scope,config_hash,n_ids,n_genes,roles,granted,reaso
 2026-10-28T03:32:42,evaluate_transfer.py:arm:296,targets,setB:hart2015_RPE1_T18,289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f,1,,external:1,True,ok
 2026-10-28T03:32:43,evaluate_transfer.py:arm:296,targets,setB:olivieri2020_TKOv3_S02,289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f,1,,external:1,True,ok
 2026-10-28T03:32:43,evaluate_transfer.py:arm:296,targets,setB:olivieri2020_TKOv3_S04,289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f,1,,external:1,True,ok
+2026-10-28T03:32:44,evaluate_transfer.py:arm:296,targets,setB:olivieri2020_TKOv3_S05,289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f,1,,external:1,True,ok
