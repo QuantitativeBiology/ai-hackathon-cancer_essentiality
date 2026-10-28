@@ -4,6 +4,15 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-28 — M9: research briefing (BRIEFING.md)
+- **What:** a plain-language briefing for a broad scientific audience, covering the study and the agentic process, with seven
+  figures drawn from committed results files only (`scripts/briefing_figures.py` → `docs/figures/briefing_*.png`).
+  No new analysis; every number comes from REPORT.md or its results files.
+- **Review:** an independent agent checked it against REPORT.md. All numbers matched. Its framing findings were applied:
+  the hPSC "transfers" verdict now carries its vacuous-ratio caveat; the MDE is described as the pre-set fails
+  threshold; Figure 5's paralog text matches what is plotted; literature credit follows the survey. The credit for
+  catching "genomics hurts" now goes to the planned leave-one-out ablation, not to review.
+
 ### 2026-10-28 — M8 (post hoc, after G7): DepMap screen maps and predict.py with genomics
 - **Screen maps** (CRISPRScreenMap, ScreenSequenceMap, 26Q3 README) were registered in DATA.md; they are git-ignored.
 - **The post-hoc check (D30)** found the library proxy accurate: groups 0–3 are single library combinations, ARI

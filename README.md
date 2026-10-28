@@ -173,3 +173,4 @@ How to read these verdicts:
 | [LITERATURE.md](LITERATURE.md) | Literature synthesis |
 | [DATA.md](DATA.md) | Data sources, versions, checksums and licences |
 | [REPORT.md](REPORT.md) | Final report, journal-style |
+| [BRIEFING.md](BRIEFING.md) | Research briefing for a broad scientific audience: the study and the agentic process in plain language, with figures |
