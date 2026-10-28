@@ -1,0 +1,27 @@
+{
+ "gate": "G7",
+ "pass": true,
+ "checks": [
+  {
+   "check": "check_report_numbers.py REPORT.md --strict",
+   "result": "406 tagged numbers, 0 failures",
+   "pass": true
+  },
+  {
+   "check": "no unfilled placeholders in REPORT.md",
+   "pass": true
+  },
+  {
+   "check": "red-team review of REPORT.md on record",
+   "file": "reviews\\report_redteam_g7.md",
+   "pass": true
+  },
+  {
+   "check": "process artefacts present (scope ledger, exclusions, implementation check)",
+   "pass": true
+  }
+ ],
+ "commit": "88dca1f325f7650726385cdf8cd86d1d555559c4",
+ "dirty_tree": 0,
+ "timestamp": "2026-10-28T05:56:41"
+}

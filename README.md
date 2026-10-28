@@ -17,7 +17,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 
 ## Status
 
-**In progress:** [REPORT.md](REPORT.md) is drafted and under red-team review. The cancer test set (G4) and the non-transformed screens (G6) have each been opened once; their numbers appear only in the two sections directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
+**Complete (2026-10-28).** The final report is [REPORT.md](REPORT.md). The cancer test set (G4) and the non-transformed screens (G6) were each opened once; their numbers appear only in the two sections directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
 
 | Milestone | State | Outcome |
 |---|---|---|
@@ -32,7 +32,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | Per-gene predictability | done | Frozen tiers from the headline model: 1,632 high, 6,198 medium and 10,085 low genes, plus 519 not evaluable (1,054 / 921 / 143 / 41 of the variable genes). Every prediction ships with a confidence score and its tier ([docs/predictability.md](docs/predictability.md)) |
 | G4 Freeze finalists, one-time test evaluation | done | Finalists frozen (tag `freeze-finalists`); one access each on 255 test lines; headline test P1 0.319 (see below); every number independently reproduced ([reviews/g4_review/REPORT.md](reviews/g4_review/REPORT.md)) |
 | G6 Apply to non-transformed cells | done | Essential-gene ranking (Q3a) "transfers" by the pre-registered rule in RPE1 and hPSC, but the gain over the gene mean is small; screen-specific dependencies (Q3b) are inconclusive; independently reproduced ([reviews/g6_review/REPORT.md](reviews/g6_review/REPORT.md)) |
-| G7 REPORT.md | in progress | Draft committed; all 356 decimal numbers are tied to results files by `scripts/check_report_numbers.py --strict`; red-team review running |
+| G7 REPORT.md | done | Every decimal number is tied to a results file (`scripts/check_report_numbers.py --strict`); red-team review applied ([reviews/report_redteam_g7.md](reviews/report_redteam_g7.md)); LESSONS pruned after a fresh-agent review |
 
 ## Test set (G4, opened once, independently reproduced)
 
@@ -62,9 +62,12 @@ The transfer model T (expression plus TP53/RB1 status) was applied to published 
 How to read these verdicts:
 - **"Transfers" is weaker than the word suggests.** The gain over the DepMap gene mean is real and specific to the cell's own expression profile (it disappears with another cell type's expression), but it is small: about 5% relative AP. Every CI lies below the pre-registered minimum detectable effect. A "fails" verdict was unreachable, because no transformed anchor screen could certify the pipeline's sensitivity; this was known before the data were opened.
 - **hPSC rests on a single screen.**
-- **Q3b:** context-specific dependencies are not detectable with these screens.
+- **A simple baseline meets the same conditions.** Expression nearest neighbours (B2) also beat the gene mean, so "transfers" does not show that T beats generic expression similarity.
+- **The RPE1 input was DepMap's own expression** of its RPE1 sublines, so the RPE1 result tests transfer across screens, not across expression batches.
+- **Q3b:** context-specific dependencies are not detectable in the published screens. In DepMap's own screens of RPE1-derived lines they were (5 of 5 lines).
 - **Non-cancerous DepMap lines** (5 RPE1-derived lines) are predicted as well as cancer test lines (median 93rd percentile).
 - **Embryonal-carcinoma-specific dependencies** (NANOG, SOX2, LIN28A, PRDM14) in hPSC are not predicted. This was forecast before access.
+- **Not evaluated:** no iPSC, iPSC-derived or primary haematopoietic screen. The iPSC and neuron screens are CRISPRi and had no anchor screen to calibrate them; the primary T-cell screens failed QC. The one hPSC screen is in H1 embryonic stem cells.
 
 ## Results so far (dev CV only, not the test set)
 
@@ -96,7 +99,7 @@ How to read these verdicts:
 
 **Other published methods,** run on the same genes as the best model:
 - an elastic net is 0.030 below it;
-- a TrPLet-like feature-selection method is 0.020 below it.
+- a TrPLet-like feature-selection method is 0.038 below it on its original feature grid, and about 0.02 below with a larger grid.
 
 ## Repository layout
 
@@ -135,6 +138,7 @@ How to read these verdicts:
    - For non-DepMap profiles, add `--harmonise quantile`.
    - It serves the headline m5_avg by default (`--model m1_E_resB0` for the expression-only model). Only
      expression is read, so m5_avg's genomic inputs are diploid wild type (DESIGN §2); a warning says so.
+   - This expression-only use was evaluated post hoc in dev CV only: P1 0.3135, against 0.3081 for the expression-only ridge and 0.3175 for the headline with genomics. It has no test-set number, and it does not recover RAS/RAF hotspot dependencies ([docs/predict_expression_only.md](docs/predict_expression_only.md)).
 7. **Test set:** `src/essml/guard.py` refuses test and external-screen targets unless the run's config hash is listed in a committed `configs/finalists.json` and `ESSML_UNBLIND=1` is set. Each access is logged in `results/test_access_log.csv`.
 
 ## Data and licensing
@@ -155,4 +159,4 @@ How to read these verdicts:
 | [LESSONS.md](LESSONS.md) | Process lessons for agent-run research |
 | [LITERATURE.md](LITERATURE.md) | Literature synthesis |
 | [DATA.md](DATA.md) | Data sources, versions, checksums and licences |
-| [REPORT.md](REPORT.md) | Final report, journal-style (draft under review) |
+| [REPORT.md](REPORT.md) | Final report, journal-style |

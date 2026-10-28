@@ -4,6 +4,26 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-28 — M7: REPORT.md done (G7); project complete
+- **REPORT.md:**
+  - It passes check_report_numbers --strict (406 tagged numbers).
+  - An independent red team found 1 critical and 10 major items, all about wording, disclosure or interpretation; all
+    were applied (D29).
+  - The critical item, that the shipped expression-only predict.py had never been evaluated, was resolved with a
+    post-hoc dev-CV diagnostic: P1 0.3135. It stays the default by a pre-stated rule, with a 0.0004 margin.
+- **Process artefacts:** the scope ledger, exclusion log and implementation check were built retrospectively (D28).
+  This is disclosed as a process failure.
+- **LESSONS:** pruned 19 → 16 rules after a fresh-agent stop-doing / worked-well review
+  (reviews/lessons_review_g7.md).
+- **Gates:** G0–G4, G6 and G7 passed; there is no G5 file (D28).
+- **Not done (listed in REPORT, Future work):**
+  - the CRISPRi stratum (iPSC and iPSC-derived neurons);
+  - the M2/M3 shrinkage re-specification;
+  - predict.py with user-supplied genomics;
+  - informative transfer anchors.
+- **Local caches** (cache/m2_inner, m5_inner, m5_outer, runs) are kept, not deleted. They are git-ignored, and
+  removing them would only slow down reproduction.
+
 ### 2026-10-28 — M6: transfer to non-transformed cells (G6) done and independently reproduced
 - **Set A (5 non-cancerous DepMap lines, RPE1-derived; T).**
   - Q3a skill over B0 is 0.018–0.043 on 5 of 5 lines, every CI > 0.
