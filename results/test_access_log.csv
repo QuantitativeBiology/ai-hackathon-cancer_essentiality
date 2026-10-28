@@ -922,3 +922,4 @@ timestamp,caller,access_type,scope,config_hash,n_ids,n_genes,roles,granted,reaso
 2026-10-28T01:13:01,heldout_common.py:guarded_targets:325,targets,test,fa0181c1d6b8abc5d85fb673e32159c7bd3f34711f533d71f8b68ee9cde8a33f,255,,test:255,True,ok
 2026-10-28T01:17:54,heldout_common.py:guarded_targets:325,targets,test,0e2a7a27931baea8a604ae29c759de57c31ea3ccfdbbe43218f9116f6c774a0d,255,,test:255,True,ok
 2026-10-28T01:21:23,heldout_common.py:guarded_targets:325,targets,test,289f5170d0dd0ed1213d055436dd386c09c531916f1d54201f3c56aaa9bf079f,255,,test:255,True,ok
+2026-10-28T01:26:12,heldout_common.py:guarded_targets:325,targets,test,831b9415fbf1b09d4876aa13173dbea90b8b764975d020fcd4a376bb999672d2,255,,test:255,True,ok
