@@ -1,0 +1,87 @@
+{
+ "tree_clean": {
+  "pass": true,
+  "dirty": []
+ },
+ "finalists_committed": {
+  "pass": true,
+  "file": "configs/finalists.json"
+ },
+ "gate_G3": {
+  "pass": true
+ },
+ "frozen_hashes": {
+  "pass": true,
+  "changed": []
+ },
+ "predictable_genes_committed": {
+  "pass": true,
+  "file": "configs/predictable_genes.csv",
+  "tracked": true,
+  "modified": false,
+  "sha256": "c8a32daded480ce7110353d6dad694902e52b49dbf2dbad3ed2b8689b05ba07a",
+  "problems": [],
+  "source_run_id": [
+   "20261027-161041_m5_avg_6dbebcf4"
+  ],
+  "threshold_high_mean_r": [
+   0.3
+  ],
+  "tier_counts": {
+   "low": 10085,
+   "medium": 6198,
+   "high": 1632,
+   "not_evaluable": 519
+  },
+  "table_role": [
+   "primary"
+  ],
+  "folds_used": [
+   "0;1;2;3;4"
+  ]
+ },
+ "own_predictable_genes_m1_E_resB0": {
+  "file": "configs/predictable_genes_m1.csv",
+  "problems": [],
+  "sha256": "7cff5391627b45e3126301f993e298e9c99394e823a20bd6166f8ad65390b995",
+  "table_role": [
+   "secondary (m1_E_resB0; NOT the frozen G4 tier source)"
+  ],
+  "folds_used": [
+   "0;1;2;3;4"
+  ],
+  "source_run_id": [
+   "20261026-222117_m1_E_resB0_91e52f9d"
+  ],
+  "pass": true
+ },
+ "no_existing_results_without_resume": {
+  "pass": true,
+  "existing": []
+ },
+ "noEC_excludes_4_EC_dev_lines": {
+  "pass": true,
+  "lines": [
+   "ACH-001578",
+   "ACH-002291",
+   "ACH-001374",
+   "ACH-001668"
+  ]
+ },
+ "guard_would_grant": {
+  "pass": true,
+  "per_finalist": {
+   "m5_avg": "ok",
+   "t_E_status": "ok",
+   "t_E_status_noEC": "ok",
+   "b0": "ok",
+   "b1": "ok",
+   "b2": "ok",
+   "m1_E_resB0": "ok"
+  }
+ },
+ "spent_incomplete": {
+  "pass": true,
+  "finalists": []
+ }
+}
