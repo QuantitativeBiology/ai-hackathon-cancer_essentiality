@@ -17,7 +17,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 
 ## Status
 
-**In progress** (REPORT.md is next). The cancer test set (G4) and the non-transformed screens (G6) have each been opened once; their numbers appear only in the two sections directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
+**In progress:** [REPORT.md](REPORT.md) is drafted and under red-team review. The cancer test set (G4) and the non-transformed screens (G6) have each been opened once; their numbers appear only in the two sections directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
 
 | Milestone | State | Outcome |
 |---|---|---|
@@ -32,7 +32,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | Per-gene predictability | done | Frozen tiers from the headline model: 1,632 high, 6,198 medium and 10,085 low genes, plus 519 not evaluable (1,054 / 921 / 143 / 41 of the variable genes). Every prediction ships with a confidence score and its tier ([docs/predictability.md](docs/predictability.md)) |
 | G4 Freeze finalists, one-time test evaluation | done | Finalists frozen (tag `freeze-finalists`); one access each on 255 test lines; headline test P1 0.319 (see below); every number independently reproduced ([reviews/g4_review/REPORT.md](reviews/g4_review/REPORT.md)) |
 | G6 Apply to non-transformed cells | done | Essential-gene ranking (Q3a) "transfers" by the pre-registered rule in RPE1 and hPSC, but the gain over the gene mean is small; screen-specific dependencies (Q3b) are inconclusive; independently reproduced ([reviews/g6_review/REPORT.md](reviews/g6_review/REPORT.md)) |
-| G7 REPORT.md | planned | |
+| G7 REPORT.md | in progress | Draft committed; all 356 decimal numbers are tied to results files by `scripts/check_report_numbers.py --strict`; red-team review running |
 
 ## Test set (G4, opened once, independently reproduced)
 
@@ -155,4 +155,4 @@ How to read these verdicts:
 | [LESSONS.md](LESSONS.md) | Process lessons for agent-run research |
 | [LITERATURE.md](LITERATURE.md) | Literature synthesis |
 | [DATA.md](DATA.md) | Data sources, versions, checksums and licences |
-| REPORT.md | Final report (not yet written) |
+| [REPORT.md](REPORT.md) | Final report, journal-style (draft under review) |
