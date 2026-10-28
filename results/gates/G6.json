@@ -1,0 +1,41 @@
+{
+ "gate": "G6",
+ "pass": true,
+ "checks": [
+  {
+   "check": "set A complete, no errors",
+   "status": "complete",
+   "pass": true
+  },
+  {
+   "check": "set B complete, no errors, bootstrap plan matches the frozen plan",
+   "status": "complete",
+   "plan_matches_frozen": {
+    "RPE1": true,
+    "hPSC": true
+   },
+   "pass": true
+  },
+  {
+   "check": "an overall verdict for each primary question",
+   "verdicts": {
+    "Q3a": "transfers",
+    "Q3b": "inconclusive"
+   },
+   "pass": true
+  },
+  {
+   "check": "independent reproduction (own code): every compared value within 1e-4",
+   "n_compared": 288,
+   "max_abs_diff": 4.866122305393142e-05,
+   "pass": true
+  },
+  {
+   "check": "independent review: no critical finding",
+   "pass": true
+  }
+ ],
+ "commit": "01263e616039a84a347c182f1563f7d62d2b4ced",
+ "dirty_tree": 0,
+ "timestamp": "2026-10-28T04:22:49"
+}

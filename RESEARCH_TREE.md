@@ -4,6 +4,33 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-28 — M6: transfer to non-transformed cells (G6) done and independently reproduced
+- **Set A (5 non-cancerous DepMap lines, RPE1-derived; T).**
+  - Q3a skill over B0 is 0.018–0.043 on 5 of 5 lines, every CI > 0.
+  - That is a median 93rd percentile of the cancer test lines, so prediction is as good as for cancer lines.
+  - p53 is functional in all 5.
+- **Set B, pre-registered verdicts (model T):**
+  - **Q3a** (AP for the screen's top-10% depleted genes vs the DepMap gene mean): **transfers** in RPE1 and in hPSC.
+    - RPE1, 4 studies: 0.032 [0.022, 0.040], about 5% relative; replicate ceiling 0.031.
+    - hPSC, 1 study: 0.009 [0.004, 0.014].
+  - **Q3b** (recall of screen-specific dependencies vs B1): **inconclusive** in both backgrounds.
+  - **Hypotheses:**
+    - H1 and H2 pass; both are TP53-flag checks.
+    - H3 fails (0 of 4 EC-specific genes predicted; POU5F1 is unobservable), as predicted pre-access in D20.
+    - H4 is inconclusive by declaration.
+- **How strong "transfers" is (reviewer M1–M3, D27):**
+  - Every CI lies below the pre-registered MDE, and "fails" was unreachable because no anchor was informative
+    (forecast pre-access, D21e).
+  - Read Q3a as a small, expression-specific gain over the gene mean, not as proof of equal performance. Swapping
+    in another background's expression removes it.
+  - hPSC is one study.
+- **Secondary, headline m5_avg on RPE1:**
+  - Q3a 0.029, against 0.023 for B2.
+  - Deviation correlation 0.23–0.43 per screen.
+- **Independent review (reviews/g6_review):** 288 values reproduce, max difference 4.9e-5 from rounding of frozen
+  values. No blinding or leakage violation.
+- **Next:** G7 REPORT.md.
+
 ### 2026-10-28 — M5: one-time test evaluation (G4) done and independently reproduced
 - **Run:** finalists frozen at 84efb5c (tag freeze-finalists), then one test access per finalist on 255 lines.
   Every model was refit on all 1022 dev lines.
@@ -428,6 +455,37 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     7. The m5_avg gain is confined to variable genes, where M2 and M3 act. On the other genes m5_avg equals m1,
        so REPORT will say so.
     8. The static direct-read test does not scan reviews/. Accepted; the read is logged.
+- D27 (G6 outcome and review, 2026-10-28).
+  - **Run.** G6 stage A (c5b2ec8) and stage B (f348ffb) ran once each. The gate passed (results/gates/G6.json).
+    An independent reviewer reproduced every number (reviews/g6_review/REPORT.md; transcribed by the PI, as for
+    G4).
+  - **PI response to the major findings:**
+    - (M1/M2) The verdicts stand as computed under the frozen rules; nothing is re-run or re-labelled.
+      REPORT uses the reviewer's wording:
+      - "transfers" means the lower CI is above 0 against the gene mean, the gain is small (about 5% relative AP),
+        and the whole CI lies below the pre-registered MDE;
+      - "fails" was unreachable because no transformed anchor was informative, which was forecast before access
+        (D21e);
+      - under the counterfactual of a positive anchor, Q3a would be inconclusive and Q3b would fail. REPORT
+        states this counterfactual.
+    - (M3) The hPSC claim is limited to the single screen evaluated (Mair 2019), with a gene-block-only CI.
+  - **PI response to the minor findings:**
+    - (m1, m3) Post-hoc sha256 record of the harmonised set-B files and the persisted G6 fold models:
+      results/transfer/g6_input_hashes.json. All harmonised files were last written before the freeze.
+      Per-fold predictions are not re-saved, because that would need no new access but would change the frozen
+      script; noted as a limitation.
+    - (m2) The pre-freeze replicate-ceiling reads of full set-B profiles (18 logged rows, aggregate-only, no model)
+      will be disclosed in REPORT, together with the Chronos joint fit (D11) and the column-name read (D21d).
+    - (m4) The tag names in the criteria file's _status (freeze-transfer-criteria, freeze-transfer-models) were
+      never created. The freeze is met by freeze-transfer (987bdec) and freeze-finalists (84efb5c), both before
+      any access.
+    - (m5) Deviation recorded here: D13 replaced DESIGN §7.6's "fails requires skill ≤ B0/B1" with "both
+      conditions met → inconclusive". It is in transfer_criteria.json but was missing from the D13 bullets.
+    - (m6) POU5F1 is absent from the Mair arms, so H3 was tested on 4 genes.
+    - (m7) Q3b positives in the noisy screens (Mair 23%, Haapaniemi 21%) are inflated. This is one reason Q3b is
+      inconclusive.
+    - (m8) Set A and set-B RPE1 share the expression input, so they are not independent evidence.
+    - (m9) H1 and H2 are reported as TP53-feature checks, not as evidence of expression-based transfer.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -511,6 +569,7 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
   - [x] λ-criterion diagnostic (D20c): LOO-MSE −0.0011 (more shrinkage, worse at every SD decile);
     grouped inner-CV r = same variable-gene λ (−0.00005). No small-λ bias on real data; LOO r kept.
   - [x] G4/G6 scripts built and dry-run on dev only (fold 0 reproduces CV exactly; 249 tests); D21
+  - [x] G6 transfer: Q3a transfers (RPE1 0.032, hPSC 0.009 over the gene mean; small, below the MDE), Q3b inconclusive; H1/H2 pass, H3 fail, H4 inconclusive; independently reproduced (D27)
   - [x] G4 one-time test evaluation: m5_avg test P1 0.3194 (B1 0.166, B2 0.249), independently reproduced (D26)
   - [x] G3 gate passed (D25): m5_avg wired into G4/G6/predict.py; dry run reproduces CV fold 0 for all finalists
   - [x] Per-gene predictability tiers frozen (m5_avg; m1 secondary), confidence score in outputs, characterisation,

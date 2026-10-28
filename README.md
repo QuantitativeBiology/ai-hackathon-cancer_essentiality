@@ -17,7 +17,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 
 ## Status
 
-**In progress.** The cancer test set has now been opened once (G4). Test numbers appear only in the table directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
+**In progress** (REPORT.md is next). The cancer test set (G4) and the non-transformed screens (G6) have each been opened once; their numbers appear only in the two sections directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
 
 | Milestone | State | Outcome |
 |---|---|---|
@@ -31,7 +31,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | Mutation-driven dependencies | done | Expression alone misses RAS/RAF hotspot addiction; the headline recovers most of it through LightGBM ([docs/mutation_dependencies.md](docs/mutation_dependencies.md)) |
 | Per-gene predictability | done | Frozen tiers from the headline model: 1,632 high, 6,198 medium and 10,085 low genes, plus 519 not evaluable (1,054 / 921 / 143 / 41 of the variable genes). Every prediction ships with a confidence score and its tier ([docs/predictability.md](docs/predictability.md)) |
 | G4 Freeze finalists, one-time test evaluation | done | Finalists frozen (tag `freeze-finalists`); one access each on 255 test lines; headline test P1 0.319 (see below); every number independently reproduced ([reviews/g4_review/REPORT.md](reviews/g4_review/REPORT.md)) |
-| G6 Apply to non-transformed cells | planned | |
+| G6 Apply to non-transformed cells | done | Essential-gene ranking (Q3a) "transfers" by the pre-registered rule in RPE1 and hPSC, but the gain over the gene mean is small; screen-specific dependencies (Q3b) are inconclusive; independently reproduced ([reviews/g6_review/REPORT.md](reviews/g6_review/REPORT.md)) |
 | G7 REPORT.md | planned | |
 
 ## Test set (G4, opened once, independently reproduced)
@@ -47,6 +47,24 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | **M5 average (headline)** | **0.319 [0.304, 0.333]** | **+0.153 [0.138, 0.170]** | **+0.070 [0.062, 0.078]** | **0.184** |
 
 Paired with M1, the headline gains +0.009 [0.009, 0.010] on the test set, the same as in CV. The gain is real but small, and it is confined to variable genes. Headline P1 by frozen per-gene tier: high 0.383, medium 0.196, low 0.106. Test refit time on 4 threads: 29 min for the headline, 1.4 min for M1.
+
+## Transfer to non-transformed cells (G6, opened once, independently reproduced)
+
+The transfer model T (expression plus TP53/RB1 status) was applied to published CRISPR screens of non-transformed cells. Expression and screens were harmonised to DepMap with a procedure frozen before any screen was compared with a prediction.
+
+| Background | Question | Pre-registered verdict | Skill over the comparator [95% CI] |
+|---|---|---|---|
+| RPE1 (4 studies) | Q3a: ranking of the screen's top-10% depleted genes (ΔAP vs gene mean) | transfers | +0.032 [0.022, 0.040]; replicate ceiling 0.031 |
+| hPSC (1 study) | Q3a | transfers | +0.009 [0.004, 0.014] |
+| RPE1 | Q3b: recall of screen-specific dependencies (vs lineage mean) | inconclusive | +0.029 [−0.003, 0.061] |
+| hPSC | Q3b | inconclusive | +0.008 [−0.029, 0.038] |
+
+How to read these verdicts:
+- **"Transfers" is weaker than the word suggests.** The gain over the DepMap gene mean is real and specific to the cell's own expression profile (it disappears with another cell type's expression), but it is small: about 5% relative AP. Every CI lies below the pre-registered minimum detectable effect. A "fails" verdict was unreachable, because no transformed anchor screen could certify the pipeline's sensitivity; this was known before the data were opened.
+- **hPSC rests on a single screen.**
+- **Q3b:** context-specific dependencies are not detectable with these screens.
+- **Non-cancerous DepMap lines** (5 RPE1-derived lines) are predicted as well as cancer test lines (median 93rd percentile).
+- **Embryonal-carcinoma-specific dependencies** (NANOG, SOX2, LIN28A, PRDM14) in hPSC are not predicted. This was forecast before access.
 
 ## Results so far (dev CV only, not the test set)
 
