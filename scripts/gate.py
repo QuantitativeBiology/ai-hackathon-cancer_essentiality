@@ -226,8 +226,7 @@ def g6():
          "pass": set(verdicts) == {"Q3a", "Q3b"} and set(verdicts.values()) <= allowed},
         {"check": "independent reproduction (own code): every compared value within 1e-4",
          "n_compared": len(diffs), "max_abs_diff": max(diffs), "pass": bool(diffs) and max(diffs) < 1e-4},
-        {"check": "independent review: no critical finding", "pass": "### Critical
-None." in review},
+        {"check": "independent review: no critical finding", "pass": "### Critical\nNone." in review},
     ]
     return checks
 
