@@ -925,3 +925,4 @@ timestamp,caller,access_type,scope,config_hash,n_ids,n_genes,roles,granted,reaso
 2026-10-28T01:26:12,heldout_common.py:guarded_targets:325,targets,test,831b9415fbf1b09d4876aa13173dbea90b8b764975d020fcd4a376bb999672d2,255,,test:255,True,ok
 2026-10-28T01:37:06,reviews/g4_review/reproduce.py:main,independent_reproduction_read,test,,255,17915,test:255,True,independent post-G4 reproduction read (DESIGN s9) by reviews/g4_review/reproduce.py: raw data/CRISPRGeneEffect.csv read directly after unblinding; aggregate metrics only; changes no model or decision
 2026-10-28T02:37:58,heldout_common.py:guarded_targets:325,targets,setA:A1,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,5,,noncancerous:5,True,ok
+2026-10-28T02:39:19,heldout_common.py:guarded_targets:325,targets,setA:A1,6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4,5,,noncancerous:5,True,ok
