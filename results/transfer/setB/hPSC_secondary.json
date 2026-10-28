@@ -1,0 +1,104 @@
+{
+ "errors": {},
+ "Q3a_primary_headline": {
+  "point": 0.009401270142355866,
+  "ci_lo": 0.004566702032692598,
+  "ci_hi": 0.014446419749533371,
+  "se": 0.002441937785121196,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "boot_mean_minus_point": 5.1819894241727366e-05,
+  "per_study": {
+   "mair2019": 0.009401
+  },
+  "per_entry": {
+   "mair2019:WT": 0.009401
+  },
+  "model_abs_per_entry": {
+   "mair2019:WT": 0.414236
+  },
+  "comparator_abs_per_entry": {
+   "mair2019:WT": 0.404835
+  }
+ },
+ "Q3b_primary_headline": {
+  "point": 0.006517094017093994,
+  "ci_lo": -0.02809758262769734,
+  "ci_hi": 0.03608607551752843,
+  "se": 0.016242154491523983,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "boot_mean_minus_point": 0.0007307680974866834,
+  "per_study": {
+   "mair2019": 0.006517
+  },
+  "per_entry": {
+   "mair2019:WT": 0.006517
+  },
+  "model_abs_per_entry": {
+   "mair2019:WT": 0.242094
+  },
+  "comparator_abs_per_entry": {
+   "mair2019:WT": 0.235577
+  }
+ },
+ "deviation_corr_headline": {
+  "mair2019:WT": {
+   "n_genes": 5166,
+   "r": 0.1627
+  }
+ },
+ "Q3a_primary_B2": {
+  "point": 0.004046048421307846,
+  "ci_lo": 0.00020006569367799826,
+  "ci_hi": 0.008007508870975677,
+  "se": 0.0019944312233159574,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "boot_mean_minus_point": 5.6555482651545266e-05,
+  "per_study": {
+   "mair2019": 0.004046
+  },
+  "per_entry": {
+   "mair2019:WT": 0.004046
+  },
+  "model_abs_per_entry": {
+   "mair2019:WT": 0.408881
+  },
+  "comparator_abs_per_entry": {
+   "mair2019:WT": 0.404835
+  }
+ },
+ "Q3b_primary_B2": {
+  "point": -0.0019764957264956917,
+  "ci_lo": -0.034480079020888406,
+  "ci_hi": 0.02521734273568009,
+  "se": 0.015194429552742368,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 1,
+  "entries_invalid": [],
+  "boot_mean_minus_point": -0.0012478289330657682,
+  "per_study": {
+   "mair2019": -0.001976
+  },
+  "per_entry": {
+   "mair2019:WT": -0.001976
+  },
+  "model_abs_per_entry": {
+   "mair2019:WT": 0.2336
+  },
+  "comparator_abs_per_entry": {
+   "mair2019:WT": 0.235577
+  }
+ },
+ "deviation_corr_B2": {
+  "mair2019:WT": {
+   "n_genes": 5166,
+   "r": 0.10024
+  }
+ },
+ "status": "complete"
+}

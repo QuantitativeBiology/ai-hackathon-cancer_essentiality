@@ -1,0 +1,2 @@
+run_id,timestamp,name,model,config,config_hash,git_commit,dirty_tree,splits_sha256,status,threads,peak_rss_mb,rss_method,tree_clean,leaky,total_s,roles_used
+20261028-024139_G6_B_fbbdd3e9,2026-10-28T02:41:39,G6_B,G6,configs/finalists.json,fbbdd3e9ab407e2a4789af81d25223e9bc43c99e2ee30e355214e84d6a253f4a,c5b2ec8159d65eb0babcc4c475ab131f4416d39d,0,d543cba139b4ae6651c2453d61ec447867d35a4295d4046833fcaf0b017e41f0,ok,4,8216.5390625,psutil.peak_wset,1,0,3180.3,granted_accesses:46

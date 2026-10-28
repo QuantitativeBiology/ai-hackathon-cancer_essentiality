@@ -1,0 +1,95 @@
+{
+ "tree_clean": {
+  "pass": true,
+  "dirty": []
+ },
+ "finalists_committed": {
+  "pass": true
+ },
+ "transfer_freeze_committed": {
+  "pass": true
+ },
+ "gate_G4": {
+  "pass": true
+ },
+ "frozen_hashes": {
+  "pass": true,
+  "changed": []
+ },
+ "criteria_inputs_unchanged": {
+  "pass": true,
+  "missing": [],
+  "changed": [],
+  "known_post_freeze_changes": {
+   "scripts/transfer_criteria.py": "commit 8a613f0: the replicate-ceiling read was routed through guard.load_harmonised (G0 provenance item); computations unchanged (independent review)"
+  }
+ },
+ "noEC_excludes_4_EC_dev_lines": {
+  "pass": true
+ },
+ "models_take_external_profiles": {
+  "pass": true,
+  "unsupported": {},
+  "note": "a non-kernel-ridge headline (e.g. M5) needs builder support or --no-secondary"
+ },
+ "guard_would_grant": {
+  "pass": true,
+  "n_planned": 46,
+  "skipped_complete_parts": [],
+  "per_access": {
+   "t_E_status|setB:hart2015_RPE1_T18": "ok",
+   "t_E_status|setB:brown2019_WT_Durocher_T3": "ok",
+   "t_E_status|setB:brown2019_WT_PACE002_T30": "ok",
+   "t_E_status|setB:brown2019_WT_PACE006_T25": "ok",
+   "t_E_status|setB:brown2019_p53null_TKOv2_T18": "ok",
+   "t_E_status|setB:olivieri2020_TKOv3_S02": "ok",
+   "t_E_status|setB:olivieri2020_TKOv3_S04": "ok",
+   "t_E_status|setB:olivieri2020_TKOv3_S05": "ok",
+   "t_E_status|setB:olivieri2020_TKOv3_S06": "ok",
+   "t_E_status|setB:olivieri2020_TKOv3_S07": "ok",
+   "t_E_status|setB:olivieri2020_TKOv3_S12": "ok",
+   "t_E_status|setB:haapaniemi2018_null_D28": "ok",
+   "t_E_status|setB:bowden2020_WT_D19": "ok",
+   "t_E_status|setB:bowden2020_KO_D19": "ok",
+   "t_E_status|setB:mair2019_H1_MEF_T8": "ok",
+   "t_E_status|setB:mair2019_H1_laminin_T12": "ok",
+   "t_E_status_noEC|setB:mair2019_H1_MEF_T8": "ok",
+   "t_E_status_noEC|setB:mair2019_H1_laminin_T12": "ok",
+   "m5_avg|setB:hart2015_RPE1_T18": "ok",
+   "m5_avg|setB:brown2019_WT_Durocher_T3": "ok",
+   "m5_avg|setB:brown2019_WT_PACE002_T30": "ok",
+   "m5_avg|setB:brown2019_WT_PACE006_T25": "ok",
+   "m5_avg|setB:brown2019_p53null_TKOv2_T18": "ok",
+   "m5_avg|setB:olivieri2020_TKOv3_S02": "ok",
+   "m5_avg|setB:olivieri2020_TKOv3_S04": "ok",
+   "m5_avg|setB:olivieri2020_TKOv3_S05": "ok",
+   "m5_avg|setB:olivieri2020_TKOv3_S06": "ok",
+   "m5_avg|setB:olivieri2020_TKOv3_S07": "ok",
+   "m5_avg|setB:olivieri2020_TKOv3_S12": "ok",
+   "m5_avg|setB:haapaniemi2018_null_D28": "ok",
+   "b2|setB:hart2015_RPE1_T18": "ok",
+   "b2|setB:brown2019_WT_Durocher_T3": "ok",
+   "b2|setB:brown2019_WT_PACE002_T30": "ok",
+   "b2|setB:brown2019_WT_PACE006_T25": "ok",
+   "b2|setB:brown2019_p53null_TKOv2_T18": "ok",
+   "b2|setB:olivieri2020_TKOv3_S02": "ok",
+   "b2|setB:olivieri2020_TKOv3_S04": "ok",
+   "b2|setB:olivieri2020_TKOv3_S05": "ok",
+   "b2|setB:olivieri2020_TKOv3_S06": "ok",
+   "b2|setB:olivieri2020_TKOv3_S07": "ok",
+   "b2|setB:olivieri2020_TKOv3_S12": "ok",
+   "b2|setB:haapaniemi2018_null_D28": "ok",
+   "m5_avg|setB:mair2019_H1_MEF_T8": "ok",
+   "m5_avg|setB:mair2019_H1_laminin_T12": "ok",
+   "b2|setB:mair2019_H1_MEF_T8": "ok",
+   "b2|setB:mair2019_H1_laminin_T12": "ok"
+  }
+ },
+ "spent_incomplete_parts": {
+  "pass": true,
+  "parts": []
+ },
+ "setA_done_first": {
+  "pass": true
+ }
+}

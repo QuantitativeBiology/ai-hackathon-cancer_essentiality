@@ -1,0 +1,196 @@
+{
+ "errors": {},
+ "Q3a_primary_headline": {
+  "point": 0.02929100357506767,
+  "ci_lo": 0.01989975578208155,
+  "ci_hi": 0.037224252652682976,
+  "se": 0.004467360428827492,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "boot_mean_minus_point": -0.00011094142102643922,
+  "per_study": {
+   "brown2019": 0.033887,
+   "haapaniemi2018": 0.0158,
+   "hart2015": 0.034194,
+   "olivieri2020": 0.033283
+  },
+  "per_entry": {
+   "brown2019:WT": 0.037684,
+   "brown2019:null": 0.03009,
+   "haapaniemi2018:null": 0.0158,
+   "hart2015:WT": 0.034194,
+   "olivieri2020:null": 0.033283
+  },
+  "model_abs_per_entry": {
+   "brown2019:WT": 0.742303,
+   "brown2019:null": 0.667407,
+   "haapaniemi2018:null": 0.434003,
+   "hart2015:WT": 0.606369,
+   "olivieri2020:null": 0.796027
+  },
+  "comparator_abs_per_entry": {
+   "brown2019:WT": 0.704619,
+   "brown2019:null": 0.637317,
+   "haapaniemi2018:null": 0.418203,
+   "hart2015:WT": 0.572176,
+   "olivieri2020:null": 0.762743
+  }
+ },
+ "Q3b_primary_headline": {
+  "point": 0.026499665660420113,
+  "ci_lo": -0.002656300220184418,
+  "ci_hi": 0.05637282705396211,
+  "se": 0.014966249753555542,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "boot_mean_minus_point": -0.0012273956451309236,
+  "per_study": {
+   "brown2019": 0.032459,
+   "haapaniemi2018": 0.01753,
+   "hart2015": 0.010145,
+   "olivieri2020": 0.045865
+  },
+  "per_entry": {
+   "brown2019:WT": 0.027094,
+   "brown2019:null": 0.037824,
+   "haapaniemi2018:null": 0.01753,
+   "hart2015:WT": 0.010145,
+   "olivieri2020:null": 0.045865
+  },
+  "model_abs_per_entry": {
+   "brown2019:WT": 0.627921,
+   "brown2019:null": 0.565026,
+   "haapaniemi2018:null": 0.212153,
+   "hart2015:WT": 0.379153,
+   "olivieri2020:null": 0.869173
+  },
+  "comparator_abs_per_entry": {
+   "brown2019:WT": 0.600827,
+   "brown2019:null": 0.527202,
+   "haapaniemi2018:null": 0.194623,
+   "hart2015:WT": 0.369008,
+   "olivieri2020:null": 0.823308
+  }
+ },
+ "deviation_corr_headline": {
+  "brown2019:WT": {
+   "n_genes": 5166,
+   "r": 0.432016
+  },
+  "brown2019:null": {
+   "n_genes": 5146,
+   "r": 0.365354
+  },
+  "haapaniemi2018:null": {
+   "n_genes": 5398,
+   "r": 0.227372
+  },
+  "hart2015:WT": {
+   "n_genes": 4666,
+   "r": 0.387597
+  },
+  "olivieri2020:null": {
+   "n_genes": 5167,
+   "r": 0.424154
+  }
+ },
+ "Q3a_primary_B2": {
+  "point": 0.02339208787656029,
+  "ci_lo": 0.016451380208887995,
+  "ci_hi": 0.029913885935651193,
+  "se": 0.0034599839810921977,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "boot_mean_minus_point": -0.0001090431192819416,
+  "per_study": {
+   "brown2019": 0.026142,
+   "haapaniemi2018": 0.01409,
+   "hart2015": 0.025251,
+   "olivieri2020": 0.028085
+  },
+  "per_entry": {
+   "brown2019:WT": 0.024322,
+   "brown2019:null": 0.027962,
+   "haapaniemi2018:null": 0.01409,
+   "hart2015:WT": 0.025251,
+   "olivieri2020:null": 0.028085
+  },
+  "model_abs_per_entry": {
+   "brown2019:WT": 0.728941,
+   "brown2019:null": 0.665279,
+   "haapaniemi2018:null": 0.432293,
+   "hart2015:WT": 0.597427,
+   "olivieri2020:null": 0.790829
+  },
+  "comparator_abs_per_entry": {
+   "brown2019:WT": 0.704619,
+   "brown2019:null": 0.637317,
+   "haapaniemi2018:null": 0.418203,
+   "hart2015:WT": 0.572176,
+   "olivieri2020:null": 0.762743
+  }
+ },
+ "Q3b_primary_B2": {
+  "point": 0.003644890304972448,
+  "ci_lo": -0.02363031067835726,
+  "ci_hi": 0.03548503600512812,
+  "se": 0.014901982524719887,
+  "n_boot_valid": 2000,
+  "n_entries_valid": 5,
+  "entries_invalid": [],
+  "boot_mean_minus_point": 0.0002696658845450454,
+  "per_study": {
+   "brown2019": -0.012638,
+   "haapaniemi2018": 0.002128,
+   "hart2015": -0.001226,
+   "olivieri2020": 0.026316
+  },
+  "per_entry": {
+   "brown2019:WT": -0.029162,
+   "brown2019:null": 0.003886,
+   "haapaniemi2018:null": 0.002128,
+   "hart2015:WT": -0.001226,
+   "olivieri2020:null": 0.026316
+  },
+  "model_abs_per_entry": {
+   "brown2019:WT": 0.571665,
+   "brown2019:null": 0.531088,
+   "haapaniemi2018:null": 0.196752,
+   "hart2015:WT": 0.367781,
+   "olivieri2020:null": 0.849624
+  },
+  "comparator_abs_per_entry": {
+   "brown2019:WT": 0.600827,
+   "brown2019:null": 0.527202,
+   "haapaniemi2018:null": 0.194623,
+   "hart2015:WT": 0.369008,
+   "olivieri2020:null": 0.823308
+  }
+ },
+ "deviation_corr_B2": {
+  "brown2019:WT": {
+   "n_genes": 5166,
+   "r": 0.338087
+  },
+  "brown2019:null": {
+   "n_genes": 5146,
+   "r": 0.351667
+  },
+  "haapaniemi2018:null": {
+   "n_genes": 5398,
+   "r": 0.210965
+  },
+  "hart2015:WT": {
+   "n_genes": 4666,
+   "r": 0.318311
+  },
+  "olivieri2020:null": {
+   "n_genes": 5167,
+   "r": 0.403854
+  }
+ },
+ "status": "complete"
+}

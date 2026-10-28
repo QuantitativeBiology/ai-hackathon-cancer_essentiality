@@ -1,0 +1,729 @@
+{
+ "verdicts": {
+  "RPE1": {
+   "Q3a": {
+    "verdict": "transfers",
+    "reasons": [],
+    "transfers_condition": true,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": false
+   },
+   "Q3b": {
+    "verdict": "inconclusive",
+    "reasons": [
+     "fails blocked: anchor gate not informative/positive"
+    ],
+    "transfers_condition": false,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": false
+   }
+  },
+  "hPSC": {
+   "Q3a": {
+    "verdict": "transfers",
+    "reasons": [
+     "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous"
+    ],
+    "transfers_condition": true,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": true
+   },
+   "Q3b": {
+    "verdict": "inconclusive",
+    "reasons": [
+     "ceiling skill <= 0: the 50%-of-ceiling condition is vacuous",
+     "fails blocked: anchor gate not informative/positive"
+    ],
+    "transfers_condition": false,
+    "fails_condition": false,
+    "swap_cap": false,
+    "ratio_condition_vacuous": true
+   }
+  }
+ },
+ "overall": {
+  "Q3a": {
+   "verdict": "transfers",
+   "per_background": {
+    "RPE1": "transfers",
+    "hPSC": "transfers"
+   }
+  },
+  "Q3b": {
+   "verdict": "inconclusive",
+   "per_background": {
+    "RPE1": "inconclusive",
+    "hPSC": "inconclusive"
+   }
+  }
+ },
+ "declared_backgrounds": {
+  "primary_T": {
+   "status": "inconclusive by declaration",
+   "reason": "Shifrut 2018 (SSMD -0.81) and Carnevale 2022 ORCS fail QC; Ting 2018 CD4 is a ~2.5k-gene focused chip without anchor or ceiling"
+  },
+  "HMEC": {
+   "status": "not assessable",
+   "reason": "Tuano 2023 libraries hold < 10 NEGv1 evaluation genes; Sack 2018 score direction unknown"
+  },
+  "CRISPRi (iPSC, neurons, microglia)": {
+   "status": "descriptive only",
+   "reason": null
+  },
+  "other": {
+   "status": "not evaluated (no matched expression profile)",
+   "reason": null
+  }
+ },
+ "hypotheses": {
+  "H1": {
+   "result": "pass",
+   "model_condition": true,
+   "observed_condition": true,
+   "sign_agreement": "2/2",
+   "model_delta": {
+    "MDM2": -0.6229832583907183,
+    "PPM1D": -0.2811792209487435
+   },
+   "observed_delta": {
+    "MDM2": -1.6121468544006348,
+    "PPM1D": -1.7037605444590251
+   },
+   "note": "feature sanity check (single two-point counterfactual), not independent transfer evidence"
+  },
+  "H2": {
+   "result": "pass",
+   "n_genes": 15,
+   "spearman": 0.9571428571428571,
+   "sign_agreement": 0.8,
+   "n_per_study": {
+    "brown2019": 14,
+    "bowden2020": 11
+   },
+   "genes": [
+    "472",
+    "1026",
+    "11200",
+    "2232",
+    "4193",
+    "4194",
+    "8493",
+    "50484",
+    "27244",
+    "8795",
+    "7157",
+    "7158",
+    "57646",
+    "64393",
+    "1643"
+   ],
+   "per_study": {
+    "brown2019": {
+     "result": "pass",
+     "n_genes": 14,
+     "spearman": 0.9252747252747253,
+     "sign_agreement": 0.9285714285714286,
+     "n_per_study": {
+      "brown2019": 14
+     },
+     "genes": [
+      "472",
+      "1026",
+      "11200",
+      "2232",
+      "4193",
+      "4194",
+      "8493",
+      "50484",
+      "27244",
+      "8795",
+      "7157",
+      "7158",
+      "57646",
+      "64393"
+     ]
+    },
+    "bowden2020": {
+     "result": "pass",
+     "n_genes": 11,
+     "spearman": 0.9454545454545454,
+     "sign_agreement": 0.8181818181818182,
+     "n_per_study": {
+      "bowden2020": 11
+     },
+     "genes": [
+      "472",
+      "1026",
+      "11200",
+      "1643",
+      "4193",
+      "4194",
+      "8493",
+      "50484",
+      "7157",
+      "7158",
+      "57646"
+     ]
+    }
+   },
+   "raw_scale_secondary": {
+    "result": "pass",
+    "n_genes": 15,
+    "spearman": 0.9035714285714285,
+    "sign_agreement": 0.7333333333333333,
+    "n_per_study": {
+     "brown2019": 14,
+     "bowden2020": 11
+    },
+    "genes": [
+     "472",
+     "1026",
+     "11200",
+     "2232",
+     "4193",
+     "4194",
+     "8493",
+     "50484",
+     "27244",
+     "8795",
+     "7157",
+     "7158",
+     "57646",
+     "64393",
+     "1643"
+    ]
+   }
+  },
+  "H1_prime": {
+   "brown2019:WT": {
+    "TP53": 1.04556,
+    "CDKN1A": 0.843088,
+    "TP53BP1": 0.404928,
+    "USP28": 0.500927,
+    "CHEK2": 0.157404,
+    "ATM": 0.141232
+   },
+   "brown2019:null": {
+    "TP53": 0.309817,
+    "CDKN1A": -0.232219,
+    "TP53BP1": -0.045789,
+    "USP28": -0.22728,
+    "CHEK2": -0.141115,
+    "ATM": -0.12192
+   },
+   "haapaniemi2018:null": {
+    "TP53": -0.054163,
+    "CDKN1A": 0.012538,
+    "TP53BP1": -1.040684,
+    "USP28": 0.340064,
+    "CHEK2": -0.51987,
+    "ATM": -0.525743
+   },
+   "hart2015:WT": {
+    "TP53": 1.63726,
+    "CDKN1A": 0.590817,
+    "TP53BP1": 0.374339,
+    "USP28": 0.147299,
+    "CHEK2": 0.455488,
+    "ATM": 0.15858
+   },
+   "olivieri2020:null": {
+    "TP53": 0.031591,
+    "CDKN1A": 0.082502,
+    "TP53BP1": -0.120652,
+    "USP28": 0.085979,
+    "CHEK2": 0.06971,
+    "ATM": -0.24365
+   }
+  },
+  "H3": {
+   "result": "fail",
+   "n_observed_depleted": 4,
+   "observed_depleted": [
+    "79923",
+    "6657",
+    "79727",
+    "63978"
+   ],
+   "n_predicted_T": 0,
+   "n_predicted_noEC": 0,
+   "T_passes": false,
+   "noEC_passes": false,
+   "per_gene": {
+    "5460": {
+     "observed": null,
+     "T": -0.251118,
+     "noEC": -0.081669
+    },
+    "79923": {
+     "observed": -0.683382,
+     "T": 0.19854,
+     "noEC": 0.204462
+    },
+    "6657": {
+     "observed": -1.606334,
+     "T": -0.15731,
+     "noEC": -0.095189
+    },
+    "79727": {
+     "observed": -0.512604,
+     "T": -0.0266,
+     "noEC": -0.09084
+    },
+    "1789": {
+     "observed": 0.440856,
+     "T": 0.05952,
+     "noEC": 0.033561
+    },
+    "63978": {
+     "observed": -1.247208,
+     "T": -0.217579,
+     "noEC": -0.101796
+    },
+    "7546": {
+     "observed": -0.061141,
+     "T": -0.032318,
+     "noEC": -0.030178
+    },
+    "54596": {
+     "observed": 0.137597,
+     "T": -0.028225,
+     "noEC": -0.005858
+    },
+    "55211": {
+     "observed": 0.19774,
+     "T": 0.065869,
+     "noEC": 0.106142
+    }
+   },
+   "noEC_excluded_lines": [
+    "ACH-001578",
+    "ACH-002291",
+    "ACH-001374",
+    "ACH-001668"
+   ]
+  },
+  "H4": {
+   "result": "inconclusive",
+   "reason": "declared: primary T-cell screens fail QC (Shifrut 2018 SSMD -0.81)"
+  },
+  "errors": {}
+ },
+ "secondary": {
+  "RPE1": {
+   "errors": {},
+   "Q3a_primary_headline": {
+    "point": 0.02929100357506767,
+    "ci_lo": 0.01989975578208155,
+    "ci_hi": 0.037224252652682976,
+    "se": 0.004467360428827492,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.00011094142102643922,
+    "per_study": {
+     "brown2019": 0.033887,
+     "haapaniemi2018": 0.0158,
+     "hart2015": 0.034194,
+     "olivieri2020": 0.033283
+    },
+    "per_entry": {
+     "brown2019:WT": 0.037684,
+     "brown2019:null": 0.03009,
+     "haapaniemi2018:null": 0.0158,
+     "hart2015:WT": 0.034194,
+     "olivieri2020:null": 0.033283
+    },
+    "model_abs_per_entry": {
+     "brown2019:WT": 0.742303,
+     "brown2019:null": 0.667407,
+     "haapaniemi2018:null": 0.434003,
+     "hart2015:WT": 0.606369,
+     "olivieri2020:null": 0.796027
+    },
+    "comparator_abs_per_entry": {
+     "brown2019:WT": 0.704619,
+     "brown2019:null": 0.637317,
+     "haapaniemi2018:null": 0.418203,
+     "hart2015:WT": 0.572176,
+     "olivieri2020:null": 0.762743
+    }
+   },
+   "Q3b_primary_headline": {
+    "point": 0.026499665660420113,
+    "ci_lo": -0.002656300220184418,
+    "ci_hi": 0.05637282705396211,
+    "se": 0.014966249753555542,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.0012273956451309236,
+    "per_study": {
+     "brown2019": 0.032459,
+     "haapaniemi2018": 0.01753,
+     "hart2015": 0.010145,
+     "olivieri2020": 0.045865
+    },
+    "per_entry": {
+     "brown2019:WT": 0.027094,
+     "brown2019:null": 0.037824,
+     "haapaniemi2018:null": 0.01753,
+     "hart2015:WT": 0.010145,
+     "olivieri2020:null": 0.045865
+    },
+    "model_abs_per_entry": {
+     "brown2019:WT": 0.627921,
+     "brown2019:null": 0.565026,
+     "haapaniemi2018:null": 0.212153,
+     "hart2015:WT": 0.379153,
+     "olivieri2020:null": 0.869173
+    },
+    "comparator_abs_per_entry": {
+     "brown2019:WT": 0.600827,
+     "brown2019:null": 0.527202,
+     "haapaniemi2018:null": 0.194623,
+     "hart2015:WT": 0.369008,
+     "olivieri2020:null": 0.823308
+    }
+   },
+   "deviation_corr_headline": {
+    "brown2019:WT": {
+     "n_genes": 5166,
+     "r": 0.432016
+    },
+    "brown2019:null": {
+     "n_genes": 5146,
+     "r": 0.365354
+    },
+    "haapaniemi2018:null": {
+     "n_genes": 5398,
+     "r": 0.227372
+    },
+    "hart2015:WT": {
+     "n_genes": 4666,
+     "r": 0.387597
+    },
+    "olivieri2020:null": {
+     "n_genes": 5167,
+     "r": 0.424154
+    }
+   },
+   "Q3a_primary_B2": {
+    "point": 0.02339208787656029,
+    "ci_lo": 0.016451380208887995,
+    "ci_hi": 0.029913885935651193,
+    "se": 0.0034599839810921977,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.0001090431192819416,
+    "per_study": {
+     "brown2019": 0.026142,
+     "haapaniemi2018": 0.01409,
+     "hart2015": 0.025251,
+     "olivieri2020": 0.028085
+    },
+    "per_entry": {
+     "brown2019:WT": 0.024322,
+     "brown2019:null": 0.027962,
+     "haapaniemi2018:null": 0.01409,
+     "hart2015:WT": 0.025251,
+     "olivieri2020:null": 0.028085
+    },
+    "model_abs_per_entry": {
+     "brown2019:WT": 0.728941,
+     "brown2019:null": 0.665279,
+     "haapaniemi2018:null": 0.432293,
+     "hart2015:WT": 0.597427,
+     "olivieri2020:null": 0.790829
+    },
+    "comparator_abs_per_entry": {
+     "brown2019:WT": 0.704619,
+     "brown2019:null": 0.637317,
+     "haapaniemi2018:null": 0.418203,
+     "hart2015:WT": 0.572176,
+     "olivieri2020:null": 0.762743
+    }
+   },
+   "Q3b_primary_B2": {
+    "point": 0.003644890304972448,
+    "ci_lo": -0.02363031067835726,
+    "ci_hi": 0.03548503600512812,
+    "se": 0.014901982524719887,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 5,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 0.0002696658845450454,
+    "per_study": {
+     "brown2019": -0.012638,
+     "haapaniemi2018": 0.002128,
+     "hart2015": -0.001226,
+     "olivieri2020": 0.026316
+    },
+    "per_entry": {
+     "brown2019:WT": -0.029162,
+     "brown2019:null": 0.003886,
+     "haapaniemi2018:null": 0.002128,
+     "hart2015:WT": -0.001226,
+     "olivieri2020:null": 0.026316
+    },
+    "model_abs_per_entry": {
+     "brown2019:WT": 0.571665,
+     "brown2019:null": 0.531088,
+     "haapaniemi2018:null": 0.196752,
+     "hart2015:WT": 0.367781,
+     "olivieri2020:null": 0.849624
+    },
+    "comparator_abs_per_entry": {
+     "brown2019:WT": 0.600827,
+     "brown2019:null": 0.527202,
+     "haapaniemi2018:null": 0.194623,
+     "hart2015:WT": 0.369008,
+     "olivieri2020:null": 0.823308
+    }
+   },
+   "deviation_corr_B2": {
+    "brown2019:WT": {
+     "n_genes": 5166,
+     "r": 0.338087
+    },
+    "brown2019:null": {
+     "n_genes": 5146,
+     "r": 0.351667
+    },
+    "haapaniemi2018:null": {
+     "n_genes": 5398,
+     "r": 0.210965
+    },
+    "hart2015:WT": {
+     "n_genes": 4666,
+     "r": 0.318311
+    },
+    "olivieri2020:null": {
+     "n_genes": 5167,
+     "r": 0.403854
+    }
+   },
+   "status": "complete"
+  },
+  "hPSC": {
+   "errors": {},
+   "Q3a_primary_headline": {
+    "point": 0.009401270142355866,
+    "ci_lo": 0.004566702032692598,
+    "ci_hi": 0.014446419749533371,
+    "se": 0.002441937785121196,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 5.1819894241727366e-05,
+    "per_study": {
+     "mair2019": 0.009401
+    },
+    "per_entry": {
+     "mair2019:WT": 0.009401
+    },
+    "model_abs_per_entry": {
+     "mair2019:WT": 0.414236
+    },
+    "comparator_abs_per_entry": {
+     "mair2019:WT": 0.404835
+    }
+   },
+   "Q3b_primary_headline": {
+    "point": 0.006517094017093994,
+    "ci_lo": -0.02809758262769734,
+    "ci_hi": 0.03608607551752843,
+    "se": 0.016242154491523983,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 0.0007307680974866834,
+    "per_study": {
+     "mair2019": 0.006517
+    },
+    "per_entry": {
+     "mair2019:WT": 0.006517
+    },
+    "model_abs_per_entry": {
+     "mair2019:WT": 0.242094
+    },
+    "comparator_abs_per_entry": {
+     "mair2019:WT": 0.235577
+    }
+   },
+   "deviation_corr_headline": {
+    "mair2019:WT": {
+     "n_genes": 5166,
+     "r": 0.1627
+    }
+   },
+   "Q3a_primary_B2": {
+    "point": 0.004046048421307846,
+    "ci_lo": 0.00020006569367799826,
+    "ci_hi": 0.008007508870975677,
+    "se": 0.0019944312233159574,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 5.6555482651545266e-05,
+    "per_study": {
+     "mair2019": 0.004046
+    },
+    "per_entry": {
+     "mair2019:WT": 0.004046
+    },
+    "model_abs_per_entry": {
+     "mair2019:WT": 0.408881
+    },
+    "comparator_abs_per_entry": {
+     "mair2019:WT": 0.404835
+    }
+   },
+   "Q3b_primary_B2": {
+    "point": -0.0019764957264956917,
+    "ci_lo": -0.034480079020888406,
+    "ci_hi": 0.02521734273568009,
+    "se": 0.015194429552742368,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.0012478289330657682,
+    "per_study": {
+     "mair2019": -0.001976
+    },
+    "per_entry": {
+     "mair2019:WT": -0.001976
+    },
+    "model_abs_per_entry": {
+     "mair2019:WT": 0.2336
+    },
+    "comparator_abs_per_entry": {
+     "mair2019:WT": 0.235577
+    }
+   },
+   "deviation_corr_B2": {
+    "mair2019:WT": {
+     "n_genes": 5166,
+     "r": 0.10024
+    }
+   },
+   "status": "complete"
+  }
+ },
+ "plan_matches_frozen": {
+  "RPE1": true,
+  "hPSC": true
+ },
+ "ceiling_comparison": {
+  "RPE1": {
+   "Q3a_primary": {
+    "T_skill": 0.032071384152248125,
+    "T_ci": [
+     0.022304851343618582,
+     0.04006898199425543
+    ],
+    "ceiling_skill": 0.0307,
+    "MDE": 0.101,
+    "skill_over_ceiling": 1.044670493558571
+   },
+   "Q3a_effect_label": {
+    "T_skill": 0.031148313236912847,
+    "T_ci": [
+     0.01737591235489939,
+     0.04522678918622758
+    ],
+    "ceiling_skill": 0.0362,
+    "MDE": 0.1027,
+    "skill_over_ceiling": 0.8604506419036697
+   },
+   "Q3b_primary": {
+    "T_skill": 0.0290901217355616,
+    "T_ci": [
+     -0.00274552004629853,
+     0.06055021644156624
+    ],
+    "ceiling_skill": 0.0019,
+    "MDE": 0.1617,
+    "skill_over_ceiling": 15.310590387137685
+   },
+   "Q3b_vs_B0": {
+    "T_skill": 0.03603163841419212,
+    "T_ci": [
+     0.005914868677942884,
+     0.06747894338320057
+    ],
+    "ceiling_skill": 0.0089,
+    "MDE": 0.159,
+    "skill_over_ceiling": 4.048498698223834
+   },
+   "Q3b_rare_vs_B1n": {
+    "T_skill": 0.05494679095341723,
+    "T_ci": [
+     0.00016209033042578706,
+     0.14748736395313744
+    ],
+    "ceiling_skill": 0.2518,
+    "MDE": 0.2867,
+    "skill_over_ceiling": 0.21821600855209383
+   }
+  },
+  "hPSC": {
+   "Q3a_primary": {
+    "T_skill": 0.008936163459537683,
+    "T_ci": [
+     0.003973121428029839,
+     0.01402540625555269
+    ],
+    "ceiling_skill": -0.0984,
+    "MDE": 0.082,
+    "skill_over_ceiling": null
+   },
+   "Q3a_effect_label": {
+    "T_skill": 0.0030287845866235896,
+    "T_ci": [
+     -6.400536987146109e-05,
+     0.006426911214719323
+    ],
+    "ceiling_skill": -0.041,
+    "MDE": 0.0481,
+    "skill_over_ceiling": null
+   },
+   "Q3b_primary": {
+    "T_skill": 0.007959401709401709,
+    "T_ci": [
+     -0.028884484072119864,
+     0.037527415995807695
+    ],
+    "ceiling_skill": -0.0649,
+    "MDE": 0.0816,
+    "skill_over_ceiling": null
+   },
+   "Q3b_vs_B0": {
+    "T_skill": 0.016239316239316237,
+    "T_ci": [
+     -0.0226324601522731,
+     0.0496162797877457
+    ],
+    "ceiling_skill": -0.0566,
+    "MDE": 0.0867,
+    "skill_over_ceiling": null
+   },
+   "Q3b_rare_vs_B1n": {
+    "T_skill": 0.020965058236272885,
+    "T_ci": [
+     -0.012318818672035879,
+     0.05162440339287876
+    ],
+    "ceiling_skill": 0.0339,
+    "MDE": 0.0666,
+    "skill_over_ceiling": 0.6184382960552474
+   }
+  }
+ },
+ "errors": {},
+ "status": "complete"
+}
