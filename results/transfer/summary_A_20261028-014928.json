@@ -1,0 +1,326 @@
+{
+ "gate": "G6",
+ "dry_run": false,
+ "stage": "A",
+ "timestamp": "2026-10-28T01:49:28",
+ "git_commit": "cb51f1dc40381e9b96f371f4fcd10739bb0e29b2",
+ "population": "test set (refit on all dev lines)",
+ "preflight": {
+  "tree_clean": {
+   "pass": true,
+   "dirty": []
+  },
+  "finalists_committed": {
+   "pass": true
+  },
+  "transfer_freeze_committed": {
+   "pass": true
+  },
+  "gate_G4": {
+   "pass": true
+  },
+  "frozen_hashes": {
+   "pass": true,
+   "changed": []
+  },
+  "criteria_inputs_unchanged": {
+   "pass": true,
+   "missing": [],
+   "changed": [],
+   "known_post_freeze_changes": {
+    "scripts/transfer_criteria.py": "commit 8a613f0: the replicate-ceiling read was routed through guard.load_harmonised (G0 provenance item); computations unchanged (independent review)"
+   }
+  },
+  "noEC_excludes_4_EC_dev_lines": {
+   "pass": true
+  },
+  "models_take_external_profiles": {
+   "pass": true,
+   "unsupported": {},
+   "note": "a non-kernel-ridge headline (e.g. M5) needs builder support or --no-secondary"
+  },
+  "setA_test_reference_present": {
+   "pass": true,
+   "file": "results/test/t_E_status/setA_reference.csv"
+  },
+  "guard_would_grant": {
+   "pass": true,
+   "n_planned": 2,
+   "skipped_complete_parts": [],
+   "per_access": {
+    "t_E_status|setA:A1": "ok",
+    "m5_avg|setA:A1": "ok"
+   }
+  },
+  "spent_incomplete_parts": {
+   "pass": true,
+   "parts": []
+  }
+ },
+ "dry_run_standins": null,
+ "n_boot": 2000,
+ "seed": 20261026,
+ "models": {
+  "T": {
+   "source": "persisted",
+   "tag": "t_E_status_24b46e2a",
+   "cv_reproduction": {
+    "cv_run_id": "20261026-224125_t_E_status_24b46e2a",
+    "n_lines": 1022,
+    "n_genes": 18434,
+    "max_abs_diff": 2.3971669174116528e-06,
+    "ok": true
+   }
+  },
+  "H3_noEC": {
+   "source": "fitted",
+   "tag": "t_E_status_noEC_fa0181c1",
+   "fit_s": {
+    "0": 66.12255349988118,
+    "1": 68.16494160005823,
+    "2": 74.05743990000337,
+    "3": 73.86983800004236,
+    "4": 62.647381599992514
+   },
+   "cv_reproduction": {
+    "cv_run_id": "20261027-000415_t_E_status_noEC_fa0181c1",
+    "n_lines": 1022,
+    "n_genes": 18434,
+    "max_abs_diff": 1.953751933125858e-06,
+    "ok": true
+   }
+  },
+  "headline": {
+   "source": "fitted",
+   "tag": "m5_avg_6dbebcf4",
+   "fit_s": {
+    "0": 0.5799281999934465,
+    "1": 0.44262750004418194,
+    "2": 0.35631210007704794,
+    "3": 0.39396000001579523,
+    "4": 0.5051520999986678
+   },
+   "cv_reproduction": {
+    "cv_run_id": "20261027-161041_m5_avg_6dbebcf4",
+    "n_lines": 1022,
+    "n_genes": 18434,
+    "max_abs_diff": 2.38413408126803e-07,
+    "ok": true
+   }
+  },
+  "B2": {
+   "source": "fitted",
+   "tag": "b2_289f5170",
+   "fit_s": {
+    "0": 30.528447899967432,
+    "1": 31.80521299992688,
+    "2": 29.92548680002801,
+    "3": 32.44527650019154,
+    "4": 31.45086090010591
+   },
+   "cv_reproduction": {
+    "cv_run_id": "20261026-221456_b2_289f5170",
+    "n_lines": 1022,
+    "n_genes": 18434,
+    "max_abs_diff": 2.384185791015625e-07,
+    "ok": true
+   }
+  }
+ },
+ "self_check": {
+  "native_vs_builder_max_abs_diff": {
+   "t_E_status": 0.0,
+   "t_E_status_noEC": 0.0,
+   "m5_avg": 0.0,
+   "b2": 0.0
+  },
+  "profiles": {
+   "state:DepMap_RPE1|b2": {
+    "n_genes": 18434,
+    "sd": 0.400003,
+    "ok": true
+   },
+   "state:DepMap_RPE1|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.398122,
+    "ok": true
+   },
+   "state:DepMap_RPE1|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.398098,
+    "ok": true
+   },
+   "state:DepMap_RPE1|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.397832,
+    "ok": true
+   },
+   "state:H1_iCas9_MEF|b2": {
+    "n_genes": 18434,
+    "sd": 0.401431,
+    "ok": true
+   },
+   "state:H1_iCas9_MEF|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.400919,
+    "ok": true
+   },
+   "state:H1_iCas9_MEF|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.402357,
+    "ok": true
+   },
+   "state:H1_iCas9_MEF|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.400936,
+    "ok": true
+   },
+   "state:H1_iCas9_laminin|b2": {
+    "n_genes": 18434,
+    "sd": 0.401486,
+    "ok": true
+   },
+   "state:H1_iCas9_laminin|t_E_status_noEC": {
+    "n_genes": 18434,
+    "sd": 0.401395,
+    "ok": true
+   },
+   "state:H1_iCas9_laminin|t_E_status": {
+    "n_genes": 18434,
+    "sd": 0.402565,
+    "ok": true
+   },
+   "state:H1_iCas9_laminin|m5_avg": {
+    "n_genes": 18434,
+    "sd": 0.401175,
+    "ok": true
+   }
+  },
+  "line": {
+   "t_E_status": "ACH-000018",
+   "t_E_status_noEC": "ACH-000018",
+   "m5_avg": "ACH-000018",
+   "b2": "ACH-000018"
+  }
+ },
+ "setA": {
+  "Q3a_primary": {
+   "per_line": {
+    "ACH-002462": {
+     "point": 0.03533589660368597,
+     "ci_lo": 0.029678242334038585,
+     "ci_hi": 0.04189375365587785,
+     "category": "skill>0",
+     "test_percentile": 93.33333333333333
+    },
+    "ACH-002463": {
+     "point": 0.04255492347045742,
+     "ci_lo": 0.0361938439011698,
+     "ci_hi": 0.04935450268825374,
+     "category": "skill>0",
+     "test_percentile": 96.47058823529412
+    },
+    "ACH-002464": {
+     "point": 0.018095314893099235,
+     "ci_lo": 0.012473372375016575,
+     "ci_hi": 0.023473545317019173,
+     "category": "skill>0",
+     "test_percentile": 70.98039215686275
+    },
+    "ACH-002465": {
+     "point": 0.040025977192781004,
+     "ci_lo": 0.034044875123407606,
+     "ci_hi": 0.046081483193350814,
+     "category": "skill>0",
+     "test_percentile": 94.90196078431372
+    },
+    "ACH-002467": {
+     "point": 0.03680056563851797,
+     "ci_lo": 0.03146411403343178,
+     "ci_hi": 0.04229783090781391,
+     "category": "skill>0",
+     "test_percentile": 93.33333333333333
+    }
+   },
+   "median_test_percentile": 93.33333333333333,
+   "descriptive_verdict": "comparable to cancer test lines",
+   "n_lines_skill_positive": 5
+  },
+  "Q3b_primary": {
+   "per_line": {
+    "ACH-002462": {
+     "point": 0.06282722513089001,
+     "ci_lo": 0.01756829088224442,
+     "ci_hi": 0.09974312291251303,
+     "category": "skill>0",
+     "test_percentile": 95.68627450980392
+    },
+    "ACH-002463": {
+     "point": 0.08313539192399055,
+     "ci_lo": 0.023272278770253504,
+     "ci_hi": 0.11106170747550043,
+     "category": "skill>0",
+     "test_percentile": 99.2156862745098
+    },
+    "ACH-002464": {
+     "point": 0.042406876790830994,
+     "ci_lo": 0.0052130069419072216,
+     "ci_hi": 0.08826655371907267,
+     "category": "skill>0",
+     "test_percentile": 90.98039215686275
+    },
+    "ACH-002465": {
+     "point": 0.058347978910369025,
+     "ci_lo": 0.009148877941981375,
+     "ci_hi": 0.0905912030543868,
+     "category": "skill>0",
+     "test_percentile": 95.29411764705881
+    },
+    "ACH-002467": {
+     "point": 0.059213250517598404,
+     "ci_lo": 0.0023616879880378147,
+     "ci_hi": 0.09467973955178659,
+     "category": "skill>0",
+     "test_percentile": 95.29411764705881
+    }
+   },
+   "median_test_percentile": 95.29411764705881,
+   "descriptive_verdict": "comparable to cancer test lines",
+   "n_lines_skill_positive": 5
+  }
+ },
+ "predictions_with_confidence": {
+  "file": "results/transfer/predictions_with_confidence_A_20261028-014928.parquet",
+  "sha256": "05c34edead8e9997cabc3d0a60bb4450dfb76c37614eef8d3332e2d33d27351b",
+  "n_rows": 460850,
+  "n_predictions": 25,
+  "predictable_genes": "configs/predictable_genes.csv",
+  "predictable_genes_sha256": "c8a32daded480ce7110353d6dad694902e52b49dbf2dbad3ed2b8689b05ba07a",
+  "note": "confidence / tier = the G4 headline model's dev-CV per-gene tiers (DESIGN \u00a74); for model T and the other roles they are a proxy for how well the gene's variation is predictable from expression in cancer lines, not a property of the external screen"
+ },
+ "accesses": [
+  {
+   "timestamp": "2026-10-28T02:38:03",
+   "finalist": "t_E_status",
+   "role": "T",
+   "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+   "scope": "setA:A1",
+   "n_ids": 5,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  },
+  {
+   "timestamp": "2026-10-28T02:39:22",
+   "finalist": "m5_avg",
+   "role": "headline",
+   "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+   "scope": "setA:A1",
+   "n_ids": 5,
+   "granted": true,
+   "note": "",
+   "log_commit": null
+  }
+ ],
+ "n_accesses_granted": 2
+}

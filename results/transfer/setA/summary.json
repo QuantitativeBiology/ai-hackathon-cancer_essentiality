@@ -1,0 +1,596 @@
+{
+ "lines": [
+  "ACH-002462",
+  "ACH-002463",
+  "ACH-002464",
+  "ACH-002465",
+  "ACH-002467"
+ ],
+ "errors": {},
+ "statistics": {
+  "Q3a_primary": {
+   "per_line": {
+    "ACH-002462": {
+     "point": 0.03533589660368597,
+     "ci_lo": 0.029678242334038585,
+     "ci_hi": 0.04189375365587785,
+     "se": 0.0029519890934196066,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": 0.0001007725808104265,
+     "per_study": {
+      "ACH-002462": 0.035336
+     },
+     "per_entry": {
+      "ACH-002462": 0.035336
+     },
+     "model_abs_per_entry": {
+      "ACH-002462": 0.844286
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002462": 0.80895
+     },
+     "n_universe": 16741
+    },
+    "ACH-002463": {
+     "point": 0.04255492347045742,
+     "ci_lo": 0.0361938439011698,
+     "ci_hi": 0.04935450268825374,
+     "se": 0.003316275634193383,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": 3.1600979883174285e-05,
+     "per_study": {
+      "ACH-002463": 0.042555
+     },
+     "per_entry": {
+      "ACH-002463": 0.042555
+     },
+     "model_abs_per_entry": {
+      "ACH-002463": 0.853736
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002463": 0.811181
+     },
+     "n_universe": 16741
+    },
+    "ACH-002464": {
+     "point": 0.018095314893099235,
+     "ci_lo": 0.012473372375016575,
+     "ci_hi": 0.023473545317019173,
+     "se": 0.0027655410309512293,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": 3.2426923190359558e-06,
+     "per_study": {
+      "ACH-002464": 0.018095
+     },
+     "per_entry": {
+      "ACH-002464": 0.018095
+     },
+     "model_abs_per_entry": {
+      "ACH-002464": 0.847673
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002464": 0.829578
+     },
+     "n_universe": 16741
+    },
+    "ACH-002465": {
+     "point": 0.040025977192781004,
+     "ci_lo": 0.034044875123407606,
+     "ci_hi": 0.046081483193350814,
+     "se": 0.0030588082740854302,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": 3.776356321037039e-05,
+     "per_study": {
+      "ACH-002465": 0.040026
+     },
+     "per_entry": {
+      "ACH-002465": 0.040026
+     },
+     "model_abs_per_entry": {
+      "ACH-002465": 0.840173
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002465": 0.800147
+     },
+     "n_universe": 16741
+    },
+    "ACH-002467": {
+     "point": 0.03680056563851797,
+     "ci_lo": 0.03146411403343178,
+     "ci_hi": 0.04229783090781391,
+     "se": 0.002854383585387593,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": 4.289494061560789e-05,
+     "per_study": {
+      "ACH-002467": 0.036801
+     },
+     "per_entry": {
+      "ACH-002467": 0.036801
+     },
+     "model_abs_per_entry": {
+      "ACH-002467": 0.831623
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002467": 0.794823
+     },
+     "n_universe": 16741
+    }
+   },
+   "descriptive": {
+    "per_line": {
+     "ACH-002462": {
+      "point": 0.03533589660368597,
+      "ci_lo": 0.029678242334038585,
+      "ci_hi": 0.04189375365587785,
+      "category": "skill>0",
+      "test_percentile": 93.33333333333333
+     },
+     "ACH-002463": {
+      "point": 0.04255492347045742,
+      "ci_lo": 0.0361938439011698,
+      "ci_hi": 0.04935450268825374,
+      "category": "skill>0",
+      "test_percentile": 96.47058823529412
+     },
+     "ACH-002464": {
+      "point": 0.018095314893099235,
+      "ci_lo": 0.012473372375016575,
+      "ci_hi": 0.023473545317019173,
+      "category": "skill>0",
+      "test_percentile": 70.98039215686275
+     },
+     "ACH-002465": {
+      "point": 0.040025977192781004,
+      "ci_lo": 0.034044875123407606,
+      "ci_hi": 0.046081483193350814,
+      "category": "skill>0",
+      "test_percentile": 94.90196078431372
+     },
+     "ACH-002467": {
+      "point": 0.03680056563851797,
+      "ci_lo": 0.03146411403343178,
+      "ci_hi": 0.04229783090781391,
+      "category": "skill>0",
+      "test_percentile": 93.33333333333333
+     }
+    },
+    "median_test_percentile": 93.33333333333333,
+    "descriptive_verdict": "comparable to cancer test lines",
+    "n_lines_skill_positive": 5
+   },
+   "test_reference_n": 255
+  },
+  "Q3b_primary": {
+   "per_line": {
+    "ACH-002462": {
+     "point": 0.06282722513089001,
+     "ci_lo": 0.01756829088224442,
+     "ci_hi": 0.09974312291251303,
+     "se": 0.020479091281606264,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": -0.007055751381704195,
+     "per_study": {
+      "ACH-002462": 0.062827
+     },
+     "per_entry": {
+      "ACH-002462": 0.062827
+     },
+     "model_abs_per_entry": {
+      "ACH-002462": 0.884817
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002462": 0.82199
+     },
+     "n_universe": 16741
+    },
+    "ACH-002463": {
+     "point": 0.08313539192399055,
+     "ci_lo": 0.023272278770253504,
+     "ci_hi": 0.11106170747550043,
+     "se": 0.02226936916254868,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": -0.017151373863610056,
+     "per_study": {
+      "ACH-002463": 0.083135
+     },
+     "per_entry": {
+      "ACH-002463": 0.083135
+     },
+     "model_abs_per_entry": {
+      "ACH-002463": 0.902613
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002463": 0.819477
+     },
+     "n_universe": 16741
+    },
+    "ACH-002464": {
+     "point": 0.042406876790830994,
+     "ci_lo": 0.0052130069419072216,
+     "ci_hi": 0.08826655371907267,
+     "se": 0.020717301606631548,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": -0.001034137739448708,
+     "per_study": {
+      "ACH-002464": 0.042407
+     },
+     "per_entry": {
+      "ACH-002464": 0.042407
+     },
+     "model_abs_per_entry": {
+      "ACH-002464": 0.884814
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002464": 0.842407
+     },
+     "n_universe": 16741
+    },
+    "ACH-002465": {
+     "point": 0.058347978910369025,
+     "ci_lo": 0.009148877941981375,
+     "ci_hi": 0.0905912030543868,
+     "se": 0.021234651595326774,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": -0.011070011733580874,
+     "per_study": {
+      "ACH-002465": 0.058348
+     },
+     "per_entry": {
+      "ACH-002465": 0.058348
+     },
+     "model_abs_per_entry": {
+      "ACH-002465": 0.824605
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002465": 0.766257
+     },
+     "n_universe": 16741
+    },
+    "ACH-002467": {
+     "point": 0.059213250517598404,
+     "ci_lo": 0.0023616879880378147,
+     "ci_hi": 0.09467973955178659,
+     "se": 0.023944182883288898,
+     "n_boot_valid": 2000,
+     "n_entries_valid": 1,
+     "entries_invalid": [],
+     "boot_mean_minus_point": -0.011840944732615433,
+     "per_study": {
+      "ACH-002467": 0.059213
+     },
+     "per_entry": {
+      "ACH-002467": 0.059213
+     },
+     "model_abs_per_entry": {
+      "ACH-002467": 0.848033
+     },
+     "comparator_abs_per_entry": {
+      "ACH-002467": 0.78882
+     },
+     "n_universe": 16741
+    }
+   },
+   "descriptive": {
+    "per_line": {
+     "ACH-002462": {
+      "point": 0.06282722513089001,
+      "ci_lo": 0.01756829088224442,
+      "ci_hi": 0.09974312291251303,
+      "category": "skill>0",
+      "test_percentile": 95.68627450980392
+     },
+     "ACH-002463": {
+      "point": 0.08313539192399055,
+      "ci_lo": 0.023272278770253504,
+      "ci_hi": 0.11106170747550043,
+      "category": "skill>0",
+      "test_percentile": 99.2156862745098
+     },
+     "ACH-002464": {
+      "point": 0.042406876790830994,
+      "ci_lo": 0.0052130069419072216,
+      "ci_hi": 0.08826655371907267,
+      "category": "skill>0",
+      "test_percentile": 90.98039215686275
+     },
+     "ACH-002465": {
+      "point": 0.058347978910369025,
+      "ci_lo": 0.009148877941981375,
+      "ci_hi": 0.0905912030543868,
+      "category": "skill>0",
+      "test_percentile": 95.29411764705881
+     },
+     "ACH-002467": {
+      "point": 0.059213250517598404,
+      "ci_lo": 0.0023616879880378147,
+      "ci_hi": 0.09467973955178659,
+      "category": "skill>0",
+      "test_percentile": 95.29411764705881
+     }
+    },
+    "median_test_percentile": 95.29411764705881,
+    "descriptive_verdict": "comparable to cancer test lines",
+    "n_lines_skill_positive": 5
+   },
+   "test_reference_n": 255
+  }
+ },
+ "p53_functional_check": {
+  "ACH-002462": {
+   "TP53": 1.847231,
+   "MDM2": -1.981059,
+   "TP53_KO_gt_0.5": true,
+   "MDM2_lt_-1": true
+  },
+  "ACH-002463": {
+   "TP53": 1.612713,
+   "MDM2": -1.906698,
+   "TP53_KO_gt_0.5": true,
+   "MDM2_lt_-1": true
+  },
+  "ACH-002464": {
+   "TP53": 3.179087,
+   "MDM2": -2.866581,
+   "TP53_KO_gt_0.5": true,
+   "MDM2_lt_-1": true
+  },
+  "ACH-002465": {
+   "TP53": 1.924126,
+   "MDM2": -1.466828,
+   "TP53_KO_gt_0.5": true,
+   "MDM2_lt_-1": true
+  },
+  "ACH-002467": {
+   "TP53": 1.94271,
+   "MDM2": -1.387858,
+   "TP53_KO_gt_0.5": true,
+   "MDM2_lt_-1": true
+  }
+ },
+ "secondary_headline": {
+  "Q3a_primary": {
+   "ACH-002462": {
+    "point": 0.030484348964821217,
+    "ci_lo": 0.025030821294707347,
+    "ci_hi": 0.036417357828998666,
+    "se": 0.002806479827961166,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 8.288397622905827e-05,
+    "per_study": {
+     "ACH-002462": 0.030484
+    },
+    "per_entry": {
+     "ACH-002462": 0.030484
+    },
+    "model_abs_per_entry": {
+     "ACH-002462": 0.839435
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002462": 0.80895
+    }
+   },
+   "ACH-002463": {
+    "point": 0.037703014460502726,
+    "ci_lo": 0.03163112894167456,
+    "ci_hi": 0.04427955848724335,
+    "se": 0.0031557981818403974,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 2.8741565310637374e-05,
+    "per_study": {
+     "ACH-002463": 0.037703
+    },
+    "per_entry": {
+     "ACH-002463": 0.037703
+    },
+    "model_abs_per_entry": {
+     "ACH-002463": 0.848884
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002463": 0.811181
+    }
+   },
+   "ACH-002464": {
+    "point": 0.01527840150244153,
+    "ci_lo": 0.009887664204414646,
+    "ci_hi": 0.020190821994888038,
+    "se": 0.002593103299622961,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -3.3199694854258582e-06,
+    "per_study": {
+     "ACH-002464": 0.015278
+    },
+    "per_entry": {
+     "ACH-002464": 0.015278
+    },
+    "model_abs_per_entry": {
+     "ACH-002464": 0.844856
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002464": 0.829578
+    }
+   },
+   "ACH-002465": {
+    "point": 0.036473938763408764,
+    "ci_lo": 0.03083980612742004,
+    "ci_hi": 0.04231913723527295,
+    "se": 0.002910574316100197,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 3.761116000661202e-05,
+    "per_study": {
+     "ACH-002465": 0.036474
+    },
+    "per_entry": {
+     "ACH-002465": 0.036474
+    },
+    "model_abs_per_entry": {
+     "ACH-002465": 0.836621
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002465": 0.800147
+    }
+   },
+   "ACH-002467": {
+    "point": 0.031560111699800664,
+    "ci_lo": 0.026646677988843803,
+    "ci_hi": 0.03677853473016458,
+    "se": 0.002666175310957544,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": 4.1629702388391865e-05,
+    "per_study": {
+     "ACH-002467": 0.03156
+    },
+    "per_entry": {
+     "ACH-002467": 0.03156
+    },
+    "model_abs_per_entry": {
+     "ACH-002467": 0.826383
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002467": 0.794823
+    }
+   }
+  },
+  "Q3b_primary": {
+   "ACH-002462": {
+    "point": 0.06073298429319374,
+    "ci_lo": 0.006932839506172742,
+    "ci_hi": 0.09499296855456466,
+    "se": 0.02171282901697201,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.010590469834961716,
+    "per_study": {
+     "ACH-002462": 0.060733
+    },
+    "per_entry": {
+     "ACH-002462": 0.060733
+    },
+    "model_abs_per_entry": {
+     "ACH-002462": 0.882723
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002462": 0.82199
+    }
+   },
+   "ACH-002463": {
+    "point": 0.07743467933491688,
+    "ci_lo": 0.017917303988655143,
+    "ci_hi": 0.10597445817595062,
+    "se": 0.02246800365153485,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.017371532772470756,
+    "per_study": {
+     "ACH-002463": 0.077435
+    },
+    "per_entry": {
+     "ACH-002463": 0.077435
+    },
+    "model_abs_per_entry": {
+     "ACH-002463": 0.896912
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002463": 0.819477
+    }
+   },
+   "ACH-002464": {
+    "point": 0.04527220630372486,
+    "ci_lo": 0.004215612449799163,
+    "ci_hi": 0.08743938893476458,
+    "se": 0.020622894449390927,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.004488318316867641,
+    "per_study": {
+     "ACH-002464": 0.045272
+    },
+    "per_entry": {
+     "ACH-002464": 0.045272
+    },
+    "model_abs_per_entry": {
+     "ACH-002464": 0.887679
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002464": 0.842407
+    }
+   },
+   "ACH-002465": {
+    "point": 0.06362038664323366,
+    "ci_lo": 0.004737256672225005,
+    "ci_hi": 0.09226305871233954,
+    "se": 0.02279816345525168,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.01648768643199095,
+    "per_study": {
+     "ACH-002465": 0.06362
+    },
+    "per_entry": {
+     "ACH-002465": 0.06362
+    },
+    "model_abs_per_entry": {
+     "ACH-002465": 0.829877
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002465": 0.766257
+    }
+   },
+   "ACH-002467": {
+    "point": 0.058385093167701796,
+    "ci_lo": -0.0017522005278502648,
+    "ci_hi": 0.09380494816515991,
+    "se": 0.02511858149748566,
+    "n_boot_valid": 2000,
+    "n_entries_valid": 1,
+    "entries_invalid": [],
+    "boot_mean_minus_point": -0.012554391022803986,
+    "per_study": {
+     "ACH-002467": 0.058385
+    },
+    "per_entry": {
+     "ACH-002467": 0.058385
+    },
+    "model_abs_per_entry": {
+     "ACH-002467": 0.847205
+    },
+    "comparator_abs_per_entry": {
+     "ACH-002467": 0.78882
+    }
+   }
+  }
+ },
+ "test_reference_file": "results/test/t_E_status/setA_reference.csv",
+ "status": "complete"
+}

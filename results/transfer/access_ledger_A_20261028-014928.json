@@ -1,0 +1,24 @@
+[
+ {
+  "timestamp": "2026-10-28T02:38:03",
+  "finalist": "t_E_status",
+  "role": "T",
+  "config_hash": "24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145",
+  "scope": "setA:A1",
+  "n_ids": 5,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ },
+ {
+  "timestamp": "2026-10-28T02:39:22",
+  "finalist": "m5_avg",
+  "role": "headline",
+  "config_hash": "6dbebcf4f492f7cee784207fa6e42f743c135801361b96bc3eca11b247c402c4",
+  "scope": "setA:A1",
+  "n_ids": 5,
+  "granted": true,
+  "note": "",
+  "log_commit": null
+ }
+]

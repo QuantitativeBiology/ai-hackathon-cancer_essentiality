@@ -1,0 +1,52 @@
+{
+ "tree_clean": {
+  "pass": true,
+  "dirty": []
+ },
+ "finalists_committed": {
+  "pass": true
+ },
+ "transfer_freeze_committed": {
+  "pass": true
+ },
+ "gate_G4": {
+  "pass": true
+ },
+ "frozen_hashes": {
+  "pass": true,
+  "changed": []
+ },
+ "criteria_inputs_unchanged": {
+  "pass": true,
+  "missing": [],
+  "changed": [],
+  "known_post_freeze_changes": {
+   "scripts/transfer_criteria.py": "commit 8a613f0: the replicate-ceiling read was routed through guard.load_harmonised (G0 provenance item); computations unchanged (independent review)"
+  }
+ },
+ "noEC_excludes_4_EC_dev_lines": {
+  "pass": true
+ },
+ "models_take_external_profiles": {
+  "pass": true,
+  "unsupported": {},
+  "note": "a non-kernel-ridge headline (e.g. M5) needs builder support or --no-secondary"
+ },
+ "setA_test_reference_present": {
+  "pass": true,
+  "file": "results/test/t_E_status/setA_reference.csv"
+ },
+ "guard_would_grant": {
+  "pass": true,
+  "n_planned": 2,
+  "skipped_complete_parts": [],
+  "per_access": {
+   "t_E_status|setA:A1": "ok",
+   "m5_avg|setA:A1": "ok"
+  }
+ },
+ "spent_incomplete_parts": {
+  "pass": true,
+  "parts": []
+ }
+}
