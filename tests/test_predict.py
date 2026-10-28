@@ -162,3 +162,64 @@ def test_run_id_selects_the_run_models_tier_table():
     assert PD.PR.table_for_run("20261026-222117_m1_E_resB0_91e52f9d").name == "predictable_genes_m1.csv"
     assert PD.PR.table_for_run("20261027-161041_m5_avg_6dbebcf4").name == "predictable_genes.csv"
     assert PD.PR.table_for_run("20261027-023409_m1_E_resB0_noEC_1d8386a5") is None
+
+
+# ---------------------------------------------------------------- user-supplied genomics (post hoc, 2026-10-28)
+def test_read_table_accepts_depmap_release_layout(tmp_path):
+    df = pd.DataFrame({"SequencingID": ["CDS-1", "CDS-2", "CDS-3"], "ModelConditionID": ["MC-1", "MC-2", "MC-3"],
+                       "ModelID": ["ACH-1", "ACH-1", "ACH-2"], "IsDefaultEntryForMC": ["Yes", "No", "Yes"],
+                       "IsDefaultEntryForModel": ["Yes", "No", "Yes"],
+                       "TSPAN6 (7105)": [1.0, 9.0, 2.0], "TNMD (64102)": [0.5, 9.0, 1.5]}, index=[0, 1, 2])
+    df.to_csv(tmp_path / "rel.csv")
+    x = PD.read_expression(tmp_path / "rel.csv")
+    assert list(x.index) == ["ACH-1", "ACH-2"] and list(x.columns) == ["7105", "64102"]
+    assert x.loc["ACH-1", "7105"] == 1.0                     # the default entry, not the other profile
+
+
+def _fake_columns(monkeypatch):
+    cols = {"cn": ["1", "2", "3"], "C": ["1", "2", "3"], "M": ["1", "2", "3"], "H": ["2", "3"]}
+    monkeypatch.setattr(PD, "_cached_columns", lambda name: cols[name])
+
+
+def test_genomic_blocks_follow_the_depmap_feature_convention(monkeypatch):
+    _fake_columns(monkeypatch)
+    from essml import features as F
+    cn = pd.DataFrame({"1": [1.0, 4.0], "2": [np.nan, 0.5]}, index=["s1", "s2"])   # gene "3" not supplied
+    dam = pd.DataFrame({"1": [2.0], "3": [1.0]}, index=["s1"])                     # s2 missing -> absent
+    hot = pd.DataFrame({"2": [0.0, 2.0], "3": [1.0, 0.0], "9": [1.0, 1.0]}, index=["s1", "s2"])
+    b = PD.genomic_blocks(["s1", "s2"], cn, dam, hot, None, log=lambda *_: None)
+    ref = F.cn_transform(cn.reindex(columns=["1", "2"]))
+    assert np.allclose(b["C"][["1", "2"]].to_numpy(), ref.to_numpy())
+    assert b["C"].loc["s1", "1"] == 0.0 and b["C"].loc["s1", "2"] == 0.0 and (b["C"]["3"] == 0).all()
+    assert np.isnan(b["_cn"].loc["s1", "2"]) and np.isnan(b["_cn"]["3"]).all()   # M2 fills as for DepMap NaN
+    assert list(b["M"].index) == ["s1"] and b["M"].loc["s1"].tolist() == [2.0, 0.0, 1.0]
+    assert b["_damaging"] is b["M"]
+    assert list(b["H"].columns) == ["2", "3"] and b["H"].to_numpy().tolist() == [[0.0, 1.0], [1.0, 0.0]]
+    assert "meta" not in b
+    ids = PD.with_input_ids(b)
+    assert list(ids["C"].index) == ["input::s1", "input::s2"]
+
+
+def test_read_metadata_matches_build_meta(tmp_path):
+    from essml import features as F
+    m = pd.DataFrame({"ModelID": ["s1", "s2"], "OncotreeLineage": ["Skin", "Unknown"],
+                      "OncotreePrimaryDisease": ["Melanoma", ""], "Sex": ["Female", "Male"], "Age": ["61", ""],
+                      "CCLEName": ["X", "Y"]})
+    m.to_csv(tmp_path / "meta.csv", index=False)
+    got = PD.read_metadata(tmp_path / "meta.csv")
+    ref = F.build_meta(m.astype(str).replace({"": pd.NA}), F.META_COLS)
+    assert list(got.index) == ["s1", "s2"] and got.loc["s1", "OncotreeLineage"] == "Skin"
+    assert pd.isna(got.loc["s2", "OncotreeLineage"]) and pd.isna(got.loc["s2", "Age"])
+    assert got.loc["s1", "Age"] == ref.loc["s1", "Age"] == 61
+
+
+def test_genomic_options_refused_for_the_expression_only_model(tmp_path):
+    with pytest.raises(SystemExit):
+        PD.main(["--expression", "x.csv", "--out", str(tmp_path / "o.csv"), "--model", "m1_E_resB0",
+                 "--cn", "cn.csv"])
+
+
+def test_hotspot_input_drops_the_no_genomics_note():
+    long = pd.DataFrame({"symbol": ["NRAS", "SOX10"]})
+    assert PD.add_notes(long, "m5_avg", genomics_given=True)["note"].tolist() == ["", ""]
+    assert PD.add_notes(long, "m5_avg", genomics_given=False)["note"].tolist() == [PD.NO_GENOMICS_NOTE, ""]

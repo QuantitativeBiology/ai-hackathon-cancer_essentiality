@@ -16,6 +16,8 @@
 <!--n-src:pc=results/predictability/characterisation.json-->
 <!--n-src:tim=results/timing/refit_full_dev.json-->
 <!--n-src:tc=configs/transfer_criteria.json-->
+<!--n-src:lm=results/library_map_check.json-->
+<!--n-src:pg=results/predict_genomics_check.json-->
 
 # Predicting CRISPR gene effects in unscreened human cells from expression: a pre-registered benchmark on DepMap 26Q3, with a test of transfer to non-transformed cells
 
@@ -47,9 +49,10 @@ For essentiality AUPRC, the per-line metric P2a is close to its ceiling for the 
 dependencies the headline's normalised AUPRC was <!--n:test#table/0/P2b_nap_prev05-->0.184 against
 <!--n:test#table/4/P2b_nap_prev05-->0.075 for the lineage mean (AUROC <!--n:test#table/0/P2b_auroc_prev05-->0.663).
 Refitting the headline takes about half an hour; the expression-only ridge takes about two minutes.
-<!--n-src:xo=results/predict_expression_only_cv.json-->The released prediction script supplies expression only; evaluated
-post hoc in dev CV, the headline used that way scored P1 <!--n:xo#P1_by_class/variable/P1_mean-->0.3135, between
-expression-only ridge and the headline with genomics, and lost its RAS/RAF advantage.
+<!--n-src:xo=results/predict_expression_only_cv.json-->The released prediction script originally supplied expression only.
+Evaluated post hoc in dev CV, the headline used that way scored P1 <!--n:xo#P1_by_class/variable/P1_mean-->0.3135,
+between the expression-only ridge and the headline with genomics, and lost its RAS/RAF advantage. A post-hoc update
+lets users supply DepMap-format genomics, which reproduces the evaluated headline (§6).
 Applied to published screens of non-transformed cells after pre-registered harmonisation, the transfer model T ranked
 each screen's most depleted genes slightly better than the DepMap gene mean (about one twentieth relative) in
 hTERT-RPE1 (ΔAP <!--n:rpe#statistics/Q3a_primary/T/point-->0.032; RPE1 expression taken from DepMap's own profiles)
@@ -132,7 +135,8 @@ million.
 so this is recorded as assumption D0). CRISPRGeneEffect covers 1,361 models and 18,434 genes. The population for
 modelling was the 1,277 screened models with expression, excluding the "Non-Cancerous" models and their patients.
 Missing gene effects are structured by screening library (49 NaN patterns, four major line groups); they were never
-imputed. Models were fitted on the observed rows of each pattern; near-identical patterns were merged and genes in
+imputed. A post-hoc check against DepMap's screen maps (supplied after G7; §6) found that the four major groups are
+exactly the Avana-only, Avana + KY, Humagne-CD and KY line sets. Models were fitted on the observed rows of each pattern; near-identical patterns were merged and genes in
 very small patterns fell back to B1 (Methods).
 
 **Locked split (D1).** Before any modelling we drew a test set of 255 lines (one fifth), grouped by PatientID so
@@ -373,8 +377,10 @@ The rule was not met, so no targeted model was built. The pattern is specific:
   <!--n:mut#per_pair/BRAF_hotspot/m1_E_resB0/ap_all/mean-->0.558 → <!--n:mut#per_pair/BRAF_hotspot/m5_avg/ap_all/mean-->0.661;
   KRAS <!--n:mut#per_pair/KRAS_hotspot/m1_E_resB0/ap_all/mean-->0.756 → <!--n:mut#per_pair/KRAS_hotspot/m5_avg/ap_all/mean-->0.805.
 
-`scripts/predict.py` accepts expression only. It flags NRAS, KRAS, BRAF and PIK3CA predictions as mutation-driven,
-so the recovery shown above is not available through the script (§4; Future work).
+As evaluated, `scripts/predict.py` accepted expression only. It flags NRAS, KRAS, BRAF and PIK3CA predictions as
+mutation-driven, so the recovery shown above was not available through the script (§4). A post-hoc update (§6) lets
+users supply DepMap-format copy number, mutation, hotspot and metadata tables; with them the script computes the
+headline including this recovery.
 Evaluated post hoc in dev CV the way the script runs it (`results/predict_expression_only_cv.json`), the headline's
 NRAS AUPRC falls to <!--n:xo#hotspot_auprc/NRAS_hotspot/m5_avg_expression_only/ap_all_mean-->0.219, the level of
 expression-only M1.
@@ -398,7 +404,10 @@ fold SD) and its tier. The tiers were frozen to `configs/predictable_genes.csv` 
   <!--n:pc#continuous/effect_sd/high_vs_low/median_diff-->0.154 than in the low tier) and are measured more
   reproducibly: lineage means agree across DepMap library groups (median r
   <!--n:pc#continuous/lineage_mean_crosslib_01/per_tier/high/median-->0.51 vs
-  <!--n:pc#continuous/lineage_mean_crosslib_01/per_tier/low/median-->0.19), and external screens of the same lines
+  <!--n:pc#continuous/lineage_mean_crosslib_01/per_tier/low/median-->0.19 between Avana-only and Avana + KY lines,
+  which share the Avana library; <!--n:pc#continuous/lineage_mean_crosslib_02/per_tier/high/median-->0.32 vs
+  <!--n:pc#continuous/lineage_mean_crosslib_02/per_tier/low/median-->0.011 between Avana and Humagne-CD lines, which
+  share none; library identities from the post-hoc check in §6), and external screens of the same lines
   agree with DepMap more. Both effects hold within variable genes. Low-tier genes are partly noise-limited.
   High-tier genes are enriched in proliferation, translation, mitochondrial and p53 programmes; unpredictable
   variable genes share no pathway.
@@ -746,8 +755,15 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
 - **Mask-only eval-gene counts (D26 item 3).** The evaluable-gene set used test-line NaN counts through a logged,
   mask-only guard call that returned no values; this was pre-registered (DESIGN §9).
 - **Deep-deletion feature threshold (D26 item 4)** was set from all lines' copy-number features, not targets.
-- **Library group as proxy.** Within-lineage skill is partly explained by library group (the lineage × library control in the ablation section), which may be
-  screen-technical.
+- **Library group as proxy.** Within-lineage skill is partly explained by library group (the lineage × library
+  control in the ablation section), which may be screen-technical.
+  - **Post-hoc check of the proxy (after G7; §6):** DepMap's screen maps confirm it for the four main groups, which
+    are single library combinations.
+  - **The residual group is mixed.** It holds <!--n:lm#proxy_vs_library/per_proxy_group/4/n-->57 dev lines
+    across nine library combinations, so within-library centring is approximate there.
+  - **Library also tracks screen length:** median <!--n:lm#screen_facts_dev/median_days/KY-->14.0 days for KY
+    against <!--n:lm#screen_facts_dev/median_days/Humagne-CD-->24.0 for Humagne-CD. "Library" therefore means screen
+    technology plus duration.
 
 **Predictability tiers**
 - **Tiers seen for another model first (D22b).** The tiers were first computed, seen and characterised for
@@ -830,9 +846,11 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
 - **RAS/RAF blind spot (D24).** The expression-only `m1_E_resB0` cannot distinguish hotspot-mutant from wild-type
   lines within a lineage (NRAS AUPRC <!--n:mut#per_pair/NRAS_hotspot/m1_E_resB0/ap_all/mean-->0.212). In dev CV,
   `m5_avg` recovers most of this (NRAS AUPRC <!--n:mut#per_pair/NRAS_hotspot/m5_avg/ap_all/mean-->0.631) only
-  because its LightGBM component reads hotspot calls. `scripts/predict.py` accepts expression only and sets every
-  genomic input to diploid wild type and metadata to unknown, so the released tool keeps this blind spot with either
+  because its LightGBM component reads hotspot calls. As evaluated, `scripts/predict.py` accepted expression only and
+  set every genomic input to diploid wild type and metadata to unknown, so the tool kept this blind spot with either
   model. The G4 test numbers describe the models with their real genomic inputs, not the expression-only use.
+  - **Post-hoc update (§6):** users can now supply genomics. This closes the blind spot only when the calls follow
+    DepMap's pipelines. Partial genomic inputs, and calls from other pipelines, were not evaluated.
 - **The script's default was evaluated only post hoc, and clears its rule narrowly.** After the red-team review, the
   expression-only use of `m5_avg` was evaluated in dev CV from the persisted fold models (no test or external data;
   `docs/predict_expression_only.md`). The rule for keeping it as the default was fixed before the number was seen: beat
@@ -955,13 +973,15 @@ single out-of-fold model; D7). Bootstrap: 2,000 resamples, seed 20261026, studie
 (optionally quantile-harmonised); output per gene the predicted effect, confidence, tier, an applicability-domain
 distance to the nearest dev lines, nearest lineage and a mutation note. Default model `m5_avg`, with genomic inputs
 at diploid wild type and metadata unknown (evaluated post hoc in dev CV only; §4); `--model m1_E_resB0` selects the
-expression-only ridge.
+expression-only ridge. Since a post-hoc update (§6), `--cn`, `--damaging`, `--hotspot` and `--metadata` take
+DepMap-format tables; fusions are not read, because no `m5_avg` input uses them.
 
 ## 6. Reproducibility
 - **Environment:** `Python 3.13.1`, CPU only; pinned versions in `requirements.txt` and the full freeze in
   `configs/pip_freeze_initial.txt`. Seeds: `configs/seeds.json` (split seed 20261026; model seeds 0–4).
 - **Data:** download the eight DepMap 26Q3 files listed in DATA.md from the portal into `data/` (the portal blocks
-  scripted download) and verify with `configs/depmap_local_sha256.txt`. External resources:
+  scripted download) and verify with `configs/depmap_local_sha256.txt`. The post-hoc library check also needs
+  `CRISPRScreenMap.csv` and `ScreenSequenceMap.csv`. External resources:
   `python scripts/download_external.py` and `python scripts/fetch_external_screens.py`; every file has a sha256 and
   licence in DATA.md and the manifests. No raw data is committed (`tests/test_no_data_tracked.py`).
 - **Commands:**
@@ -974,6 +994,8 @@ expression-only ridge.
   ESSML_UNBLIND=1 python scripts/evaluate_test.py                              # G4 (one access per finalist)
   ESSML_UNBLIND=1 python scripts/evaluate_transfer.py                          # G6 stages A and B
   python scripts/predict.py --expression my_lines.csv --out preds.csv [--harmonise quantile]
+  python scripts/predict.py --expression e.csv --cn cn.csv --damaging d.csv --hotspot h.csv --metadata m.csv --out p.csv
+  python scripts/library_map_check.py; python scripts/predict_genomics_check.py  # post-hoc additions (§6)
   python scripts/check_report_numbers.py REPORT.md --strict
   ```
 - **Guard:** `src/essml/guard.py` releases test or external targets only to configs listed in a committed
@@ -992,6 +1014,49 @@ expression-only ridge.
 - **Figures 1–3** were generated from committed results files only (`results/test/summary.json`,
   `results/registry.csv`, `results/transfer/setB/*.json`).
 
+### Post-hoc additions after G7 (2026-10-28)
+These were made after the report was final. Nothing below was re-run against test or external targets, and no
+headline number, metric or selection decision changes.
+
+**DepMap screen maps (D30).** The user supplied `CRISPRScreenMap.csv`, `ScreenSequenceMap.csv` and the release
+README. The README names the release "DepMap Public 26Q3", which supports assumption D0, but holds no checksums.
+`scripts/library_map_check.py` maps each line to the libraries of the screens combined into its gene effects and
+compares them with the NaN-pattern proxy used for every library-stratified number in this report. No gene-effect
+values were read (`results/library_map_check.json`; `docs/library_map_check.md`).
+- **Groups 0–3 are each one library combination:**
+  - group 0: Avana only, <!--n:lm#proxy_vs_library/per_proxy_group/0/n-->621 dev lines;
+  - group 1: Avana + KY, <!--n:lm#proxy_vs_library/per_proxy_group/1/n-->154;
+  - group 2: Humagne-CD, <!--n:lm#proxy_vs_library/per_proxy_group/2/n-->143;
+  - group 3: KY, <!--n:lm#proxy_vs_library/per_proxy_group/3/n-->47.
+- **The residual group 4 is mixed.** Most of its lines combine several libraries; 26 are single-library lines with
+  an atypical NaN pattern.
+- **Overall agreement:** adjusted Rand index <!--n:lm#proxy_vs_library/adjusted_rand-->0.949. A fraction
+  <!--n:lm#proxy_vs_library/lines_in_majority_library_of_their_group-->0.963 of dev lines sit in their group's
+  majority library.
+- **Test lines (aggregate only):** the proxy counts G4 recorded (167 / 32 / 36 / 9 / 11) match the real library
+  counts (168 Avana, 34 Avana + KY, 41 Humagne-CD, 9 KY, 3 other).
+- **Consequence:** within-library P1 and the lineage × library control stand as reported. They are approximate only
+  in group 4, which holds <!--n:lm#proxy_vs_library/per_proxy_group/4/n-->57 of 1,022 dev lines.
+- **Two wording corrections:**
+  - "library" means library combination, confounded with screen length (Limitations);
+  - the predictability cross-library comparison now names its libraries and quotes the comparison that shares no
+    library (§2, predictability).
+- **Set A:** the RPE1-derived sublines are single 21-day Avana screens. The sixth subline's screen fails QC and is
+  not in the gene effects, consistent with the five set-A lines.
+
+**`predict.py` with user-supplied genomics (D31; Future work item 4).** This is the only future-work item
+implemented. `--cn`, `--damaging`, `--hotspot` and `--metadata` take DepMap-format tables, and DepMap release files
+are accepted as they are. The blocks are built with the same transforms as for DepMap lines. A modality not
+supplied stays at diploid wild type / unknown, as before.
+- **Not a new evaluation:** with all four inputs, the script computes the evaluated headline.
+- **Reproduction check, dev lines only** (`scripts/predict_genomics_check.py`; `docs/predict_genomics.md`):
+  - The fold-0 held-out dev lines were written in DepMap release layout.
+  - The built blocks equal the cached CV blocks exactly.
+  - Trained on fold 0's training lines, the script reproduced the registered out-of-fold predictions of
+    <!--n:pg#end_to_end/n_lines-->208 lines × 18,434 genes, max |difference|
+    <!--n:pg#end_to_end/max_abs_diff_vs_registered_oof-->2.4e-7.
+- **What was not evaluated:** partial genomic inputs, and calls from pipelines other than DepMap's.
+
 ## 7. Future work
 1. **Shrinkage re-specification of M2 and M3.** Both corrections appear over-scaled; fit a shrinkage factor by nested
    CV and pre-register it. This is the most promising model change.
@@ -1001,7 +1066,8 @@ expression-only ridge.
    "fails" cannot be reached. Library-matched screens of DepMap lines with stronger line-specific dependencies, or
    more anchors per library, would make the transfer test two-sided.
 4. **`predict.py` with user-supplied genomics,** so `m5_avg` uses real mutation and CN calls for external lines
-   instead of the diploid wild-type default, closing the RAS/RAF gap outside DepMap.
+   instead of the diploid wild-type default, closing the RAS/RAF gap outside DepMap. **Done post hoc (§6, D31)**
+   for DepMap-format calls. Harmonising calls from other pipelines remains open.
 5. **The CRISPRi stratum with a proper anchor.** Obtain K562 CRISPRi growth screens as a KO-to-CRISPRi anchor,
    pre-register a statistic, and then analyse the iPSC and iPSC-derived neuron screens, including the
    proliferation-versus-maintenance split. This is needed to answer the task's question for iPSC-derived lineages.

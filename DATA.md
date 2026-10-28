@@ -7,6 +7,9 @@ Checksums for local DepMap files: `configs/depmap_local_sha256.txt` and `configs
 - A1: The DepMap files in `data/` were supplied by the user as **DepMap Public 26Q3**. The CSVs carry no release tag,
   and the portal file index (which lists release and md5) cannot be fetched by script because of a Cloudflare bot
   check. Release identity rests on the user's statement plus file dates (2026-10-25/26).
+  - Update 2026-10-28 (after G7): the user added DepMap's release README, whose first line is "# DepMap Public 26Q3".
+    It names the release but carries no file checksums, so the data CSVs are still not verified against the
+    portal index; A1 is now supported by the README as well as by the user's statement.
 
 ## DepMap Public 26Q3 (local)
 Source: https://depmap.org/portal/data_page/ (downloaded manually by the user). Licence: see the licence section below.
@@ -21,6 +24,17 @@ Source: https://depmap.org/portal/data_page/ (downloaded manually by the user). 
 | OmicsFusionFiltered.csv | 102820 × 15 | 985ac6383a95c39f |
 | OmicsSomaticMutationsMatrixDamaging.csv | 3808 × 19738 | 736b7a82b4d1f234 |
 | OmicsSomaticMutationsMatrixHotspot.csv | 3808 × 171 | 0cbdacdce2355d2d |
+| CRISPRScreenMap.csv | 1605 × 2 | 43cc528614053d4c |
+| ScreenSequenceMap.csv | 3624 × 14 | acaedf0549afda50 |
+| README.txt (release README, text) | 1436 lines | 5672d9e04f18320e |
+
+The last three were added by the user on 2026-10-28, after the G7 gate (report final). They are git-ignored like
+every file in `data/`.
+- **CRISPRScreenMap:** model → the screens combined into its gene effects.
+- **ScreenSequenceMap:** sequence → screen, library, days, pDNA batch, screen type and QC flags.
+- **Use:** only the post-hoc check `scripts/library_map_check.py` → `results/library_map_check.json`
+  (docs/library_map_check.md). It reads no gene-effect values, and no reported result was re-run with them. The
+  README is reference text.
 
 ## External datasets
 (added as they are acquired)

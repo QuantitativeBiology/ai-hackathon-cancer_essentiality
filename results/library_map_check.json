@@ -1,0 +1,263 @@
+{
+ "_note": "POST HOC (after G7). Screen maps supplied by the user on 2026-10-28; no gene-effect values read, no result re-run. Proxy = configs/library_groups.csv (dev row NaN-pattern groups).",
+ "inputs": {
+  "CRISPRScreenMap.csv": "43cc528614053d4c5a96729c2d782375227231a0cfea23de6c519b8989fa1252",
+  "ScreenSequenceMap.csv": "acaedf0549afda50e5f3df28645c5c2193acbdb9779f9f8099861b763d1be296",
+  "library_groups.csv": "4df08069dd4a05b32887a3397298e19dd34c6ce2521ef0faa52ae21e8fbc4012",
+  "splits.csv": "d543cba139b4ae6651c2453d61ec447867d35a4295d4046833fcaf0b017e41f0"
+ },
+ "screen_map": {
+  "n_screen_map_rows": 1604,
+  "n_models": 1361,
+  "n_screens": 1604,
+  "n_sequences_of_mapped_screens": 3486,
+  "screens_without_sequence_rows": 0
+ },
+ "population": {
+  "dev_lines": 1022,
+  "dev_lines_mapped": 1022,
+  "dev_lines_unmapped": [],
+  "test_lines": 255,
+  "test_lines_mapped": 255,
+  "dev_library_counts": {
+   "Avana": 638,
+   "Avana+KY": 154,
+   "Humagne-CD": 152,
+   "KY": 47,
+   "Avana+Humagne-CD": 19,
+   "Avana+Humagne-CD+KY": 5,
+   "Avana+TKOv3": 2,
+   "Avana+Brunello+KY": 2,
+   "Avana+Humagne-CD+TKOv3": 1,
+   "Avana+Brunello": 1,
+   "Brunello+KY": 1
+  },
+  "test_library_counts": {
+   "Avana": 168,
+   "Humagne-CD": 41,
+   "Avana+KY": 34,
+   "KY": 9,
+   "Avana+Humagne-CD": 1,
+   "Avana+Brunello+Humagne-CD+KY": 1,
+   "Avana+KY+TKOv3": 1
+  },
+  "dev_multi_library_lines": 185,
+  "test_multi_library_lines": 37
+ },
+ "proxy_vs_library": {
+  "per_proxy_group": {
+   "0": {
+    "n": 621,
+    "majority_library": "Avana",
+    "majority_fraction": 1.0,
+    "libraries": {
+     "Avana": 621
+    }
+   },
+   "1": {
+    "n": 154,
+    "majority_library": "Avana+KY",
+    "majority_fraction": 1.0,
+    "libraries": {
+     "Avana+KY": 154
+    }
+   },
+   "2": {
+    "n": 143,
+    "majority_library": "Humagne-CD",
+    "majority_fraction": 1.0,
+    "libraries": {
+     "Humagne-CD": 143
+    }
+   },
+   "3": {
+    "n": 47,
+    "majority_library": "KY",
+    "majority_fraction": 1.0,
+    "libraries": {
+     "KY": 47
+    }
+   },
+   "4": {
+    "n": 57,
+    "majority_library": "Avana+Humagne-CD",
+    "majority_fraction": 0.3333333333333333,
+    "libraries": {
+     "Avana+Humagne-CD": 19,
+     "Avana": 17,
+     "Humagne-CD": 9,
+     "Avana+Humagne-CD+KY": 5,
+     "Avana+Brunello+KY": 2,
+     "Avana+TKOv3": 2,
+     "Avana+Brunello": 1,
+     "Avana+Humagne-CD+TKOv3": 1,
+     "Brunello+KY": 1
+    }
+   }
+  },
+  "per_library": {
+   "Avana": {
+    "0": 621,
+    "4": 17
+   },
+   "Avana+Brunello": {
+    "4": 1
+   },
+   "Avana+Brunello+KY": {
+    "4": 2
+   },
+   "Avana+Humagne-CD": {
+    "4": 19
+   },
+   "Avana+Humagne-CD+KY": {
+    "4": 5
+   },
+   "Avana+Humagne-CD+TKOv3": {
+    "4": 1
+   },
+   "Avana+KY": {
+    "1": 154
+   },
+   "Avana+TKOv3": {
+    "4": 2
+   },
+   "Brunello+KY": {
+    "4": 1
+   },
+   "Humagne-CD": {
+    "2": 143,
+    "4": 9
+   },
+   "KY": {
+    "3": 47
+   }
+  },
+  "adjusted_rand": 0.9487481799552069,
+  "nmi": 0.9119475418839149,
+  "lines_in_majority_library_of_their_group": 0.9628180039138943,
+  "groups_0_1_used_for_crosslib_lineage_means": {
+   "0": {
+    "n": 621,
+    "majority_library": "Avana",
+    "majority_fraction": 1.0,
+    "libraries": {
+     "Avana": 621
+    }
+   },
+   "1": {
+    "n": 154,
+    "majority_library": "Avana+KY",
+    "majority_fraction": 1.0,
+    "libraries": {
+     "Avana+KY": 154
+    }
+   }
+  }
+ },
+ "test_proxy_vs_library_aggregate": {
+  "proxy_group_counts_g4": {
+   "0": 167,
+   "1": 32,
+   "2": 36,
+   "3": 9,
+   "4": 11
+  },
+  "library_counts": {
+   "Avana": 168,
+   "Humagne-CD": 41,
+   "Avana+KY": 34,
+   "KY": 9,
+   "Avana+Humagne-CD": 1,
+   "Avana+Brunello+Humagne-CD+KY": 1,
+   "Avana+KY+TKOv3": 1
+  },
+  "dev_majority_library_of_group": {
+   "0": "Avana",
+   "1": "Avana+KY",
+   "2": "Humagne-CD",
+   "3": "KY"
+  }
+ },
+ "set_A_rpe1_sublines": {
+  "ACH-002462": {
+   "screen": "SC-002462.AV01",
+   "library": "Avana",
+   "days": 21,
+   "screen_type": "2DS",
+   "is_engineered": true,
+   "passes_qc": true,
+   "in_gene_effect": true
+  },
+  "ACH-002463": {
+   "screen": "SC-002463.AV01",
+   "library": "Avana",
+   "days": 21,
+   "screen_type": "2DS",
+   "is_engineered": true,
+   "passes_qc": true,
+   "in_gene_effect": true
+  },
+  "ACH-002464": {
+   "screen": "SC-002464.AV01",
+   "library": "Avana",
+   "days": 21,
+   "screen_type": "2DS",
+   "is_engineered": true,
+   "passes_qc": true,
+   "in_gene_effect": true
+  },
+  "ACH-002465": {
+   "screen": "SC-002465.AV01",
+   "library": "Avana",
+   "days": 21,
+   "screen_type": "2DS",
+   "is_engineered": true,
+   "passes_qc": true,
+   "in_gene_effect": true
+  },
+  "ACH-002466": {
+   "screen": "SC-002466.AV01",
+   "library": "Avana",
+   "days": 21,
+   "screen_type": "2DS",
+   "is_engineered": false,
+   "passes_qc": false,
+   "in_gene_effect": false
+  },
+  "ACH-002467": {
+   "screen": "SC-002467.AV01",
+   "library": "Avana",
+   "days": 21,
+   "screen_type": "2DS",
+   "is_engineered": true,
+   "passes_qc": true,
+   "in_gene_effect": true
+  }
+ },
+ "screen_facts_dev": {
+  "screen_types": {
+   "2DS": 892,
+   "3DO": 77,
+   "2DN": 22,
+   "2DO": 13,
+   "3DN": 11,
+   "2DR": 6,
+   "2DD+2DS": 1
+  },
+  "median_days": {
+   "Avana": 21.0,
+   "Avana+Brunello": 21.0,
+   "Avana+Brunello+KY": 17.5,
+   "Avana+Humagne-CD": 17.5,
+   "Avana+Humagne-CD+KY": 14.0,
+   "Avana+Humagne-CD+TKOv3": 19.0,
+   "Avana+KY": 17.5,
+   "Avana+TKOv3": 19.5,
+   "Brunello+KY": 14.0,
+   "Humagne-CD": 24.0,
+   "KY": 14.0
+  },
+  "lines_with_drug_treated_screen": 0,
+  "lines_with_engineered_screen": 9
+ }
+}

@@ -19,6 +19,13 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 
 **Complete (2026-10-28).** The final report is [REPORT.md](REPORT.md). The cancer test set (G4) and the non-transformed screens (G6) were each opened once; their numbers appear only in the two sections directly below. All other numbers are from development cross-validation (CV). Full record: [RESEARCH_TREE.md](RESEARCH_TREE.md).
 
+**Post-hoc additions after the final report (2026-10-28).** Neither touched the test set or the external screens,
+and no reported number changed.
+- **Screen maps:** DepMap's screen maps confirm the library proxy used for library-stratified results
+  ([docs/library_map_check.md](docs/library_map_check.md)).
+- **Genomics input:** `predict.py` now accepts user-supplied genomics, and with it reproduces the evaluated headline
+  ([docs/predict_genomics.md](docs/predict_genomics.md)).
+
 | Milestone | State | Outcome |
 |---|---|---|
 | M0 Setup | done | Prompt, data checksums, external resource downloader |
@@ -33,6 +40,7 @@ The project predicts per-gene CRISPR knockout effects (Chronos gene effect) for 
 | G4 Freeze finalists, one-time test evaluation | done | Finalists frozen (tag `freeze-finalists`); one access each on 255 test lines; headline test P1 0.319 (see below); every number independently reproduced ([reviews/g4_review/REPORT.md](reviews/g4_review/REPORT.md)) |
 | G6 Apply to non-transformed cells | done | Essential-gene ranking (Q3a) "transfers" by the pre-registered rule in RPE1 and hPSC, but the gain over the gene mean is small; screen-specific dependencies (Q3b) are inconclusive; independently reproduced ([reviews/g6_review/REPORT.md](reviews/g6_review/REPORT.md)) |
 | G7 REPORT.md | done | Every decimal number is tied to a results file (`scripts/check_report_numbers.py --strict`); red-team review applied ([reviews/report_redteam_g7.md](reviews/report_redteam_g7.md)); LESSONS pruned after a fresh-agent review |
+| M8 Post hoc (after G7) | done | Screen maps registered; the library proxy matches the real library combinations (adjusted Rand index 0.949), so no number changes. `predict.py` takes DepMap-format genomics and reproduces the headline's dev-CV predictions (max difference 2.4e-7) |
 
 ## Test set (G4, opened once, independently reproduced)
 
@@ -136,8 +144,12 @@ How to read these verdicts:
 6. **Predict for new lines:** `python scripts/predict.py --expression my_lines.csv --out predictions.csv`.
    - The output gives each gene's predicted effect, confidence, tier and an applicability-domain distance.
    - For non-DepMap profiles, add `--harmonise quantile`.
-   - It serves the headline m5_avg by default (`--model m1_E_resB0` for the expression-only model). Only
-     expression is read, so m5_avg's genomic inputs are diploid wild type (DESIGN §2); a warning says so.
+   - It serves the headline m5_avg by default (`--model m1_E_resB0` for the expression-only model).
+   - **With genomics:** add `--cn`, `--damaging`, `--hotspot` and `--metadata`. These take DepMap-format tables,
+     and DepMap release files are accepted as they are. With all four, the script computes the evaluated headline,
+     including its RAS/RAF hotspot recovery. Partial inputs and calls from other pipelines were not evaluated
+     ([docs/predict_genomics.md](docs/predict_genomics.md)).
+   - **Without them,** m5_avg's genomic inputs are diploid wild type (DESIGN §2); a warning says so.
    - This expression-only use was evaluated post hoc in dev CV only: P1 0.3135, against 0.3081 for the expression-only ridge and 0.3175 for the headline with genomics. It has no test-set number, and it does not recover RAS/RAF hotspot dependencies ([docs/predict_expression_only.md](docs/predict_expression_only.md)).
 7. **Test set:** `src/essml/guard.py` refuses test and external-screen targets unless the run's config hash is listed in a committed `configs/finalists.json` and `ESSML_UNBLIND=1` is set. Each access is logged in `results/test_access_log.csv`.
 

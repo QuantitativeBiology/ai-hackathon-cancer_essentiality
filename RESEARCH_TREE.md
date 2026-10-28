@@ -4,6 +4,18 @@ Legend: [ ] planned · [~] in progress · [x] done · [-] abandoned/negative · 
 
 ## Status summary (latest first)
 
+### 2026-10-28 — M8 (post hoc, after G7): DepMap screen maps and predict.py with genomics
+- **Screen maps** (CRISPRScreenMap, ScreenSequenceMap, 26Q3 README) were registered in DATA.md; they are git-ignored.
+- **The post-hoc check (D30)** found the library proxy accurate: groups 0–3 are single library combinations, ARI
+  0.949. No number changed. Two wording corrections were made in REPORT: "library" is confounded with screen length,
+  and the predictability cross-library comparison now also cites the pair that shares no library.
+- **predict.py** takes user-supplied genomics (D31). It reproduces the registered headline dev-CV predictions
+  (max |diff| 2.4e-7, fold 0, dev lines only).
+- **REPORT:** a §6 post-hoc section was added; Future work item 4 is marked done; check_report_numbers --strict
+  passes. Nothing touched test or external targets.
+- **Still not done:** the other Future work items (shrinkage, CRISPRi stratum, informative anchors, ...), per the
+  user's instruction.
+
 ### 2026-10-28 — M7: REPORT.md done (G7); project complete
 - **REPORT.md:**
   - It passes check_report_numbers --strict (406 tagged numbers).
@@ -567,6 +579,36 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
     - the paralog-loss claim was corrected;
     - missing disclosures were added (tiers seen for m1 first, the null covers the M1 path only, pre-G6 anchor reads,
       partly implemented review items, headline CV row tree_clean = 0, Q3b bootstrap bias).
+- D30 (post hoc, after G7, 2026-10-28). The user supplied CRISPRScreenMap.csv, ScreenSequenceMap.csv and the 26Q3
+  README (DATA.md; git-ignored).
+  - **Instruction:** check whether they change anything already reported, as a post-hoc note, with no re-runs.
+  - **Check:** scripts/library_map_check.py → results/library_map_check.json; docs/library_map_check.md. It reads no
+    gene-effect values; test lines enter as aggregate counts only.
+  - **Result:** the NaN-pattern library proxy is accurate. Groups 0–3 are exactly Avana only (621 dev lines), Avana
+    + KY (154), Humagne-CD (143) and KY (47); ARI 0.949. The residual group 4 (57 lines) mixes nine library
+    combinations. Test-line aggregates match: proxy 167/32/36/9/11 vs real libraries 168/34/41/9/3.
+  - **What changes:**
+    - no number;
+    - wording: "library" means library combination, confounded with screen length (14 d KY, 24 d Humagne-CD);
+    - the predictability cross-library claim (groups 0 vs 1 share Avana) now also quotes groups 0 vs 2, which
+      share no library: 0.32 vs 0.011, already computed.
+  - **Release:** the README says "DepMap Public 26Q3", which supports D0, but it has no checksums.
+  - **Transfer anchors:** unaffected; they are matched on the external screens' libraries.
+- D31 (post hoc, after G7, 2026-10-28). The user's instruction: of the REPORT §7 future work, implement only
+  "predict.py takes user-supplied genomics".
+  - **Change:** scripts/predict.py gains `--cn`, `--damaging`, `--hotspot` and `--metadata` (m5_avg only; refused
+    for m1_E_resB0). DepMap release files are accepted as they are.
+  - **How the blocks are built:** with the same transforms as essml.features / io for DepMap lines. A modality not
+    supplied, or a missing sample, is absent (DESIGN §2). Fusions are not read, because no m5_avg input uses them,
+    as the predict_expression_only_cv self-check showed. The D24 note is dropped when hotspots are given.
+  - **Check (dev lines only):** scripts/predict_genomics_check.py → results/predict_genomics_check.json.
+    - The fold-0 held-out lines (208), in DepMap release layout, gave blocks identical to the cached CV blocks.
+    - The CLI, trained on fold 0's 814 training lines, reproduced the registered m5_avg OOF predictions: max |diff|
+      2.4e-7 over 208 × 18,434.
+    - This makes it a reproduction, not a new evaluation. With all four inputs the script computes the evaluated
+      headline (dev 0.3175, test 0.319).
+  - **Not evaluated:** partial inputs, and calls from other pipelines (no harmonisation).
+  - **Unchanged:** the default (m5_avg) and the D29 default rule, which concerns expression-only use.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
@@ -689,3 +731,4 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
 - [x] 5. Models and feature ablation: G2/G3 (headline m5_avg), test G4 (D26)
 - [x] 6. Non-transformed generalisation (assemble screens, harmonise, apply): G5/G6 (D27); CRISPRi stratum not run (D28)
 - [x] 7. REPORT.md: number check (--strict) passes, red team applied (D29), G7 gate
+- [x] 8. Post hoc (after G7): screen-map library check (D30); predict.py with user-supplied genomics (D31)
