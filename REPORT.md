@@ -618,8 +618,9 @@ transfer. In set A, without screen batch, context-specific skill was detectable.
 - **H4 (haematopoietic dependencies) is inconclusive by declaration:** the primary T-cell screens failed QC.
 - **Not assessable or not run:** HMEC (too few control genes in the available libraries). The CRISPRi stratum
   (iPSC and iPSC-derived neurons and microglia) was not run: the microglia and 2021 neuron screens failed QC, and
-  the two Tian 2019 screens that passed QC had no K562 CRISPRi anchor and no frozen statistic (D28). No
-  iPSC-derived lineage was therefore evaluated, although the task names these lineages explicitly.
+  the two Tian 2019 screens that passed QC had no K562 CRISPRi anchor and no frozen statistic (D28). No iPSC or
+  iPSC-derived screen was therefore evaluated (the one hPSC screen evaluated, Mair 2019, is in H1 embryonic stem
+  cells), and no primary haematopoietic screen passed QC, although the task names all three explicitly.
 
 **Headline model on RPE1 (secondary).** `m5_avg` receives expression only for external cells (genomics at diploid
 wild type; unlike T it does not see TP53 status). Its RPE1 Q3a skill was
@@ -814,8 +815,8 @@ Every item below is in the decision log (RESEARCH_TREE.md) or the independent re
   Tian 2019 screens that passed QC (WTC11 iPSC and iPSC-derived neurons) were harmonised but never analysed, and the
   planned neuron proliferation-versus-maintenance split and the descriptive hPSC H1 report were not produced.
   Running them after unblinding would be an unplanned post hoc analysis, so the PI kept them not run. This matters
-  because the task names iPSC-derived lineages explicitly: the transfer question is answered for RPE1 and one hPSC
-  screen only.
+  because the task names iPSC-derived lineages explicitly: the transfer question is answered for RPE1 and one H1
+  embryonic stem cell screen only; no iPSC, iPSC-derived or primary haematopoietic screen was evaluated.
 - **No G5 gate file (D28).** `results/gates/` holds G0–G4 and G6; `scripts/gate.py` defines no G5. The G5 evidence
   is `docs/harmonisation_validation.md` and the freeze commits under tag `freeze-transfer`.
 - **Stale status fields (D28).** The `_status` fields of the frozen criteria and harmonisation configs still read
