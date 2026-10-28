@@ -931,3 +931,4 @@ timestamp,caller,access_type,scope,config_hash,n_ids,n_genes,roles,granted,reaso
 2026-10-28T03:22:10,evaluate_transfer.py:arm:296,targets,setB:brown2019_WT_PACE006_T25,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
 2026-10-28T03:22:11,evaluate_transfer.py:arm:296,targets,setB:brown2019_p53null_TKOv2_T18,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
 2026-10-28T03:22:11,evaluate_transfer.py:arm:296,targets,setB:haapaniemi2018_null_D28,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
+2026-10-28T03:22:12,evaluate_transfer.py:arm:296,targets,setB:hart2015_RPE1_T18,24b46e2a3733851381746ae5a5e5e833c5ae8f889e6d263ecd1be50f53038145,1,,external:1,True,ok
