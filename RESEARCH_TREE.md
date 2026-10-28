@@ -486,6 +486,38 @@ mirror. Next: literature and dataset survey (parallel agents), plus a data audit
       inconclusive.
     - (m8) Set A and set-B RPE1 share the expression input, so they are not independent evidence.
     - (m9) H1 and H2 are reported as TP53-feature checks, not as evidence of expression-based transfer.
+- D28 (G7 process artefacts, 2026-10-28). DESIGN §9 required three artefacts that were not kept during the project.
+  They were built retrospectively from the record (c69aaf5) and are labelled as such:
+  - results/scope_ledger.csv: 265 arms; run 153, not assessable 46, dropped 35, skipped 23, unrecorded 8.
+  - results/exclusions.csv: 139 rows.
+  - reviews/implementation_check.md: 174 accepted review items; implemented 126, partial 31, not implemented 9,
+    superseded 8.
+  - **Process failure (LESSONS):** the ledger and the implementation check were due at G0 and G4 and were skipped.
+    REPORT states this.
+  - **Unrecorded arms, PI decisions:**
+    - The CRISPRi stratum stays not run. This covers the two QC-passing CRISPRi screens (Tian 2019 iPSC and
+      neurons), the neuron proliferation-vs-maintenance split, and the hPSC descriptive H1 report. DESIGN §7
+      makes CRISPRi interpretable only with a K562 CRISPRi anchor, which was never obtained, and the frozen
+      criteria define no statistic for it. Running it now would be an unplanned post-hoc analysis. It is listed as
+      future work.
+    - T with the pre-committed lineage mapping, the "+gene embeddings" ablation, CORUM partners and the
+      random-features control were never run, and no decision was recorded. REPORT lists them as not done.
+  - **Not-implemented review items** are listed in REPORT limitations:
+    - the primary-cell missing-modality and karyotype convention;
+    - Cas9 delivery mode as a covariate;
+    - the K562 CRISPRi anchor;
+    - the neuron split;
+    - a Celligner-style expression candidate;
+    - the ledger and implementation check at G0/G4;
+    - a stale Yilmaz citation in configs/expression_harmonisation.json;
+    - the guard write-API for set B.
+  - **Other gaps, disclosed in REPORT:**
+    - There is no G5 gate file. G5 evidence lives in docs/harmonisation_validation.md and the freeze commits.
+    - The _status fields of the frozen criteria and harmonisation files still read PRE-FREEZE/DRAFT. They are
+      frozen files and are left unchanged; the freeze is established by tag freeze-transfer.
+    - The registry has no training-ID hash.
+    - The post-freeze read-path change to harmonise_screens.py (8a613f0) belongs with D21c: it routed reads
+      through the guard and left the computations unchanged, as for transfer_criteria.py.
 
 ## Tree
 - [x] 0. Setup: PROMPT.md, tree, LESSONS, DATA.md, checksums, external resource downloader
