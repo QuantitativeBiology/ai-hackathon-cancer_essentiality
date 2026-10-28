@@ -6,6 +6,7 @@
     python scripts/gate.py G2     # M1/M1b/R1/T/M2 + ablation: scripts/g2_report.py output
     python scripts/gate.py G3     # model ladder closed: headline chosen by the rule, finalists' CV runs,
                                   # frozen tiers, dev-only G4 dry run reproduces CV fold 0
+    python scripts/gate.py G4     # one-time test evaluation complete + independent reproduction (DESIGN §9)
 
 G1 requires a passed G0. Checks (DESIGN §12): B0 P1 is exactly 0 in every fold and gene class;
 B1 P1 (variable) > 0 with every fold > 0. B2 is reported, not gated.
@@ -162,9 +163,43 @@ def g3():
     return checks
 
 
+def g4():
+    """DESIGN §12 G4 "unblind test once; independent reproduction"."""
+    g3j = GATES / "G3.json"
+    if not g3j.exists() or not json.loads(g3j.read_text())["pass"]:
+        raise SystemExit("G3 has not passed")
+    fin = json.loads((ROOT / "configs" / "finalists.json").read_text())
+    entries = [fin["headline"], *fin["additional"], fin["T"], fin["H3_noEC"], *fin["baselines"].values()]
+    hashes = sorted(e["config_hash"] for e in entries)
+    summ = json.loads((ROOT / "results" / "test" / "summary.json").read_text())
+    granted = sorted(a["config_hash"] for a in summ["accesses"] if a["granted"])
+    status = {t["finalist"]: t["status"] for t in summ["table"]}
+    log = pd.read_csv(ROOT / "results" / "test_access_log.csv", dtype=str)
+    guarded = log[(log["access_type"] == "targets") & (log["scope"] == "test") & (log["granted"] == "True")]
+    comp = pd.read_csv(ROOT / "reviews" / "g4_review" / "comparison.csv")
+    maxdiff = float(pd.to_numeric(comp["diff"], errors="coerce").abs().max())
+    review = (ROOT / "reviews" / "g4_review" / "REPORT.md").read_text(encoding="utf-8")
+    checks = [
+        {"check": "real run (not dry), finalists file is configs/finalists.json",
+         "dry_run": summ["dry_run"], "finalists_file": summ["finalists_file"],
+         "pass": not summ["dry_run"] and summ["finalists_file"].endswith("configs/finalists.json")},
+        {"check": "exactly one granted test access per finalist config_hash",
+         "n_granted": len(granted), "pass": granted == hashes},
+        {"check": "every finalist's results complete", "status": status,
+         "pass": all(v == "complete" for v in status.values()) and len(status) == len(entries)},
+        {"check": "the access log has exactly one granted test-target row per finalist config_hash",
+         "n": int(len(guarded)), "pass": sorted(guarded["config_hash"]) == hashes},
+        {"check": "independent reproduction (own metric code): every compared number within 1e-4",
+         "n_compared": int(len(comp)), "max_abs_diff": maxdiff, "pass": maxdiff < 1e-4},
+        {"check": "independent review verdict: no critical or major finding",
+         "pass": "Critical: none. Major: none." in review},
+    ]
+    return checks
+
+
 def main():
     gate = sys.argv[1]
-    checks = {"G0": g0, "G1": g1, "G2": g2, "G3": g3}[gate]()
+    checks = {"G0": g0, "G1": g1, "G2": g2, "G3": g3, "G4": g4}[gate]()
     commit, dirty = _git()
     out = {"gate": gate, "pass": all(c["pass"] for c in checks), "checks": checks,
            "commit": commit, "dirty_tree": dirty,
