@@ -1,0 +1,98 @@
+{
+ "gate": "G3",
+ "pass": true,
+ "checks": [
+  {
+   "check": "pytest -q tests",
+   "result": "288 passed, 118 warnings in 488.70s (0:08:08)",
+   "pass": true
+  },
+  {
+   "check": "every finalist's CV run is registered ok, not leaky, and its config hashes to config_hash",
+   "finalists": [
+    "m5_avg",
+    "m1_E_resB0",
+    "t_E_status",
+    "t_E_status_noEC",
+    "b0",
+    "b1",
+    "b2"
+   ],
+   "bad": [],
+   "pass": true
+  },
+  {
+   "check": "headline chosen by the DESIGN \u00a74 rule (dP1 > delta and > 1 SE vs the incumbent)",
+   "headline": "m5_avg",
+   "selected_model": "m5_avg",
+   "selection": [
+    {
+     "candidate": "m5_avg",
+     "dP1": 0.00942860000000001,
+     "se": 0.00022331045653975986,
+     "se_nb": 0.0003349736598157561,
+     "replaces": true
+    }
+   ],
+   "delta": 0.005,
+   "pass": true
+  },
+  {
+   "check": "at most 2 additional finalists besides headline, T, H3 no-EC and baselines (DESIGN \u00a74, \u00a75)",
+   "additional": [
+    "m1_E_resB0"
+   ],
+   "pass": true
+  },
+  {
+   "check": "per-gene tiers committed, primary, 5 folds, from the headline's CV run (D22)",
+   "tracked": true,
+   "source_run_id": [
+    "20261027-161041_m5_avg_6dbebcf4"
+   ],
+   "pass": true
+  },
+  {
+   "check": "dev-only G4 dry run (fold 0 stands in) reproduces CV fold-0 P1 (variable) for every finalist",
+   "dry_vs_cv": {
+    "m5_avg": [
+     0.322908454280069,
+     0.322908
+    ],
+    "m1_E_resB0": [
+     0.3129483366944004,
+     0.312948
+    ],
+    "t_E_status": [
+     0.3124362682246268,
+     0.312436
+    ],
+    "t_E_status_noEC": [
+     0.31208468573060455,
+     0.312085
+    ],
+    "b1": [
+     0.1815923307168419,
+     0.181592
+    ],
+    "b2": [
+     0.25625915293924917,
+     0.256259
+    ],
+    "b0": [
+     0.0,
+     0.0
+    ]
+   },
+   "pass": true
+  },
+  {
+   "check": "headline refit from fresh caches reproduces CV fold-0 predictions",
+   "max_abs_diff": 1.862645149230957e-09,
+   "pass": true
+  }
+ ],
+ "commit": "aeeec86d23eb86fd396971ac5f091dbeba0ea14e",
+ "dirty_tree": 0,
+ "timestamp": "2026-10-27T23:59:39"
+}
